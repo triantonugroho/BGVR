@@ -1,5 +1,0 @@
-.nextflow/
-work/
-target/
-*.log
-*.tmp
