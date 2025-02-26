@@ -15,8 +15,42 @@ Several success stories highlight substantial reductions in runtime and cost onc
 
 ## How to run:
 
-cargo run main.nf (run the nextflow script that will run the main.rs and save the output in output.txt)
-  
+cargo run main.nf 
+
+(run the nextflow script that will run the main.rs and save the output in output.txt)
+
+## Explanation of the Output:
+
+The output describes the results of constructing a De Bruijn graph from the input sequences stored in a FASTA file. Below is a breakdown of each part of the output:
+
+### 1. De Bruijn Graph Construction
+
+* Constructed De Bruijn graph with 150 nodes.
+* The program reads FASTA sequences and constructs a De Bruijn graph using a k-mer length of 21 (k = 21).
+* A total of 150 nodes were created.
+* Each node represents a k-mer (a substring of length k from the sequences).
+* Edges represent transitions between overlapping k-mers.
+
+### 2. Matrix Dimensions
+
+nalgebra matrix: 5 x 5
+
+ndarray shape: 5 x 5
+
+* Two matrices of size 5 × 5 were created:
+  * nalgebra::DMatrix (a dynamically sized matrix from the nalgebra library).
+  * ndarray::Array2 (a 2D array from the ndarray library).
+* Both matrices are initialized with values (all elements are 1.0), but they are not directly related to the graph construction.
+
+### 3. Output Storage
+
+* The program prints the results to the terminal.
+* It also saves the output to a text file (output.txt) for further analysis.
+
+## Conclusion
+
+The program successfully constructs a parallelized De Bruijn graph using Rayon for efficiency. The graph consists of 150 nodes, each representing a k-mer. Additionally, it creates two example 5 × 5 matrices for demonstration purposes. The results are both displayed on the terminal and stored in output.txt.
+
 ## [dependencies]
 
 bio = "2.0.3"
