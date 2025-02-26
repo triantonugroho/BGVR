@@ -12,6 +12,7 @@ Reading sequences is handled by the “bio::io::fasta” crate, which provides a
 * main.rs (rust script)
 * main.nf (nextflow script)
 * reads.fasta (fasta file)
+* Cargo.toml (Cargo.toml file)
 
 ## [dependencies]
 
