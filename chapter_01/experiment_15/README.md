@@ -7,7 +7,7 @@ In this example, “gene_expression.csv” contains rows of numerical values—o
 ## Files contents:
 * main.rs (rust script)
 * main.nf (nextflow script)
-* Python Code for Synthesize gene_expression.csv (python code)
+* Python Code for Synthesize gene_expression.csv.ipynb (python code)
 * gene_expression.csv (gdrive link)
 * Cargo.toml (Cargo.toml file)
   
