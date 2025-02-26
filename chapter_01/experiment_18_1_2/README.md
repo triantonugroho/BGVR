@@ -17,7 +17,7 @@ Inside the Rust program, command-line arguments specify a k-mer size, an input F
 * de_bruijn_graph.rar (compressed de_bruijn_graph.txt output file)
 * SRR11192680_1.rar (compressed SRR11192680_1.fastq)
 * SRR11192680_2.rar (compressed SRR11192680_2.fastq)
-* reads.fastq (renamed fastq file from downloaded fastq file SRR11192680_1.fastq)
+* reads.rar (Compressed reads.fastq which renamed from downloaded fastq file SRR11192680_1.fastq)
 * Cargo.toml (Cargo.toml file)
 
 ## How to run:
