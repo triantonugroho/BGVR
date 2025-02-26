@@ -4,7 +4,7 @@ Below is an illustrative Rust program that demonstrates how one might employ a d
 
 In this example, “gene_expression.csv” contains rows of numerical values—one row per sample—and a final column indicating the label (e.g., 0 or 1). The program reads the CSV, builds a simple MLP, and iterates through mini-batches to train a binary classifier. While this code focuses on a single-file dataset, in real-world scenarios you may have gigabytes of multi-omics data split across multiple files, and you might integrate concurrency or distributed computing patterns for scalability. Nevertheless, it illustrates the essential building blocks of using tch-rs in bioinformatics.
 
-## Files contents
+## Files Contents
 * main.rs (rust script)
 * main.nf (nextflow script)
 * Python Code for Synthesize gene_expression.csv.ipynb (python code)
