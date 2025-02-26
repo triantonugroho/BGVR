@@ -16,7 +16,51 @@ Reading sequences is handled by the “bio::io::fasta” crate, which provides a
 ## How to run:
 
 cargo run main.nf (run the nextflow script that will run the main.rs and save the output in output.txt)
-  
+
+## Explanation of the Output:
+
+The output provides details about the constructed Markov Random Field (MRF) based on the input sequences from the FASTA file. Here's a breakdown of the results:
+
+1. Total Number of Nodes
+
+Constructed MRF with 251 nodes
+The MRF consists of 251 nodes, which represent positions in the sequences from the FASTA file.
+Nodes are indexed using a (sequence_id, position) format, where:
+sequence_id is the index of the sequence in the input list.
+position represents a specific character's index within that sequence.
+
+2. Matrix Dimensions
+
+nalgebra matrix dimensions: 10 x 10
+ndarray matrix dimensions: 10 x 10
+
+* Two matrices of size 10 × 10 were created:
+  * Nalgebra's DMatrix
+  * Ndarray's Array2
+* These matrices are initialized with values, but their purpose is not directly related to the MRF construction.
+
+3. Sample Nodes and Their Connections
+
+Node (4, 41) has edges:
+  -> (4, 42) with potential = 1
+Node (0, 14) has edges:
+  -> (0, 15) with potential = 1
+Node (0, 5) has edges:
+  -> (0, 6) with potential = 1
+Node (0, 46) has edges:
+  -> (0, 47) with potential = 1
+Node (4, 35) has edges:
+  -> (4, 36) with potential = 1
+
+* Each node is a (sequence_id, position) tuple.
+* The output shows 5 nodes and their edges.
+* Each node (i, j) connects to (i, j+1), forming a simple chain structure.
+* The potential value of 1.0 suggests a uniform edge weight, indicating equal transition probabilities between consecutive positions in the sequences.
+
+## Conclusion
+
+The program successfully builds an MRF from the input FASTA sequences, representing positional relationships in the data. The adjacency structure follows a sequential connection pattern, ensuring each character in a sequence is linked to its next character. The generated output file (output.txt) records this structure along with matrix dimensions from nalgebra and ndarray.
+
 ## [dependencies]
 
 bio = "2.0.3"
