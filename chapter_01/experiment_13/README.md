@@ -8,7 +8,7 @@ After reading a FASTA file named reads.fasta from the src directory, the main fu
 
 Several success stories highlight substantial reductions in runtime and cost once legacy Python or Java components are rewritten in Rust, particularly for k-mer counting or parallel motif searches. By combining HPC scheduling with containerized Rust executables, these organizations accelerate the pace of biomarker discovery and gene therapy research while preserving the reproducibility needed for regulatory compliance and collaborative studies.
 
-## Files contents:
+## Files contents
 * main.rs (rust script)
 * main.nf (nextflow script)
 * reads.fasta (fasta file)
@@ -24,13 +24,13 @@ ndarray = "0.16.1"
 
 rayon = "1.10.0"
 
-## How to run:
+## How to run
 
 cargo run main.nf 
 
 (run the nextflow script that will run the main.rs and save the output in output.txt)
 
-## Explanation of the Output:
+## Explanation of the Output
 
 The output describes the results of constructing a De Bruijn graph from the input sequences stored in a FASTA file. Below is a breakdown of each part of the output:
 
