@@ -40,7 +40,7 @@ This program downloads a FASTQ file from the SRA (Sequence Read Archive) using t
 
 * The output is saved to the directory:
 
-C:\Users\trian\BGVR\chapter_01\experiment_17_1\src
+  C:\Users\trian\BGVR\chapter_01\experiment_17_1\src
 
 ### 2. Breakdown of the Output
 
