@@ -23,7 +23,7 @@ cargo run main.nf
 
 The output provides details about the constructed Markov Random Field (MRF) based on the input sequences from the FASTA file. Here's a breakdown of the results:
 
-1. Total Number of Nodes
+### 1. Total Number of Nodes
 
 Constructed MRF with 251 nodes
 The MRF consists of 251 nodes, which represent positions in the sequences from the FASTA file.
@@ -31,7 +31,7 @@ Nodes are indexed using a (sequence_id, position) format, where:
 sequence_id is the index of the sequence in the input list.
 position represents a specific character's index within that sequence.
 
-2. Matrix Dimensions
+### 2. Matrix Dimensions
 
 nalgebra matrix dimensions: 10 x 10
 
@@ -42,7 +42,7 @@ ndarray matrix dimensions: 10 x 10
   * Ndarray's Array2
 * These matrices are initialized with values, but their purpose is not directly related to the MRF construction.
 
-3. Sample Nodes and Their Connections
+### 3. Sample Nodes and Their Connections
 
 Node (4, 41) has edges:
 
