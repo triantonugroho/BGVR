@@ -14,12 +14,17 @@ Files contents:
 * reads.fasta (fasta file)
 
 How to run:
+
 cargo run main.nf (run the nextflow script that will run the main.rs and save the output in output.txt)
   
 [dependencies]
+
 bio = "2.0.3"
+
 nalgebra = "0.33.2"
+
 ndarray = "0.16.1"
+
 rayon = "1.10.0"
 
 
