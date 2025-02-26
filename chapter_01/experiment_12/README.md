@@ -13,6 +13,16 @@ Reading sequences is handled by the “bio::io::fasta” crate, which provides a
 * main.nf (nextflow script)
 * reads.fasta (fasta file)
 
+## [dependencies]
+
+bio = "2.0.3"
+
+nalgebra = "0.33.2"
+
+ndarray = "0.16.1"
+
+rayon = "1.10.0"
+
 ## How to run:
 
 cargo run main.nf 
@@ -72,15 +82,5 @@ Node (4, 35) has edges:
 ## Conclusion
 
 The program successfully builds an MRF from the input FASTA sequences, representing positional relationships in the data. The adjacency structure follows a sequential connection pattern, ensuring each character in a sequence is linked to its next character. The generated output file (output.txt) records this structure along with matrix dimensions from nalgebra and ndarray.
-
-## [dependencies]
-
-bio = "2.0.3"
-
-nalgebra = "0.33.2"
-
-ndarray = "0.16.1"
-
-rayon = "1.10.0"
 
 
