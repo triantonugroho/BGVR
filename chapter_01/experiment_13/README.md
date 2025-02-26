@@ -13,6 +13,16 @@ Several success stories highlight substantial reductions in runtime and cost onc
 * main.nf (nextflow script)
 * reads.fasta (fasta file)
 
+## [dependencies]
+
+bio = "2.0.3"
+
+nalgebra = "0.33.2"
+
+ndarray = "0.16.1"
+
+rayon = "1.10.0"
+
 ## How to run:
 
 cargo run main.nf 
@@ -50,14 +60,4 @@ ndarray shape: 5 x 5
 ## Conclusion
 
 The program successfully constructs a parallelized De Bruijn graph using Rayon for efficiency. The graph consists of 150 nodes, each representing a k-mer. Additionally, it creates two example 5 × 5 matrices for demonstration purposes. The results are both displayed on the terminal and stored in output.txt.
-
-## [dependencies]
-
-bio = "2.0.3"
-
-nalgebra = "0.33.2"
-
-ndarray = "0.16.1"
-
-rayon = "1.10.0"
 
