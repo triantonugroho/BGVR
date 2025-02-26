@@ -4,7 +4,7 @@ Below is a sample Rust code demonstrating how one might blend concurrency patter
 
 In the snippet above, we first load a genomic sequence from a FASTA-like file, stripping away header lines. The build_parallel_suffix_array function splits the sequence into multiple chunks, each handled by a separate thread using Rayon’s parallel iterators. Within each chunk, we construct a naive suffix array by sorting suffixes; we then merge these partial results, adjusting indices to refer back to the global genome. A final sort ensures the suffix array is globally correct, even at chunk boundaries. Although this example is simplified—real-world scenarios might require more advanced suffix-array or FM-index algorithms— it demonstrates a practical pattern of combining concurrency and specialized data structures to manage large-scale genomic tasks on HPC systems.
 
-## Files contents
+## Files Contents
 * main.rs (rust script)
 * main.nf (nextflow script)
 * Python code to synthesize example_genome_fasta_file (python code)
