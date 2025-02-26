@@ -8,16 +8,16 @@ This code reads FASTA sequences from a file using the Rust “bio” crate, then
 
 Reading sequences is handled by the “bio::io::fasta” crate, which provides a convenient interface for parsing FASTA files into Rust strings. Rust enforces UTF-8 encoding, preventing many common errors that might otherwise appear when handling large sets of biological data. While the final example uses a single-threaded approach for clarity, the “rayon” crate could be used to parallelize the MRF-building loop, aggregating partial results in a concurrency-safe manner. From here, you can refine the potentials to capture more biologically realistic dependencies, apply inference algorithms for motif detection or sequence analysis, or even expand the MRF to incorporate higher-order or long-range interactions.
 
-Files contents:
+## Files contents:
 * main.rs (rust script)
 * main.nf (nextflow script)
 * reads.fasta (fasta file)
 
-How to run:
+## How to run:
 
 cargo run main.nf (run the nextflow script that will run the main.rs and save the output in output.txt)
   
-[dependencies]
+## [dependencies]
 
 bio = "2.0.3"
 
