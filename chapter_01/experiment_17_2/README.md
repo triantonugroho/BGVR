@@ -13,8 +13,6 @@ Several success stories document how re-engineering legacy scripts into Rust-bas
 ## Files contents:
 * main.rs (rust script)
 * main.nf (nextflow script)
-* SRR11192680_1.rar (SRR11192680_1.fastq compressed in rar file)
-* SRR11192680_2.rar (SRR11192680_2.fastq compressed in rar file)
 * Cargo.toml (Cargo.toml file)
 
 ## How to run:
