@@ -36,6 +36,7 @@ Once these three FASTA files have been saved to the src/ folder, the next step i
 * haplotype1.fasta (1st fasta file)
 * haplotype2.fasta (2nd fasta file)
 * haplotype3.fasta (3rd fasta file)
+* Cargo.toml (Cargo.toml file)
 
 ## How to run:
 
