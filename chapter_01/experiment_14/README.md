@@ -79,7 +79,7 @@ Constructed a pangenome graph with 72 nodes
   * It connects to TAGCTAGCTAGCTAAGCTAGC, which is the next overlapping k-mer in the sequence.
 * This pattern repeats for other k-mers, forming a graph structure where edges represent sequence continuity.
 
-### 3. Conclusion
+## Conclusion
 
 * The program successfully builds a pangenome graph by extracting k-mers from multiple haplotypes.
 * The graph has 72 unique k-mer nodes.
