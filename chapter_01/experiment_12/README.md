@@ -15,7 +15,9 @@ Reading sequences is handled by the “bio::io::fasta” crate, which provides a
 
 ## How to run:
 
-cargo run main.nf (run the nextflow script that will run the main.rs and save the output in output.txt)
+cargo run main.nf 
+
+(run the nextflow script that will run the main.rs and save the output in output.txt)
 
 ## Explanation of the Output:
 
@@ -32,6 +34,7 @@ position represents a specific character's index within that sequence.
 2. Matrix Dimensions
 
 nalgebra matrix dimensions: 10 x 10
+
 ndarray matrix dimensions: 10 x 10
 
 * Two matrices of size 10 × 10 were created:
@@ -42,14 +45,23 @@ ndarray matrix dimensions: 10 x 10
 3. Sample Nodes and Their Connections
 
 Node (4, 41) has edges:
+
   -> (4, 42) with potential = 1
+  
 Node (0, 14) has edges:
+
   -> (0, 15) with potential = 1
+  
 Node (0, 5) has edges:
+
   -> (0, 6) with potential = 1
+  
 Node (0, 46) has edges:
+
   -> (0, 47) with potential = 1
+  
 Node (4, 35) has edges:
+
   -> (4, 36) with potential = 1
 
 * Each node is a (sequence_id, position) tuple.
