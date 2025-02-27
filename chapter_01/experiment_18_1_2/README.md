@@ -1,7 +1,10 @@
 # 1.8. Tools and Frameworks
 
 ## 1.8.1 Rust Code
+The companion Rust code illustrates how to Read FASTQ files, parse out the raw sequencing reads, and then build a simple De Bruijn graph.
+
 ## 1.8.2 Nextflow Code
+The following Nextflow pipeline showcases a minimal yet practical approach to downloading raw FASTQ data from NCBI using SRAToolkit and then invoking a Rust-based program to construct a De Bruijn graph.
 
 The following Nextflow pipeline showcases a minimal yet practical approach to downloading raw FASTQ data from an online source and then invoking a Rust-based program to construct a De Bruijn graph. Written in the DSL2 syntax, this pipeline highlights how processes can be modularized—one process handles data retrieval, while the other executes Rust code to transform reads into a graph structure. By relying on containerization and Nextflow’s dataflow paradigm, the entire workflow remains reproducible and amenable to HPC or cloud environments, ensuring that each step can scale seamlessly.
 
