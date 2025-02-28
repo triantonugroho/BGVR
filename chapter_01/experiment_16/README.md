@@ -15,13 +15,16 @@ In the snippet above, we first load a genomic sequence from a FASTA-like file, s
 
 #### How to run
 
+```powershell
 cargo run | tee output.txt
-
+```
 (run main.rs and save the output in output.txt)
   
 ## [dependencies]
 
+```toml
 rayon = "1.10.0"
+```
 
 #### Explanation of the Output
 
