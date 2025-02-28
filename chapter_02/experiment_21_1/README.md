@@ -17,7 +17,7 @@ By wrapping the vector of sequences in a Mutex and then converting it into a loc
 
 nextflow run main.nf 
 
-(run the nextflow script that will run the workflow and save the output in de_bruijn_graph.txt)
+(run the nextflow script that will run the workflow and save the output in output.txt)
   
 ## [dependencies]
 
