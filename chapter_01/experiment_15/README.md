@@ -8,16 +8,16 @@ In this example, “gene_expression.csv” contains rows of numerical values—o
 
 #### Files Contents
 * main.rs (rust script)
-* main.nf (nextflow script)
 * Python Code for Synthesize gene_expression.csv.ipynb (python code)
 * gene_expression.csv (gdrive link)
 * Cargo.toml (Cargo.toml file)
+* output.txt (output file)
   
 #### How to run
 
-cargo run main.nf 
+cargo run | tee output.txt
 
-(run the nextflow script that will run the main.rs and save the output in output.txt)
+(run main.rs and save the output in output.txt)
   
 #### [dependencies]
 
