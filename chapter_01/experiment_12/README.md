@@ -12,9 +12,9 @@ Reading sequences is handled by the “bio::io::fasta” crate, which provides a
 
 #### Files Contents
 * main.rs (rust script)
-* main.nf (nextflow script)
 * reads.fasta (fasta file)
 * Cargo.toml (Cargo.toml file)
+* output.txt (output file)
 
 #### [dependencies]
 
@@ -28,9 +28,9 @@ rayon = "1.10.0"
 
 #### How to run:
 
-cargo run main.nf 
+cargo run | tee output.txt
 
-(run the nextflow script that will run the main.rs and save the output in output.txt)
+(run main.rs and save the output in output.txt)
 
 #### Explanation of the Output
 
