@@ -8,16 +8,16 @@ In the snippet above, we first load a genomic sequence from a FASTA-like file, s
 
 #### Files Contents
 * main.rs (rust script)
-* main.nf (nextflow script)
 * Python code to synthesize example_genome_fasta_file (python code)
 * example_genome.fasta (fasta file)
 * Cargo.toml (Cargo.toml file)
+* output.txt (output file)
 
 #### How to run
 
-cargo run main.nf 
+cargo run | tee output.txt
 
-(run the nextflow script that will run the main.rs and save the output in output.txt)
+(run main.rs and save the output in output.txt)
   
 ## [dependencies]
 
