@@ -23,9 +23,7 @@ cargo run | tee output.txt
   
 #### [dependencies]
 
-```sh
 only use "std"
-```
 
 SRAToolkit : fasterq-dump tool need to be installed 
 
