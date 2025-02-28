@@ -1,6 +1,6 @@
-# 1.2. Markov Random Fields
+## 1.2. Markov Random Fields
 
-## experiment_12
+### experiment_12
 
 Markov Random Fields (MRFs) are graphical models that capture dependencies among variables—in this case, the nucleotides at each position in a sequence. Even a simple MRF linking consecutive nucleotides can reveal how Rust helps construct and store adjacency structures that represent these relationships. By extending this approach, you can design sophisticated models or run inference algorithms (such as belief propagation) to analyze motifs omarkor interactions in genomic data.
 
@@ -10,13 +10,13 @@ This code reads FASTA sequences from a file using the Rust “bio” crate, then
 
 Reading sequences is handled by the “bio::io::fasta” crate, which provides a convenient interface for parsing FASTA files into Rust strings. Rust enforces UTF-8 encoding, preventing many common errors that might otherwise appear when handling large sets of biological data. While the final example uses a single-threaded approach for clarity, the “rayon” crate could be used to parallelize the MRF-building loop, aggregating partial results in a concurrency-safe manner. From here, you can refine the potentials to capture more biologically realistic dependencies, apply inference algorithms for motif detection or sequence analysis, or even expand the MRF to incorporate higher-order or long-range interactions.
 
-## Files Contents
+#### Files Contents
 * main.rs (rust script)
 * main.nf (nextflow script)
 * reads.fasta (fasta file)
 * Cargo.toml (Cargo.toml file)
 
-## [dependencies]
+#### [dependencies]
 
 bio = "2.0.3"
 
@@ -32,11 +32,11 @@ cargo run main.nf
 
 (run the nextflow script that will run the main.rs and save the output in output.txt)
 
-## Explanation of the Output
+#### Explanation of the Output
 
 The output provides details about the constructed Markov Random Field (MRF) based on the input sequences from the FASTA file. Here's a breakdown of the results:
 
-### 1. Total Number of Nodes
+##### 1. Total Number of Nodes
 
 Constructed MRF with 251 nodes
 The MRF consists of 251 nodes, which represent positions in the sequences from the FASTA file.
@@ -44,7 +44,7 @@ Nodes are indexed using a (sequence_id, position) format, where:
 sequence_id is the index of the sequence in the input list.
 position represents a specific character's index within that sequence.
 
-### 2. Matrix Dimensions
+##### 2. Matrix Dimensions
 
 nalgebra matrix dimensions: 10 x 10
 
@@ -55,7 +55,7 @@ ndarray matrix dimensions: 10 x 10
   * Ndarray's Array2
 * These matrices are initialized with values, but their purpose is not directly related to the MRF construction.
 
-### 3. Sample Nodes and Their Connections
+##### 3. Sample Nodes and Their Connections
 
 Node (4, 41) has edges:
 
@@ -82,7 +82,7 @@ Node (4, 35) has edges:
 * Each node (i, j) connects to (i, j+1), forming a simple chain structure.
 * The potential value of 1.0 suggests a uniform edge weight, indicating equal transition probabilities between consecutive positions in the sequences.
 
-## Conclusion
+#### Conclusion
 
 The program successfully builds an MRF from the input FASTA sequences, representing positional relationships in the data. The adjacency structure follows a sequential connection pattern, ensuring each character in a sequence is linked to its next character. The generated output file (output.txt) records this structure along with matrix dimensions from nalgebra and ndarray.
 
