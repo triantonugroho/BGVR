@@ -17,19 +17,20 @@ Several success stories document how re-engineering legacy scripts into Rust-bas
 
 #### How to run:
 
+```powershell
 cargo run | tee output.txt
+```
 
 (run main.rs and save the output in output.txt)
   
 #### [dependencies]
 
+```toml
 nalgebra = "0.33.2"
-
 ndarray = "0.16.1"
-
 rayon = "1.10.0"
-
 rand = "0.9"
+```
 
 #### Explanation of the Output
 
