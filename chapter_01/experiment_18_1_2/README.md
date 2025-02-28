@@ -28,7 +28,9 @@ Inside the Rust program, command-line arguments specify a k-mer size, an input F
 
 #### How to run:
 
-nextflow run main.nf 
+```wsl
+nextflow run main.nf
+```
 
 (run the nextflow script that will run the workflow and save the output in de_bruijn_graph.txt)
   
