@@ -20,9 +20,10 @@ cargo run | tee output.txt
   
 #### [dependencies]
 
+```toml
 rayon = "1.10.0"
-
 bio = "2.0.3"
+```
 
 #### Explanation of the Output
 The program searches for occurrences of the DNA motif "GATTACA" within sequences read from a FASTA file (reads.fasta).
