@@ -23,7 +23,7 @@ cargo run | tee output.txt
   
 #### [dependencies]
 
-```toml
+```sh
 only use "std"
 ```
 
