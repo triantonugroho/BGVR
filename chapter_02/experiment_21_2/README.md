@@ -19,8 +19,9 @@ cargo run | tee output.txt
   
 ## [dependencies]
 
+```toml
 bio = "2.0.3"
-
+```
 ## Explanation of the Output
 
 The program reads a FASTA file and processes each sequence to compute the total GC content (the number of guanine (G) and cytosine (C) bases). It filters sequences that are at least 50 nucleotides long before counting GC bases. The output:
