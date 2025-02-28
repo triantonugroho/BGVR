@@ -18,13 +18,12 @@ Reading sequences is handled by the “bio::io::fasta” crate, which provides a
 
 #### [dependencies]
 
+```toml
 bio = "2.0.3"
-
 nalgebra = "0.33.2"
-
 ndarray = "0.16.1"
-
 rayon = "1.10.0"
+```
 
 #### How to run:
 
