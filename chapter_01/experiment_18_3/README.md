@@ -15,19 +15,20 @@ In this example, “rust-htslib” provides high-performance routines for readin
 
 #### How to run:
 
+```powershell
 cargo run main.nf 
+```
 
 (run the nextflow script that will run the main.rs and save the output in output.txt)
 
 #### [dependencies]
 
+```toml
 nalgebra = "0.33.2"
-
 ndarray = "0.16.1"
-
 rayon = "1.10.0"
-
 rust-htslib = "0.47.1"
+```
 
 #### Explanation of the Output
 
