@@ -26,7 +26,7 @@ ndarray = "0.16.1"
 
 rayon = "1.10.0"
 
-## How to run:
+#### How to run:
 
 cargo run main.nf 
 
