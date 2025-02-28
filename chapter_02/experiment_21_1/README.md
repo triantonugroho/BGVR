@@ -8,16 +8,15 @@ By wrapping the vector of sequences in a Mutex and then converting it into a loc
 
 ## Files contents:
 * main.rs (rust script)
-* main.nf (nextflow script)
 * example.fasta (fasta file)
 * Cargo.toml (Cargo.toml file)
 * output.txt (output file)
 
 ## How to run:
 
-nextflow run main.nf 
+cargo run | tee output.txt
 
-(run the nextflow script that will run the workflow and save the output in output.txt)
+(run main.rs and save the output in output.txt)
   
 ## [dependencies]
 
