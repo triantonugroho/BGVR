@@ -34,16 +34,18 @@ Once these three FASTA files have been saved to the src/ folder, the next step i
 
 #### Files Contents
 * main.rs (rust script)
-* main.nf (nextflow script)
 * haplotype1.fasta (1st fasta file)
 * haplotype2.fasta (2nd fasta file)
 * haplotype3.fasta (3rd fasta file)
 * Cargo.toml (Cargo.toml file)
+* output.txt (output file)
 
 #### How to run
 
-cargo run main.nf (run the nextflow script that will run the main.rs and save the output in output.txt)
-  
+cargo run | tee output.txt
+
+(run main.rs and save the output in output.txt)
+
 #### [dependencies]
 
 bio = "2.0.3"
