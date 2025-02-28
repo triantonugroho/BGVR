@@ -1,5 +1,7 @@
 # 1.2. Markov Random Fields
 
+## experiment_12
+
 Markov Random Fields (MRFs) are graphical models that capture dependencies among variables—in this case, the nucleotides at each position in a sequence. Even a simple MRF linking consecutive nucleotides can reveal how Rust helps construct and store adjacency structures that represent these relationships. By extending this approach, you can design sophisticated models or run inference algorithms (such as belief propagation) to analyze motifs omarkor interactions in genomic data.
 
 In the experiment, several Rust crates facilitate different tasks. The “bio” crate provides utilities for reading and writing FASTA files. The “nalgebra” and “ndarray” crates assist with linear algebra and multidimensional array operations, which are common needs for high-performance computing tasks or for computationally intensive algorithms. The “rayon” crate, known for its data-parallel functionality, can help distribute workload across multiple threads. The code will look for a FASTA file named reads.fasta in the src directory.
