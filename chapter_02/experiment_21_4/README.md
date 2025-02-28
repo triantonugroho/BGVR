@@ -2,9 +2,9 @@
 
 ### experiment_21_4
 
-Below is a simple example that demonstrates Rust’s zero-cost abstractions in a genomic setting. This example reads a FASTA file and uses Rust’s iterator adapters (such as map, filter, and for_each) to process genomic sequences without incurring additional runtime overhead. Despite the high-level functional style, the compiler optimizes these operations down to efficient machine code, making them comparable to hand-written loops in languages like C or C++.
+In many bioinformatics workflows, one might receive a set of files representing different stages of an analysis pipeline: a FASTQ file with raw reads, a BAM file showing how those reads align to a reference genome, and a VCF file listing detected variants. To illustrate a unified approach, the following Rust code processes each file format in parallel to find a specific DNA motif (e.g., “GATTACA”). While real-world projects often require more complex logic (like checking CIGAR alignments in BAM or genotype fields in VCF), this demo showcases how Rust can handle these formats consistently and efficiently, leveraging multi-threaded execution through Rayon.
 
-This code reads a FASTA file using the bio::io::fasta crate, which emits a stream of records (each containing a sequence). For each record, the sequence bytes are converted into a String via String::from_utf8_lossy, then any sequence under 50 nucleotides is discarded through a filter call. The remaining sequences move to a second map step that calculates their GC content by counting the characters ‘G’ or ‘C.’ Finally, the .sum() operation aggregates these individual GC counts into one total. Rust compiles this chain of iterator adapters into efficient loops without constructing intermediary collections, a technique referred to as “zero-cost abstraction.” Consequently, although the code is written in a high-level, functional style, it executes at speeds comparable to hand-tuned loops in lower-level languages. 
+The code first defines a helper function, count_occurrences, to locate overlapping instances of a target motif in a string. It then provides three specialized functions—process_fastq, process_bam, and process_vcf—each handling a different file format using community crates like bio (for FASTQ) and rust-htslib (for SAM/BAM and VCF). In each function, Rust reads the input records, extracts the relevant sequences or alleles into a Vec<String>, and then calls par_iter() from Rayon to distribute the motif-counting workload across available CPU cores. Finally, main orchestrates these steps by specifying a motif (e.g., “GATTACA”), applying each function to its corresponding file, and printing out how many total motif matches are found. This design cleanly separates reading logic from parallel processing, remains memory-safe, and can be scaled or adapted to handle larger inputs or more complex analyses without sacrificing performance or maintainability.
 
 #### Files contents:
 * main.rs (rust script)
@@ -17,7 +17,9 @@ This code reads a FASTA file using the bio::io::fasta crate, which emits a strea
 
 #### How to run:
 
+```nextflow
 nextflow run main.nf | tee output.txt
+```
 
 (run main.nf in WSL terminal and save the output in output.txt)
 
