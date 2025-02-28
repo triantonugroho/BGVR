@@ -23,7 +23,7 @@ nextflow run main.nf | tee output.txt
   
 #### [dependencies]
 
-```sh
+```toml
 bio = "2.0.3"
 rayon = "1.10.0"
 rust-htslib = "0.49.0"
