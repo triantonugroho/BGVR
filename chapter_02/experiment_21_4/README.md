@@ -21,9 +21,8 @@ nextflow run main.nf | tee output.txt
 
 (run main.nf in WSL terminal and save the output in output.txt)
   
-#### [dependencies]
-
 ```toml
+[dependencies]
 bio = "2.0.3"
 rayon = "1.10.0"
 rust-htslib = "0.49.0"
