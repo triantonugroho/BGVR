@@ -15,13 +15,16 @@ In this example, “gene_expression.csv” contains rows of numerical values—o
   
 #### How to run
 
+```powershell
 cargo run | tee output.txt
-
+```
 (run main.rs and save the output in output.txt)
   
 #### [dependencies]
 
+```toml
 tch = "0.19.0"
+```
 
 #### Explanation of the Output
 
