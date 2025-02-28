@@ -8,16 +8,16 @@ The following Rust code provides a concise example of downloading a FASTQ file f
 
 #### Files contents:
 * main.rs (rust script)
-* main.nf (nextflow script)
 * SRR11192680_1.rar (SRR11192680_1.fastq compressed in rar file)
 * SRR11192680_2.rar (SRR11192680_2.fastq compressed in rar file)
 * Cargo.toml (Cargo.toml file)
+* output.txt (output file)
 
 #### How to run:
 
-cargo run main.nf 
+cargo run | tee output.txt
 
-(run the nextflow script that will run the main.rs and save the output in output.txt)
+(run main.rs and save the output in output.txt)
   
 #### [dependencies]
 
