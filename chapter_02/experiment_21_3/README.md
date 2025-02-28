@@ -1,10 +1,11 @@
 ## 2.1. Introduction to Rust Programming Language
 
-### experiment_21_2
+### experiment_21_3
 
-Below is a simple example that demonstrates Rust’s zero-cost abstractions in a genomic setting. This example reads a FASTA file and uses Rust’s iterator adapters (such as map, filter, and for_each) to process genomic sequences without incurring additional runtime overhead. Despite the high-level functional style, the compiler optimizes these operations down to efficient machine code, making them comparable to hand-written loops in languages like C or C++.
+Here is a practical illustration of how Rust’s concurrency model can handle bioinformatics tasks in a parallel environment. For example, consider scanning a large set of DNA reads to tally the total number of occurrences of a particular motif. Using Rayon, you can safely distribute the workload across multiple threads without worrying about data races or improper memory sharing:
 
-This code reads a FASTA file using the bio::io::fasta crate, which emits a stream of records (each containing a sequence). For each record, the sequence bytes are converted into a String via String::from_utf8_lossy, then any sequence under 50 nucleotides is discarded through a filter call. The remaining sequences move to a second map step that calculates their GC content by counting the characters ‘G’ or ‘C.’ Finally, the .sum() operation aggregates these individual GC counts into one total. Rust compiles this chain of iterator adapters into efficient loops without constructing intermediary collections, a technique referred to as “zero-cost abstraction.” Consequently, although the code is written in a high-level, functional style, it executes at speeds comparable to hand-tuned loops in lower-level languages.
+The code first opens a FASTA file using the bio crate and collects all DNA reads as Strings, which ensures each sequence is fully owned and easily shared among threads. We define a simple count_occurrences function that searches for a target motif (e.g., "GATTACA") in each sequence, allowing overlapping matches by shifting the search by just one character each time. After loading all sequences, we leverage Rayon’s par_iter() to parallelize the motif-counting step. Each thread independently processes a subset of reads, and .sum() consolidates the results into a final total. Thanks to Rust’s concurrency model and zero-cost iterator abstractions, this high-level code runs efficiently, with no extra runtime overhead compared to manually written loops or lower-level threading approaches.
+
 
 #### Files contents:
 * main.rs (rust script)
