@@ -42,15 +42,18 @@ Once these three FASTA files have been saved to the src/ folder, the next step i
 
 #### How to run
 
+```sh
 cargo run | tee output.txt
+```
 
 (run main.rs and save the output in output.txt)
 
 #### [dependencies]
 
+```toml
 bio = "2.0.3"
-
 rayon = "1.10.0"
+```
 
 ## Explanation of the Output
 
