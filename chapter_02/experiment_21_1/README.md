@@ -20,9 +20,10 @@ cargo run | tee output.txt
   
 ## [dependencies]
 
+```toml
 bio = "2.0.3"
-
 rayon = "1.10.0"
+```
 
 ## Explanation of the Output
 
