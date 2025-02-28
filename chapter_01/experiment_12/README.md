@@ -27,7 +27,9 @@ rayon = "1.10.0"
 
 #### How to run:
 
+```powershell
 cargo run | tee output.txt
+```
 
 (run main.rs and save the output in output.txt)
 
