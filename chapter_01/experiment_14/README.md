@@ -42,7 +42,7 @@ Once these three FASTA files have been saved to the src/ folder, the next step i
 
 #### How to run
 
-```rust
+```powershell
 cargo run | tee output.txt
 ```
 
