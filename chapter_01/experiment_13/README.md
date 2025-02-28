@@ -1,4 +1,6 @@
-# 1.3. De Bruijn Graphs
+## 1.3. De Bruijn Graphs
+
+### experiment_13
 
 Below is a Rust code that demonstrates building a simple De Bruijn graph from a FASTA file by extracting overlapping k-mers and linking them, thereby avoiding pairwise alignments for each read. De Bruijn graphs are commonly employed in genome assembly because they can efficiently represent overlapping k-mers, simplifying reconstruction. By keeping memory usage explicit and parallelizing iteration, the program remains robust and scalable to large data sets containing millions of reads. It leverages Rust’s strong memory safety and concurrency features, along with crates like “rayon” for parallel processing and “nalgebra”/“ndarray” for numeric tasks, ensuring efficient performance in high-throughput sequencing scenarios.
 
@@ -8,13 +10,13 @@ After reading a FASTA file named reads.fasta from the src directory, the main fu
 
 Several success stories highlight substantial reductions in runtime and cost once legacy Python or Java components are rewritten in Rust, particularly for k-mer counting or parallel motif searches. By combining HPC scheduling with containerized Rust executables, these organizations accelerate the pace of biomarker discovery and gene therapy research while preserving the reproducibility needed for regulatory compliance and collaborative studies.
 
-## Files Contents
+#### Files Contents
 * main.rs (rust script)
 * main.nf (nextflow script)
 * reads.fasta (fasta file)
 * Cargo.toml (Cargo.toml file)
 
-## [dependencies]
+#### [dependencies]
 
 bio = "2.0.3"
 
@@ -24,17 +26,17 @@ ndarray = "0.16.1"
 
 rayon = "1.10.0"
 
-## How to run
+#### How to run
 
 cargo run main.nf 
 
 (run the nextflow script that will run the main.rs and save the output in output.txt)
 
-## Explanation of the Output
+#### Explanation of the Output
 
 The output describes the results of constructing a De Bruijn graph from the input sequences stored in a FASTA file. Below is a breakdown of each part of the output:
 
-### 1. De Bruijn Graph Construction
+##### 1. De Bruijn Graph Construction
 
 * Constructed De Bruijn graph with 150 nodes.
 * The program reads FASTA sequences and constructs a De Bruijn graph using a k-mer length of 21 (k = 21).
@@ -42,7 +44,7 @@ The output describes the results of constructing a De Bruijn graph from the inpu
 * Each node represents a k-mer (a substring of length k from the sequences).
 * Edges represent transitions between overlapping k-mers.
 
-### 2. Matrix Dimensions
+##### 2. Matrix Dimensions
 
 nalgebra matrix: 5 x 5
 
@@ -53,12 +55,12 @@ ndarray shape: 5 x 5
   * ndarray::Array2 (a 2D array from the ndarray library).
 * Both matrices are initialized with values (all elements are 1.0), but they are not directly related to the graph construction.
 
-### 3. Output Storage
+##### 3. Output Storage
 
 * The program prints the results to the terminal.
 * It also saves the output to a text file (output.txt) for further analysis.
 
-## Conclusion
+#### Conclusion
 
 The program successfully constructs a parallelized De Bruijn graph using Rayon for efficiency. The graph consists of 150 nodes, each representing a k-mer. Additionally, it creates two example 5 × 5 matrices for demonstration purposes. The results are both displayed on the terminal and stored in output.txt.
 
