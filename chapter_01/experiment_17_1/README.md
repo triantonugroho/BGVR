@@ -15,13 +15,17 @@ The following Rust code provides a concise example of downloading a FASTQ file f
 
 #### How to run:
 
+```powershell
 cargo run | tee output.txt
+```
 
 (run main.rs and save the output in output.txt)
   
 #### [dependencies]
 
+```toml
 only use "std"
+```
 
 SRAToolkit : fasterq-dump tool need to be installed 
 
