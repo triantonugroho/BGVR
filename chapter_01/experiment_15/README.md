@@ -1,27 +1,29 @@
-# 1.5. Introduction Machine Learning in Bioinformatics
+## 1.5. Introduction Machine Learning in Bioinformatics
+
+### experiment_15
 
 Below is an illustrative Rust program that demonstrates how one might employ a deep neural network, via the tch-rs crate (Rust bindings for PyTorch), to classify genomic or transcriptomic data. In this hypothetical scenario, we assume we have a CSV file containing gene expression values along with sample labels indicating, for example, the presence or absence of a particular disease phenotype. Our goal is to train a multi-layer perceptron (MLP) to distinguish positive from negative cases based on their expression profiles.
 
 In this example, “gene_expression.csv” contains rows of numerical values—one row per sample—and a final column indicating the label (e.g., 0 or 1). The program reads the CSV, builds a simple MLP, and iterates through mini-batches to train a binary classifier. While this code focuses on a single-file dataset, in real-world scenarios you may have gigabytes of multi-omics data split across multiple files, and you might integrate concurrency or distributed computing patterns for scalability. Nevertheless, it illustrates the essential building blocks of using tch-rs in bioinformatics.
 
-## Files Contents
+#### Files Contents
 * main.rs (rust script)
 * main.nf (nextflow script)
 * Python Code for Synthesize gene_expression.csv.ipynb (python code)
 * gene_expression.csv (gdrive link)
 * Cargo.toml (Cargo.toml file)
   
-## How to run
+#### How to run
 
 cargo run main.nf 
 
 (run the nextflow script that will run the main.rs and save the output in output.txt)
   
-## [dependencies]
+#### [dependencies]
 
 tch = "0.19.0"
 
-## Explanation of the Output
+#### Explanation of the Output
 
 The output represents the training process of a neural network model using gene expression data from a CSV file. The model is trained for 10 epochs, and the validation loss is recorded at each epoch. Below is a breakdown of the key aspects of the output:
 
@@ -35,7 +37,7 @@ The output represents the training process of a neural network model using gene 
 *The optimizer is Adam with a learning rate of 1e-3.
 * Training is performed in mini-batches of 64 samples.
 
-### 2. Validation Loss Progression
+##### 2. Validation Loss Progression
 
 Epoch 1, Validation loss: 71.8563
 
@@ -65,14 +67,14 @@ Epoch 10, Validation loss: 25.9429
   * A difficult batch of samples.
 * After Epoch 6, the loss continues to decrease, suggesting that the model is still improving.
   
-### 3. Key Insights
+##### 3. Key Insights
 
 * Effective Learning: The steady decline in validation loss suggests that the model is effectively learning from the dataset.
 * Potential for Further Training: Since the loss is still decreasing, additional epochs could further improve performance.
 * Possible Overfitting Check: If the loss plateaus or increases after many epochs, regularization techniques like dropout or early stopping may be needed.
 * Evaluation Required: Final model performance should be validated using a test dataset to ensure it generalizes well.
   
-## Conclusion
+#### Conclusion
 The neural network successfully learns from the gene expression dataset, significantly reducing validation loss over 10 epochs. This suggests that the model is effectively capturing patterns in the data and improving its predictions.
 
 
