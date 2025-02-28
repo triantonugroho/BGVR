@@ -48,7 +48,7 @@ The output "pyo3_biopython_example (python library)" indicates that the Rust cod
 
 ##### Breakdown of the Rust Code and Its Purpose
 
-###### 1. This Rust library defines two bioinformatics-related functions:
+This Rust library defines two bioinformatics-related functions:
 
 ```sh
 reverse_complement(seq: &str) -> PyResult<String>
