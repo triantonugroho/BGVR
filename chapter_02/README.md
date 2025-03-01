@@ -40,8 +40,12 @@ A succinct Rust Classical substring-search algorithms like Knuth–Morris–Prat
 ### experiment_23_2
 Rust code of a mini-example combining concurrency, the bio crate for reading FASTA, and partial de Bruijn graph assembly.
 
+## 2.4. AI/ML Implementation with Rust Crates
+
 ### experiment_24
 A sample Rust code snippet demonstrating how to do K-means clustering with linfa and then, in a separate pipeline, train a neural network with tch-rs.
+
+## 2.5. Acquiring and Cleaning Data
 
 ### experiment_25_1
 The complete Nextflow script that demonstrates a streamlined pipeline without containers. It downloads .sra files for a list of accessions, performs a simulated checksum verification, and moves the final outputs to a specified directory. 
@@ -54,6 +58,8 @@ A streamlined Rust tool that demonstrates how to read a FASTQ file using bio and
 
 ### experiment_25_4
 Rust code to parse metadata from a CSV file that describes sample conditions (e.g., diseased vs. healthy) and merge it with alignment statistics. 
+
+## 2.6. Scientific Computation Workflow with Rust and Nextflow
 
 ### experiment_26_1
 Nextflow DSL2 script demonstrating how to run a Rust read-trimming tool in parallel across multiple FASTQ files. The Rust trimmer itself can be a simple program that removes low-quality bases from both ends of a read.
