@@ -1,0 +1,7 @@
+Feb-28 00:47:12.420 [main] DEBUG nextflow.cli.Launcher - $> nextflow run main.nf -name 1740678430 -resume
+Feb-28 00:47:12.534 [main] DEBUG nextflow.cli.Launcher - Operation aborted
+nextflow.exception.AbortOperationException: Not a valid run name: `1740678430` -- It must match the pattern ^[a-z](?:[a-z\d]|[-_](?=[a-z\d])){0,79}$
+	at nextflow.cli.CmdRun.checkRunName(CmdRun.groovy:513)
+	at nextflow.cli.CmdRun.run(CmdRun.groovy:319)
+	at nextflow.cli.Launcher.run(Launcher.groovy:503)
+	at nextflow.cli.Launcher.main(Launcher.groovy:658)
