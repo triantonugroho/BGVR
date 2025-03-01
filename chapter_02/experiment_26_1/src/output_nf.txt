@@ -1,0 +1,25 @@
+
+ N E X T F L O W   ~  version 24.10.4
+
+Launching `main.nf` [nauseous_feynman] DSL2 - revision: 50463510c4
+
+[-        ] RUST_TRIM -
+
+executor >  local (2)
+[7e/a51a5f] RUST_TRIM (2) [  0%] 0 of 2
+
+executor >  local (2)
+[6d/ef8b4f] RUST_TRIM (1) [100%] 2 of 2 ✔
+/mnt/c/Users/trian/BGVR/chapter_02/experiment_26_1/src/work/7e/a51a5f8c64944739abd4e89d067c9d/trimmed_trimmed_sample.fastq
+/mnt/c/Users/trian/BGVR/chapter_02/experiment_26_1/src/work/6d/ef8b4f966fad114a8651e7d27a67f1/trimmed_sample.fastq
+
+executor >  local (2)
+[6d/ef8b4f] RUST_TRIM (1) [100%] 2 of 2 ✔
+/mnt/c/Users/trian/BGVR/chapter_02/experiment_26_1/src/work/7e/a51a5f8c64944739abd4e89d067c9d/trimmed_trimmed_sample.fastq
+/mnt/c/Users/trian/BGVR/chapter_02/experiment_26_1/src/work/6d/ef8b4f966fad114a8651e7d27a67f1/trimmed_sample.fastq
+Completed at: 28-Feb-2025 10:54:13
+Duration    : 1m 34s
+CPU hours   : 0.1
+Succeeded   : 2
+
+
