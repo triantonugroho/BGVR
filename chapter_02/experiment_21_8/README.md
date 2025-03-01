@@ -69,11 +69,11 @@ let total_gc = reads
 Each read and its GC count:
 
 ```sh
-Read	  G Content	C Content	GC Count
-"ATCG"	1	        1	        2
-"TTGA"	1	        0	        1
-"CGTA"	1	        1	        2
-"GGTT"	2	        0	        2
+Read	    G Content	  C Content	  GC Count
+"ATCG"	  1	           1	        2
+"TTGA"	  1	          0	          1
+"CGTA"	  1	          1	          2
+"GGTT"	  2	          0	          2
 ```
 
 Summing these values:
