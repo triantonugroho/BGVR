@@ -31,7 +31,7 @@ Running the pipeline typically involves executing nextflow run main.nf in the di
 #### Files contents:
 * main.nf (nextflow script)
 * downloads/SRR11192680.sra (downloaded sra file)
-* nextflow.log (nextflow log file)
+* nextflow.log.9 (nextflow log file)
 * Cargo.toml (Cargo.toml file)
 * output.txt (output file)
 
