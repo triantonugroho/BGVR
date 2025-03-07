@@ -87,7 +87,9 @@ CPU-only fallback result: [1.1, 2.2, 3.3000002, 4.4, 5.5]
   * GPU and FPGA paths would be used if the respective features (gpu or fpga) were enabled during compilation. The program provides placeholder code for both paths.
   * CPU fallback is used when neither GPU nor FPGA features are active. This is useful for environments where no hardware acceleration is available or for benchmarking purposes.
 * The CPU path performs a simple operation (multiplying by 1.1), but in real-world applications, more complex computations could be offloaded to the GPU or FPGA for better performance.
-* Key takeaway: Depending on the compile-time feature flags, the program can either offload computation to specialized hardware (GPU/FPGA) or fall back to CPU processing. This approach allows developers to write efficient, portable code that adapts to different hardware configurations.
+
+#### Key takeaway
+* Depending on the compile-time feature flags, the program can either offload computation to specialized hardware (GPU/FPGA) or fall back to CPU processing. This approach allows developers to write efficient, portable code that adapts to different hardware configurations.
 
 
 
