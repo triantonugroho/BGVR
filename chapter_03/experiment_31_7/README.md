@@ -25,6 +25,8 @@ This example is highly simplified. Real genomic use cases often involve splittin
 * experiment_31_7/src/results/
   * bloom.json.rar (compressed bloom.json)
   * graph.json.rar (compressed graph.json)
+* experiment_31_7/src/target/
+  * rustc_info.json (rustc information file)
 
 #### How to run:
 
