@@ -47,7 +47,7 @@ The program computes MinHash signatures for two sets of synthetic DNA sequences 
 ```rust
 [5375613036628250, 1580167804507962, 10283091463069476, 1055940623035697, 8502197830624736]
 ```
-##### 5. Approximate Jaccard Similarity:
+##### 3. Approximate Jaccard Similarity:
 
 * The Jaccard similarity measures the similarity between two sets by comparing the number of common elements to the total number of unique elements.
 * In this case, the MinHash signatures are used to estimate the Jaccard similarity in a computationally efficient way.
