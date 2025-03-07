@@ -72,7 +72,7 @@ Processed 1 sequences
 * This suggests that the input FASTA file contains only 1 sequence or that only 1 sequence was successfully parsed.
 
 ##### 2. output.json Content:
-```rust
+```json
 [
   {
     "id": "Synthetic Genome",
