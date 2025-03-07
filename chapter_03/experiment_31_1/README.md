@@ -53,7 +53,7 @@ The Bloom Filter works as expected:
 * It correctly identifies sequences that were inserted into it (true for known sequences).
 * It correctly identifies sequences that were not inserted into it (false for random sequences not in the dataset).
 
-Key Points:
+#### Key Points:
 * False positives: The Bloom Filter may sometimes give a true result for a sequence that was not actually inserted. However, since this program did not encounter false positives in this run (as expected for this simple test case), we conclude that the filter is functioning correctly. The risk of false positives increases with the size of the filter and the number of hash functions used.
 * False negatives: A proper Bloom Filter (like the one used here) will never return false for an item that was actually inserted, which holds true in this case.
 * Thus, this implementation is suitable for testing membership of sequences in a large dataset, especially where a small probability of false positives is acceptable.
