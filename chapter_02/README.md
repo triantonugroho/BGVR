@@ -1,4 +1,4 @@
-# Contents
+# 2. Setting Up the Rust Development Environment
 
 ## 2.1. Introduction to Rust Programming Language
 
