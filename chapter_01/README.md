@@ -1,4 +1,4 @@
-# Contents
+# 1. Introduction to Bioinformatics and Functional Genomics
 
 ##  1.2. Markov Random Fields
 
