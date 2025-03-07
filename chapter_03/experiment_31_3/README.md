@@ -7,7 +7,8 @@ This code demonstrates a scenario where different types of genomic data—such a
 Internally, the code maintains a vector of tasks that specify both the genome type and an approximate data size. For each task, it optionally simulates a heavy operation (representing actual data loading or transformation) and then constructs the appropriate index. The chosen index is returned as a boxed trait object, ensuring that both linear and graph-based indexes implement the same interface. By leveraging parallel iterators, the creation of multiple indexes can be distributed across CPU cores, helping manage computational load when building large or complex data structures.
 
 #### Files contents:
-* experiment_31_2/Cargo.toml (Cargo.toml file for dependencies)
+* experiment_31_3/
+  * Cargo.toml (Cargo.toml file for dependencies)
 * src/
   * main.rs (rust script)
   * output.txt (output file)
