@@ -82,7 +82,7 @@ The program is a simulation of parallel computation using MPI (Message Passing I
 * The program is correctly simulating parallel computation where multiple ranks would typically build partial indexes and merge them into a final global index. However, because the program seems to be running with a single rank (rank 0), the final global index contains only data from that rank.
 * In a multi-rank run, if more ranks were involved, the merged global index would combine the data from all the ranks, leading to a more complex global index with multiple entries. The code is set up to handle this scenario, but in this case, only rank 0 is involved, resulting in the output showing just the partial index for that rank.
 
-Key Takeaways:
+#### Key Takeaways:
 * MPI communication is correctly set up for parallel computation, with serialization and deserialization to exchange data across nodes.
 The output depends on the number of ranks used during the execution. In a real multi-rank environment, the merged index would contain more data from different ranks.
 
