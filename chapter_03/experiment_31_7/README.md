@@ -33,11 +33,11 @@ This example is highly simplified. Real genomic use cases often involve splittin
 run in powershell:
 
 ```powershell
-cargo run | tee output.txt
+cargo run main.nf | tee output.txt
 ```
 
-(run main.rs and save the output in output.txt)
-  
+(run main.nf  and save the output in output.txt)
+
 #### [dependencies]
 
 ```toml
