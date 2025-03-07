@@ -7,7 +7,8 @@ This code demonstrates a parallel, thread-safe Bloom Filter implementation in Ru
 Internally, the Bloom Filter maintains a fixed-size bit array (m bits), along with k distinct hash functions. When inserting an item, each hash function determines a bit position in the array that is then set to true. For membership checks, all corresponding bits for the hashed positions must be true for the item to be possibly present; if any bit is false, it is definitely not in the set. The code uses Rust’s AtomicBool to ensure multiple threads can set bits safely, and it employs parallel iterators for distributing work across CPU cores, thereby increasing throughput when inserting or checking many items.
 
 #### Files contents:
-* experiment_31_1/Cargo.toml ((Cargo.toml file for dependencies)
+* experiment_31_1/
+  * Cargo.toml (Cargo.toml file for dependencies)
 * src/
   * main.rs (rust script)
   * output.txt (output file)
