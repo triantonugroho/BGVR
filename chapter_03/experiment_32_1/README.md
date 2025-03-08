@@ -9,7 +9,7 @@ Rank 0 loads the genomic data from a file, computes chunk boundaries, and distri
 #### Files contents:
 * experiment_32_1/
   * Cargo.toml (Cargo.toml file for dependencies)
-* src/
+* experiment_32_1/src/
   * main.rs (rust script)
   * big_text_example.txt (text file dataset)
   * generate big_text_example.txt.ipynb (python code to generate big_text_example.txt)
