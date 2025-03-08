@@ -11,14 +11,12 @@ This pipeline “scatters” read files across ephemeral containers in the ALIGN
 
 
 #### Files contents:
-* experiment_36_1/
+* experiment_36_2/
   * Cargo.toml (Cargo.toml file for dependencies)
-* xperiment_36_1//src/
+* experiment_36_1//src/
   * main.rs (rust script)
   * main.nf (nextflow script)
   * reference.fa (reference fasta file)
-  * partial_fm_indexes.json (json output file)
-  * output.txt (output file)
 
 #### How to run:
 
@@ -35,6 +33,7 @@ cargo run main.nf | tee output.txt
 ```toml
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
+bincode = "2.0.0"
 ```
 
 #### Explanation of the Output
