@@ -1,0 +1,118 @@
+
+ N E X T F L O W   ~  version 24.10.4
+
+Launching `main.nf` [nasty_torvalds] DSL2 - revision: 901a2fc3be
+
+[-        ] preprocessReads -
+[-        ] runAbyss        -
+[-        ] assembleStats   -
+
+executor >  local (1)
+[75/e55c40] preprocessReads (1) [  0%] 0 of 1
+[-        ] runAbyss            -
+[-        ] assembleStats       -
+
+executor >  local (1)
+[75/e55c40] preprocessReads (1) [  0%] 0 of 1
+[-        ] runAbyss            -
+[-        ] assembleStats       -
+
+executor >  local (1)
+[75/e55c40] preprocessReads (1) [100%] 1 of 1 ✔
+[-        ] runAbyss            -
+[-        ] assembleStats       -
+
+executor >  local (2)
+[75/e55c40] preprocessReads (1) [100%] 1 of 1 ✔
+[2d/6c1c1f] runAbyss            [  0%] 0 of 1
+[-        ] assembleStats       -
+
+executor >  local (2)
+[75/e55c40] preprocessReads (1) [100%] 1 of 1 ✔
+[2d/6c1c1f] runAbyss            [  0%] 0 of 1
+[-        ] assembleStats       -
+
+executor >  local (2)
+[75/e55c40] preprocessReads (1) [100%] 1 of 1 ✔
+[2d/6c1c1f] runAbyss            [  0%] 0 of 1
+[-        ] assembleStats       -
+ERROR ~ Error executing process > 'runAbyss'
+
+Caused by:
+  Process `runAbyss` terminated with an error exit status (2)
+
+
+Command executed:
+
+  abyss-pe k=21 B=128M name=assembly in='filtered_sample.fastq'
+  mv assembly-contigs.fa contigs.fa
+
+Command exit status:
+  2
+
+Command output:
+  abyss-stack-size 65536 abyss-bloom-dbg -k21 -q3  -b128M -j2  filtered_sample.fastq  > assembly-1.fa
+  AdjList    -k21 -m0 --dot assembly-1.fa >assembly-1.dot
+  abyss-filtergraph  --dot   -k21 -g assembly-2.dot1 assembly-1.dot assembly-1.fa >assembly-1.path
+  MergeContigs --dot   -k21 -g assembly-2.dot -o assembly-2.fa assembly-1.fa assembly-2.dot1 assembly-1.path
+
+Command error:
+  abyss-stack-size 65536 abyss-bloom-dbg -k21 -q3  -b128M -j2  filtered_sample.fastq  > assembly-1.fa
+  Running with max stack size of 131072 KB: abyss-bloom-dbg -k21 -q3 -b128M -j2 filtered_sample.fastq
+  AdjList    -k21 -m0 --dot assembly-1.fa >assembly-1.dot
+  assembly-1.fa:0: warning: file is empty
+  abyss-filtergraph  --dot   -k21 -g assembly-2.dot1 assembly-1.dot assembly-1.fa >assembly-1.path
+  assembly-1.fa:0: warning: file is empty
+  MergeContigs --dot   -k21 -g assembly-2.dot -o assembly-2.fa assembly-1.fa assembly-2.dot1 assembly-1.path
+  assembly-1.fa:0: warning: file is empty
+  make: *** [/home/trian/miniconda3/bin/abyss-pe.Makefile:568: assembly-2.dot] Segmentation fault (core dumped)
+
+Work dir:
+  /mnt/c/Users/trian/BGVR/chapter_03/experiment_36_3/src/work/2d/6c1c1f8848f3d08b443f89465d2fdf
+
+Tip: view the complete command output by changing to the process work dir and entering the command `cat .command.out`
+
+ -- Check '.nextflow.log' file for details
+
+executor >  local (2)
+[75/e55c40] preprocessReads (1) [100%] 1 of 1 ✔
+[2d/6c1c1f] runAbyss            [100%] 1 of 1, failed: 1 ✘
+[-        ] assembleStats       -
+ERROR ~ Error executing process > 'runAbyss'
+
+Caused by:
+  Process `runAbyss` terminated with an error exit status (2)
+
+
+Command executed:
+
+  abyss-pe k=21 B=128M name=assembly in='filtered_sample.fastq'
+  mv assembly-contigs.fa contigs.fa
+
+Command exit status:
+  2
+
+Command output:
+  abyss-stack-size 65536 abyss-bloom-dbg -k21 -q3  -b128M -j2  filtered_sample.fastq  > assembly-1.fa
+  AdjList    -k21 -m0 --dot assembly-1.fa >assembly-1.dot
+  abyss-filtergraph  --dot   -k21 -g assembly-2.dot1 assembly-1.dot assembly-1.fa >assembly-1.path
+  MergeContigs --dot   -k21 -g assembly-2.dot -o assembly-2.fa assembly-1.fa assembly-2.dot1 assembly-1.path
+
+Command error:
+  abyss-stack-size 65536 abyss-bloom-dbg -k21 -q3  -b128M -j2  filtered_sample.fastq  > assembly-1.fa
+  Running with max stack size of 131072 KB: abyss-bloom-dbg -k21 -q3 -b128M -j2 filtered_sample.fastq
+  AdjList    -k21 -m0 --dot assembly-1.fa >assembly-1.dot
+  assembly-1.fa:0: warning: file is empty
+  abyss-filtergraph  --dot   -k21 -g assembly-2.dot1 assembly-1.dot assembly-1.fa >assembly-1.path
+  assembly-1.fa:0: warning: file is empty
+  MergeContigs --dot   -k21 -g assembly-2.dot -o assembly-2.fa assembly-1.fa assembly-2.dot1 assembly-1.path
+  assembly-1.fa:0: warning: file is empty
+  make: *** [/home/trian/miniconda3/bin/abyss-pe.Makefile:568: assembly-2.dot] Segmentation fault (core dumped)
+
+Work dir:
+  /mnt/c/Users/trian/BGVR/chapter_03/experiment_36_3/src/work/2d/6c1c1f8848f3d08b443f89465d2fdf
+
+Tip: view the complete command output by changing to the process work dir and entering the command `cat .command.out`
+
+ -- Check '.nextflow.log' file for details
+
