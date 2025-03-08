@@ -31,6 +31,9 @@ This setup is well-suited to real-world scenarios where large volumes of sequenc
   * filtered_sample.fastq.rar (compressed filtered_sample.fastq)
   * output_nf.txt
   * output_rs.txt
+  * nextflow.log.9 (nextflow log)
+  * assembly-1.dot
+  * assembly-1.path
 
 #### How to run:
 
