@@ -1,6 +1,23 @@
 use std::process::{Command, Stdio};
 use std::error::Error;
 use std::fs;
+use bincode::{serialize, deserialize}; // ✅ Import serialize & deserialize
+use serde::{Serialize, Deserialize};
+
+#[derive(Serialize, Deserialize, Debug)]
+struct PartialSuffixArray {
+    data: Vec<u8>,
+}
+
+// Function to serialize data
+fn serialize_data(partial_sa: &PartialSuffixArray) -> Vec<u8> {
+    bincode::serialize(partial_sa).expect("Failed to serialize PartialSuffixArray")
+}
+
+// Function to deserialize data
+fn deserialize_data(recv_bytes: &[u8]) -> PartialSuffixArray {
+    bincode::deserialize(recv_bytes).expect("Failed to deserialize PartialSuffixArray")
+}
 
 fn run_nextflow_process(process: &str) -> Result<String, Box<dyn Error>> {
     let script_path = r"C:\Users\trian\BGVR\chapter_03\experiment_36_2\src\main.nf";
@@ -20,7 +37,7 @@ fn run_nextflow_process(process: &str) -> Result<String, Box<dyn Error>> {
         .arg("-with-docker") // Use Docker if specified
         .stdout(Stdio::piped())
         .stderr(Stdio::piped())
-        .output()?;  // Capture the output
+        .output()?; // Capture the output
 
     if !output.status.success() {
         let stderr = String::from_utf8_lossy(&output.stderr);
@@ -28,7 +45,8 @@ fn run_nextflow_process(process: &str) -> Result<String, Box<dyn Error>> {
         return Err(format!(
             "Nextflow failed for process `{}`.\nstdout: {}\nstderr: {}",
             process, stdout, stderr
-        ).into());
+        )
+        .into());
     }
 
     // Return expected output file names based on process
@@ -38,6 +56,20 @@ fn run_nextflow_process(process: &str) -> Result<String, Box<dyn Error>> {
         "SUMMARIZE" => Ok("final_summary.json".to_string()),
         _ => Err(format!("Unknown Nextflow process: {}", process).into()),
     }
+}
+
+fn example_serialization() -> Result<(), Box<dyn Error>> {
+    let partial_sa = PartialSuffixArray { data: vec![1, 2, 3, 4, 5] };
+
+    // Serialize data
+    let serialized_data = serialize_data(&partial_sa);
+    println!("Serialized data: {:?}", serialized_data);
+
+    // Deserialize data
+    let deserialized_data = deserialize_data(&serialized_data);
+    println!("Deserialized data: {:?}", deserialized_data);
+
+    Ok(())
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
@@ -57,5 +89,9 @@ fn main() -> Result<(), Box<dyn Error>> {
     println!("Summary saved in: {}", summary_result);
 
     println!("Pipeline complete.");
+
+    // Run serialization example
+    example_serialization()?;
+
     Ok(())
 }
