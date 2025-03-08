@@ -9,7 +9,7 @@ Rank 0 determines chunk boundaries by evenly partitioning the text across size r
 #### Files contents:
 * experiment_32_2/
   * Cargo.toml (Cargo.toml file for dependencies)
-* src/
+* experiment_32_3/src/
   * main.rs (rust script)
   * output.txt (output file)
 
