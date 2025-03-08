@@ -36,7 +36,7 @@ This code demonstrates a naive “FM-index building” step, in practice. Real H
 #### Files contents:
 * experiment_36_1/
   * Cargo.toml (Cargo.toml file for dependencies)
-* xperiment_36_1//src/
+* xperiment_36_1/src/
   * main.rs (rust script)
   * main.nf (nextflow script)
   * reference.fa (reference fasta file)
