@@ -1,6 +1,6 @@
 ## 3.6. Putting It All Together—Rust and Nextflow Integration
 
-### experiment_36
+### experiment_36_1
 
 #### 1. Nextflow
 
