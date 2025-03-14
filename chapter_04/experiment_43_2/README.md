@@ -20,7 +20,7 @@ run main.rs in powershell:
 ```powershell
 cargo run | tee output.txt
 ```
-(run main.nf and save the output in output.txt)
+(run main.rs and save the output in output.txt)
 
 #### [dependencies]
 
