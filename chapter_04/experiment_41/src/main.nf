@@ -1,46 +1,40 @@
 #!/usr/bin/env nextflow
 
-nextflow.enable.dsl = 2
-
-params.synthetic_fastq = '/mnt/c/Users/trian/BGVR/chapter_04/experiment_41/src/synthetic_reads.fastq'
-params.rust_project_path = '/mnt/c/Users/trian/BGVR/chapter_04/experiment_41/src'
-params.output_dir = './results'
+params.synthetic_fastq = params.synthetic_fastq ?: 'synthetic_reads.fastq'
 
 workflow {
-    runAnalysis()
+    // Buat channel dari parameter
+    def synthetic_fastq_ch = Channel.of(params.synthetic_fastq)
+
+    main:
+        buildPWMandMRF(synthetic_fastq_ch)
 }
 
-process runAnalysis {
-    publishDir params.output_dir, mode: 'copy'
-    
+process buildPWMandMRF {
+    input:
+    value file_in from synthetic_fastq_ch
+
     output:
-        path 'pwm_results.txt', optional: true
-        path 'mrf_results.txt', optional: true
-    
-    script:
+    file 'pwm_results.txt'
+    file 'mrf_results.txt'
+
     """
-    #!/bin/bash
     set -e
+    set -x
     
-    echo "Current directory: \$(pwd)"
-    echo "Starting compilation..."
+    # Masuk ke direktori kode sumber
+    cd src
     
-    # Kompilasi program Rust
-    cd ${params.rust_project_path}
+    # Compile kode Rust
     cargo build --release
     
-    echo "Compilation complete. Running program..."
+    # Periksa apakah binary hasil build tersedia
+    if [ ! -f target/release/experiment_41 ]; then
+        echo "Error: Binary target/release/experiment_41 tidak ditemukan!" >&2
+        exit 1
+    fi
     
-    # Jalankan program yang sudah dikompilasi
-    ./target/release/experiment_41 \
-        ${params.synthetic_fastq} \
-        ${params.rust_project_path}/pwm_results.txt \
-        ${params.rust_project_path}/mrf_results.txt
-    
-    # Salin hasil kembali ke direktori kerja
-    cp ${params.rust_project_path}/pwm_results.txt ./
-    cp ${params.rust_project_path}/mrf_results.txt ./
-    
-    echo "Analysis complete."
+    # Jalankan hasil binary dengan path yang benar
+    ./target/release/experiment_41 ${file_in} pwm_results.txt mrf_results.txt
     """
 }
