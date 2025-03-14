@@ -17,7 +17,7 @@ The Rust code generates a synthetic gene expression matrix for a user-defined nu
   * main.rs (rust script)
   * main.nf (nextflow script)
   * ouput.txt (output file)
-  * partial_adjacency.bin (output file)
+  * partial_adjacency.bin (partial adjacency output file)
 
 #### How to run:
 
