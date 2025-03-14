@@ -18,19 +18,17 @@ The Nextflow pipeline reads a synthetic FASTQ file (synthetic_reads.fastq) and s
 
 #### How to run:
 
-run in powershell:
+run main.rs in powershell:
 
 ```powershell
 cargo run --release "C:\Users\trian\BGVR\chapter_04\experiment_41\src\synthetic_reads.fastq" pwm_results.txt mrf_results.txt 
 ```
 
-run in WSL:
+run main.nf in WSL:
 
 ```wsl
 nextflow run main.nf --synthetic_fastq 'synthetic_reads.fastq'
 ```
-
-(run main.nf)
 
 #### [dependencies]
 
