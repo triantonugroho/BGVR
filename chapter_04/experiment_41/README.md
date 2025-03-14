@@ -20,7 +20,7 @@ The Nextflow pipeline reads a synthetic FASTQ file (synthetic_reads.fastq) and s
 
 run in WSL:
 
-```powershell
+```wsl
 nextflow run main.nf
 ```
 
