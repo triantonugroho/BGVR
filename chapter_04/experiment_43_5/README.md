@@ -44,7 +44,8 @@ nextflow run main.nf --input_fasta genome.fa --chunk_size 1000000
 rayon = "1.10.0"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
-bio = "2.2.0"```
+bio = "2.2.0"
+```
 
 #### Explanation of the Output
 My Nextflow pipeline and Rust motif scanner successfully ran and generated the following output:
