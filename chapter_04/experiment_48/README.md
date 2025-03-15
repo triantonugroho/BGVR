@@ -28,6 +28,8 @@ The snippet uses serde for reading and writing JSON, rayon for concurrency, and 
     
 #### How to run:
 
+run synthesize dataset.ipynb in Visual Studio Code or in Google Colab to get 4 json file required : eqtl_part1.json, eqtl_part2.json, motif_part1.json, and peak_part1.json and copy or move to experiment_48/src/data/ folder 
+
 run main.rs in powershell:
 
 ```powershell
