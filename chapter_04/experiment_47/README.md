@@ -45,7 +45,7 @@ Each eQTL test provides:
 
 The results:
 
-```rust
+```csv
 rs1    GeneA    2.000    0.04052
 rs1    GeneB    0.150    0.43486
 rs2    GeneA   -0.750    0.41953
