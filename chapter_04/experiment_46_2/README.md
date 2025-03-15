@@ -20,7 +20,8 @@ run main.rs in powershell:
 ```powershell
 cargo run | tee output.txt
 ```
-(run main.rs and get the partial_splicing_graph.bin output and output.txt)
+
+(run main.rs and save the output in output.txt)
 
 #### [dependencies]
 
