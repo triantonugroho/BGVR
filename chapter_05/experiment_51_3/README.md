@@ -15,7 +15,7 @@ AI engineers and bioinformaticians increasingly run these Rust workflows via Nex
   * main.rs (rust script)
   * partial_ouput.json (json partial input file)
   * merged_ouput.json (json merged output file)
-  * output.txt (output file)
+  * output.txt (text file output)
 
 #### How to run:
 
