@@ -155,4 +155,3 @@ This helps debug whether files are properly recognized.
 * The JSON merging is correct.
 
 * The CLI output message is misleading and needs debugging.
-
