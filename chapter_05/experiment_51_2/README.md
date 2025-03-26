@@ -128,18 +128,18 @@ Reads: 54892, Bases: 12297218
 
 1. Efficient Read Processing:
 
-  * The program efficiently parses the FASTQ file line by line (streaming).
+   * The program efficiently parses the FASTQ file line by line (streaming).
 
-  * Uses hashmaps to store read length distributions.
+   * Uses hashmaps to store read length distributions.
 
 2. Uniform Read Lengths:
 
-  * Majority of reads are 224 bases, indicating a standardized sequencing process.
+   * Majority of reads are 224 bases, indicating a standardized sequencing process.
 
-  * Minor variations (223, 222, 225 bases) could be due to sequencing errors or adapter trimming.
+   * Minor variations (223, 222, 225 bases) could be due to sequencing errors or adapter trimming.
 
 3. Scalability:
 
-  * Handles large FASTQ files and outputs summary statistics efficiently.
+   * Handles large FASTQ files and outputs summary statistics efficiently.
 
-  * Can be used for quality control in sequencing experiments.
+   * Can be used for quality control in sequencing experiments.
