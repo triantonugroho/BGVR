@@ -15,8 +15,6 @@ The estimation of unique elements happens in the estimate function, which applie
   * Cargo.toml (Cargo.toml file for dependencies)
 *experiment_51_1/src/
   * main.rs (rust script)
-  * reads.fq.rar (compressed reads.fq) 
-  * bloom.json
   * output.txt (output file)
 
 #### How to run:
@@ -32,88 +30,64 @@ cargo run | tee output.txt
 #### [dependencies]
 
 ```toml
-rayon = "1.7"
-needletail = "0.6"
-serde = { version = "1", features = ["derive"] }
-serde_json = "1"
-bitvec = "1.0.1"
+only use std
 ```
 
 #### Explanation of the Output
-The Rust program implements a Bloom filter to store and check for the presence of k-mers (substrings of length 𝑘) in sequencing reads. The Bloom filter is a probabilistic data structure that efficiently checks set membership while allowing for false positives but no false negatives.
 
-##### 1. output.txt
+##### 1. Integer Count Estimation
+
 ```rust
-Bloom contains first k-mer 'ACGGAGGATGCGAGCGTTATCCGGATTTATT': true
-Constructed Bloom filter (10650458 k-mers processed), result written to bloom.json
-```
-Breakdown of the Output
-* The program successfully inserted 10,650,458 k-mers into the Bloom filter.
-* The first extracted k-mer (ACGGAGGATGCGAGCGTTATCCGGATTTATT) is confirmed to exist in the Bloom filter.
-* The Bloom filter is serialized and saved to bloom.json.
-
-##### 2. bloom.json
-This file contains the serialized Bloom filter, including:
-
-* bits: The bit array storing hashed k-mer positions.
-* num_bits: The total number of bits in the Bloom filter (10,000,000).
-* num_hashes: The number of hash functions used (3).
-* k: The k-mer length (31).
-
-Example JSON Snippet
-```json
-{
-  "bits": [4, 0, 48, 128, 10, 0, 0, 66, 0, 0, 16, 0, 8, 0, 1, ...],
-  "num_bits": 10000000,
-  "num_hashes": 3,
-  "k": 31
-}
+Actual integer count: 10000
+Estimated integer count: 9560.80
 ```
 
-##### Understanding the Data
-* Step 1: Read FASTQ/FASTA Sequences
-  * The program reads sequencing data from reads.fq.
-  * It extracts all possible k-mers (31-mers) from the reads.
-* Step 2: Initialize the Bloom Filter
-  * The Bloom filter is initialized with:
-  * 10,000,000 bits (approx. 1.25 MB of memory).
-  * 3 hash functions (to reduce false positives).
-* Step 3: Extract k-mers in Parallel
-  * Uses rayon for parallel processing.
-  * 10,650,458 k-mers were extracted.
-* Step 4: Insert k-mers into the Bloom Filter
-  * Each k-mer is hashed 3 times and inserted into the Bloom filter.
-* Step 5: Check Membership
-  * The program checks whether the first extracted k-mer exists in the Bloom filter.
-  * Since it was just inserted, the result is true.
-* Step 6: Serialize and Save Bloom Filter
-  * The Bloom filter is saved to bloom.json for future use.
+* A dataset containing 10,000 unique integers (0 to 9,999) is processed using HyperLogLog with precision p=10.
+* The estimated count is 9560.80, which is close but slightly under the actual count due to the probabilistic nature of HyperLogLog.
+* The estimation error is (10000 - 9560.80) / 10000 = 4.39%, which is expected as HyperLogLog is an approximation algorithm.
+
+##### 2. String Count Estimation
+
+```rust
+Actual string unique count: 5
+Estimated string count: 13.51
+```
+
+* A list of strings is processed: ["apple", "banana", "cherry", "banana", "date", "apple", "elderberry"].
+
+* The actual number of unique strings is 5 ({"apple", "banana", "cherry", "date", "elderberry"}).
+
+* The estimated count is 13.51, which is significantly higher than the actual value.
+
+* The overestimation is likely due to the low precision (p=4), meaning there are only 16 registers (2^4 = 16), leading to more collisions and increased variance.
+
+##### 3. Merging Two HyperLogLogs
+
+```rust
+Merging two HyperLogLogs each containing half of the integer range:
+Merged estimate of unique integers: 9560.80
+Actual unique count (0..10000): 10000
+```
+
+* The dataset of 10,000 integers is split into two halves (0..5000 and 5000..9999).
+
+* Two separate HyperLogLogs are created for each half.
+
+* After merging them, the estimated count remains 9560.80, the same as the previous estimate.
+
+* This confirms that merging two HyperLogLogs does not overcount, as they retain only the maximum register values.
 
 #### Conclusion
-##### 1. Efficient k-mer Storage
 
-* The Bloom filter stores 10+ million k-mers using only 10MB of space.
-* This is much more memory-efficient than using a hash table.
+* HyperLogLog provides an efficient way to estimate cardinality (unique elements) using limited memory.
 
-##### 2. Probabilistic Nature
+* The estimation is close but not exact—it depends on the precision (p value) and the nature of the data.
 
-* The Bloom filter allows false positives (a k-mer might be reported as present when it isn't).
-* However, false negatives are impossible (if a k-mer was inserted, it will always be found).
+* Higher precision (p) reduces error but requires more memory.
 
-##### 3. Parallel Processing Boost
+* Smaller datasets (like strings with p=4) suffer from higher variance, leading to more overestimation or underestimation.
 
-* The use of rayon significantly speeds up k-mer extraction.
+* Merging HyperLogLogs maintains accuracy, showing its usefulness for distributed data aggregation.
 
-##### 4. Scalability
-
-* The Bloom filter can be used to efficiently filter and search large sequencing datasets.
-
-##### 5. Next Steps
-
-* The Bloom filter can be used in genome assembly to quickly check for sequencing errors or shared k-mers between datasets.
-
-#### Final Thoughts
-* The implementation successfully constructs a Bloom filter for k-mers.
-* The parallelized k-mer extraction ensures high performance.
-* The compact representation enables handling large genomic datasets efficiently.
+For better accuracy in real-world applications, choosing an appropriate p value is crucial, balancing memory usage and estimation precision.
 
