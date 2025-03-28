@@ -75,7 +75,7 @@ Assume we run the following command:
 cargo run -- --input example.fastq --k 5 --threshold 2 --chunk_size 5000
 ```
 
-##### OUput 
+##### Output 
 
 ```rust
 Processed chunk 0 with 5000 records, wrote partial de Bruijn to "partial_kmer_maps/partial_debruijn_0.bin"
