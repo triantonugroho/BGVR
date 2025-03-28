@@ -23,9 +23,9 @@ When the partial tasks are completed, the code merges all partial results by rea
 
 #### How to run:
 
-run in powershell:
+run in wsl:
 
-```powershell
+```wsl
 cargo run -- --bam-input example.bam --annotation example.gtf --chunk-size 5000 --partial-outdir partial_counts --merged-output merged_counts.json | tee output.txt
 ```
 
