@@ -13,10 +13,11 @@ When the partial tasks are completed, the code merges all partial results by rea
   * Cargo.toml (Cargo.toml file for dependencies)
 * experiment_57/src/
   * main.rs (rust script)
-  * alignment_data.json (alignment data json input file)
-  * merged_breakpoints.json (merged breakpoints json output file)
+  * example.bam (bam input file)
+  * example.gtf (gtf input file)
+  * merged_counts.json (merged counts json output file)
   * output.txt (text file output)
-* experiment_56/src/partial_breakpoints
+* experiment_56/src/partial_counts
   * partial_counts_chunk_1.json (partial counts in chunk 1 json output file)
   * partial_counts_chunk_2.json (partial counts in chunk 2 json output file)
 
@@ -50,7 +51,7 @@ The program processes a BAM file containing aligned sequencing reads and maps th
 
 * It cross-references these locations with transcript annotations from the GTF file.
 
-*Each read that overlaps a transcript is counted and assigned to the corresponding transcript ID.
+* Each read that overlaps a transcript is counted and assigned to the corresponding transcript ID.
 
 * Parallel processing (using Rayon) speeds up the counting process by distributing read-processing tasks across multiple CPU threads.
 
