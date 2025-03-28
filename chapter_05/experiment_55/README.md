@@ -13,12 +13,12 @@ Finally, all partial results written to the output directory are reopened, deser
 #### Files contents:
 * experiment_55/
   * Cargo.toml (Cargo.toml file for dependencies)
-*experiment_55/src/
+* experiment_55/src/
   * main.rs (rust script)
   * hypotheses.json (json input file)
   * pileup.json (json input file)
   * merged_variants.json (merged variants json output file)
-*experiment_55/src/output
+* experiment_55/src/output
   * partial_varians_chunk_0.json (partial varians in chunk 0 json output file)
 
 
