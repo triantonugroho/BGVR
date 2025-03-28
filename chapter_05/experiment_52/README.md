@@ -17,7 +17,8 @@ Once the trimming is complete for each batch, the program writes a JSON file con
   * Cargo.toml (Cargo.toml file for dependencies)
 *experiment_52/src/
   * main.rs (rust script)
-  * output.txt (output file)
+  * output.txt.rar (compressed output.txt file)
+  * example.fastq.rar (compressed example.fastq)
 
 #### How to run:
 
@@ -41,61 +42,47 @@ clap = { version = "4.4", features = ["derive"] }
 ```
 
 #### Explanation of the Output
+The output output.txt shows a series of FASTQ reads that have been processed by the sliding window trimming algorithm implemented in main.rs. Each read consists of:
 
-##### 1. Integer Count Estimation
+##### 1. Read ID
 
-```rust
-Actual integer count: 10000
-Estimated integer count: 9560.80
-```
+* Example: SRR11192680.1 1 length=224
 
-* A dataset containing 10,000 unique integers (0 to 9,999) is processed using HyperLogLog with precision p=10.
-* The estimated count is 9560.80, which is close but slightly under the actual count due to the probabilistic nature of HyperLogLog.
-* The estimation error is (10000 - 9560.80) / 10000 = 4.39%, which is expected as HyperLogLog is an approximation algorithm.
+* This represents a unique identifier for a sequencing read along with its length.
 
-##### 2. String Count Estimation
+##### 2. Sequence
+
+* Example:
 
 ```rust
-Actual string unique count: 5
-Estimated string count: 13.51
+ACGGAGGATGCGAGCGTTATCCGGATTTATTGGGTTTAAAGGGAGCGCAGACGGGAAATTAAGTCAGTTGTGAAAGTTTGCGGCTCAACCGTAAAATTGCAGTTGATACTGGTTTCCTTGAGTGCAGTTGAGGCAGGCGGAATTCGTGGTGTAGCGGTGAAATGCTTAGATATCACGAAGAACCCCGATTGCGAAGGCAGCTTGCTAAACTGTATCTGACGCTC
 ```
 
-* A list of strings is processed: ["apple", "banana", "cherry", "banana", "date", "apple", "elderberry"].
+* This represents the DNA sequence of the read.
 
-* The actual number of unique strings is 5 ({"apple", "banana", "cherry", "date", "elderberry"}).
+##### 3. Quality Scores (Phred Score)
 
-* The estimated count is 13.51, which is significantly higher than the actual value.
-
-* The overestimation is likely due to the low precision (p=4), meaning there are only 16 registers (2^4 = 16), leading to more collisions and increased variance.
-
-##### 3. Merging Two HyperLogLogs
+* Example:
 
 ```rust
-Merging two HyperLogLogs each containing half of the integer range:
-Merged estimate of unique integers: 9560.80
-Actual unique count (0..10000): 10000
+GGGGGGGGGGGGGGGGGGGGGGGGFGGGGGGGGGFFFGGGGGGGGGGGGGGGGGGDGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGFGGGGGGGGGGGGGGGFGGGGGGGGFGGGGGGGGGGEGGGEGEEGGGGGGGGGGFGGGGGGGFFGGGFGFF;:FGGGGC=BEGGGGGGGGGCFGGCGE>@FGDCF?<DBEFFFGCF7<5<A??E?E
 ```
 
-* The dataset of 10,000 integers is split into two halves (0..5000 and 5000..9999).
+* These scores indicate the base call confidence from the sequencing machine.
 
-* Two separate HyperLogLogs are created for each half.
+* High-quality bases are represented by higher ASCII characters, while lower-quality bases have lower ASCII values.
 
-* After merging them, the estimated count remains 9560.80, the same as the previous estimate.
-
-* This confirms that merging two HyperLogLogs does not overcount, as they retain only the maximum register values.
+Each read is separated by a dashed line (--------------------------------------) to differentiate between multiple reads.
 
 #### Conclusion
+* The script successfully parses and processes FASTQ sequences from the input file.
 
-* HyperLogLog provides an efficient way to estimate cardinality (unique elements) using limited memory.
+* The sliding window trimming algorithm runs correctly, evaluating the quality scores of each read and trimming low-quality bases.
 
-* The estimation is close but not exact—it depends on the precision (p value) and the nature of the data.
+* The trimmed sequences and corresponding quality scores are saved into JSON files (partial_trim_output_chunk_X.json) for further analysis.
 
-* Higher precision (p) reduces error but requires more memory.
+* The script utilizes parallel processing (rayon::par_iter()) to speed up the trimming process.
 
-* Smaller datasets (like strings with p=4) suffer from higher variance, leading to more overestimation or underestimation.
-
-* Merging HyperLogLogs maintains accuracy, showing its usefulness for distributed data aggregation.
-
-For better accuracy in real-world applications, choosing an appropriate p value is crucial, balancing memory usage and estimation precision.
+* The chunk-based approach ensures that large files are processed efficiently without excessive memory usage.
 
 
