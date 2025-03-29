@@ -80,9 +80,9 @@ reads_2.fastq aligned to reference_genome.fasta
 
 3. Variant Detection from Aligned Reads
 
-  * The aligned reads are processed to detect genetic variations.
+   * The aligned reads are processed to detect genetic variations.
 
-  * Each read chunk produces a set of detected variants.
+   * Each read chunk produces a set of detected variants.
 
 Example Output for Variants (Simulated Data):
 
