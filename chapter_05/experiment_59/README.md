@@ -25,7 +25,7 @@ These partial variant results are then serialized to a JSON file, named and stor
   
 #### How to run:
 
-run in powershell:
+run in powershell: 
 
 ```powershell
 cargo run -- --reads reads_1.fastq reads_2.fastq --ref ref.fa --out final_variants.json --chunk-size 10 --partial-dir partial_variants | tee output.txt
