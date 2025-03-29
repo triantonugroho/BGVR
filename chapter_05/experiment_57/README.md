@@ -17,7 +17,7 @@ When the partial tasks are completed, the code merges all partial results by rea
   * example.gtf (gtf input file)
   * merged_counts.json (merged counts json output file)
   * output.txt (text file output)
-* experiment_56/src/partial_counts
+* experiment_57/src/partial_counts
   * partial_counts_chunk_1.json (partial counts in chunk 1 json output file)
   * partial_counts_chunk_2.json (partial counts in chunk 2 json output file)
 
