@@ -54,21 +54,21 @@ The program follows these major steps:
 
 1. Reading Input Parameters
 
-  * Reads the input FASTQ files (reads_1.fastq).
+   * Reads the input FASTQ files (reads_1.fastq).
 
-  * Takes a reference genome (-f flag).
+   * Takes a reference genome (-f flag).
 
-  * Defines chunk size (--chunk-size) for processing.
+   * Defines chunk size (--chunk-size) for processing.
 
-  * Specifies an output directory for intermediate results (--partial-dir).
+   * Specifies an output directory for intermediate results (--partial-dir).
 
-  * Sets the final output file (--out).
+   * Sets the final output file (--out).
 
 2. Chunking Read Files and Parallel Alignment
 
-  * The input reads are broken into chunks (chunk_size).
+   * The input reads are broken into chunks (chunk_size).
 
-  * Each chunk is processed in parallel (rayon crate) to simulate sequence alignment.
+   * Each chunk is processed in parallel (rayon crate) to simulate sequence alignment.
 
 Example Output for Alignment (Simulated):
 
@@ -80,9 +80,9 @@ reads_2.fastq aligned to reference_genome.fasta
 
 3. Variant Detection from Aligned Reads
 
-* The aligned reads are processed to detect genetic variations.
+  * The aligned reads are processed to detect genetic variations.
 
-* Each read chunk produces a set of detected variants.
+  * Each read chunk produces a set of detected variants.
 
 Example Output for Variants (Simulated Data):
 
@@ -98,9 +98,9 @@ Example Output for Variants (Simulated Data):
 
 4. Saving Partial Results
 
-  * Each chunk of processed data is saved in partial_variants/ as JSON files.
+   * Each chunk of processed data is saved in partial_variants/ as JSON files.
 
-  * Example filenames:
+   * Example filenames:
 
 ```rust
 partial_variants/partial_variants_0000.json
@@ -110,9 +110,9 @@ partial_variants/partial_variants_0001.json
 
 5. Merging Partial Variants
 
-  * The program reads all partial JSON files.
+   * The program reads all partial JSON files.
 
-  * Merges them into a final output file.
+   * Merges them into a final output file.
 
 Example of Final Merged Output (final_variants.json):
 
