@@ -50,6 +50,7 @@ anyhow = "1.0"
 The given Rust code simulates a multi-step pipeline for variant detection in high-performance computing (HPC) environments. It processes DNA sequence reads from FASTQ files, aligns them to a reference genome, detects variants, and merges the results into a final output file.
 
 ##### 2. Execution Steps and Output
+
 The program follows these major steps:
 
 1. Reading Input Parameters
