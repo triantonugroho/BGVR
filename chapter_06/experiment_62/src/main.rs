@@ -16,7 +16,7 @@ struct Cli {
     #[arg(long, value_name = "BAM_FILE")]
     bam: String,
 
-    /// Genomic regions to calculate coverage for, e.g., chr1:1-1000000
+    /// Genomic regions to calculate coverage for, e.g., 1:1-50000
     #[arg(long, value_name = "REGIONS", required = true, num_args = 1..)]
     region: Vec<String>,
 }
