@@ -15,7 +15,7 @@ This Nextflow pipeline demonstrates how to split the workload by region and exec
   * Cargo.toml (Cargo.toml file for dependencies)
 * experiment_61/src/
   * main.rs (rust script)
-  * coverage.txt (text file output
+  * coverage.txt (text file output)
   * input.bam (bam file input)
   * input.bam.bai (indexed input.bam file)
 * experiment_61/target/debug
