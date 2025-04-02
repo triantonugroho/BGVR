@@ -34,11 +34,10 @@ This configuration illustrates how Nextflow splits the workload among different 
 run in wsl:
 
 ```wsl
-cargo run -- --bam input.bam --region '1:1-1000000' --output coverage.txt
 nextflow run main.nf
 ```
 
-(run main.rs with input.bam region '1:1-1000000' and save the output in coverage.txt and run main.nf)
+(run main.nf with example.bam and example.bam.bai input and made coverage_1_1-50000.txt and coverage_1_50001-100000.txt output)
   
 #### [dependencies]
 
@@ -51,50 +50,43 @@ rayon = "1.8"
 rust-htslib = "0.49.0"
 ```
 
-#### Explanation of the Output:
+#### Explanation of the Output
+When running nextflow run main.nf in WSL, the Nextflow workflow executes the coverage_tool binary in parallel for each genomic region specified in params.region_list. Here's what happens step by step:
 
-##### 1. Command Execution:
+##### 1. BAM File Input & Region Specification
 
-* The command cargo run -- --bam input.bam --region '1:1-1000000' --output coverage.txt runs the Rust-based coverage_tool program.
+* The workflow reads example.bam, a binary alignment file containing sequencing reads mapped to a reference genome.
 
-* The program reads input.bam, extracts reads that fall within the region 1:1-1000000, and computes coverage.
+* The corresponding example.bam.bai index file is required for efficient random access to specific regions.
 
-* The computed coverage data is then saved to coverage.txt.
+##### 2. Parallel Execution of Coverage Calculation
 
-##### 2. Processing in Rust Code:
+* The Nextflow process coverageIndexing is executed for each region in params.region_list.
 
-* The IndexedReader from rust-htslib is used to fetch reads from the BAM file within the specified region.
+* The coverage_tool binary, compiled from main.rs, calculates the coverage for each region.
 
-* The sequence length of each read in this region is counted.
+##### 3. Coverage Calculation by coverage_tool
 
-* Parallel processing using Rayon ensures efficient computation.
+* The tool fetches reads from example.bam for a given region (e.g., 1:1-50000 or 1:50001-100000).
 
-* The total number of reads processed (in this case, 34,298 reads) is stored and written to the output file.
+* It sums up the lengths of the mapped read sequences in that region to determine the total coverage.
 
-##### 3. Nextflow Execution:
+##### 4. Output Storage by Nextflow
 
-* Running nextflow run main.nf initiates the coverageAnalysis process.
+* The computed coverage values are written to separate output files in the Nextflow work/ directory:
 
-* It processes multiple genomic regions (e.g., "1:1-1000000" and "1:1000001-2000000").
+  * coverage_1_1-50000.txt
 
-* The Rust program is executed for each region, generating separate coverage files like coverage_1_1-1000000.txt.
+  * coverage_1_50001-100000.txt
 
-##### 4. Output Content (coverage.txt):
+* These files contain the total read coverage for each respective genomic region.
 
-```rust
-Coverage data for 34298 reads
-```
+#### Conclusion
 
-* This means 34,298 reads were found in the specified region (1:1-1000000).
+* Correct Execution: The pipeline successfully runs coverage_tool for each specified region.
 
-* The total number of reads indicates sequencing depth for that region, which is important for genomic analysis, variant calling, and quality assessment.
+* Parallel Processing: The workflow efficiently distributes computations across available CPU cores using Rayon in Rust and Nextflow’s parallel execution model.
 
-#### Conclusion:
-* The Rust-based coverage tool successfully reads a BAM file, extracts reads from a given genomic region, and counts their coverage.
+* Scalability: The approach can be expanded to handle larger BAM files and more genomic regions efficiently.
 
-* Nextflow integration enables scalability by running coverage analysis on multiple genomic regions in parallel.
-
-* The final coverage count (34,298 reads in 1:1-1000000) provides insight into sequencing depth, helping assess the quality and completeness of genomic data.
-
-* The workflow is efficient and reproducible, making it suitable for large-scale genomic analysis.
-
+* Reproducibility: The Nextflow pipeline ensures that the same process can be rerun with different datasets or parameters, making it useful for large-scale sequencing data analysis.
