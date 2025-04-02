@@ -19,7 +19,7 @@ This Nextflow pipeline demonstrates how to split the workload by region and exec
   * input.bam (bam file input)
   * input.bam.bai (indexed input.bam file)
 * experiment_61/target/debug
-  * coverage_tool (coverage_tool execution file/container)
+  * coverage_tool.rar (compressed coverage_tool execution file/container)
 
 #### How to run:
 
