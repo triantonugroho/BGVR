@@ -15,18 +15,21 @@ This pipeline demonstrates how Nextflow simplifies the orchestration of complex 
 Many AI engineers and bioinformaticians have adopted these Rust and Nextflow solutions to power scalable genomics pipelines, enabling them to run cost-effectively on public clouds or local HPC clusters. One success story involves a large hospital system that processes thousands of clinical exomes per week, using ephemeral containers to align reads, call variants, and combine results seamlessly. Rust’s concurrency guarantees helped them avoid race conditions that might otherwise have caused data corruption in long, multi-threaded analyses. They also appreciated the minimal overhead of static binaries, which improved performance and reduced container image sizes.
 
 #### Files contents:
-* experiment_63/
+* experiment_64/
   * Cargo.toml (Cargo.toml file for dependencies)
 * experiment_63/src/
   * main.rs (rust script)
   * main.nf (nextflow script)
-  * chunks_list.txt (chunk list input text file)
-  * wgs_cohort.bcf (bcf input file)
-  * wgs_cohort.bcf.csi (indexed bcf input file)
-  * filtered_output.bcf (bcf output file from running main.rs)
-* experiment_63/target/debug/
-  * bcf_filter_tool.rar (compressed bcf_filter_tool execution file output from running main.rs)
-* experiment_63/src/work/69/fd2fa2cc9f7401386d609c509b0544/
+  * ref.fasta (reference fasta file as input file)
+  * ref.fasta.fai (indexed ref.fasta.fai)
+  * sample1.bam (sample 1 bam file as input file)
+  * sample1.bam.bai (indexed sample1.bam file)
+  * sample2.bam (sample 2 bam file as input file)
+  * sample2.bam.bai (indexed sample2.bam file)
+  * samples.txt (samples text file as input file)
+* experiment_64/target/debug/
+  * bam_read_counter.rar (compressed bam_read_counter execution file output from running main.rs)
+* experiment_64/src/work/69/fd2fa2cc9f7401386d609c509b0544/
   * filtered_chr1_1000-1200.bcf (bcf output file from running main.nf)
 
 #### How to run:
@@ -34,10 +37,10 @@ Many AI engineers and bioinformaticians have adopted these Rust and Nextflow sol
 run main.rs in wsl:
 
 ```wsl
-cargo run -- --input wgs_cohort.bcf --output filtered_output.bcf --min-qual 30.0 --min-depth 10 --chunk-size 50000
+cargo run -- --bam sample1.bam --region 'chr1:1-10' 'chr1:1-32' 2>&1 | tee output.txt
 ```
 
-(run main.rs with input wgs_cohort.bcf and output file name filtered_ouput.bcf with params.min_qual = 30, params.min_depth = 10, and params.chunk_size  = 50000)
+(run main.rs with sample1.bam input, region : chr1:1-10, chr:1-32 parameters and save the output in output.txt)
 
 run main.nf in wsl:
 
@@ -45,95 +48,99 @@ run main.nf in wsl:
 nextflow run main.nf
 ```
 
-(run main.nf with input wgs_cohort.bcf and output file name filtered_ouput.bcf with params.min_qual = 30, params.min_depth = 10, and params.chunk_size  = 50000)
+run main.nf with this parameters:
+params.sample_list = "samples.txt"
+params.output_dir = "results"
+params.region = "chr1:1-32"
+params.mock = true  // Set to true to use mock commands instead of actual tools
 
 #### [dependencies]
 
 ```toml
+clap = { version = "4.0", features = ["derive"] }
 anyhow = "1.0"
-clap = { version = "4.4", features = ["derive"] }
-env_logger = "0.11.7"
 log = "0.4"
-rayon = "1.8"
+rayon = "1.7"
 rust-htslib = "0.49.0"
 ```
 
 #### Explanation of the Output
+We ran a complete Nextflow pipeline (main.nf) to simulate a variant calling workflow using mock data and a custom Rust tool (bam_read_counter) for read processing. Here's a breakdown of what each part of the pipeline did and what the final output means:
 
-▶️ Running main.rs via Cargo
+##### 🧪 Input
 
-Command:
+* samples.txt:
 
-```wsl
-cargo run -- --input wgs_cohort.bcf --output filtered_output.bcf --min-qual 30.0 --min-depth 10 --chunk-size 50000
+```text
+sample1
+sample2
 ```
 
-🔍 Output:
+This file lists the sample IDs to process.
 
-* A single output BCF file: filtered_output.bcf
+* BAM files:
 
-* Contains all records from wgs_cohort.bcf that:
+ * sample1.bam: Contains alignments from sample1.sam, already tested using your Rust tool.
 
-  * Have QUAL >= 30
+ * sample2.bam: Assumed to exist with similar structure.
 
-  * Have average DP (depth) across samples >= 10
+* ref.fasta: Not used in mock mode, but assumed as reference in real variant calling.
 
-* Processing is done in parallel batches of 50,000 records using Rayon.
+##### 🛠️ Workflow Steps Summary
 
-* Log output (if using RUST_LOG=info) will show:
+###### 1. Channel Setup
 
-  * Total records processed
+* samples_ch: Reads each line of samples.txt into the workflow as individual sample IDs.
 
-  * Total records retained after filtering
+###### 2. alignmentOrFetch Process
 
-✅ Interpretation:
+* Copies BAM files (sample1.bam, sample2.bam) from a fixed directory into the working directory for processing.
 
-This execution processes the entire BCF file at once (no genomic region splitting). It’s great for:
+###### 3. variantCalling Process
+* Mock mode is ON: Instead of real variant calling, it generates dummy VCF files per sample with 3 hardcoded variants.
 
-* Benchmarking speed of the filter
+* For both sample1 and sample2, a VCF file is created with:
 
-* Validating correctness of filtering logic
-
-* Producing one consolidated result
-
-▶️ Running main.nf via Nextflow
-
-Command:
-
-```wsl
-nextflow run main.nf
+```rust
+chr1	14653	.	A	G	100	PASS	.	GT	0/1
+chr1	14907	.	A	G	100	PASS	.	GT	0/1
+chr1	15211	.	G	A	100	PASS	.	GT	1/1
 ```
 
-🔍 Output:
+####### 4. mergeVcfs Process
 
-* One BCF files, named:
+* Mock merging: Simply concatenates all generated VCF files.
 
-  * filtered_chr1_1000-1200.bcf
+* Keeps one header and appends all variant records without deduplication or sample separation.
 
-✅ Interpretation:
+##### 📄 Output: results/merged.vcf
 
-* Instead of processing the full file at once, this splits the input by genomic regions (chunks).
+```text
+##fileformat=VCFv4.2
+##source=MockVariantCaller
+##contig=<ID=chr1,length=248956422>
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	sample1
+chr1	14653	.	A	G	100	PASS	.	GT	0/1
+chr1	14907	.	A	G	100	PASS	.	GT	0/1
+chr1	15211	.	G	A	100	PASS	.	GT	1/1
+chr1	14653	.	A	G	100	PASS	.	GT	0/1
+chr1	14907	.	A	G	100	PASS	.	GT	0/1
+chr1	15211	.	G	A	100	PASS	.	GT	1/1
+```
 
-* Each chunk is processed in parallel via the filterVariants process.
+* Contains 6 variants total (3 from sample1, 3 from sample2).
 
-* All filtering is still done using your Rust binary, with the same filtering thresholds.
+* Header only shows one sample column (sample1) due to mock merge simplicity.
 
-* If a chunk has no variants or no variants passing the filters, its corresponding output .bcf may be empty or missing.
+* Duplicate lines reflect repeated variant positions across samples.
 
-🧠 Conclusion and Insights
+#### 🧾 Conclusion
 
-| Execution           | Input Size                | Output Files                                | Parallelism         | Use Case                                      |
-|---------------------|----------------------------|----------------------------------------------|----------------------|-----------------------------------------------|
-| `main.rs` (cargo run) | Full BCF                   | `filtered_output.bcf`                        | Parallel per batch   | Full file filtering, standalone run           |
-| `main.nf` (Nextflow)  | Full BCF split by region   | One output per region: `filtered_<chunk>.bcf` | Parallel per chunk   | Scalable filtering over genomic regions       |
+✅ Your Rust tool (bam_read_counter) successfully processed regions and read counts as intended. It's ready to be incorporated if needed.
 
-🧾 Key Takeaways:
+✅ The Nextflow pipeline ran successfully, handling multiple samples and generating merged results.
 
-* Tool is Modular and Efficient: It's reusable in both standalone and pipeline contexts, and benefits from multithreading.
+🧪 Because you used params.mock = true, no real alignment or variant calling occurred. The variants are just placeholders.
 
-* Nextflow Pipeline Adds Scalability: Makes it easier to split tasks and parallelize across a cluster or local cores.
-
-* You’re Setup for Bigger Datasets: With chunks_file, you can scale to thousands of regions (like full chromosomes or exomes).
-
-* Flexibility: You can update main.nf later to generate regions dynamically, or use actual genomic intervals from .bed or .fai files.
+🔍 The output merged.vcf confirms both samples were processed and their dummy variants were combined.
 
