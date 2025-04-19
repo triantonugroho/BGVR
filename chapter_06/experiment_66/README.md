@@ -30,7 +30,7 @@ In industry, AI engineers and bioinformaticians often adopt these Rust-based wor
   * sample2.bam (sample 2 bam file)
   * output.txt (text file output)
 * experiment_66/target/debug/
-  * interval_query_tool.rar (compressed interval_query_tool execution file output from running main.rs)
+  * coverage_tool.rar (compressed coverage_tool execution file output from running main.rs)
 * experiment_66/src/work/1b/90098e3428a3e74a207b0d7487cc61/
   * coverage_sample2.bam.tsv (tsv coverage sample 2 output file)
 * experiment_66/src/work/1e/e68580ed5054b0a8c2004c5451626c/
