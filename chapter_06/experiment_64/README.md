@@ -17,7 +17,7 @@ Many AI engineers and bioinformaticians have adopted these Rust and Nextflow sol
 #### Files contents:
 * experiment_64/
   * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_63/src/
+* experiment_64/src/
   * main.rs (rust script)
   * main.nf (nextflow script)
   * ref.fasta (reference fasta file as input file)
@@ -27,10 +27,11 @@ Many AI engineers and bioinformaticians have adopted these Rust and Nextflow sol
   * sample2.bam (sample 2 bam file as input file)
   * sample2.bam.bai (indexed sample2.bam file)
   * samples.txt (samples text file as input file)
+  * output.txt (text file output)
 * experiment_64/target/debug/
   * bam_read_counter.rar (compressed bam_read_counter execution file output from running main.rs)
-* experiment_64/src/work/69/fd2fa2cc9f7401386d609c509b0544/
-  * filtered_chr1_1000-1200.bcf (bcf output file from running main.nf)
+* experiment_64/src/results/
+  * merged.vcf (merged vcf output file)
 
 #### How to run:
 
