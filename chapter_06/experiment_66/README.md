@@ -89,10 +89,11 @@ params.mock = true
 
 ```toml
 anyhow = "1.0"
-clap = { version = "4.4", features = ["derive"] }
-env_logger = "0.11.8"
+clap = { version = "4.5", features = ["derive"] }
+env_logger = "0.11"
 log = "0.4"
-rayon = "1.7"
+rayon = "1.10"
+rust-htslib = "0.49.0"
 ```
 
 #### Explanation of the Output
