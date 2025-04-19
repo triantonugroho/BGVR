@@ -49,12 +49,10 @@ In industry, AI engineers and bioinformaticians often adopt these Rust-based wor
 run main.rs in wsl:
 
 ```wsl
-cargo run -- \
-  --intervals 1-10:3 5-25:7 20-40:6 30-32:4 50-60:1 0-5:2 40-70:5 \
-  --queries 1-10 5-25 20-40 30-32 50-60 0-5 40-70 | tee output.txt
+cargo run -- --bam sample1.bam --region chr1:1-32 | tee output.txt
 ```
 
-(run main.rs with intervals and queries parameters and save the output in output.txt)
+(run main.rs with sample1.bam and region chr:1-32 as input parameter and save the output in output.txt)
 
 run main.nf in wsl:
 
@@ -63,9 +61,8 @@ nextflow run main.nf
 ```
 
 run main.nf with this parameters:
-params.bam_list       = 'bams.txt'
-params.ref_intervals  = 'genome_intervals.txt'
-params.parallel_chunck_size = 50000 
+params.sample_list = 'samples.txt'
+params.region     = 'chr1:1-32'
 params.mock = true 
 
 #### [dependencies]
