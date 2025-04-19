@@ -24,42 +24,25 @@ In industry, AI engineers and bioinformaticians often adopt these Rust-based wor
 * experiment_66/src/
   * main.rs (rust script)
   * main.nf (nextflow script)
-  * bams.txt (bams dataset list in text file)
-  * genome_intervals.txt (genome intervals in text file)
+  * ref.fasta (referenca fasta file input of running main.nf)
   * sample1.bam (sample 1 bam file)
+  * sample1.bam.bai (indexed sample1.bam)
   * sample2.bam (sample 2 bam file)
+  * sample2.bam.bai (indexed sample 2 bam file)
+  * samples.txt (bam file list text file)
   * output.txt (text file output)
 * experiment_66/target/debug/
   * coverage_tool.rar (compressed coverage_tool execution file output from running main.rs)
-* experiment_66/src/work/1b/90098e3428a3e74a207b0d7487cc61/
-  * coverage_sample2.bam.tsv (tsv coverage sample 2 output file)
-* experiment_66/src/work/1e/e68580ed5054b0a8c2004c5451626c/
-  * merged_coverage.tsv (tsv merged coverage output file)
-  * query_result_50-60.tsv (tsv query result region 50-60 output file)
-* experiment_66/src/work/5e/4032832140ba89a1a6f61fd225a275/
-  * merged_coverage.tsv (tsv merged coverage output file)
-  * query_result_40-70.tsv (tsv query result region 50-60 output file)
-* experiment_66/src/work/20/8f63f34a73e7b282c8b7ceddf3a14a/
-  * coverage_sample1.bam.tsv (tsv coverage sample 1 output file) 
-* experiment_66/src/work/63/4004f9ab588f91e2b3c2b0cf759ccf/
-  * merged_coverage.tsv (tsv merged coverage output file)
-  * query_result_40-70.tsv (tsv query result region 40-70 output file)
-* experiment_66/src/work/b9/c791cf844bb5d13891840c0ad99942/
-  * merged_coverage.tsv (tsv merged coverage output file)
-  * query_result_20-40.tsv (tsv query result region 20-40 output file)
-* experiment_66/src/work/bc/2072d2366055ffe43d52fc4fd916ef/
-  * merged_coverage.tsv (tsv merged coverage output file)
-  * query_result_1-10.tsv (tsv query result region 1-10 output file) 
-* experiment_66/src/work/e3/68fcb7fdfa6d9564a7f1799986a01b/
-  * merged_coverage.tsv (tsv merged coverage output file)
-  * query_result_0-5.tsv (tsv query result region 0-5 output file) 
-* experiment_66/src/work/ed/a4a1d8967a56e3e735289c62ec5c37/
-  * merged_coverage.tsv (tsv merged coverage output file)
-  * coverage_sample1.bam.tsv (tsv coverage sample 1 output file) 
-  * coverage_sample2.bam.tsv (tsv coverage sample 2 output file) 
-* experiment_66/src/work/f4/04206d570d36efc492253ba1bffe2f/
-  * merged_coverage.tsv (tsv merged coverage output file)
-  * query_result_5-25.tsv (tsv query result region 5-25 output file)
+* experiment_66/src/work/00/0a411925d46014156042e1bea75fb6/
+  * qc_sample2.txt (qc sample 2 text file output of main.nf)
+* experiment_66/src/work/06/d38cf8ad57020c7c201495e34fd2fb/
+  * merged_qc.json (merged qc json file output of main.nf)
+* experiment_66/src/work/34/a224f5da1fa542aa5550573c247af6/
+  * recalibrated_sample2 (recalibrated sample 2 output of main.nf)
+* experiment_66/src/work/94/801ac075db5ca612b281ca49bb37ef/
+  * qc_sample1.txt (qc sample 1 text file output) 
+* experiment_66/src/work/d1/17126f401e8bb379225705f2125c17/
+  * recalibrated_sample1 (recalibrated sample 1 output of main.nf)
 
 #### How to run:
 
