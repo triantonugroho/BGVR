@@ -124,9 +124,10 @@ nextflow run main.nf
 
 🧠 Conclusion and Insights
 
-Execution | Input Size | Output Files | Parallelism | Use Case
-main.rs (cargo run) | Full BCF | filtered_output.bcf | Parallel per batch | Full file filtering, standalone run
-main.nf (Nextflow) | Full BCF split by region | One output per region: filtered_<chunk>.bcf | Parallel per chunk | Scalable filtering over genomic regions
+| Execution           | Input Size                | Output Files                                | Parallelism         | Use Case                                      |
+|---------------------|----------------------------|----------------------------------------------|----------------------|-----------------------------------------------|
+| `main.rs` (cargo run) | Full BCF                   | `filtered_output.bcf`                        | Parallel per batch   | Full file filtering, standalone run           |
+| `main.nf` (Nextflow)  | Full BCF split by region   | One output per region: `filtered_<chunk>.bcf` | Parallel per chunk   | Scalable filtering over genomic regions       |
 
 🧾 Key Takeaways:
 
