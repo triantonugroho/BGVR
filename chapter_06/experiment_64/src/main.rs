@@ -1,9 +1,7 @@
 use anyhow::{Context, Result};
 use clap::Parser;
-use env_logger;
-use log::{error, info};
 use rayon::prelude::*;
-use rust_htslib::bam::{self, IndexedReader, Read};
+use rust_htslib::bam::{IndexedReader, Read};
 use std::path::Path;
 
 /// A structure that keeps track of total and mapped read counts.
@@ -50,11 +48,10 @@ fn process_bam_chunk(bam_path: &str, region: &str) -> Result<ReadCounts> {
 }
 
 fn main() -> Result<()> {
-    env_logger::init(); // Initialize logging
     let cli = Cli::parse();
 
-    info!("Starting parallel read counting on file: {}", cli.bam);
-    info!("Processing regions: {:?}", cli.region);
+    println!("Starting parallel read counting on file: {}", cli.bam);
+    println!("Processing regions: {:?}", cli.region);
 
     // Parallel execution over the specified regions
     let results: Vec<Result<ReadCounts>> = cli.region
@@ -74,13 +71,13 @@ fn main() -> Result<()> {
                 successful_regions += 1;
             }
             Err(e) => {
-                error!("Failed to process region {}: {:?}", region, e);
+                eprintln!("Failed to process region {}: {:?}", region, e);
             }
         }
     }
 
-    info!("Successfully processed {} out of {} regions.", successful_regions, cli.region.len());
-    info!("Total reads: {}, Mapped reads: {}", total_reads, mapped_reads);
+    println!("Successfully processed {} out of {} regions.", successful_regions, cli.region.len());
+    println!("Total reads: {}, Mapped reads: {}", total_reads, mapped_reads);
 
     Ok(())
 }
