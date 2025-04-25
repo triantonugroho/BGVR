@@ -154,4 +154,3 @@ Note: For now, the tool is mocked with echo (not using the Rust binary). The rea
 | **Merging**        | Real logic using JSON deserialization and aggregation | Mocked merging; structure matches real output                      |
 | **Output**         | `global_index.json` with real k-mer counts             | Same file name, but mocked content                                 |
 | **Future**         | Standalone tool                                        | Easily integrates real Rust tool by updating `params.kmer_tool`    |
-|--------------------|--------------------------------------------------------|---------------------------------------------------------------------|
