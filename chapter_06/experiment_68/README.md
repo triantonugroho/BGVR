@@ -20,30 +20,33 @@ In production pipelines, one often adds more robust error handling (e.g., retrie
 * experiment_68/src/
   * main.rs (rust script)
   * main.nf (nextflow script)
-  * ref.fa (reference fasta file input)
-  * ref.fa.fai (indexed ref.fa)
-  * annotations.gff (annotation gff file input)
-  * bams.txt (text file contain bam file name list)
-  * test.vcf (test vcf file)
-  * test1.bam (test 1 bam file input file)
-  * test1.bam.bai (indexed test1.bam)
-  * test1.sam (sam file to make test1.bam file)
-  * test1.sorted.bam.bai (sorted indexed test1.bam file)
+  * coverage_result.txt (coverage result text file output)
+  * bams.txt (text file contain bam file list)
+  * merged_coverage.txt (merged coverage text file output)
+  * regions.txt (region list text file)
+  * test.fa (test fasta file)
+  * test.fa.fai (indexed test.fa)
+  * test.fa.pac (text.fa pac file)
+  * test.fa.sa (test.fa sa file)
+  * test.fq (test fastq file)
+  * test.sam (test sam file to make test1.bam file)
+  * test1.bam (bam file as input file)
+  * test1.bam.bai (indexed test1.bam file)
   * output.txt (text file output)
 * experiment_68/target/debug/
-  * rust_integrate_tool.rar (compressed rust_integrate_tool execution file output from running main.rs)
-* experiment_68/src/work/5a/a130bb1fc0ec5c8c10aaeb3f5e1308/
-  * integrated_test1.bam_split_chr1.bcf.json (integrated tes1.bam_split_chr1.bcf json output file)
+  * rust_coverage_tool.rar (compressed rust_coverage_tool execution file output from running main.rs)
+* experiment_68/src/work/d4/11e6167375d7b5428a9ae72341aa85/
+  * merged_coverage.txt (merged coverage text file output)
 
 #### How to run:
 
 run main.rs in wsl:
 
 ```wsl
-cargo run -- --bam /mnt/c/Users/trian/BGVR/chapter_06/experiment_67/src/test1.bam --bcf /mnt/c/Users/trian/BGVR/chapter_06/experiment_67/src/cohort.bcf --gff /mnt/c/Users/trian/BGVR/chapter_06/experiment_67/src/annotations.gff | tee output.txt
+cargo run -- --bam test1.bam --region chr1:1-100 --out coverage_result.txt
 ```
 
-(run main.rs with test1.bam, cohort.bcf and annotations.gff as input parameter and save the output in output.txt)
+(run main.rs with test1.bam, region chr1:1-100 as input parameter and save the output in coverage_result.txt)
 
 run main.nf in wsl:
 
@@ -52,102 +55,113 @@ nextflow run main.nf
 ```
 
 run main.nf with this parameters:
-params.bam_list = 'bams.txt'
-params.bcf_file = 'cohort.bcf'
-params.gff_file = 'annotations.gff'
-params.bam_dir = '.' // Default to current directory
+params.bam_list     = 'bams.txt'
+params.region_list  = 'regions.txt'
+params.outdir       = '.' // Default to current directory
 
 #### [dependencies]
 
 ```toml
 anyhow = "1.0"
 clap = { version = "4.4", features = ["derive"] }
-env_logger = "0.11.8"
 log = "0.4"
-rayon = "1.8"
+env_logger = "0.11"
 rust-htslib = "0.49.0"
 ```
 
-#### ✅ Explanation of Output and Workflow Execution
-Workflow executed successfully in Nextflow DSL2, and each process produced the expected outputs. Let's walk through what happened and explain the final result.
+#### Explanation of the Output
+##### 🦀 main.rs (Rust program)
+###### ✅ What it does:
+The rust_coverage_tool:
 
-##### 🧩 Workflow Breakdown
-###### 1. splitBcf Process
+1. Takes 3 arguments: --bam, --region, and --out
+2. Opens the BAM file with an index
+3. Fetches all mapped reads in the specified region
+4. Counts how many records (reads) are found
+5. Writes that count (a number) to an output file
 
-* Input: cohort.bcf
-* Action:
-  * Indexed the BCF file.
-  * Extracted each chromosome separately using bcftools view.
-* Output: Files like split_chr1.bcf.
-
-###### 2. integrateData Process
-
-* Inputs:
-  * split_chr1.bcf (from splitBcf)
-  * test1.bam (from bams.txt)
-  * annotations.gff
-* Action:
-  * Ran your Rust tool rust_integrate_tool with the provided BAM, BCF, and GFF.
-  * Inside the tool:
-    * Parsed GFF annotations into a lookup table.
-    * Read all variants from the BCF file.
-    * For each variant:
-      * Queried the BAM file for reads overlapping the variant position to compute coverage.
-      * Matched the variant’s position against annotated regions in the GFF.
-   * Produced a JSON output summarizing coverage and annotations per variant.
-
-* Output:
-integrated_test1.bam_split_chr1.bcf.json, containing this:
-
-```txt
-Loading GFF annotations from annotations.gff
-Starting integrative analysis on BAM: test1.bam, BCF: split_chr1.bcf
-Processed 1 variants.
-Variant: chr1:4 ref=A alt=T coverage=1 annotation=Some("ID=gene1;Name=GeneA")
+###### 🔍 Example:
+```rust
+cargo run -- --bam test1.bam --region chr1:1-100 --out coverage_result.txt
 ```
 
-✔️ This confirms that:
-* The variant at chr1:4 had 1 read covering it.
-* It matched an annotated region: "ID=gene1;Name=GeneA".
+This prints:
 
-###### 3. mergeIntegrations Process
-* Input: One or more integrated_*.json files
-* Action:
-  * Merged the files into a single JSON array.
-* Output: final_integration.json — in this case, just wrapping the single JSON object in brackets [...].
-
-##### 📘 Final Output Structure
-The working directory for integration:
-
-```psql
-work/5a/a130bb1fc0ec5c8c10aaeb3f5e1308/
-├── integrated_test1.bam_split_chr1.bcf.json
-├── split_chr1.bcf
-├── annotations.gff
-├── test1.bam
-├── test1.bam.bai
+```rust
+Computing coverage for region chr1:1-100 in BAM test1.bam
+Coverage result: 1
 ```
 
-And merged result:
+###### 📝 Output file coverage_result.txt contains:
+```text
+1
+```
+
+This means one read overlaps with region chr1:1-100.
+
+##### 🚀 main.nf (Nextflow pipeline)
+###### ✅ What it does:
+1. Reads all BAM paths from bams.txt
+2. Reads all regions from regions.txt
+3. Indexes BAMs with samtools index
+4. Combines each BAM with each region (Cartesian product)
+5. Runs your Rust tool for every BAM/region pair
+6. Collects all coverage output files
+7. Merges them into a single file merged_coverage.txt
+
+###### 📁 Inputs:
+bams.txt contains:
 
 ```text
-final_integration.json  → contains:
-[
-  {
-    chrom: "chr1",
-    pos: 4,
-    ref_allele: "A",
-    alt_allele: "T",
-    coverage: 1,
-    annotation: "ID=gene1;Name=GeneA"
-  }
-]
+test1.bam
 ```
 
+And your regions.txt contains:
+
+```text
+chr1:1-100
+chr1:200-300
+```
+
+→ Total combinations = 1 BAM × 2 regions = 2 runs of rust_coverage_tool.
+
+###### 📦 Output: merged_coverage.txt
+The pipeline creates two coverage output files, like:
+
+* coverage_test1.bam_chr1_1_100.txt → contains 1
+* coverage_test1.bam_chr1_200_300.txt → contains 0
+
+Then the mergeCoverage process runs:
+
+```wsl
+echo "# Merged coverage results" > merged_coverage.txt
+cat coverage_* >> merged_coverage.txt
+```
+
+✅ So your merged_coverage.txt will be:
+
+```text
+# Merged coverage results
+1
+0
+```
+
+That just means the file order may vary depending on file system order — both are correct.
+
+#### ✅ Final Summary
+
+main.rs:
+* Works as expected — reads a BAM, counts alignments overlapping a region, and outputs a count.
+
+main.nf:
+* Runs main.rs for every BAM/region pair, collects all results, and merges them.
+
+##### 🎯 Output explanation:
+* Each line after the header is the read count in one region.
+* A 0 means no reads aligned to that region.
+* A 1 means one read was aligned.
+
 #### ✅ Conclusion
-🔄 The pipeline correctly split the BCF, indexed the BAM, annotated and calculated coverage using the Rust tool.
-
-📦 The final JSON output is suitable for downstream analysis, such as visualization or machine learning input.
-
-🧪 This pipeline is now modular and reproducible for any combination of BAM + BCF + GFF files.
-
+* Your Rust coverage tool is functioning correctly.
+* Your Nextflow pipeline successfully automates running this tool over multiple BAMs/regions.
+* The output merged_coverage.txt shows the read counts per region, matching expectations.
