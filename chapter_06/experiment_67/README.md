@@ -19,7 +19,7 @@ Finally, the mergeIntegrations stage uses a hypothetical rust_merge_integration 
 #### Files contents:
 * experiment_67/
   * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_66/src/
+* experiment_67/src/
   * main.rs (rust script)
   * main.nf (nextflow script)
   * ref.fa (reference fasta file input)
