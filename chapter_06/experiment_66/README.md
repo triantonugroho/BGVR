@@ -24,7 +24,7 @@ In industry, AI engineers and bioinformaticians often adopt these Rust-based wor
 * experiment_66/src/
   * main.rs (rust script)
   * main.nf (nextflow script)
-  * ref.fasta (referenca fasta file input of running main.nf)
+  * ref.fasta (reference fasta file input of running main.nf)
   * sample1.bam (sample 1 bam file)
   * sample1.bam.bai (indexed sample1.bam)
   * sample2.bam (sample 2 bam file)
