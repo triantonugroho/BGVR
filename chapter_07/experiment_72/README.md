@@ -94,7 +94,7 @@ This tool builds a global k-mer frequency index from a reference DNA sequence.
 * global_index.json: JSON object mapping each valid k-mer to its total count across the whole sequence.
 
 ###### 📄 Example (simplified):
-```json
+```text
 {
   "ACGTACGTACGTACGTACGTACGTACGTACG": 7,
   "GTACGTACGTACGTACGTACGTACGTACGTA": 6,
