@@ -100,7 +100,7 @@ This tool builds a global k-mer frequency index from a reference DNA sequence.
 }
 ```
 
-##### 🚀 main.nf (Nextflow Workflow)
+##### 🚀 main.nf (Nextflow Workflow) 
 This orchestrates the full pipeline — chunking, indexing, and merging — using the same logic.
 
 ###### ✅ Processes:
