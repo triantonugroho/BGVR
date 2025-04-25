@@ -132,7 +132,7 @@ work/5a/a130bb1fc0ec5c8c10aaeb3f5e1308/
 
 And merged result:
 
-```json
+```text
 final_integration.json  → contains:
 [
   {
