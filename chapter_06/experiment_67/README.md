@@ -101,7 +101,7 @@ Workflow executed successfully in Nextflow DSL2, and each process produced the e
 * Output:
 integrated_test1.bam_split_chr1.bcf.json, containing this:
 
-```json
+```txt
 Loading GFF annotations from annotations.gff
 Starting integrative analysis on BAM: test1.bam, BCF: split_chr1.bcf
 Processed 1 variants.
