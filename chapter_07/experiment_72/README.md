@@ -16,31 +16,42 @@ In real pipelines, ephemeral tasks reduce overhead by releasing resources once e
 * experiment_72/src/
   * main.rs (rust script)
   * main.nf (nextflow script)
-  * bams.txt (text file contain sorted bam file list)
-  * cohort.vcf (cohort vcf file)
-  * regions.txt (region list text file)
-  * sample1.sam (sample 1 sam file to make sample1.bam file)
-  * sample1.bam (sample 1 bam file as input file)
-  * sample1.sorted.bam.bai (indexed sorted sample 1 bam file)
-  * sample2.sam (sample 2 sam file to make sample1.bam file)
-  * sample2.bam (sample 2 bam file as input file)
-  * sample2.sorted.bam.bai (indexed sorted sample 2 bam file)
-  * variants.vcf (variants vcf file)
+  * chunk.fa (chunk fasta file)
+  * global_index.json (global index json file)
+  * reference.fa (reference fasta file)
   * output.txt (text file output)
+* experiment_72/src/results/
+  * global_index.json (global index json file)
+* experiment_72/src/results/chunks/chunks/
+  * chunk_1.fa (chunk 1 fasta file)
+  * chunk_2.fa (chunk 2 fasta file)
+* experiment_72/src/results/partial/
+  * partial_chunk_1.json (partial chunk 1 json file)
+  * partial_chunk_2.json (partial chunk 2 json file)
+* experiment_72/src/work/33/cc1fbef1912089717cf0d3e337111e/
+  * partial_chunk_2.json (partial chunk 2 json file)
+  * partial_chunk_2.json.log (partial_chunk_2.json log file)
+* experiment_72/src/work/5a/9ce2912e213429dbba2ebc421864e5/chunks/
+  * partial_chunk_2.json (partial chunk 2 json file)
+  * partial_chunk_2.json.log (partial_chunk_2.json log file)
+* experiment_72/src/work/82/2011b7128a4e8b4f0d28e1b258e456/
+  * partial_chunk_1.json (partial chunk 1 json file)
+  * partial_chunk_1.json.log (partial_chunk_1.json log file)
+* experiment_72/src/work/bb/10e3ba6da801c94840008636bebf94/
+  * global_index.json (global index json file)
+  * merge_command.log (merge command log file)
 * experiment_72/target/debug/
-  * rust_noodles_tool.rar (compressed rust_noodles_tool execution file output from running main.rs)
-* experiment_72/src/work/fc/c33468689ba766ec2e2b2e5f570587/
-  * coverage_ouput.txt (overage text file output)
+  * rust_kmer_index_tool.rar (compressed rust_kmer_index_tool execution file output from running main.rs)
 
 #### How to run:
 
 run main.rs in wsl:
 
 ```wsl
-cargo run -- --vcf-file cohort.vcf --bam-files sample1.sorted.bam,sample2.sorted.bam | tee output.txt
+cargo run -- --input reference.fa --output global_index.json | tee output.txt
 ```
 
-(run main.rs with cohort.vcf, sample1.sorted.bam and sample2.sorted.bam as input parameter and save the output in coverage_output.txt)
+(run main.rs with reference.fa as input parameter and global_index.json as output file and save the output text as output.txt)
 
 run main.nf in wsl:
 
@@ -49,94 +60,98 @@ nextflow run main.nf
 ```
 
 run main.nf with this parameters:
-params.bam_list = "bams.txt"
-params.vcf_file = "cohort.vcf"
-params.rust_bin = "/mnt/c/Users/trian/BGVR/chapter_07/experiment_71/target/debug"
+params.ref_file      = 'reference.fa'
+params.kmer_length   = 31
+params.chunk_size    = 1000000
+params.outdir        = 'results'
+params.threads       = Runtime.runtime.availableProcessors()
 
 #### [dependencies]
 
 ```toml
-noodles = { version = "0.5", features = ["bam", "core", "vcf"] }
-rayon = "1.5.1"
-clap = { version = "4", features = ["derive"] }
+clap = { version = "4.5", features = ["derive"] }
+rayon = "1.8"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
-log = "0.4"
-env_logger = "0.11.8"
-thiserror = "2.0.12"
-anyhow = "1.0"
 ```
 
 #### Explanation of the Output
-##### ✅ main.rs Explanation (Rust CLI Tool)
-This Rust program performs basic BAM file parsing using the noodles crate, and it’s structured as a CLI tool. Here's what happens when it's executed:
+##### 🔍 Main Output Explanation
+###### 🦀 main.rs (Rust CLI Tool)
+This tool builds a global k-mer frequency index from a reference DNA sequence.
 
-######💡 Input Parameters:
-* --vcf-file cohort.vcf: Not parsed (VCF parsing is not enabled yet, just logged).
-* --bam-files sample1.sorted.bam,sample2.sorted.bam: Comma-separated paths of BAM files to be processed in parallel using Rayon.
+##### ✅ Key Steps and Output:
+1. Reads reference.fa:
+   * Contains DNA sequences.
+2. Splits into overlapping chunks (in memory):
+   * Each chunk of size 1,000,000 bp with overlap of k-1 = 30 bp to ensure k-mers are not split across boundaries.
+3. Generates partial indexes in parallel:
+   * Using Rayon threads, k-mers (length 31) are extracted and counted per chunk.
+4. Merges partial indexes:
+   * Final global map is written as global_index.json.
 
-###### 🧠 Main Workflow:
-1. Logging Init: Logging is initialized via env_logger.
-2. Argument Parsing: The CLI args are parsed using clap.
-3. VCF Handling: It simply logs that the VCF file is acknowledged, but real parsing is skipped (VCF feature not enabled).
-4. Parallel BAM Processing:
-   * Each BAM file is opened with noodles::bam::Reader.  
-   * It reads headers and reference sequences.
-   * For each BAM:
-     * Logs header and up to 2 reference sequences.
-     * Reads records one by one, printing the first 5 records’ positions, MAPQ, and CIGAR.
-     * Counts the total number of records read.
-5. Final line confirms all BAMs have been processed.
+##### ✅ Output:
+* global_index.json: JSON object mapping each valid k-mer to its total count across the whole sequence.
 
-##### ✅ main.nf Explanation (Nextflow Pipeline)
-Nextflow script wraps the above binary and controls its execution in a reproducible workflow.
-
-###### 💡 Parameters Used:
-* params.bam_list = "bams.txt": List of BAM files (line-separated).
-* params.vcf_file = "cohort.vcf": Single VCF file path.
-* params.rust_bin = "/mnt/c/.../debug": Folder containing the compiled binary rust_noodles_coverage.
-
-###### 🧠 Process rustCoverageRunner:
-* Input:
-  * bams.txt (as bam_list_file)
-  * cohort.vcf
-* The bam_list_file is converted into a comma-separated string using:
-
-```wsl
-BAM_FILES=$(cat bams.txt | tr '\n' ',' | sed 's/,$//')
+###### 📄 Example (simplified):
+```json
+{
+  "ACGTACGTACGTACGTACGTACGTACGTACG": 7,
+  "GTACGTACGTACGTACGTACGTACGTACGTA": 6,
+  ...
+}
 ```
 
-* The binary is executed like this:
+##### 🚀 main.nf (Nextflow Workflow)
+This orchestrates the full pipeline — chunking, indexing, and merging — using the same logic.
 
-```wsl
-rust_noodles_coverage --vcf-file cohort.vcf --bam-files "sample1.sorted.bam,sample2.sorted.bam"
+###### ✅ Processes:
+1. chunkReference:
+   * Uses awk to split the FASTA file into chunks with overlap.
+   * Output: chunks/chunk_1.fa, chunks/chunk_2.fa, ...
+2. buildPartialIndex:
+   * For each chunk, creates a partial JSON with fake (mocked) k-mer counts.
+   * Output: partial_chunk_1.json, partial_chunk_2.json, ...
+3. mergeIndexes:
+   * Mocks a merged index file from all partial JSONs.
+   * Output: global_index.json
+
+Note: For now, the tool is mocked with echo (not using the Rust binary). The real tool can later replace the mock command with the compiled binary.
+
+##### 📄 Example (mocked output):
+* partial_chunk_1.json
+
+```json
+{
+  "kmers": {
+    "ACGT": 5,
+    "CGTG": 3,
+    "GTAC": 2
+  }
+}
 ```
 
-* Output is redirected to coverage_output.txt.
+* global_index.json
 
-###### 📤 Output: coverage_output.txt
-Contents:
-
-```txt
-Starting BAM processing application...
-VCF file noted: cohort.vcf (VCF processing not enabled)
-Add 'vcf' to noodles features in Cargo.toml to enable VCF processing
-Processing 2 BAM files...
-Processing BAM file: sample1.sorted.bam
-Processing BAM file: sample2.sorted.bam
-Processing completed successfully
+```json
+{
+  "kmers": {
+    "ACGT": 10,
+    "CGTG": 6,
+    "GTAC": 4,
+    "TACG": 3
+  }
+}
 ```
-
-This is expected based on the println!() calls in your Rust main.rs. Because BAM parsing is done, but only limited record info is printed, the output is minimal.
 
 #### ✅ Conclusion
-✅ Integration Success: Your Rust binary was successfully integrated into a Nextflow pipeline.
 
-✅ Inputs Correctly Wired: bams.txt was read and transformed properly into CLI format for Rust tool.
-
-✅ Parallelism Works: Your BAM files were processed in parallel inside main.rs using Rayon.
-
-⚠️ VCF Functionality Not Implemented: Your tool acknowledges the VCF but doesn’t use it yet—future feature.
-
-📁 Output Location: Since Nextflow runs in isolated work directories, the output coverage_output.txt appears in a work subfolder (experiment_71/src/work/fc/...), and can be collected later with publishDir or saved explicitly.
-
+| **Feature**        | **main.rs (Rust binary)**                              | **main.nf (Nextflow workflow)**                                     |
+|--------------------|--------------------------------------------------------|---------------------------------------------------------------------|
+| **Chunking**       | In-memory overlapping chunks                           | File-based FASTA chunks using `awk`                                |
+| **Parallelism**    | Rayon threads for concurrent processing                | Nextflow manages CPU resource allocation per process               |
+| **K-mer Indexing** | Real implementation using `HashMap`                    | Mocked for now (replaceable with actual tool via `params.kmer_tool`)|
+| **Merging**        | Real logic using JSON deserialization and aggregation | Mocked merging; structure matches real output                      |
+| **Output**         | `global_index.json` with real k-mer counts             | Same file name, but mocked content                                 |
+| **Future**         | Standalone tool                                        | Easily integrates real Rust tool by updating `params.kmer_tool`    |
+|--------------------|--------------------------------------------------------|---------------------------------------------------------------------|
