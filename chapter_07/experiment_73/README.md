@@ -31,6 +31,8 @@ The container myrust/memmap_hpc:latest would be built from a Dockerfile containi
   * merged_coverage.txt (merged coverage text file)
 * experiment_73/src/work/3c/ce826d0fe2f99d1898cc9ccd3d1848/
   * coverage_chr1_1-35.txt
+* experiment_73/src/work/85/6c50065cc9040245807fb8547d997e/
+  * coverage_chr2_1-35.txt
 * experiment_73/target/release/
   * rust_mmap_tool.rar (compressed rust_mmap_tool execution file output from running main.rs)
 
@@ -39,10 +41,10 @@ The container myrust/memmap_hpc:latest would be built from a Dockerfile containi
 run main.rs in wsl:
 
 ```wsl
-cargo run -- --input reference.fa --output global_index.json | tee output.txt
+cargo run -- --reference reference.fasta --region chr1:1-35 --output output.json --threads 4 --verbose | tee output.txt
 ```
 
-(run main.rs with reference.fa as input parameter and global_index.json as output file and save the output text as output.txt)
+(run main.rs with reference.fasta, region chr:1-35, threads = 4 and verbose as input parameter and output.json as output file and save the output text as output.txt)
 
 run main.nf in wsl:
 
@@ -51,16 +53,21 @@ nextflow run main.nf
 ```
 
 run main.nf with this parameters:
-params.ref_file      = 'reference.fa'
-params.kmer_length   = 31
-params.chunk_size    = 1000000
-params.outdir        = 'results'
-params.threads       = Runtime.runtime.availableProcessors()
+params.reference = 'reference.fasta'
+params.region_list = 'regions.txt'
+params.output_dir = 'results'
+params.threads = Runtime.runtime.availableProcessors()
+params.memory = '2.GB'
+params.container_version = 'latest'
 
 #### [dependencies]
 
 ```toml
-clap = { version = "4.5", features = ["derive"] }
+anyhow = "1.0"
+clap = { version = "4.4", features = ["derive"] }
+log = "0.4"
+env_logger = "0.11"
+memmap2 = "0.9.5"
 rayon = "1.8"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
