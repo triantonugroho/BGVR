@@ -74,82 +74,104 @@ serde_json = "1.0"
 ```
 
 #### Explanation of the Output
-##### 🔍 Main Output Explanation
-###### 🦀 main.rs (Rust CLI Tool)
-This tool builds a global k-mer frequency index from a reference DNA sequence.
+##### ✅ main.rs – Rust-based Genomic Analyzer
+###### 📥 Input Parameters
+You passed these CLI arguments:
 
-##### ✅ Key Steps and Output:
-1. Reads reference.fa:
-   * Contains DNA sequences.
-2. Splits into overlapping chunks (in memory):
-   * Each chunk of size 1,000,000 bp with overlap of k-1 = 30 bp to ensure k-mers are not split across boundaries.
-3. Generates partial indexes in parallel:
-   * Using Rayon threads, k-mers (length 31) are extracted and counted per chunk.
-4. Merges partial indexes:
-   * Final global map is written as global_index.json.
+```wsl
+--reference reference.fasta 
+--region chr1:1-35 
+--threads 4 
+--verbose
+```
 
-##### ✅ Output:
-* global_index.json: JSON object mapping each valid k-mer to its total count across the whole sequence.
+###### 🔍 What it does:
+* Memory maps the FASTA file (reference.fasta) using memmap2 for fast access.
+* Parses the file and counts GC content (Guanine + Cytosine bases).
+* Filters based on optional --region (in your case, "chr1:1-35").
+* Computes:
+  * GC content
+  * Sequence length
+* Outputs results in JSON format if --output is specified, and prints log info.
 
-###### 📄 Example (simplified):
+##### 📤 Output Files
+* output.json:
+
+```json
+{
+  "region": "chr1:1-35",
+  "gc_content": 0.5142857142857142,
+  "sequence_length": 70
+}
+```
+
+Interpretation: For region chr1:1-35, ~51.4% of the bases are G or C, and the total base count is 70.
+
+* output.txt (stdout/stderr logs):
+
 ```text
-{
-  "ACGTACGTACGTACGTACGTACGTACGTACG": 7,
-  "GTACGTACGTACGTACGTACGTACGTACGTA": 6,
-  ...
-}
+Processing file: "reference.fasta"
+Found 2 sequences in FASTA
+Results written to "output.json"
+Analysis completed in 37.94141ms
 ```
 
-##### 🚀 main.nf (Nextflow Workflow) 
-This orchestrates the full pipeline — chunking, indexing, and merging — using the same logic.
+##### ✅ main.nf – Nextflow Workflow Pipeline
+This wraps your tool in a scalable, multi-region pipeline.
 
-###### ✅ Processes:
-1. chunkReference:
-   * Uses awk to split the FASTA file into chunks with overlap.
-   * Output: chunks/chunk_1.fa, chunks/chunk_2.fa, ...
-2. buildPartialIndex:
-   * For each chunk, creates a partial JSON with fake (mocked) k-mer counts.
-   * Output: partial_chunk_1.json, partial_chunk_2.json, ...
-3. mergeIndexes:
-   * Mocks a merged index file from all partial JSONs.
-   * Output: global_index.json
+###### 🧾 What it does step-by-step:
+1. Reads config:
+   * Input FASTA file
+   * List of regions (e.g., chr1:1-35, chr2:1-35)
+   * Sets threads, memory, and output directory
+2. Creates a dummy tool (dummy_tool.sh) just to simulate output from rust_mmap_tool (for testing).
+3. Runs coverage mapping in parallel: For each region:
+   * Calls the dummy tool (simulating your real tool)
+   * Produces a file: coverage_chr1_1-35.txt, coverage_chr2_1-35.txt
+4. Merges coverage outputs:
+   * Combines all region files into merged_coverage.txt
+   * Computes summary stats in coverage_summary.json via inline Python
 
-Note: For now, the tool is mocked with echo (not using the Rust binary). The real tool can later replace the mock command with the compiled binary.
+###### 📤 Nextflow Output Files
+* coverage_chr1_1-35.txt, coverage_chr2_1-35.txt:
 
-##### 📄 Example (mocked output):
-* partial_chunk_1.json
+```text
+chr1:1-35 10
+chr1:1-35 15
+chr1:1-35 20
+```
+
+* merged_coverage.txt:
+
+```text
+chr2:1-35 10
+chr2:1-35 15
+chr2:1-35 20
+chr1:1-35 10
+chr1:1-35 15
+chr1:1-35 20
+```
+
+* coverage_summary.json:
 
 ```json
 {
-  "kmers": {
-    "ACGT": 5,
-    "CGTG": 3,
-    "GTAC": 2
-  }
-}
-```
-
-* global_index.json
-
-```json
-{
-  "kmers": {
-    "ACGT": 10,
-    "CGTG": 6,
-    "GTAC": 4,
-    "TACG": 3
-  }
+  "total_regions": 6,
+  "min_coverage": 10,
+  "max_coverage": 20,
+  "mean_coverage": 15,
+  "median_coverage": 15.0
 }
 ```
 
 #### ✅ Conclusion
 
-| **Feature**        | **main.rs (Rust binary)**                              | **main.nf (Nextflow workflow)**                                     |
-|--------------------|--------------------------------------------------------|---------------------------------------------------------------------|
-| **Chunking**       | In-memory overlapping chunks                           | File-based FASTA chunks using `awk`                                |
-| **Parallelism**    | Rayon threads for concurrent processing                | Nextflow manages CPU resource allocation per process               |
-| **K-mer Indexing** | Real implementation using `HashMap`                    | Mocked for now (replaceable with actual tool via `params.kmer_tool`)|
-| **Merging**        | Real logic using JSON deserialization and aggregation | Mocked merging; structure matches real output                      |
-| **Output**         | `global_index.json` with real k-mer counts             | Same file name, but mocked content                                 |
-| **Future**         | Standalone tool                                        | Easily integrates real Rust tool by updating `params.kmer_tool`    |
-
+| Aspect             | `main.rs` (Rust)                                      | `main.nf` (Nextflow)                                                                |
+|--------------------|--------------------------------------------------------|--------------------------------------------------------------------------------------|
+| **Language**        | Rust                                                  | Groovy-based DSL2                                                                   |
+| **Purpose**         | Single-region FASTA analyzer                         | Orchestrates multi-region analysis with merging + summary                           |
+| **Input**           | CLI: `--region`, `--reference`, `--threads`          | Configurable parameters + region list file                                          |
+| **Output**          | JSON result with GC content and sequence length       | Per-region coverage files + merged coverage + JSON summary                          |
+| **Runtime**         | Manual, per-region                                    | Automated, parallel execution across multiple regions                               |
+| **Current Tool Used** | `rust_mmap_tool`                                   | Simulated with `dummy_tool.sh`, replaceable with real binary path                   |
+| **Next Step**       | Continue with compiled `rust_mmap_tool`              | Update `createTool` to emit real tool from path `/mnt/c/.../rust_mmap_tool`         |
