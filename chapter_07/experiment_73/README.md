@@ -16,32 +16,23 @@ The container myrust/memmap_hpc:latest would be built from a Dockerfile containi
 * experiment_73/src/
   * main.rs (rust script)
   * main.nf (nextflow script)
-  * chunk.fa (chunk fasta file)
-  * global_index.json (global index json file)
-  * reference.fa (reference fasta file)
+  * output.json (output json file)
+  * reference.fasta (reference fasta file)
+  * regions.txt (text file contain regions list)
   * output.txt (text file output)
 * experiment_73/src/results/
-  * global_index.json (global index json file)
-* experiment_72/src/results/chunks/chunks/
-  * chunk_1.fa (chunk 1 fasta file)
-  * chunk_2.fa (chunk 2 fasta file)
-* experiment_73/src/results/partial/
-  * partial_chunk_1.json (partial chunk 1 json file)
-  * partial_chunk_2.json (partial chunk 2 json file)
-* experiment_73/src/work/33/cc1fbef1912089717cf0d3e337111e/
-  * partial_chunk_2.json (partial chunk 2 json file)
-  * partial_chunk_2.json.log (partial_chunk_2.json log file)
-* experiment_73/src/work/5a/9ce2912e213429dbba2ebc421864e5/chunks/
-  * partial_chunk_2.json (partial chunk 2 json file)
-  * partial_chunk_2.json.log (partial_chunk_2.json log file)
-* experiment_73/src/work/82/2011b7128a4e8b4f0d28e1b258e456/
-  * partial_chunk_1.json (partial chunk 1 json file)
-  * partial_chunk_1.json.log (partial_chunk_1.json log file)
-* experiment_73/src/work/bb/10e3ba6da801c94840008636bebf94/
-  * global_index.json (global index json file)
-  * merge_command.log (merge command log file)
-* experiment_73/target/debug/
-  * rust_kmer_index_tool.rar (compressed rust_kmer_index_tool execution file output from running main.rs)
+  * coverage_summary.json (coverage summary json file)
+  * merged_coverage.txt (merged coverage text file)
+* experiment_73/src/results/coverage/
+  * coverage_chr1_1-35.txt (coverage chr1:1-35 text file)
+  * coverage_chr2_1-35.txt (coverage chr2:1-35 text file)
+* experiment_73/src/work/1c/8c60423d87cbc4142ff5a7042fa078/
+  * coverage_summary.json (coverage summary json file)
+  * merged_coverage.txt (merged coverage text file)
+* experiment_73/src/work/3c/ce826d0fe2f99d1898cc9ccd3d1848/
+  * coverage_chr1_1-35.txt
+* experiment_73/target/release/
+  * rust_mmap_tool.rar (compressed rust_mmap_tool execution file output from running main.rs)
 
 #### How to run:
 
