@@ -61,10 +61,9 @@ nextflow run main.nf
 ```
 
 run main.nf with this parameters:
-anyhow = "1.0"
-clap = { version = "4.5", features = ["derive"] }
-rayon = "1.10"
-rust-htslib = "0.49.0"
+params.sample_list = 'samples.txt'
+params.region     = 'chr1:1-32'
+params.mock = true  // Set to true to use mock commands for testing
 
 #### [dependencies]
 
