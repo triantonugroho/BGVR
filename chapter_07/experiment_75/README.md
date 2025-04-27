@@ -82,7 +82,7 @@ What happens in main.rs:
 4. Output:
    * A JSON object like this:
 
-```json
+```text
 {
   "reference_name": "chr1",
   "start": 10000,
@@ -116,7 +116,7 @@ What happens in main.nf:
      * Closing with ]
   * Since you only have one sample (test.bam), the result is a JSON array with one object inside:
 
-```json
+```text
 [
   {
     "reference_name": "chr1",
