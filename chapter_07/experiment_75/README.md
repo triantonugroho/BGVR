@@ -22,32 +22,28 @@ In this Nextflow script, coverageCalc is invoked once for each combination of BA
 * experiment_75/src/
   * main.rs (rust script)
   * main.nf (nextflow script)
-  * merged.vcf (merged vcf file as output file after running main.rs)
-  * output.json (output json file)
-  * sample1.vcf (sample 1 vcf file as input file)
-  * sample2.vcf (sample 2 vcf file as input file)
-  * vcf_list.txt (text file contain vcf file list) 
+  * test.bam (test bam file)
+  * test.bam.bai (indexed test.bam file)
+  * test.sam (test sam file to make test.bam file)
   * output.txt (text file output)
-* experiment_75/src/results/
-  * merged_vcf.bcf (merged vcf bcf file as output file after running main.nf)
-  * pipeline_report.html (pipeline report html file as output file after running main.nf)
-* experiment_75/src/work/0a/2d77eea602eedc6fe33279113344e1/
-  * pipeline_report.html (pipeline report html file as output file after running main.nf)
-* experiment_75/src/work/85/5ef3143a9d19c98e673a43cae7e651/
-  * local_vcf_list.txt (text file contain local vcf list)
-  * merged_vcf.bcf (merged vcf bcf file as output file after running main.nf)
+* experiment_75/src/work/65/54b3be71f96f81cbb7987c87cd42f1/
+  * test.coverage.json (test coverage json file)
+* experiment_75/src/work/f0/c029dbc59728cf12ca4ea10d38edb5/
+  * test.coverage.json (test coverage json file)
+* experiment_75/src/work/fb/a19c2d0203adcbff8bc1a8c54dc6c6/
+  * merged_coverage.json (merged coverage json file)
 * experiment_75/target/debug/
-  * rust_vcf_merge_tool.rar (compressed rust_vcf_merge_tool execution file output from running main.rs)
+  * rust_coverage_tool.rar (compressed rust_coverage_tool execution file output from running main.rs)
 
 #### How to run:
 
 run main.rs in wsl:
 
 ```wsl
-cargo run -- --vcf-list vcf_list.txt --out merged.vcf --threads 4 --format bcf | tee output.txt
+cargo run | tee output.txt
 ```
 
-(run main.rs with vcf_list.txt using 4 threads as input parameter and merged.vcf as output file and formatted to bcf file and save the text output in output.txt)
+(run main.rs and save the text output in output.txt)
 
 run main.nf in wsl:
 
@@ -55,87 +51,95 @@ run main.nf in wsl:
 nextflow run main.nf
 ```
 
-run main.nf with this parameters:
-params.sample_list = 'vcf_list.txt'
-params.output_vcf = 'merged.vcf'
-params.threads = 4
-params.format = 'bcf'
-params.tool_path = "/mnt/c/Users/trian/BGVR/chapter_07/experiment_74/target/debug/rust_vcf_merge_tool"
+run main.nf and create test_coverage.json and merged_coverage.json
 
 #### [dependencies]
 
 ```toml
-anyhow = "1.0"
-clap = { version = "4.0", features = ["derive"] }
-rayon = "1.5"
-rust-htslib = "0.49"
-env_logger = "0.11.8"
-log = "0.4"
+noodles-bam = "0.5"
+noodles-core = "0.5"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
 ```
 
 #### Explanation of the Output
-##### 🦀 main.rs (Rust): Output Explanation
-This file contains a Rust program designed to merge multiple VCF files into a single, multi-sample VCF or BCF. When executed, it produces:
+##### 🛠 main.rs (Rust Program)
 
-###### 🔹 merged.vcf or merged.bcf
-* Created by the rust_vcf_merge_tool.
-* The merged output of all VCF files listed in vcf_list.txt.
-* Stored in the working directory or wherever the --out parameter points to.
-* The example you gave used BCF format (--format bcf), resulting in:
+What happens in main.rs:
 
-```text
-merged_vcf.bcf
+1. Input:
+   * test.bam (BAM file) and test.bam.bai (its BAI index).
+2. Settings:
+   * Region: chr1:10000-10100.
+3. Processing:
+   * Opens and reads the BAM file manually record by record (not using random access).
+   * Filters only records that:
+     * Map to chr1.
+     * Overlap with 10000..=10100.
+   * Calculates coverage:
+     * For each position between 10000 and 10100, counts how many reads cover that position.
+     * Coverage is an array of 101 elements (because 101 positions from 10000 to 10100 inclusive).
+4. Output:
+   * A JSON object like this:
+
+```json
+{
+  "reference_name": "chr1",
+  "start": 10000,
+  "end": 10100,
+  "coverage": [0, 0, 0, 0, ..., 1, 1, 0, 0, ..., 0]
+}
 ```
 
-###### 🔹 output.txt (stdout)
-* Contains a log message from the tool:
+* This output is exactly what you saved in test_coverage.json.
 
-```text
-Merge completed in 28 ms
+###### ✅ Main point:
+The Rust program produces the coverage profile over chr1:10000-10100, and prints it to JSON.
+
+##### 🛠 main.nf (Nextflow Workflow)
+
+What happens in main.nf:
+
+1. Input:
+   * Takes BAM + BAI file pairs — in your example, only test.bam and test.bam.bai.
+
+2. Step 1: RUN_COVERAGE:
+   * For each BAM:
+     * Runs your Rust tool.
+     * Saves output JSON to ${sample_id}.coverage.json (here it becomes test_coverage.json).
+3. Step 2: MERGE_COVERAGE:
+   * Merges all individual JSON outputs into one single file called merged_coverage.json.
+   * It does this by:
+     * Opening a bracket [
+     * Appending each JSON
+     * Adding commas between them
+     * Closing with ]
+  * Since you only have one sample (test.bam), the result is a JSON array with one object inside:
+
+```json
+[
+  {
+    "reference_name": "chr1",
+    "start": 10000,
+    "end": 10100,
+    "coverage": [...]
+  }
+]
 ```
 
-* Shows successful completion and performance timing.
+###### ✅ Main point:
+The Nextflow workflow automates running the Rust tool on multiple samples and merging results into a clean JSON array.
 
-##### 🧬 main.nf (Nextflow): Output Explanation
-This file defines a Nextflow pipeline that automates the execution of the Rust merging tool and then generates a simple HTML report.
+#### 📋 Summary Table
 
-###### 🔹 Workflow Breakdown
-###### ✅ Step 1: mergeVCF process
-* Takes:
-  * vcf_list.txt (VCF paths)
-  * All .vcf files in the same directory
-* Writes local_vcf_list.txt (a new list with local paths) to ensure compatibility with the Rust tool.
-  * Runs the compiled Rust binary rust_vcf_merge_tool
-  * Produces:
-    * merged_vcf.bcf
+| Program         | Input Files         | Output Files                  | Content Description                        |
+|-----------------|----------------------|--------------------------------|--------------------------------------------|
+| `main.rs` (Rust) | `test.bam`, `test.bam.bai` | Console output, `test_coverage.json` | Coverage over `chr1:10000–10100`, 1 BAM file |
+| `main.nf` (Nextflow) | `test.bam`, `test.bam.bai` | `test_coverage.json`, `merged_coverage.json` | Same coverage result, but merged into a JSON array |
 
-###### ✅ Step 2: generateReport process
-* Takes:
-  * merged_vcf.bcf from the previous step
-  * Runs a reporting command (simulated with fallback HTML generation)
-* Produces:
-  * pipeline_report.html
+#### 📢 Conclusion
 
-###### 📂 Output Directory: /mnt/c/Users/trian/BGVR/chapter_07/experiment_74/src/results/
-You will find:
-* merged_vcf.bcf – The merged variant file
-* pipeline_report.html – A simple HTML summary
-
-```html
-<html><body><h1>Report for merged_vcf.bcf</h1><p>Processing complete.</p></body></html>
-```
-
-#### ✅ Conclusion
-You have successfully:
-
-* 📦 Written a Rust CLI tool to efficiently merge VCF files.
-
-* 🔄 Wrapped the tool in a Nextflow pipeline to automate and scale the merging + reporting process.
-
-* 🧪 Verified correct functionality with structured output:
-
-  * The merge was completed (merged_vcf.bcf)
-  * A simple report was generated (pipeline_report.html)
-
-This setup is now modular, reproducible, and ready to handle more complex VCF workflows or plug into larger bioinformatics pipelines.
-
+* Both main.rs and main.nf produce exactly the same per-sample coverage JSON (test_coverage.json).
+* main.nf just automates running main.rs for multiple BAM files, and merges results into a single merged_coverage.json.
+* Since you only have one BAM (test.bam), merged_coverage.json just contains a single object inside an array.
+* ✅ The content of the outputs matches — your Rust program and Nextflow workflow are working correctly and consistently.
