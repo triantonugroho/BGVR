@@ -121,7 +121,7 @@ $$
 p = \frac{(2 \times \text{count}(AA) + \text{count}(AB))}{2 \times \text{total samples}}
 $$
 
-Substitusi nilai:
+Substituting values:
 
 $$
 p = \frac{(2 \times 1) + 1}{2 \times 3} = \frac{3}{6} = 0.5
@@ -129,7 +129,7 @@ $$
 
 ---
 
-### Expected Counts
+### Expected Genotype Counts
 
 - Homozygous Reference (AA, `0/0`):
 
@@ -159,7 +159,7 @@ $$
 \chi^2 = \sum \frac{(\text{Observed} - \text{Expected})^2}{\text{Expected}}
 $$
 
-Substitusi nilai:
+Substituting values:
 
 $$
 \chi^2 = \frac{(1 - 0.75)^2}{0.75} + \frac{(1 - 1.5)^2}{1.5} + \frac{(1 - 0.75)^2}{0.75}
@@ -177,13 +177,13 @@ $$
 
 ### P-Value Calculation
 
-Menggunakan distribusi Chi-Square dengan 1 derajat kebebasan:
+Using the Chi-Square distribution with 1 degree of freedom:
 
 $$
 p\text{-value} = 1 - \text{CDF}(\chi^2, df=1)
 $$
 
-Substitusi nilai:
+Substituting the value:
 
 $$
 p\text{-value} = 1 - \text{CDF}(0.3333, 1) \approx 0.5637
@@ -193,42 +193,46 @@ $$
 
 ### Final Interpretation
 
-- Jika \( p\text{-value} > 0.05 \), maka tidak ada penyimpangan signifikan dari Hardy-Weinberg Equilibrium.
-- Dalam kasus ini:
+- If \( p\text{-value} > 0.05 \), there is **no significant deviation** from Hardy-Weinberg Equilibrium (HWE).
+- In this case:
 
 $$
 p\text{-value} = 0.5637 > 0.05
 $$
 
-✅ **Kesimpulan**: Varian ini **memenuhi** Hardy-Weinberg Equilibrium.
+✅ **Conclusion**: This variant **is in Hardy-Weinberg Equilibrium**.
 
 
-📝 Output CSV: synthetic.vcf.hw_results.csv
 
-chrom	pos	ref_allele	alt_allele	hw_pvalue
-1	12345	A	G	0.5637028616507731
-1	67890	T	C	0.5637028616507731
-🛠 Executable: vcf_analysis
-Compiled main.rs into a binary.
+##### 📝 Output CSV: synthetic.vcf.hw_results.csv
 
-Can be called as:
+| Chromosome | Position | Reference Allele | Alternate Allele | HWE p-value |
+|:----------:|:--------:|:----------------:|:----------------:|:-----------:|
+| 1          | 12345    | A                | G                | 0.5637      |
+| 1          | 67890    | T                | C                | 0.5637      |
+1
 
-bash
-Copy
-Edit
+##### 🛠 Executable: vcf_analysis
+
+* Compiled main.rs into a binary.
+* Can be called as:
+
+```text
 ./vcf_analysis synthetic.vcf
+```
+
 It will generate and print the CSV automatically.
 
-✅ Conclusion
-Purpose: This program checks if genetic variants are in Hardy-Weinberg equilibrium.
+#### ✅ Conclusion
+* Purpose: This program checks if genetic variants are in Hardy-Weinberg equilibrium.
 
-Result interpretation:
+* Result interpretation:
 
-Both variants have high p-values (~0.56) → No significant deviation from HW equilibrium.
+* Both variants have high p-values (~0.56) → No significant deviation from HW equilibrium.
 
-Why useful?
+* Why useful?
 
-Hardy-Weinberg deviations may indicate genotyping errors, population stratification, selection, etc.
+  * Hardy-Weinberg deviations may indicate genotyping errors, population stratification, selection, etc.
 
 In your case, the dataset is tiny and idealized, so the p-values are expectedly moderate.
 
