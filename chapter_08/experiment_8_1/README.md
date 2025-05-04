@@ -14,12 +14,6 @@ In this code, rust-htslib is employed for reading and parsing VCF/BCF files. The
   * synthetic.vcf (synthetic vcf file for input file)
   * synthetic.vcf.hw_results.csv (synthetic.vcf result csv file)
   * output.txt (text file output)
-* experiment_8_1/src/work/65/54b3be71f96f81cbb7987c87cd42f1/
-  * test.coverage.json (test coverage json file)
-* experiment_8_1/src/work/f0/c029dbc59728cf12ca4ea10d38edb5/
-  * test.coverage.json (test coverage json file)
-* experiment_8_1/src/work/fb/a19c2d0203adcbff8bc1a8c54dc6c6/
-  * merged_coverage.json (merged coverage json file)
 
 #### How to run:
 
