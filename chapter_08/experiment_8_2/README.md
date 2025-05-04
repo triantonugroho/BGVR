@@ -45,7 +45,7 @@ env_logger = "0.9"  # For logger initialization
 num_cpus = "1.14.0"  # For getting CPU count
 ```
 
-#### 📋 Explanation of Output
+#### 📋 Explanation of the Output
 ##### ✅ Parallel Processing and File Reading
 The command:
 
