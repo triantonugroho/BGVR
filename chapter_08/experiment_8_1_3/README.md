@@ -1,24 +1,24 @@
 ## 8.1. Fundamentals of Genetic Variation
 
-### experiment_8_1_3
+### experiment_8_1
 
 Below is an illustrative Rust code snippet that computes genotype frequencies, performs a chi-square–based HW p-value calculation, and exploits concurrency to handle separate chunks of the genome. This example is adapted for industrial-scale usage by incorporating crates that enhance numerical stability, data handling, and concurrency.
 
 In this code, rust-htslib is employed for reading and parsing VCF/BCF files. The rayon crate can be used for parallel iterators if multiple shards of the genome need processing concurrently. ndarray assists with numerical operations for genotype frequency calculations, while statrs ensures robust statistical distributions. polars offers efficient DataFrame manipulation to keep results organized in memory. With thoughtful adjustments to memory usage, chunk sizes, and concurrency levels, this approach scales up to industrial-size datasets typically encountered in large consortia or AI-driven pharmaceutical pipelines.
 
 #### Files contents:
-* experiment_8_1_3/
+* experiment_8_1/
   * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_8_1_3/src/
+* experiment_8_1/src/
   * main.rs (rust script)
   * synthetic.vcf (synthetic vcf file for input file)
   * synthetic.vcf.hw_results.csv (synthetic.vcf result csv file)
   * output.txt (text file output)
-* experiment_8_1_3/src/work/65/54b3be71f96f81cbb7987c87cd42f1/
+* experiment_8_1/src/work/65/54b3be71f96f81cbb7987c87cd42f1/
   * test.coverage.json (test coverage json file)
-* experiment_8_1_3/src/work/f0/c029dbc59728cf12ca4ea10d38edb5/
+* experiment_8_1/src/work/f0/c029dbc59728cf12ca4ea10d38edb5/
   * test.coverage.json (test coverage json file)
-* experiment_8_1_3/src/work/fb/a19c2d0203adcbff8bc1a8c54dc6c6/
+* experiment_8_1/src/work/fb/a19c2d0203adcbff8bc1a8c54dc6c6/
   * merged_coverage.json (merged coverage json file)
 
 #### How to run:
