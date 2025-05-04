@@ -1,6 +1,4 @@
-# 8.1. Fundamentals of Genetic Variation
-
-## 8.1.3 Practical Perspectives and HPC Concurrency
+## 8.1. Fundamentals of Genetic Variation
 
 ### experiment_8_1_3
 
