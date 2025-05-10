@@ -11,10 +11,9 @@ The variant calling pipeline works by first validating input files and parsing c
   * Cargo.toml (Cargo.toml file for dependencies)
 * experiment_8_3/src/
   * main.rs (rust script)
-  * cohort_A.vcf (cohort A vcf file for input file)
-  * cohort_B.vcf (cohort B vcf file for input file)
-  * synthetic_variant_data.csv (synthetic variant data result csv file)
-  * query_results.parquet (query results parquet file as output file)
+  * mapped.bam (mapped bam file as input file)
+  * reference.fa (reference fasta file as input file)
+  * variants.parquet (vartiants parquet file as output file)
   * output.txt (text file output)
 
 #### How to run:
