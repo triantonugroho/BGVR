@@ -1,17 +1,15 @@
-## 8.2. Data Structures for Variant Representation
+## 8.4. Variant-annotation Principles
 
-### experiment_8_2
+### experiment_8_4
 
-This Rust program exemplifies the language’s strength in high-performance bioinformatics workflows, particularly in pangenome variant analysis. It efficiently reads and compares VCF files using parallel set operations, calculates variant overlap statistics between cohorts, and integrates CSV-based genotype quality data analysis with export capabilities to modern formats like Parquet. The use of Rust’s safe concurrency via Rayon and expressive data handling with Polars highlights a practical, scalable approach for genomic data analysis pipelines.
+The code below presents a robust genomic variant annotation pipeline that integrates multiple data sources to predict the pathogenicity of genetic variants. This tool processes VCF files containing genetic variants and enriches them with critical annotations including gene context from GFF files, population allele frequencies from gnomAD, and potential splicing effects predicted by a neural network model. The comprehensive framework applies a logistic function to combine these annotations into a pathogenicity score, enabling researchers to prioritize variants for further investigation in disease studies, clinical diagnostics, or variant interpretation workflows.
 
-The current implementation strengthens robustness and scalability by leveraging comprehensive error handling through the anyhow crate, structured concurrency with Rayon, and efficient data processing using Polars. It supports parallel reading and comparison of large VCF datasets, detailed variant set algebra (including Jaccard index computation), and flexible export of summary statistics to formats like Parquet. The modular structure supports easy integration with CSV data sources, and the code handles edge cases such as malformed records and missing fields with resilience. While not yet integrated with advanced backends like GBWT or TileDB, the architecture is clean and performant, making it an ideal foundation for pangenome workflows in modern bioinformatics pipelines. Its efficient use of system resources and memory-safe parallelism also positions it well for deployment in containerized and cloud-native environments.
-
-Over the next five years, pangenome variant analysis is expected to evolve in several key directions. First, graph-based variant representations will be paired with vector embeddings and ANN indexing (e.g., HNSW) to enable similarity search in LLM-augmented pipelines. Second, privacy-preserving computation using homomorphic encryption and secure PBWT will allow genotype-aware queries without revealing sensitive data. Third, real-time variant calling at the edge—driven by compact, pangenome-aware neural models and optimized haplotype indices like GBWT—will become viable on portable devices with limited memory. These trends reinforce a shift toward integrated analysis stacks where a graph pangenome, compressed haplotype index, and columnar genotype store work seamlessly. Rust, with its safety guarantees and performance profile, is well-suited to orchestrate this stack in research and production environments alike.
+This pipeline functions through a sophisticated multi-step process that begins by building chromosome-specific gene interval trees from GFF data and loading population frequency data into an efficient hash map. For each variant in the input VCF, the tool performs parallel annotation using Rayon, identifying overlapping genes, retrieving allele frequencies, and when a reference genome and model are provided, predicting splicing effects by extracting sequence context and performing neural network inference with PyTorch. The implementation incorporates thorough error handling with custom error types, caches sequences to minimize redundant lookups, provides detailed progress reporting with indicatif, implements flexible output formats (Parquet, CSV, JSON), and includes comprehensive logging. Key improvements in the revised version include robust input validation, efficient parallel processing, memory management through caching, detailed statistics tracking, and configurable filtering options that make the tool suitable for high-throughput genomic analysis pipelines.
 
 #### Files contents:
-* experiment_8_2/
+* experiment_8_4/
   * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_8_2/src/
+* experiment_8_4/src/
   * main.rs (rust script)
   * cohort_A.vcf (cohort A vcf file for input file)
   * cohort_B.vcf (cohort B vcf file for input file)
