@@ -78,17 +78,25 @@ cargo build --release
 #### Required Arguments
 
 --vcf: Input VCF file with variants
+
 --gff: Gene annotation file in GFF format
+
 --gnomad: Allele frequency data (compressed TSV format)
 
 #### Optional Arguments
 
 --reference: Reference genome in FASTA format (required for sequence context)
+
 --output: Output file path (default: "annotated_variants.parquet")
+
 --threads: Number of processing threads (default: all available)
+
 --chromosome: Process only specific chromosome
+
 --context-size: Window size for sequence context (must be odd number)
+
 --rare-cutoff: Frequency threshold for rare variants (default: 0.001)
+
 --verbose: Enable verbose logging
 
 #### Output
