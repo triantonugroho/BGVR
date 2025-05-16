@@ -1,0 +1,2 @@
+##gff-version 3
+chr1	source	gene	900	1500	.	+	.	ID=gene1;gene_name=GENE1;gene_biotype=protein_coding
