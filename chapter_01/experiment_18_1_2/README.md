@@ -17,14 +17,19 @@ The companion Rust code illustrates how to read FASTQ files, parse out the raw s
 
 Inside the Rust program, command-line arguments specify a k-mer size, an input FASTQ path, and an output destination. After minimal parsing of FASTQ records—here, implemented by reading lines in groups of four—the code constructs each node by extracting consecutive k-length substrings from the reads. By inserting edges from each k-mer to its successive overlap, the hash map encodes the resultant De Bruijn graph, which is then written to a file. This stand-alone Rust executable is easily integrated into container images and invoked by Nextflow in a larger pipeline, leveraging concurrency and memory safety to handle substantial genomic data at scale.
 
-#### Files contents:
-* main.rs (rust script)
-* main.nf (nextflow script)
-* de_bruijn_graph.rar (compressed de_bruijn_graph.txt output file)
-* SRR11192680_1.rar (compressed SRR11192680_1.fastq)
-* SRR11192680_2.rar (compressed SRR11192680_2.fastq)
-* reads.rar (Compressed reads.fastq which renamed from downloaded fastq file SRR11192680_1.fastq)
-* Cargo.toml (Cargo.toml file)
+#### Project Structure:
+
+```plaintext
+experiment_18_1_2/
+├── Cargo.toml                     # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                    # Main Rust script containing program logic
+    ├── main.nf                    # Nextflow workflow script
+    ├── de_bruijn_graph.rar        # Compressed de Bruijn graph text output file
+    ├── SRR11192680_1.rar          # Compressed SRR11192680_1.fastq
+    ├── SRR11192680_2.rar          # Compressed SRR11192680_2.fastq
+    └── reads.rar                  # Compressed reads.fastq (renamed from SRR11192680_1.fastq)
+```
 
 #### How to run:
 
