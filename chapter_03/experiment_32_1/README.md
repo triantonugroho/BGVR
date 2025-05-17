@@ -6,14 +6,17 @@ This code demonstrates a simple, parallel approach for detecting a known genomic
 
 Rank 0 loads the genomic data from a file, computes chunk boundaries, and distributes each chunk (plus overlap, if needed) to the other ranks. Each rank then performs a local KMP search for the target sequence on its assigned chunk and returns partial match indices back to rank 0. Because local match positions are relative to each chunk, rank 0 offsets them properly when assembling the final list of matches. The partial matches are then merged and sorted, yielding a global view of where the target genomic sequence occurs.
 
-#### Files contents:
-* experiment_32_1/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_32_1/src/
-  * main.rs (rust script)
-  * big_text_example.txt (text file dataset)
-  * generate big_text_example.txt.ipynb (python code to generate big_text_example.txt)
-  * output.txt (output file)
+#### Project Structure:
+
+```plaintext
+experiment_32_1/
+├── Cargo.toml                            # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                           # Main Rust script containing program logic
+    ├── big_text_example.txt              # Text file dataset
+    ├── generate big_text_example.txt.ipynb  # Python notebook to generate the text dataset
+    └── output.txt                        # Text output file
+```
 
 #### How to run:
 
