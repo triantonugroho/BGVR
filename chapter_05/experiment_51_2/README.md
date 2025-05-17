@@ -6,13 +6,16 @@ This pair of Rust programs demonstrates a practical approach to high-throughput 
 
 The program reads command-line arguments using clap and opens the specified FASTQ file with the needletail crate. It iterates over each sequence record in a streaming manner, extracting read lengths and aggregating them in a HashMap. The final counts are serialized as a PartialOutput struct, where the read length histogram, total read count, and total base count are stored. This output is written as JSON, and the program prints basic statistics to confirm successful processing.
 
-#### Files contents:
-* experiment_51_2/
-  * Cargo.toml (Cargo.toml file for dependencies)
-*experiment_51_2/src/
-  * main.rs (rust script)
-  * example.fastq.rar (compressed example.fastq)
-  * partial_output.json (json partial output file)
+#### Project Structure:
+
+```plaintext
+experiment_51_2/
+├── Cargo.toml              # Rust project configuration and dependencies
+└── src/
+    ├── main.rs             # Main Rust script containing program logic
+    ├── example.fastq.rar   # Compressed FASTQ example file
+    └── partial_output.json # JSON partial output file for reference
+```
 
 #### How to run:
 
