@@ -17,7 +17,7 @@ experiment_16/
     ├── example_genome.fasta                         # Example genome FASTA file
     └── output.txt                                   # Output file
 ```
-
+ 
 #### How to run
 
 ```powershell
