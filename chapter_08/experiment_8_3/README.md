@@ -6,15 +6,18 @@ This Rust-based genomic variant caller is designed for efficient and accurate id
 
 The variant calling pipeline works by first validating input files and parsing command line arguments to configure the analysis parameters. It then processes genomic regions (chromosomes or user-defined intervals) in parallel using Rayon's thread pool, where each region undergoes a pileup operation that examines the distribution of nucleotides at each position. For each potential variant site, the code tallies reference and alternate bases while collecting quality metrics (mapping quality, base quality, and strand bias), applies a Bayesian statistical model to calculate genotype likelihoods and posterior probabilities, and converts these into Phred-scaled genotype quality scores. Variants exceeding the quality threshold are collected, annotated with detailed metrics, and exported to a Parquet file, with additional statistics optionally saved in JSON format. The extensive error handling, configurable filtering parameters, and detailed quality metrics make this implementation suitable for both research and clinical genomic applications.
 
-#### Files contents:
-* experiment_8_3/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_8_3/src/
-  * main.rs (rust script)
-  * mapped.bam (mapped bam file as input file)
-  * reference.fa (reference fasta file as input file)
-  * variants.parquet (vartiants parquet file as output file)
-  * output.txt (text file output)
+#### Project Structure:
+
+```plaintext
+experiment_8_3/
+├── Cargo.toml                  # Rust dependencies
+├── src/
+│   ├── main.rs                 # Rust implementation
+│   ├── mapped.bam              # Mapped BAM file (input file)
+│   ├── reference.fa            # Reference fasta file (input file)
+│   ├── variants.parquet        # Variants Parquet file (output file)
+│   └── output.txt              # Text file output
+```
 
 #### How to run:
 
