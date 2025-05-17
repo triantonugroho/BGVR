@@ -10,38 +10,43 @@ Below is a Nextflow script that demonstrates how ephemeral container tasks are o
 
 In real pipelines, ephemeral tasks reduce overhead by releasing resources once each chunk is processed. AI engineers typically include robust logs, handle partial failures gracefully, and ensure the container images specify consistent Rust versions to guarantee reproducible builds. If HPC concurrency is used, tasks might map 20–50 coverage or variant chunks onto each node, balancing CPU and memory constraints carefully. Nextflow monitors all tasks, merging partial indexes only when every chunk completes successfully.
 
-#### Files contents:
-* experiment_72/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_72/src/
-  * main.rs (rust script)
-  * main.nf (nextflow script)
-  * chunk.fa (chunk fasta file)
-  * global_index.json (global index json file)
-  * reference.fa (reference fasta file)
-  * output.txt (text file output)
-* experiment_72/src/results/
-  * global_index.json (global index json file)
-* experiment_72/src/results/chunks/chunks/
-  * chunk_1.fa (chunk 1 fasta file)
-  * chunk_2.fa (chunk 2 fasta file)
-* experiment_72/src/results/partial/
-  * partial_chunk_1.json (partial chunk 1 json file)
-  * partial_chunk_2.json (partial chunk 2 json file)
-* experiment_72/src/work/33/cc1fbef1912089717cf0d3e337111e/
-  * partial_chunk_2.json (partial chunk 2 json file)
-  * partial_chunk_2.json.log (partial_chunk_2.json log file)
-* experiment_72/src/work/5a/9ce2912e213429dbba2ebc421864e5/chunks/
-  * partial_chunk_2.json (partial chunk 2 json file)
-  * partial_chunk_2.json.log (partial_chunk_2.json log file)
-* experiment_72/src/work/82/2011b7128a4e8b4f0d28e1b258e456/
-  * partial_chunk_1.json (partial chunk 1 json file)
-  * partial_chunk_1.json.log (partial_chunk_1.json log file)
-* experiment_72/src/work/bb/10e3ba6da801c94840008636bebf94/
-  * global_index.json (global index json file)
-  * merge_command.log (merge command log file)
-* experiment_72/target/debug/
-  * rust_kmer_index_tool.rar (compressed rust_kmer_index_tool execution file output from running main.rs)
+#### Project Structure:
+
+```plaintext
+experiment_72/
+├── Cargo.toml                  # Rust dependencies
+├── src/
+│   ├── main.rs                 # Rust implementation
+│   ├── main.nf                 # Nextflow workflow
+│   ├── chunk.fa                # Chunk fasta file
+│   ├── global_index.json       # Global index JSON file
+│   ├── reference.fa            # Reference fasta file
+│   ├── output.txt              # Text file output
+│   ├── results/                # Results directory
+│   │   ├── global_index.json   # Global index JSON file
+│   │   ├── chunks/chunks/
+│   │   │   ├── chunk_1.fa      # Chunk 1 fasta file
+│   │   │   └── chunk_2.fa      # Chunk 2 fasta file
+│   │   └── partial/
+│   │       ├── partial_chunk_1.json  # Partial chunk 1 JSON file
+│   │       └── partial_chunk_2.json  # Partial chunk 2 JSON file
+│   └── work/                   # Nextflow work directory
+│       ├── 33/cc1fbef1912089717cf0d3e337111e/
+│       │   ├── partial_chunk_2.json      # Partial chunk 2 JSON file
+│       │   └── partial_chunk_2.json.log  # Partial chunk 2 JSON log file
+│       ├── 5a/9ce2912e213429dbba2ebc421864e5/chunks/
+│       │   ├── partial_chunk_2.json      # Partial chunk 2 JSON file
+│       │   └── partial_chunk_2.json.log  # Partial chunk 2 JSON log file
+│       ├── 82/2011b7128a4e8b4f0d28e1b258e456/
+│       │   ├── partial_chunk_1.json      # Partial chunk 1 JSON file
+│       │   └── partial_chunk_1.json.log  # Partial chunk 1 JSON log file
+│       └── bb/10e3ba6da801c94840008636bebf94/
+│           ├── global_index.json         # Global index JSON file
+│           └── merge_command.log         # Merge command log file
+└── target/
+    └── debug/
+        └── rust_kmer_index_tool.rar  # Compressed Rust k-mer index tool executable
+```
 
 #### How to run:
 
