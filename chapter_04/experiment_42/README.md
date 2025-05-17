@@ -10,14 +10,17 @@ The main.nf script defines a single process, buildAdjacencyMatrix, which compile
 #### 2. Rust
 The Rust code generates a synthetic gene expression matrix for a user-defined number of genes and samples, then computes pairwise Pearson correlations in parallel using the rayon crate. It stores data in an ndarray::Array2 for efficient indexing and uses an Arc<Mutex<>> to guard the shared adjacency matrix so that multiple threads can safely write the correlation values. By only calculating the upper triangle of the matrix and mirroring results, the program avoids redundant work. The final adjacency matrix is then written as binary data for space efficiency.
 
-#### Files contents:
-* experiment_42/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_42/src/
-  * main.rs (rust script)
-  * main.nf (nextflow script)
-  * ouput.txt (output file)
-  * partial_adjacency.bin (partial adjacency output file)
+#### Project Structure:
+
+```plaintext
+experiment_42/
+├── Cargo.toml                     # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                    # Main Rust script containing program logic
+    ├── main.nf                    # Nextflow workflow script
+    ├── ouput.txt                  # Output file
+    └── partial_adjacency.bin      # Partial adjacency output file in binary format
+```
 
 #### How to run:
 
