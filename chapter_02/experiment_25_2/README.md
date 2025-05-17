@@ -12,15 +12,20 @@ The script also illustrates data versioning by labeling the input dataset as dat
 
 Each step in Nextflow is a process that consumes and produces data via channels. In the BUILD_RUST_APP process, the pipeline compiles a Rust program, storing the resulting binary in myapp and publishing it to a publish_output directory. When the pipeline transitions to the RUN_TOOL process, the newly compiled binary is provided as input, and the script verifies the Samtools version before running the binary. Outputs produced during this step, in this case results.txt, are also published to publish_output. The final workflow block collects the resulting files but can be extended with additional processes if needed.
 
-#### Files contents:
-* main.nf (nextflow script)
-* src/dataset_v1.0 (dataset folder)
-* src/publish_ouput/
-  * myapp
-  * results.txt
-* nextflow.log.7 (nextflow log file)
-* Cargo.toml (Cargo.toml file)
-* output.txt (output file)
+#### Project Structure:
+
+```plaintext
+experiment_25_2/
+├── Cargo.toml                     # Rust project configuration and dependencies
+├── main.nf                        # Nextflow workflow script
+├── nextflow.log.7                 # Nextflow log file
+├── output.txt                     # Output file
+└── src/
+    ├── dataset_v1.0/              # Dataset folder
+    └── publish_ouput/             # Published output directory
+        ├── myapp                  # Application executable
+        └── results.txt            # Results text file
+```
 
 #### How to run:
 
