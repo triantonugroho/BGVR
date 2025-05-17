@@ -12,13 +12,16 @@ The trimming logic is encapsulated in the sliding_window_trim function, which us
 
 Once the trimming is complete for each batch, the program writes a JSON file containing all trimmed reads for that chunk. This partial output strategy is highly advantageous in large-scale operations. It lets the pipeline resume from the last completed chunk if the process is interrupted, and it mitigates memory spikes by limiting how many records are held in memory simultaneously. Finally, the program reports basic statistics, including how many partial files were written. A subsequent step in the pipeline could merge or further analyze these JSON files, thereby enabling a flexible, HPC-friendly workflow.
 
-#### Files contents:
-* experiment_52/
-  * Cargo.toml (Cargo.toml file for dependencies)
-*experiment_52/src/
-  * main.rs (rust script)
-  * output.txt.rar (compressed output.txt file)
-  * example.fastq.rar (compressed example.fastq)
+#### Project Structure:
+
+```plaintext
+experiment_52/
+├── Cargo.toml              # Rust project configuration and dependencies
+└── src/
+    ├── main.rs             # Main Rust script containing program logic
+    ├── output.txt.rar      # Compressed output.txt file
+    └── example.fastq.rar   # Compressed FASTQ example file
+```
 
 #### How to run:
 
