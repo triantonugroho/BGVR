@@ -6,12 +6,17 @@ In practical deployments, a typical advanced bioinformatics pipeline integrates 
 
 In this example, “rust-htslib” provides high-performance routines for reading BAM files, paralleling the core functionalities of Rust-Bio with specialized focus on alignment data. The “ndarray” crate offers N-dimensional array data structures, while “nalgebra” provides linear algebra functionalities, each suitable for HPC and GPU-based computations when combined with the appropriate back ends. “rayon” handles parallelism, distributing read processing across available CPU cores. This design is immediately containerizable via Docker or Singularity, making it straightforward to integrate into Nextflow DSL2 pipelines. For industrial-scale usage, memory profiling should be conducted for large datasets, and further concurrency controls may be added to handle potential file I/O bottlenecks.
 
-#### Files contents:
-* main.rs (rust script)
-* main.nf (nextflow script)
-* reads.bam (bam file)
-* Cargo.toml (Cargo.toml file)
-* output.txt (output file)
+#### Project Structure:
+
+```plaintext
+experiment_18_3/
+├── Cargo.toml                     # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                    # Main Rust script containing program logic
+    ├── main.nf                    # Nextflow workflow script
+    ├── reads.bam                  # BAM alignment file
+    └── output.txt                 # Output file
+```
 
 #### How to run:
 
