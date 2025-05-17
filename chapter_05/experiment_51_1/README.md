@@ -10,12 +10,15 @@ The HyperLogLog structure is defined with a precision field p, a vector of 8-bit
 
 The estimation of unique elements happens in the estimate function, which applies the canonical HyperLogLog formula. The formula multiplies a bias-correcting term alpha by the square of the number of registers m, then divides by the sum of 2^(-register_value) across all registers. Because each register only holds the largest run of zeros encountered, this set of counters succinctly summarizes the distribution of hash values in the data. The from_iter constructor provides a convenient way to build a HyperLogLog by passing in an iterator of elements, while the merge method allows two sketches of the same precision to be combined, an operation that is particularly useful in large-scale or distributed applications. Finally, the main function demonstrates how to apply HyperLogLog to integer values, string data with duplicates, and how merging two separate sketches approximates the count of their combined sets.
 
-#### Files contents:
-* experiment_51_1/
-  * Cargo.toml (Cargo.toml file for dependencies)
-*experiment_51_1/src/
-  * main.rs (rust script)
-  * output.txt (output file)
+#### Project Structure:
+
+```plaintext
+experiment_51_1/
+├── Cargo.toml                  # Rust dependencies
+└── src/
+    ├── main.rs                 # Rust implementation
+    └── output.txt              # Output file
+```
 
 #### How to run:
 
