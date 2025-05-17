@@ -10,31 +10,36 @@ Below is a Nextflow snippet illustrating ephemeral HPC tasks that each process a
 
 The container myrust/memmap_hpc:latest would be built from a Dockerfile containing a statically compiled Rust tool. AI engineers often incorporate cargo flamegraph or Linux perf into the container for on-demand profiling. When scaling to industrial volumes, developers might store coverage counts in a memory-optimized structure, coordinate partial merges with distributed shuffle operations, and handle error checks for misformatted lines or truncated blocks. Tools such as polars can help manage tabular data if advanced queries or joins are needed within the container environment.
 
-#### Files contents:
-* experiment_73/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_73/src/
-  * main.rs (rust script)
-  * main.nf (nextflow script)
-  * output.json (output json file)
-  * reference.fasta (reference fasta file)
-  * regions.txt (text file contain regions list)
-  * output.txt (text file output)
-* experiment_73/src/results/
-  * coverage_summary.json (coverage summary json file)
-  * merged_coverage.txt (merged coverage text file)
-* experiment_73/src/results/coverage/
-  * coverage_chr1_1-35.txt (coverage chr1:1-35 text file)
-  * coverage_chr2_1-35.txt (coverage chr2:1-35 text file)
-* experiment_73/src/work/1c/8c60423d87cbc4142ff5a7042fa078/
-  * coverage_summary.json (coverage summary json file)
-  * merged_coverage.txt (merged coverage text file)
-* experiment_73/src/work/3c/ce826d0fe2f99d1898cc9ccd3d1848/
-  * coverage_chr1_1-35.txt
-* experiment_73/src/work/85/6c50065cc9040245807fb8547d997e/
-  * coverage_chr2_1-35.txt
-* experiment_73/target/release/
-  * rust_mmap_tool.rar (compressed rust_mmap_tool execution file output from running main.rs)
+#### Project Structure:
+
+```plaintext
+experiment_73/
+├── Cargo.toml                  # Rust dependencies
+├── src/
+│   ├── main.rs                 # Rust implementation
+│   ├── main.nf                 # Nextflow workflow
+│   ├── output.json             # Output JSON file
+│   ├── reference.fasta         # Reference fasta file
+│   ├── regions.txt             # Text file containing regions list
+│   ├── output.txt              # Text file output
+│   ├── results/                # Results directory
+│   │   ├── coverage_summary.json  # Coverage summary JSON file
+│   │   ├── merged_coverage.txt    # Merged coverage text file
+│   │   └── coverage/
+│   │       ├── coverage_chr1_1-35.txt  # Coverage chr1:1-35 text file
+│   │       └── coverage_chr2_1-35.txt  # Coverage chr2:1-35 text file
+│   └── work/                   # Nextflow work directory
+│       ├── 1c/8c60423d87cbc4142ff5a7042fa078/
+│       │   ├── coverage_summary.json   # Coverage summary JSON file
+│       │   └── merged_coverage.txt     # Merged coverage text file
+│       ├── 3c/ce826d0fe2f99d1898cc9ccd3d1848/
+│       │   └── coverage_chr1_1-35.txt  # Coverage chr1:1-35 text file
+│       └── 85/6c50065cc9040245807fb8547d997e/
+│           └── coverage_chr2_1-35.txt  # Coverage chr2:1-35 text file
+└── target/
+    └── release/
+        └── rust_mmap_tool.rar  # Compressed Rust memory-mapped tool executable
+```
 
 #### How to run:
 
