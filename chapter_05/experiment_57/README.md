@@ -8,18 +8,21 @@ When the partial tasks are completed, the code merges all partial results by rea
 
 
 
-#### Files contents:
-* experiment_57/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_57/src/
-  * main.rs (rust script)
-  * example.bam (bam input file)
-  * example.gtf (gtf input file)
-  * merged_counts.json (merged counts json output file)
-  * output.txt (text file output)
-* experiment_57/src/partial_counts
-  * partial_counts_chunk_1.json (partial counts in chunk 1 json output file)
-  * partial_counts_chunk_2.json (partial counts in chunk 2 json output file)
+#### Project Structure:
+
+```plaintext
+experiment_57/
+├── Cargo.toml                                  # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                                 # Main Rust script containing program logic
+    ├── example.bam                             # BAM input file
+    ├── example.gtf                             # GTF input file
+    ├── merged_counts.json                      # Merged counts JSON output file
+    ├── output.txt                              # Text file output
+    └── partial_counts/
+        ├── partial_counts_chunk_1.json         # Partial counts in chunk 1 JSON output file
+        └── partial_counts_chunk_2.json         # Partial counts in chunk 2 JSON output file
+```
 
 #### How to run:
 
