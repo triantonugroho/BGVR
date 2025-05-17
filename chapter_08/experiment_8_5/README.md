@@ -64,7 +64,7 @@ experiment_8_5/
 │       └── e8/0b5747dd1534.../ # Nextflow execution results
 │           └── chr1.vcf.bgz    # Output variant file of main.nf 
 ├── data/
-│   ├── chroms.txt              # List of chromosomes
+│   ├── chroms.txt              # List of chromosomes 
 │   ├── pipeline.toml           # Pipeline configuration
 │   ├── sample.bam              # Sample BAM file
 │   ├── sample.bam.bai          # BAM index
