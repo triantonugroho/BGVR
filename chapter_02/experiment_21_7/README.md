@@ -6,11 +6,16 @@ Here is a brief example illustrating how Rust can handle an imperative, pointer-
 
 In this snippet, build_suffix_array manually handles pointer arithmetic to compare suffixes, reminiscent of a lower-level C++ style. The reference genome data is stored in a Vec, and seq.as_ptr() provides a raw pointer to the first byte. Because Rust attaches the pointer’s lifetime to the underlying Vec, any misuse—such as accessing memory after seq goes out of scope—would result in a compile-time error. The compare_suffixes function uses unsafe code, but the scope of that unsafety is minimized. Rust checks that the pointer remains valid as long as the Vec has not been dropped, preserving memory safety guarantees even though we resort to pointer-based comparisons for performance or fine-grained control.
 
-#### Files contents:
-* main.rs (rust script)
-* reads.fasta (fasta file)
-* Cargo.toml (Cargo.toml file)
-* output.txt (output file)
+#### Project Structure:
+
+```plaintext
+experiment_21_7/
+├── Cargo.toml                     # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                    # Main Rust script containing program logic
+    ├── reads.fasta                # FASTA file containing sequence reads
+    └── output.txt                 # Output file
+```
 
 #### How to run:
 
