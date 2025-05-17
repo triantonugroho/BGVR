@@ -10,17 +10,20 @@ This pipeline “scatters” read files across ephemeral containers in the ALIGN
 
 
 
-#### Files contents:
-* experiment_36_2/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_36_1/src/
-  * main.rs (rust script)
-  * main.nf (nextflow script)
-  * reference.fa (reference fasta file)
-  * ouput.txt (output file)
-* experiment_36_1/src/reads/
-  * sample.fq.rar (compressed sample.fq) 
-  
+#### Project Structure:
+
+```plaintext
+experiment_36_2/
+└── Cargo.toml                      # Rust project configuration and dependencies
+experiment_36_1/src/                # Note: Directory number mismatch (36_1 vs 36_2)
+├── main.rs                         # Main Rust script containing program logic
+├── main.nf                         # Nextflow workflow script
+├── reference.fa                    # Reference FASTA file
+├── ouput.txt                       # Output file (note: typo in filename, missing 't')
+└── reads/
+    └── sample.fq.rar               # Compressed FASTQ sample file
+```
+
 #### How to run:
 
 run in powershell:
