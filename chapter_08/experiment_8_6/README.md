@@ -1,17 +1,15 @@
-## 8.2. Data Structures for Variant Representation
+## 8.6. Advanced Topics in Variant Analysis and Annotation
 
-### experiment_8_2
+### experiment_8_6
 
-This Rust program exemplifies the language’s strength in high-performance bioinformatics workflows, particularly in pangenome variant analysis. It efficiently reads and compares VCF files using parallel set operations, calculates variant overlap statistics between cohorts, and integrates CSV-based genotype quality data analysis with export capabilities to modern formats like Parquet. The use of Rust’s safe concurrency via Rayon and expressive data handling with Polars highlights a practical, scalable approach for genomic data analysis pipelines.
+The code implements a sophisticated genomic variant scoring pipeline that combines pangenome graph analysis with machine learning to assess the functional impact of genetic variants. Leveraging modern computational genomics approaches, the pipeline integrates information from variation graph representations (ODGI), machine learning inference (ONNX Runtime), and haplotype phasing (WhatsHap) to provide comprehensive variant assessments that consider both sequence context and predicted functional effects. The framework is designed to enhance variant prioritization in clinical genomics, rare disease research, and population-scale studies by incorporating graph-based contextual information that traditional linear genome approaches lack.
 
-The current implementation strengthens robustness and scalability by leveraging comprehensive error handling through the anyhow crate, structured concurrency with Rayon, and efficient data processing using Polars. It supports parallel reading and comparison of large VCF datasets, detailed variant set algebra (including Jaccard index computation), and flexible export of summary statistics to formats like Parquet. The modular structure supports easy integration with CSV data sources, and the code handles edge cases such as malformed records and missing fields with resilience. While not yet integrated with advanced backends like GBWT or TileDB, the architecture is clean and performant, making it an ideal foundation for pangenome workflows in modern bioinformatics pipelines. Its efficient use of system resources and memory-safe parallelism also positions it well for deployment in containerized and cloud-native environments.
-
-Over the next five years, pangenome variant analysis is expected to evolve in several key directions. First, graph-based variant representations will be paired with vector embeddings and ANN indexing (e.g., HNSW) to enable similarity search in LLM-augmented pipelines. Second, privacy-preserving computation using homomorphic encryption and secure PBWT will allow genotype-aware queries without revealing sensitive data. Third, real-time variant calling at the edge—driven by compact, pangenome-aware neural models and optimized haplotype indices like GBWT—will become viable on portable devices with limited memory. These trends reinforce a shift toward integrated analysis stacks where a graph pangenome, compressed haplotype index, and columnar genotype store work seamlessly. Rust, with its safety guarantees and performance profile, is well-suited to orchestrate this stack in research and production environments alike.
+The pipeline operates by first loading a pangenome graph and a trained ONNX model, then processing VCF files in parallel batches to maximize throughput. For each variant, the system extracts features including allele lengths, graph-based metrics (node degree, centrality), and sequence complexity, arranges them into tensors for efficient batch processing, then runs inference through the neural network to produce variant scores. Simultaneously, it leverages WhatsHap's phasing algorithms to group variants into haplotype blocks, providing additional context for interpreting complex genomic regions. The implementation incorporates robust error handling, progress reporting, comprehensive logging, and flexible output formats (Parquet, Arrow, CSV, JSON), while tracking detailed statistics throughout execution. The architecture supports both single-file processing and batch operations across multiple VCFs, making it adaptable to both targeted analyses and population-scale studies.
 
 #### Files contents:
-* experiment_8_2/
+* experiment_8_6/
   * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_8_2/src/
+* experiment_8_6/src/
   * main.rs (rust script)
   * cohort_A.vcf (cohort A vcf file for input file)
   * cohort_B.vcf (cohort B vcf file for input file)
