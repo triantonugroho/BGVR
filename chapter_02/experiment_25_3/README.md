@@ -6,12 +6,16 @@ An AI engineer tasked with data preprocessing in Rust may develop specialized ut
 
 In this snippet, the bio crate handles FASTQ parsing and writing. The env_logger plus log approach yields HPC-friendly logs, with environment variables controlling verbosity. For industrial-scale usage, engineers commonly add robust error handling with matching patterns, ensuring that each read record is either processed or logged if corrupted. They may also incorporate concurrency through Rayon if the dataset is large, spawning multiple threads to parse different file segments concurrently.
 
-#### Files contents:
-* main.rs (rust script)
-* reads.fastq.rar (compressed reads.fastq)
-* filtered_reads.fastq.rar (compressed filtered_reads.fastq)
-* Cargo.toml (Cargo.toml file)
-* output.txt (output file)
+#### Project Structure:
+```plaintext
+experiment_25_3/
+├── Cargo.toml                     # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                    # Main Rust script containing program logic
+    ├── reads.fastq.rar            # Compressed FASTQ reads file
+    ├── filtered_reads.fastq.rar   # Compressed filtered FASTQ reads file
+    └── output.txt                 # Output file
+```
 
 #### How to run:
 
