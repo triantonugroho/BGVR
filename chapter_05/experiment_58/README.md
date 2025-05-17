@@ -13,20 +13,23 @@ Records from the BAM file are read in segments using the helper function read_ch
 The partial patches from each chunk are immediately serialized to JSON and written to disk. When all chunks are processed, the program scans the partial output directory, merges the patch data by concatenation, and writes the final combined results as JSON. In production HPC scenarios, additional steps might unify patches across overlapping chunk boundaries or incorporate a more nuanced reference base retrieval. Rust’s strong concurrency model, with no global data races, supports distributed or ephemeral container tasks without risking memory corruption, and the approach naturally adapts to large-scale data by distributing chunk processing across multiple nodes.
 
 
-#### Files contents:
-* experiment_58/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_58/src/
-  * main.rs (rust script)
-  * input.bam (bam input file)
-  * annotations.gtf (gtf input file)
-  * merged_corrections.json (merged counts json output file)
-  * output.txt (text file output)
-* experiment_58/src/partial_patches
-  * partial_patches_chunk_0.json (partial patches in chunk 0 json output file)
-  * partial_patches_chunk_1.json (partial patches in chunk 0 json output file)
-  * partial_patches_chunk_2.json (partial patches in chunk 0 json output file)
-  * partial_patches_chunk_3.json (partial patches in chunk 0 json output file)
+#### Project Structure:
+
+```plaintext
+experiment_58/
+├── Cargo.toml                                  # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                                 # Main Rust script containing program logic
+    ├── input.bam                               # BAM input file
+    ├── annotations.gtf                         # GTF input file
+    ├── merged_corrections.json                 # Merged corrections JSON output file
+    ├── output.txt                              # Text file output
+    └── partial_patches/
+        ├── partial_patches_chunk_0.json        # Partial patches in chunk 0 JSON output file
+        ├── partial_patches_chunk_1.json        # Partial patches in chunk 1 JSON output file
+        ├── partial_patches_chunk_2.json        # Partial patches in chunk 2 JSON output file
+        └── partial_patches_chunk_3.json        # Partial patches in chunk 3 JSON output file
+```
 
 #### How to run:
 
