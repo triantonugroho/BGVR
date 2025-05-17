@@ -14,19 +14,22 @@ To run the pipeline, first install Nextflow on your PC, for example by running c
 
 This example is highly simplified. Real genomic use cases often involve splitting large FASTQ files, merging partial data structures across multiple nodes, and handling error correction or advanced graph algorithms. Nevertheless, the above sample shows how Nextflow pipelines can orchestrate Rust HPC tasks—like constructing de Bruijn graphs and Bloom filters—all on a local PC without external cluster dependencies.
 
-#### Files contents:
-* experiment_31_7/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_31_7/src/
-  * main.rs (rust script)
-  * main.nf (nextflow script)
-  * example.fastq.rar (compressed example.fastq)
-  * output.txt (output file)
-* experiment_31_7/src/results/
-  * bloom.json.rar (compressed bloom.json)
-  * graph.json.rar (compressed graph.json)
-* experiment_31_7/src/target/
-  * rustc_info.json (rustc information file)
+#### Project Structure:
+
+```plaintext
+experiment_31_7/
+├── Cargo.toml                     # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                    # Main Rust script containing program logic
+    ├── main.nf                    # Nextflow workflow script
+    ├── example.fastq.rar          # Compressed FASTQ example file
+    ├── output.txt                 # Text output file
+    ├── results/
+    │   ├── bloom.json.rar         # Compressed Bloom filter JSON results
+    │   └── graph.json.rar         # Compressed graph JSON results
+    └── target/
+        └── rustc_info.json        # Rust compiler information file
+```
 
 #### How to run:
 
