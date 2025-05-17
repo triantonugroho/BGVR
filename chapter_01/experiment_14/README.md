@@ -32,13 +32,18 @@ TTTGGGCCCCCCCACGTACGTACGTCACGTTTTGAAAACGTACGTACGTACGA
 
 Once these three FASTA files have been saved to the src/ folder, the next step is to configure the Rust project dependencies and provide the main program logic. The first snippet below illustrates the necessary entries for your Cargo.toml. This is then followed by the main Rust code, which reads the FASTA files, constructs overlapping k-mers, and merges them into a single pangenome graph.
 
-#### Files Contents
-* main.rs (rust script)
-* haplotype1.fasta (1st fasta file)
-* haplotype2.fasta (2nd fasta file)
-* haplotype3.fasta (3rd fasta file)
-* Cargo.toml (Cargo.toml file)
-* output.txt (output file)
+#### Project Structure:
+
+```plaintext
+experiment_14/
+├── Cargo.toml                     # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                    # Main Rust script containing program logic
+    ├── haplotype1.fasta           # 1st FASTA file
+    ├── haplotype2.fasta           # 2nd FASTA file
+    ├── haplotype3.fasta           # 3rd FASTA file
+    └── output.txt                 # Output file
+```
 
 #### How to run
 
