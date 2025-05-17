@@ -6,21 +6,24 @@ The code below presents a robust genomic variant annotation pipeline that integr
 
 This pipeline functions through a sophisticated multi-step process that begins by building chromosome-specific gene interval trees from GFF data and loading population frequency data into an efficient hash map. For each variant in the input VCF, the tool performs parallel annotation using Rayon, identifying overlapping genes, retrieving allele frequencies, and when a reference genome and model are provided, predicting splicing effects by extracting sequence context and performing neural network inference with PyTorch. The implementation incorporates thorough error handling with custom error types, caches sequences to minimize redundant lookups, provides detailed progress reporting with indicatif, implements flexible output formats (Parquet, CSV, JSON), and includes comprehensive logging. Key improvements in the revised version include robust input validation, efficient parallel processing, memory management through caching, detailed statistics tracking, and configurable filtering options that make the tool suitable for high-throughput genomic analysis pipelines.
 
-#### Files contents:
-* experiment_8_4/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_8_4/src/
-  * main.rs (rust script)
-  * ref.fa (reference fasta file)
-  * ref.fa.fai (indexed ref.fa)
-  * sample.freq.tsv (sample frequency tsv file)
-  * sample.freq.tsv.gz (compressed sample.freq.tsv.gz)
-  * sample.gff (sample gff file)
-  * sample.vcf (sample vcf file)
-* experiment_8_4/target/release/
-  * variant-annotator (compiled variant-annotator executable file))
-* experiment_8_4/target/
-  * annotated.parquet (annotated parquet file as output file)
+#### Project Structure:
+
+```plaintext
+experiment_8_4/
+├── Cargo.toml                  # Rust dependencies
+├── src/
+│   ├── main.rs                 # Rust implementation
+│   ├── ref.fa                  # Reference fasta file
+│   ├── ref.fa.fai              # Indexed reference fasta
+│   ├── sample.freq.tsv         # Sample frequency TSV file
+│   ├── sample.freq.tsv.gz      # Compressed sample frequency file
+│   ├── sample.gff              # Sample GFF file
+│   └── sample.vcf              # Sample VCF file
+├── target/
+│   ├── annotated.parquet       # Annotated Parquet file (output file)
+│   └── release/
+│       └── variant-annotator   # Compiled variant-annotator executable
+```
 
 #### [dependencies]
 
