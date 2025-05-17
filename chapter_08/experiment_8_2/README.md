@@ -8,16 +8,19 @@ The current implementation strengthens robustness and scalability by leveraging 
 
 Over the next five years, pangenome variant analysis is expected to evolve in several key directions. First, graph-based variant representations will be paired with vector embeddings and ANN indexing (e.g., HNSW) to enable similarity search in LLM-augmented pipelines. Second, privacy-preserving computation using homomorphic encryption and secure PBWT will allow genotype-aware queries without revealing sensitive data. Third, real-time variant calling at the edge—driven by compact, pangenome-aware neural models and optimized haplotype indices like GBWT—will become viable on portable devices with limited memory. These trends reinforce a shift toward integrated analysis stacks where a graph pangenome, compressed haplotype index, and columnar genotype store work seamlessly. Rust, with its safety guarantees and performance profile, is well-suited to orchestrate this stack in research and production environments alike.
 
-#### Files contents:
-* experiment_8_2/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_8_2/src/
-  * main.rs (rust script)
-  * cohort_A.vcf (cohort A vcf file for input file)
-  * cohort_B.vcf (cohort B vcf file for input file)
-  * synthetic_variant_data.csv (synthetic variant data result csv file)
-  * query_results.parquet (query results parquet file as output file)
-  * output.txt (text file output)
+#### Project Structure:
+
+```plaintext
+experiment_8_2/
+├── Cargo.toml                  # Rust dependencies
+├── src/
+│   ├── main.rs                 # Rust implementation
+│   ├── cohort_A.vcf            # Cohort A VCF file (input file)
+│   ├── cohort_B.vcf            # Cohort B VCF file (input file)
+│   ├── synthetic_variant_data.csv  # Synthetic variant data CSV file
+│   ├── query_results.parquet   # Query results Parquet file (output file)
+│   └── output.txt              # Text file output
+```
 
 #### How to run:
 
