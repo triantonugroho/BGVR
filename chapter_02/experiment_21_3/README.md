@@ -6,12 +6,16 @@ Here is a practical illustration of how Rust’s concurrency model can handle bi
 
 The code first opens a FASTA file using the bio crate and collects all DNA reads as Strings, which ensures each sequence is fully owned and easily shared among threads. We define a simple count_occurrences function that searches for a target motif (e.g., "GATTACA") in each sequence, allowing overlapping matches by shifting the search by just one character each time. After loading all sequences, we leverage Rayon’s par_iter() to parallelize the motif-counting step. Each thread independently processes a subset of reads, and .sum() consolidates the results into a final total. Thanks to Rust’s concurrency model and zero-cost iterator abstractions, this high-level code runs efficiently, with no extra runtime overhead compared to manually written loops or lower-level threading approaches.
 
+#### Project Structure:
 
-#### Files contents:
-* main.rs (rust script)
-* reads.fasta (fasta file)
-* Cargo.toml (Cargo.toml file)
-* output.txt (output file)
+```plaintext
+experiment_21_3/
+└── Cargo.toml                     # Rust project configuration and dependencies
+experiment_21_3/src/
+├── main.rs                        # Main Rust script containing program logic
+├── reads.fasta                    # FASTA file containing sequence reads
+└── output.txt                     # Output file
+```
 
 #### How to run:
 
