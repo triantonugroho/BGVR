@@ -8,14 +8,17 @@ After reading in all sequences, each record is broken down into overlapping k-me
 
 In HPC practice, ephemeral containers can use this code to build partial Bloom filters from distinct input segments, which are then bitwise-ORed to yield a unified Bloom filter. This final structure can help detect whether a given k-mer appears in the entire dataset, thus enabling quick membership checks in large-scale read classification or reference indexing workflows. Carefully tuning the number of bits and number of hash functions is important: too few bits lead to high false-positive rates, while too many bits lead to excessive memory usage. In some industrial-scale applications, engineers split k-mers by certain prefixes before hashing, distributing the load across HPC nodes.
 
-#### Files contents:
-* experiment_34/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_34/src/
-  * main.rs (rust script)
-  * reads.fq.rar (compressed reads.fq)
-  * bloom.json
-  * output.txt (output file)
+#### Project Structure:
+
+```plaintext
+experiment_34/
+├── Cargo.toml                      # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                     # Main Rust script containing program logic
+    ├── reads.fq.rar                # Compressed FASTQ reads file
+    ├── bloom.json                  # Bloom filter JSON file
+    └── output.txt                  # Text output file
+```
 
 #### How to run:
 
