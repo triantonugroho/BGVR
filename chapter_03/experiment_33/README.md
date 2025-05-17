@@ -6,14 +6,17 @@ The following code demonstrates how to build partial de Bruijn graphs from FASTQ
 
 The program reads all sequences from a FASTQ file, divides them into equal-sized chunks, and maps them to individual threads. Each chunk is processed by extracting every k-mer from each read, creating or reusing a node in the graph, and adding edges between consecutive k-mers. After building the local subgraph, the code collects the node labels and edges in a data structure, serializes it, and writes it out as a JSON file. This facilitates modularity by allowing intermediate or partial results to be saved and later combined into a final, global de Bruijn graph if desired.
 
-#### Files contents:
-* experiment_33/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_33/src/
-  * main.rs (rust script)
-  * reads.fq.rar (compressed reads.fq)
-  * partial_debrujin_graphs.json.rar (compressed partial_debrujin_graphs.json output file)
-  * output.txt (output file)
+#### Project Structure:
+
+```plaintext
+experiment_33/
+├── Cargo.toml                                # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                               # Main Rust script containing program logic
+    ├── reads.fq.rar                          # Compressed FASTQ reads file
+    ├── partial_debrujin_graphs.json.rar      # Compressed JSON output file containing partial de Bruijn graphs
+    └── output.txt                            # Text output file
+```
 
 #### How to run:
 
