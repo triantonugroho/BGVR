@@ -6,12 +6,15 @@ This code demonstrates a parallel, thread-safe MinHash implementation in Rust th
 
 Internally, the MinHasher maintains a specified number of hash seeds. For each item in a dataset, it computes a distinct hash based on the item and seed, retains only the smallest hash value for that seed, and repeats the process for all seeds. The resulting collection of smallest hash values, one per seed, becomes the MinHash signature. Two datasets can then be compared by examining their signatures: the fraction of identical positions in the signatures approximates the Jaccard similarity of the original sets. The code uses Rayon’s parallel iterators to distribute these computations across CPU cores, thereby increasing throughput in scenarios where large numbers of seeds or large datasets are involved.
 
-#### Files contents:
-* experiment_31_5/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* src/
-  * main.rs (rust script)
-  * output.txt (output file)
+#### Project Structure:
+
+```plaintext
+experiment_31_5/
+└── Cargo.toml                     # Rust project configuration and dependencies
+src/
+├── main.rs                        # Main Rust script containing program logic
+└── output.txt                     # Text output file
+```
 
 #### How to run:
 
