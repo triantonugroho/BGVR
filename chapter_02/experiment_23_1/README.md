@@ -6,10 +6,15 @@ Classical substring-search algorithms like Knuth–Morris–Pratt (KMP) and Boye
 
 The KMP search’s O(n + m) time complexity is vital for high-throughput motif discovery, primer matching, and other foundational string tasks in functional genomics.
 
-#### Files contents:
-* main.rs (rust script)
-* Cargo.toml (Cargo.toml file)
-* output.txt (output file)
+#### Project Structure:
+
+```plaintext
+experiment_23_1/
+├── Cargo.toml                     # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                    # Main Rust script containing program logic
+    └── output.txt                 # Output file
+```
 
 #### How to run:
 
