@@ -6,11 +6,16 @@ Once the sequences are loaded, the snippet uses Rayon’s parallel iterator (par
 
 By wrapping the vector of sequences in a Mutex and then converting it into a local copy, Rust ensures that no two threads can mutate the data simultaneously, preventing data races. Any attempt to borrow the sequences vector incorrectly—say, by attempting a second mutable reference while another one is active—would fail at compile time. This guarantees that the code remains memory-safe, even under parallel workloads often found in genomics and functional biology pipelines.
 
-## Files contents:
-* main.rs (rust script)
-* example.fasta (fasta file)
-* Cargo.toml (Cargo.toml file)
-* output.txt (output file)
+## Project Structure:
+
+```plaintext
+experiment_21_1/src/
+├── main.rs                    # Main Rust script containing program logic
+├── example.fasta              # FASTA file
+└── output.txt                 # Output file
+experiment_21_1/               # Empty or duplicate project directory
+Cargo.toml                     # Rust project configuration and dependencies file (at root level)
+```
 
 ## How to run:
 
