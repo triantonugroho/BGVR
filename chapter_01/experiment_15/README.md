@@ -6,12 +6,17 @@ Below is an illustrative Rust program that demonstrates how one might employ a d
 
 In this example, “gene_expression.csv” contains rows of numerical values—one row per sample—and a final column indicating the label (e.g., 0 or 1). The program reads the CSV, builds a simple MLP, and iterates through mini-batches to train a binary classifier. While this code focuses on a single-file dataset, in real-world scenarios you may have gigabytes of multi-omics data split across multiple files, and you might integrate concurrency or distributed computing patterns for scalability. Nevertheless, it illustrates the essential building blocks of using tch-rs in bioinformatics.
 
-#### Files Contents
-* main.rs (rust script)
-* Python Code for Synthesize gene_expression.csv.ipynb (python code)
-* gene_expression.csv (gdrive link)
-* Cargo.toml (Cargo.toml file)
-* output.txt (output file)
+#### Project Structure:
+
+```plaintext
+experiment_15/
+├── Cargo.toml                     # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                    # Main Rust script containing program logic
+    ├── Python Code for Synthesize gene_expression.csv.ipynb   # Python notebook for data synthesis
+    ├── gene_expression.csv        # Gene expression CSV file (Google Drive link)
+    └── output.txt                 # Output file
+```
   
 #### How to run
 
