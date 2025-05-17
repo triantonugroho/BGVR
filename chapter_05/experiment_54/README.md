@@ -8,13 +8,16 @@ After parsing command-line arguments with clap, the program creates an output di
 
 During each chunk’s processing, the code constructs a local FnvHashMap of k-mers to their counts, then converts that into a small de Bruijn graph by treating each k-mer’s prefix as a node and the last base of the k-mer as an edge. This partial graph is serialized to disk using bincode. Once all chunks are exhausted, the code scans the partial outputs, reads each of them in turn, and merges them into a single de Bruijn graph. The final thresholding pass removes edges below a certain coverage value, creating a cleaner graph. This pattern of partial outputs followed by a merge step is a staple of HPC pipelines, allowing easy scaling to massive datasets while maintaining safe concurrency.
 
-#### Files contents:
-* experiment_54/
-  * Cargo.toml (Cargo.toml file for dependencies)
-*experiment_54/src/
-  * main.rs (rust script)
-  * reads.fq (fastq file)
-  * reference.fa (fasta file)
+#### Project Structure:
+
+```plaintext
+experiment_54/
+├── Cargo.toml             # Rust project configuration and dependencies
+└── src/
+    ├── main.rs            # Main Rust script containing program logic
+    ├── reads.fq           # FASTQ file containing sequencing reads
+    └── reference.fa       # FASTA file containing reference sequences
+```
 
 #### How to run:
 
