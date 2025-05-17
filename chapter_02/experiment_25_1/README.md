@@ -28,12 +28,17 @@ This process depends on the same channel (verified_sra) that provided input to O
 
 Running the pipeline typically involves executing nextflow run main.nf in the directory that contains your script and accession list. Nextflow creates a .nextflow.log file to record progress and details about each step. The pipeline’s intermediate results and logs are stored in the work/ directory, which holds separate subfolders for each process execution. If a process fails, you can inspect its log files or rerun the pipeline after making corrections. You can also override parameters via the command line, for instance by specifying a different output directory or changing the concurrency level.
 
-#### Files contents:
-* main.nf (nextflow script)
-* downloads/SRR11192680.sra (downloaded sra file)
-* nextflow.log.9 (nextflow log file)
-* Cargo.toml (Cargo.toml file)
-* output.txt (output file)
+#### Project Structure:
+
+```plaintext
+experiment_25_1/
+├── Cargo.toml                     # Rust project configuration and dependencies
+├── main.nf                        # Nextflow workflow script
+├── nextflow.log.9                 # Nextflow log file
+├── output.txt                     # Output file
+└── downloads/
+    └── SRR11192680.sra            # Downloaded SRA file
+```
 
 #### How to run:
 
