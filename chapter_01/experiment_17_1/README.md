@@ -6,12 +6,17 @@ A concise example of downloading a FASTQ file from NCBI using SRAToolkit), such 
 
 The following Rust code provides a concise example of downloading a FASTQ file from an online repository, such as NCBI by using SRAToolkit. The program retrieves the raw sequencing data and writes it to a local file. This capability is valuable for pipelines that integrate external data sources, enabling researchers to automate the acquisition of public genomic resources directly within their computational workflows.
 
-#### Files contents:
-* main.rs (rust script)
-* SRR11192680_1.rar (SRR11192680_1.fastq compressed in rar file)
-* SRR11192680_2.rar (SRR11192680_2.fastq compressed in rar file)
-* Cargo.toml (Cargo.toml file)
-* output.txt (output file)
+#### Project Structure:
+
+```plaintext
+experiment_17_1/
+├── Cargo.toml                     # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                    # Main Rust script containing program logic
+    ├── SRR11192680_1.rar          # SRR11192680_1.fastq compressed in RAR file
+    ├── SRR11192680_2.rar          # SRR11192680_2.fastq compressed in RAR file
+    └── output.txt                 # Output file
+```
 
 #### How to run:
 
