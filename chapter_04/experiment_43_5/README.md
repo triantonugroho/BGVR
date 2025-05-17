@@ -12,17 +12,20 @@ The code belowshowcased here scans DNA sequences for TATA-like motifs in a robus
 
 The TATAPattern struct stores the acceptable nucleotides for each position (e.g., ['T'] at position 0, ['A'] at position 1, etc.) and a maximum number of mismatches. The core function, find_tata_boxes, slides a window of the motif’s length across the input sequence, checking if each window contains fewer than or equal to the allowed number of mismatches relative to the pattern. By converting nucleotides to uppercase before matching, the code is case-insensitive. A parallel version, find_tata_boxes_parallel, leverages Rayon’s par_iter to distribute the workload across multiple CPU cores, enabling faster analysis when scanning a large set of sequences.
 
-#### Files contents:
-* experiment_43_5/
-  * Cargo.toml (Cargo.toml file for dependencies)
-  * motif_scanner (output file)
-* experiment_43_5/src/
-  * main.rs (rust script)
-  * main.nf (nextflow script)
-  * genome.fa (fasta file)
-  * input.fa (fasta file)
-  * output.json.rar (compressed output json)
-  * tata_scan_merged.json.rar (compressed tata_scan_merged.json)
+#### Project Structure:
+
+```plaintext
+experiment_43_5/
+├── Cargo.toml                       # Rust project configuration and dependencies
+├── motif_scanner                    # Output executable file
+└── src/
+    ├── main.rs                      # Main Rust script containing program logic
+    ├── main.nf                      # Nextflow workflow script
+    ├── genome.fa                    # Reference genome FASTA file
+    ├── input.fa                     # Input sequences FASTA file
+    ├── output.json.rar              # Compressed output JSON file
+    └── tata_scan_merged.json.rar    # Compressed TATA scan merged results JSON file
+```
 
 #### How to run:
 
