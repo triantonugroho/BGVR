@@ -10,12 +10,15 @@ The MotifHMM struct holds transition and emission tables in hash maps. The core 
 
 selecting whichever predecessor state yields the greatest value. After processing all positions, the algorithm identifies the best final state and follows backpointers to reconstruct the most-likely motif vs. non-motif labeling of the entire DNA sequence.
 
-#### Files contents:
-* experiment_43_1/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_43_1/src/
-  * main.rs (rust script)
-  * output.txt (output file)
+#### Project Structure:
+
+```plaintext
+experiment_43_1/
+├── Cargo.toml                     # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                    # Main Rust script containing program logic
+    └── output.txt                 # Output file
+```
 
 #### How to run:
 
