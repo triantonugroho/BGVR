@@ -6,14 +6,17 @@ In this example code, the program reads each FASTA record, computes basic statis
 
 The program calculates each sequence’s GC content by counting the occurrences of G and C nucleotides, then dividing by the total sequence length. If n is the total number of sequences and \ell is the average length of a sequence, the computation of GC content is O(\ell) for each record. Summing over all records, the overall time complexity becomes O(n \times \ell). For large data sets, this linear time approach is generally efficient, assuming that reading from disk is also managed in a streaming fashion. If one were to parallelize the GC content calculation, it could further reduce wall-clock time on machines with multiple CPU cores, but the asymptotic complexity remains O(n \times \ell).
 
-#### Files contents:
-* experiment_31_6/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* src/
-  * main.rs (rust script)
-  * example.fasta (fasta file)
-  * output.txt (output file)
-  * output.json
+#### Project Structure:
+
+```plaintext
+experiment_31_6/
+└── Cargo.toml                     # Rust project configuration and dependencies
+src/
+├── main.rs                        # Main Rust script containing program logic
+├── example.fasta                  # FASTA input file
+├── output.txt                     # Text output file
+└── output.json                    # JSON output file
+```
 
 #### How to run:
 
