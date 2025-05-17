@@ -10,17 +10,20 @@ The program uses the clap crate to handle command-line arguments, allowing the u
 
 Once all chunks are processed, the program scans the partial output directory for any files named partial_breakpoints_*.json, reading each and merging them into a single vector of breakpoints. This final, aggregated list is written to the user-specified output file. In HPC or industrial settings, ephemeral containers can each handle a subset of the data, generating multiple sets of partial outputs that are subsequently merged. Rust’s safety guarantees around shared data structures simplify parallel expansions, and advanced crates like polars, ndarray, or linfa can be introduced to incorporate statistical modeling or machine learning for more precise variant detection.
 
-#### Files contents:
-* experiment_56/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_56/src/
-  * main.rs (rust script)
-  * alignment_data.json (alignment data json input file)
-  * merged_breakpoints.json (merged breakpoints json output file)
-  * output.txt (text file output)
-* experiment_56/src/partial_breakpoints
-  * partial_breakpoints_0.json (partial breakpoints in chunk 0 json output file)
-  * partial_breakpoints_1.json (partial breakpoints in chunk 1 json output file)
+#### Project Structure:
+
+```plaintext
+experiment_56/
+├── Cargo.toml                                  # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                                 # Main Rust script containing program logic
+    ├── alignment_data.json                     # Alignment data JSON input file
+    ├── merged_breakpoints.json                 # Merged breakpoints JSON output file
+    ├── output.txt                              # Text file output
+    └── partial_breakpoints/
+        ├── partial_breakpoints_0.json          # Partial breakpoints in chunk 0 JSON output file
+        └── partial_breakpoints_1.json          # Partial breakpoints in chunk 1 JSON output file
+```
 
 #### How to run:
 
