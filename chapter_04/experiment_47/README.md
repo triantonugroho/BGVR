@@ -6,13 +6,16 @@ An AI engineer tasked with implementing an eQTL pipeline in Rust might structure
 
 After defining structs to represent SNP genotypes and gene expressions, the program uses Rayon’s par_iter to distribute SNP processing across multiple CPU cores. Within each thread, all genes are iterated over to perform a basic linear regression (linear_eqtl) that estimates the slope and p-value (using a Student’s t-distribution for significance testing). A parallel reduction (reduce_with) then concatenates the locally computed results from each thread into a final output vector, which is written to a CSV file. This design eliminates the complexity of nested parallel iterators and ensures straightforward scalability across large numbers of SNPs.
 
-#### Files contents:
-* experiment_47/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_47/src/
-  * main.rs (rust script)
-  * output.txt (output file)
-  * partial_eqtl.csv
+#### Project Structure:
+
+```plaintext
+experiment_47/
+├── Cargo.toml                     # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                    # Main Rust script containing program logic
+    ├── output.txt                 # Text output file
+    └── partial_eqtl.csv           # CSV file containing partial eQTL results
+```
 
 #### How to run:
 
