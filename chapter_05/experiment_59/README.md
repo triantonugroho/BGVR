@@ -10,18 +10,21 @@ After reading user input with clap, the program organizes the read files into a 
 
 These partial variant results are then serialized to a JSON file, named and stored in a specified partial directory. Once all chunks are processed, the program scans that directory for files named partial_variants_* and merges their contents by simply concatenating the variant vectors. This approach is a standard HPC pattern: ephemeral or distributed tasks each produce partial outputs, which are combined in a final reduce step. Because of Rust’s concurrency model, data races are not a concern, and partial merges will not cause corruption. If additional data analysis is required—such as matrix transformations with ndarray or advanced statistical grouping with polars—the pipeline can be expanded without compromising the safety and readability of the concurrent Rust code.
 
-#### Files contents:
-* experiment_59/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_59/src/
-  * main.rs (rust script)
-  * ref.fa (reference fasta file input)
-  * reads_1.fastq (reads 1 fastq file input)
-  * reads_2.fastq (reads 2 fastq file input)
-  * final_variants.json (final variants json output file)
-  * output.txt (text file output)
-* experiment_59/src/partial_variants
-  * partial_variants_0000.json (partial variants in chunk 0 json output file)
+#### Project Structure:
+
+```plaintext
+experiment_59/
+├── Cargo.toml                                  # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                                 # Main Rust script containing program logic
+    ├── ref.fa                                  # Reference FASTA file input
+    ├── reads_1.fastq                           # Reads 1 FASTQ file input
+    ├── reads_2.fastq                           # Reads 2 FASTQ file input
+    ├── final_variants.json                     # Final variants JSON output file
+    ├── output.txt                              # Text file output
+    └── partial_variants/
+        └── partial_variants_0000.json          # Partial variants in chunk 0 JSON output file
+```
   
 #### How to run:
 
