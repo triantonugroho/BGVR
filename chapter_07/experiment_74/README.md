@@ -12,27 +12,32 @@ Below is a Nextflow pipeline illustrating ephemeral HPC tasks that merge sets of
 In HPC or cloud infrastructures, ephemeral tasks each handle a chunk of the sample list—say, five single-sample VCF files—and produce partial merges. The final merge merges those partial merges into a single multi-sample VCF. The svCheck step runs an advanced structural variant check on the consolidated result. Each ephemeral container uses a Docker or Singularity image that includes Rust-based binaries (rust_vcf_merge_tool, rust_svcheck_tool). For even larger HPC tasks, developers might chunk the genome itself, analyzing structural variants region by region (Smith et al. (2020)).
 
 #### Files contents:
-* experiment_74/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_74/src/
-  * main.rs (rust script)
-  * main.nf (nextflow script)
-  * merged.vcf (merged vcf file as output file after running main.rs)
-  * output.json (output json file)
-  * sample1.vcf (sample 1 vcf file as input file)
-  * sample2.vcf (sample 2 vcf file as input file)
-  * vcf_list.txt (text file contain vcf file list) 
-  * output.txt (text file output)
-* experiment_74/src/results/
-  * merged_vcf.bcf (merged vcf bcf file as output file after running main.nf)
-  * pipeline_report.html (pipeline report html file as output file after running main.nf)
-* experiment_74/src/work/0a/2d77eea602eedc6fe33279113344e1/
-  * pipeline_report.html (pipeline report html file as output file after running main.nf)
-* experiment_74/src/work/85/5ef3143a9d19c98e673a43cae7e651/
-  * local_vcf_list.txt (text file contain local vcf list)
-  * merged_vcf.bcf (merged vcf bcf file as output file after running main.nf)
-* experiment_74/target/debug/
-  * rust_vcf_merge_tool.rar (compressed rust_vcf_merge_tool execution file output from running main.rs)
+
+```plaintext
+experiment_74/
+├── Cargo.toml                  # Rust dependencies
+├── src/
+│   ├── main.rs                 # Rust implementation
+│   ├── main.nf                 # Nextflow workflow
+│   ├── merged.vcf              # Merged VCF file (output after running main.rs)
+│   ├── output.json             # Output JSON file
+│   ├── sample1.vcf             # Sample 1 VCF file (input)
+│   ├── sample2.vcf             # Sample 2 VCF file (input)
+│   ├── vcf_list.txt            # Text file containing VCF file list
+│   ├── output.txt              # Text file output
+│   ├── results/                # Results directory
+│   │   ├── merged_vcf.bcf      # Merged VCF BCF file (output after running main.nf)
+│   │   └── pipeline_report.html # Pipeline report HTML file
+│   └── work/                   # Nextflow work directory
+│       ├── 0a/2d77eea602eedc6fe33279113344e1/
+│       │   └── pipeline_report.html   # Pipeline report HTML file
+│       └── 85/5ef3143a9d19c98e673a43cae7e651/
+│           ├── local_vcf_list.txt     # Text file containing local VCF list
+│           └── merged_vcf.bcf         # Merged VCF BCF file
+└── target/
+    └── debug/
+        └── rust_vcf_merge_tool.rar  # Compressed Rust VCF merge tool executable
+```
 
 #### How to run:
 
