@@ -6,12 +6,15 @@ The code belowshowcased here scans DNA sequences for TATA-like motifs in a robus
 
 The TATAPattern struct stores the acceptable nucleotides for each position (e.g., ['T'] at position 0, ['A'] at position 1, etc.) and a maximum number of mismatches. The core function, find_tata_boxes, slides a window of the motif’s length across the input sequence, checking if each window contains fewer than or equal to the allowed number of mismatches relative to the pattern. By converting nucleotides to uppercase before matching, the code is case-insensitive. A parallel version, find_tata_boxes_parallel, leverages Rayon’s par_iter to distribute the workload across multiple CPU cores, enabling faster analysis when scanning a large set of sequences.
 
-#### Files contents:
-* experiment_43_4/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_43_4/src/
-  * main.rs (rust script)
-  * output.txt (output file)
+#### Project Structure:
+
+```plaintext
+experiment_43_4/
+├── Cargo.toml                     # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                    # Main Rust script containing program logic
+    └── output.txt                 # Output file
+```
 
 #### How to run:
 
