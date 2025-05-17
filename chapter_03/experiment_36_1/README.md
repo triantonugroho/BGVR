@@ -33,15 +33,18 @@ Each subdirectory is a self-contained Rust project. For instance, index-builder 
 
 This code demonstrates a naive “FM-index building” step, in practice. Real HPC solutions for partial FM-index building would replace the placeholder with code that actually computes a partial Burrows–Wheeler Transform. The ephemeral container concept allows multiple nodes each to run this binary on distinct reference slices. They collectively write partial outputs, then a final job merges them into one comprehensive FM-index.
 
-#### Files contents:
-* experiment_36_1/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* xperiment_36_1/src/
-  * main.rs (rust script)
-  * main.nf (nextflow script)
-  * reference.fa (reference fasta file)
-  * partial_fm_indexes.json (json output file)
-  * output.txt (output file)
+#### Project Structure:
+
+```plaintext
+experiment_36_1/
+└── Cargo.toml                      # Rust project configuration and dependencies
+experiment_36_1/src/                 # Note: Directory name has a typo (missing 'e')
+├── main.rs                         # Main Rust script containing program logic
+├── main.nf                         # Nextflow workflow script
+├── reference.fa                    # Reference FASTA file
+├── partial_fm_indexes.json         # JSON output file containing partial FM-indexes
+└── output.txt                      # Text output file
+```
 
 #### How to run:
 
