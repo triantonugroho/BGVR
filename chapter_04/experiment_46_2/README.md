@@ -6,12 +6,15 @@ This Rust code provides a high-performance, parallel implementation of sparse ma
 
 The core data structure, CsrMatrix, stores non-zero values (values), their corresponding column indices (col_indices), and a set of row pointers (row_ptrs) where row_ptrs[i] marks the start of row i within values and col_indices. In the mul_vector_parallel method, each row is assigned to a different thread through into_par_iter(), and the partial sums (dot products between row segments and the input vector) are computed independently. By accumulating row results in a lock-free way, contention is minimized, and every row’s contribution can be swiftly combined into a final output vector. This approach is highly scalable, allowing larger matrices and vectors to be processed in parallel, and can be further adapted for distributed memory systems or ephemeral container usage in HPC or cloud environments. With Rust’s memory-safety guarantees, large consortia can confidently scale up their single-cell analyses, preserving correctness even in massively parallel environments (Wolf et al. (2018)).
 
-#### Files contents:
-* experiment_46_2/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_46_2/src/
-  * main.rs (rust script)
-  * output.txt (output file)
+#### Project Structure:
+
+```plaintext
+experiment_46_2/
+├── Cargo.toml                     # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                    # Main Rust script containing program logic
+    └── output.txt                 # Text output file
+```
 
 #### How to run:
 
