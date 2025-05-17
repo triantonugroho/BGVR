@@ -6,12 +6,17 @@ For more advanced data transformations, developers might adopt polars for tabula
 
 This code demonstrates two functions (read_csv_basic and read_csv_advanced) for reading CSV files using the Polars library in Rust. The first function applies relatively simple settings (e.g., inferring the schema, assuming a header row, and attempting to parse date columns), while the second function showcases more advanced parsing options (such as customizing the separator, quote character, encoding, and handling specific null value markers). Both functions ultimately read the CSV file into a DataFrame and return it, and the main function prints the resulting data frames. It’s crucial to always consult the latest Polars documentation (or any crate’s documentation) before writing and generating code for GenAI, as APIs and best practices can change over time, ensuring that your code remains accurate and up-to-date.
 
-#### Files contents:
-* main.rs (rust script)
-* output.csv (csv file)
-* Synthesize CSV File.ipynb (python notebook to synthesize output.csv)
-* Cargo.toml (Cargo.toml file)
-* output.txt (output file)
+#### Project Structure:
+
+```plaintext
+experiment_25_4/
+├── Cargo.toml                     # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                    # Main Rust script containing program logic
+    ├── output.csv                 # CSV output file
+    ├── Synthesize CSV File.ipynb  # Python notebook to synthesize output.csv
+    └── output.txt                 # Text output file
+```
 
 #### How to run:
 
