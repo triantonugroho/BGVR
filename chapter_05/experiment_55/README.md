@@ -10,17 +10,19 @@ After collecting command-line parameters through the clap crate, the code loads 
 
 Finally, all partial results written to the output directory are reopened, deserialized, and merged into a single vector of calls. This final vector is written to a single merged JSON file, showing how ephemeral tasks can unify their outputs without each having to hold the entire dataset in memory. In a production environment, it is straightforward to extend this approach. One can replace the naive_likelihood function with more sophisticated models that use machine learning or Bayesian statistics, or incorporate advanced concurrency management with Crossbeam. Regardless of the complexity of the expansion, Rust’s ownership and type system ensure that parallel computations remain memory-safe and free from data races.
 
-#### Files contents:
-* experiment_55/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_55/src/
-  * main.rs (rust script)
-  * hypotheses.json (json input file)
-  * pileup.json (json input file)
-  * merged_variants.json (merged variants json output file)
-* experiment_55/src/output
-  * partial_varians_chunk_0.json (partial varians in chunk 0 json output file)
+#### Project Structure:
 
+```plaintext
+experiment_55/
+├── Cargo.toml                         # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                        # Main Rust script containing program logic
+    ├── hypotheses.json                # JSON input file containing hypotheses
+    ├── pileup.json                    # JSON input file containing pileup data
+    ├── merged_variants.json           # Merged variants JSON output file
+    └── output/
+        └── partial_varians_chunk_0.json  # Partial variants in chunk 0 JSON output file
+```
 
 #### How to run:
 
