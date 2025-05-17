@@ -16,20 +16,24 @@ For large genomic datasets spanning many intervals, Nextflow automatically distr
 
 By combining the memory-safe, high-performance Rust filtering tool with Nextflow’s orchestration, teams can tackle large workflows while ensuring that each step is both resilient (capable of retries on transient errors) and efficient in resource consumption. More advanced use cases can incorporate deep learning packages via the tch-rs crate or numerical libraries like ndarray and linfa for sophisticated analyses, all within the same Rust-based codebase.
 
-#### Files contents:
-* experiment_63/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_63/src/
-  * main.rs (rust script)
-  * main.nf (nextflow script)
-  * chunks_list.txt (chunk list input text file)
-  * wgs_cohort.bcf (bcf input file)
-  * wgs_cohort.bcf.csi (indexed bcf input file)
-  * filtered_output.bcf (bcf output file from running main.rs)
-* experiment_63/target/debug/
-  * bcf_filter_tool.rar (compressed bcf_filter_tool execution file output from running main.rs)
-* experiment_63/src/work/69/fd2fa2cc9f7401386d609c509b0544/
-  * filtered_chr1_1000-1200.bcf (bcf output file from running main.nf)
+#### Project Structure:
+```plaintext
+experiment_63/
+├── Cargo.toml                  # Rust dependencies
+├── src/
+│   ├── main.rs                 # Rust implementation
+│   ├── main.nf                 # Nextflow workflow
+│   ├── chunks_list.txt         # Chunk list input text file
+│   ├── wgs_cohort.bcf          # BCF input file
+│   ├── wgs_cohort.bcf.csi      # Indexed BCF input file
+│   ├── filtered_output.bcf     # BCF output file from running main.rs
+│   └── work/                   # Nextflow work directory
+│       └── 69/fd2fa2cc9f7401386d609c509b0544/
+│           └── filtered_chr1_1000-1200.bcf    # BCF output file from running main.nf
+└── target/
+    └── debug/
+        └── bcf_filter_tool.rar # Compressed BCF filter tool execution file from main.rs
+```
 
 #### How to run:
 
