@@ -14,20 +14,23 @@ The Nextflow workflow orchestrates ephemeral tasks for each genomic region by in
 
 This configuration illustrates how Nextflow splits the workload among different genomic regions and submits each region to a new ephemeral job. When running on an HPC cluster or in a cloud environment, Nextflow can spin up containers or compute nodes, each of which invokes coverage_tool to fetch the corresponding subset of the BAM file through its BAI index. This approach ensures efficient, region-specific data access without processing unnecessary reads. It also takes advantage of Rust’s concurrency guarantees, as the coverage_tool itself can parallelize internally using rayon or other threading mechanisms.
 
-#### Files contents:
-* experiment_62/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_62/src/
-  * main.rs (rust script)
-  * example.bam (bam file input)
-  * example.bam.bai (indexed input.bam file)
-* experiment_62/src/work/5a/aea62a5e030f2af4b041e15515dc81/
-  * coverage_1_1-50000.txt
-* experiment_62/src/work/58/e3932aafe6d31d198df4ca93a9f39e/
-  * coverage_1_50001-100000.txt
-
-* experiment_62/target/debug
-  * coverage_tool.rar (compressed coverage_tool execution file/container)
+#### Project Structure:
+```plaintext
+experiment_62/
+├── Cargo.toml                  # Rust dependencies
+├── src/
+│   ├── main.rs                 # Rust implementation
+│   ├── example.bam             # BAM file input
+│   ├── example.bam.bai         # Indexed BAM file
+│   └── work/                   # Work directory
+│       ├── 5a/aea62a5e030f2af4b041e15515dc81/
+│       │   └── coverage_1_1-50000.txt          # Coverage output for region 1-50000
+│       └── 58/e3932aafe6d31d198df4ca93a9f39e/
+│           └── coverage_1_50001-100000.txt     # Coverage output for region 50001-100000
+└── target/
+    └── debug/
+        └── coverage_tool.rar   # Compressed coverage_tool execution file/container
+```
 
 #### How to run:
 
