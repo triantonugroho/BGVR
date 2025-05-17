@@ -10,10 +10,15 @@ In this condensed illustration, “ndarray” and “nalgebra” manage matrix o
 
 Several success stories document how re-engineering legacy scripts into Rust-based components yielded faster data preprocessing and more stable HPC runs, ultimately shortening drug candidate pipelines. The synergy between concurrency, memory safety, and containerized deployment resonates in regulated environments, where reproducibility and audit trails are paramount. Large consortia analyzing population-level data also benefit from these standardized pipelines, as collaborative teams can trust that results are both scalable and reproducible.
 
-#### Files contents:
-* main.rs (rust script)
-* Cargo.toml (Cargo.toml file)
-* output.txt (output file)
+#### Project Structure:
+
+```plaintext
+experiment_17_2/
+├── Cargo.toml                     # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                    # Main Rust script containing program logic
+    └── output.txt                 # Output file
+```
 
 #### How to run:
 
