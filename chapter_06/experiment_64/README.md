@@ -14,24 +14,28 @@ This pipeline demonstrates how Nextflow simplifies the orchestration of complex 
 
 Many AI engineers and bioinformaticians have adopted these Rust and Nextflow solutions to power scalable genomics pipelines, enabling them to run cost-effectively on public clouds or local HPC clusters. One success story involves a large hospital system that processes thousands of clinical exomes per week, using ephemeral containers to align reads, call variants, and combine results seamlessly. Rust’s concurrency guarantees helped them avoid race conditions that might otherwise have caused data corruption in long, multi-threaded analyses. They also appreciated the minimal overhead of static binaries, which improved performance and reduced container image sizes.
 
-#### Files contents:
-* experiment_64/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_64/src/
-  * main.rs (rust script)
-  * main.nf (nextflow script)
-  * ref.fasta (reference fasta file as input file)
-  * ref.fasta.fai (indexed ref.fasta.fai)
-  * sample1.bam (sample 1 bam file as input file)
-  * sample1.bam.bai (indexed sample1.bam file)
-  * sample2.bam (sample 2 bam file as input file)
-  * sample2.bam.bai (indexed sample2.bam file)
-  * samples.txt (samples text file as input file)
-  * output.txt (text file output)
-* experiment_64/target/debug/
-  * bam_read_counter.rar (compressed bam_read_counter execution file output from running main.rs)
-* experiment_64/src/results/
-  * merged.vcf (merged vcf output file)
+#### Project Structure:
+
+```plaintext
+experiment_64/
+├── Cargo.toml                  # Rust dependencies
+├── src/
+│   ├── main.rs                 # Rust implementation
+│   ├── main.nf                 # Nextflow workflow
+│   ├── ref.fasta               # Reference fasta file as input
+│   ├── ref.fasta.fai           # Indexed reference fasta
+│   ├── sample1.bam             # Sample 1 BAM file as input
+│   ├── sample1.bam.bai         # Indexed sample1.bam file
+│   ├── sample2.bam             # Sample 2 BAM file as input
+│   ├── sample2.bam.bai         # Indexed sample2.bam file
+│   ├── samples.txt             # Samples list as input file
+│   ├── output.txt              # Text file output
+│   └── results/                # Results directory
+│       └── merged.vcf          # Merged VCF output file
+└── target/
+    └── debug/
+        └── bam_read_counter.rar # Compressed BAM read counter execution file from main.rs
+```
 
 #### How to run:
 
