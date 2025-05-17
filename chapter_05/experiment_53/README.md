@@ -12,13 +12,16 @@ Alignment is carried out by first loading all the partial index files from disk.
 
 In HPC or industrial settings, the partial indexes could be built on different nodes, stored on a shared filesystem, and loaded by many ephemeral containers or tasks. One might distribute the read sets in similar chunks, then collect final alignments in a subsequent merge step. Rust’s thread-safe concurrency primitives and data-parallel abstractions simplify scaling out to very large input data, while libraries like ndarray, polars, or linfa can be added to support advanced analytics on alignment results. This approach forms a production-ready foundation for building a high-throughput, distributed alignment pipeline in Rust.
 
-#### Files contents:
-* experiment_53/
-  * Cargo.toml (Cargo.toml file for dependencies)
-*experiment_53/src/
-  * main.rs (rust script)
-  * reads.fq (fastq file)
-  * reference.fa (fasta file)
+#### Project Structure:
+
+```plaintext
+experiment_53/
+├── Cargo.toml             # Rust project configuration and dependencies
+└── src/
+    ├── main.rs            # Main Rust script containing program logic
+    ├── reads.fq           # FASTQ file containing sequencing reads
+    └── reference.fa       # FASTA file containing reference sequences
+```
 
 #### How to run:
 
