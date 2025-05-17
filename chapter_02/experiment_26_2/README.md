@@ -100,13 +100,19 @@ In practice, several important considerations improve the reliability of Rust-Ne
 
 In conclusion, combining Rust with Nextflow creates a powerful paradigm for bioinformatics and functional genomics research. Rust’s performance, zero-cost abstractions, and strict memory guarantees address the challenges of building high-speed and fault-tolerant data-processing tools, while Nextflow’s workflow abstractions, containerization strategies, and natural alignment with DAG-based computations ensure reproducibility and scalability. This orchestration model is especially valuable in industrial settings where massive datasets, regulatory requirements, and HPC or cloud infrastructures come together, demanding pipelines that are efficient, maintainable, and rigorously reproducible.
 
-#### Files contents:
-* main.nf (nextflow script)
-* src/dataset_v1.0 (dataset folder)
-* src/reads/sample.fastq.rar (compressed sample.fastq)
-* nextflow.log.9 (nextflow log file)
-* Cargo.toml (Cargo.toml file)
-* output.txt (output file)
+#### Project Structure:
+
+```plaintext
+experiment_26_2/
+└── Cargo.toml                     # Rust project configuration and dependencies
+src/
+├── main.nf                        # Nextflow workflow script
+├── nextflow.log.9                 # Nextflow log file
+├── output.txt                     # Output file
+├── dataset_v1.0/                  # Dataset folder
+└── reads/
+    └── sample.fastq.rar           # Compressed FASTQ sample file
+```
 
 #### How to run:
 
