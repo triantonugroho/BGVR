@@ -10,16 +10,19 @@ Below is a minimal Nextflow workflow that invokes the Rust-based coverage_tool t
 
 This Nextflow pipeline demonstrates how to split the workload by region and execute the Rust coverage_tool concurrently. Each invocation of coverage_tool receives a specific genomic interval (e.g., chr1:1-1000000) along with a reference to the indexed BAM file. The process block illustrates how Nextflow uses a combination of Groovy syntax and Bash-like script blocks to run external commands. In this case, the command line is constructed to pass the required --bam and --region parameters from the Rust program, along with an --output flag to store the results in a separate file for each region.
 
-#### Files contents:
-* experiment_61/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_61/src/
-  * main.rs (rust script)
-  * coverage.txt (text file output)
-  * input.bam (bam file input)
-  * input.bam.bai (indexed input.bam file)
-* experiment_61/target/debug
-  * coverage_tool.rar (compressed coverage_tool execution file/container)
+#### Project Structure:
+```plaintext
+experiment_61/
+├── Cargo.toml                  # Rust dependencies
+├── src/
+│   ├── main.rs                 # Rust implementation
+│   ├── coverage.txt            # Text file output
+│   ├── input.bam               # BAM file input
+│   └── input.bam.bai           # Indexed input.bam file
+└── target/
+    └── debug/
+        └── coverage_tool.rar   # Compressed coverage_tool execution file/container
+```
 
 #### How to run:
 
