@@ -10,11 +10,16 @@ After reading a FASTA file named reads.fasta from the src directory, the main fu
 
 Several success stories highlight substantial reductions in runtime and cost once legacy Python or Java components are rewritten in Rust, particularly for k-mer counting or parallel motif searches. By combining HPC scheduling with containerized Rust executables, these organizations accelerate the pace of biomarker discovery and gene therapy research while preserving the reproducibility needed for regulatory compliance and collaborative studies.
 
-#### Files Contents
-* main.rs (rust script)
-* reads.fasta (fasta file)
-* Cargo.toml (Cargo.toml file)
-* output.txt (output file)
+#### Project Structure:
+
+```plaintext
+experiment_13/
+├── Cargo.toml                     # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                    # Main Rust script containing program logic
+    ├── reads.fasta                # FASTA file containing sequence reads
+    └── output.txt                 # Output file
+```
 
 #### [dependencies]
 
