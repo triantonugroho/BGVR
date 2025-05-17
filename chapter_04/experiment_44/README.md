@@ -8,12 +8,15 @@ After optionally smoothing the coverage data with a rolling average (using a pre
 
 The resulting partial_peaks.bed file (or multiple such files, one per node) can be merged in a final HPC pipeline step. That step might also incorporate additional heuristics, such as removing spurious peaks or combining nearby calls. This partial merges pattern is standard in large bioinformatics workflows and is readily integrated with container orchestration tools like Nextflow or Snakemake. Because Rust compiles to efficient, static binaries, containers remain lightweight and reproducible, an essential aspect of modern HPC pipelines (Davis et al. (2023)).
 
-#### Files contents:
-* experiment_44/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_44/src/
-  * main.rs (rust script)
-  * partial_peaks.bed (output file)
+#### Project Structure:
+
+```plaintext
+experiment_44/
+├── Cargo.toml                     # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                    # Main Rust script containing program logic
+    └── partial_peaks.bed          # BED format output file containing partial peaks
+```
 
 #### How to run:
 
