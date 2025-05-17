@@ -10,16 +10,21 @@ In this example, Nextflow discovers all FASTQ files in the reads directory, send
 #### Rust Script:
 The Rust trimmer itself can be a simple program that removes low-quality bases from both ends of a read. A short demonstration is shown here, but in a real application, it would include robust error handling, concurrency features, and thorough logging.
 
-#### Files contents:
-* main.rs (rust script)
-* main.nf (nextflow script)
-* src/reads
-  * sample.fastq.rar (compressed sample.fastq)
-  * trimmed_sample.fastq.rar (compressed trimmed_sample.fastq)
-* nextflow.log.9 (nextflow log file)
-* Cargo.toml (Cargo.toml file)
-* output_nf.txt (output file)
-* output_rs.txt (output file)
+#### Project Structure:
+
+```plaintext
+experiment_26_1/
+└── Cargo.toml                      # Rust project configuration and dependencies
+experiment_26_1/src/
+├── main.rs                         # Main Rust script containing program logic
+├── main.nf                         # Nextflow workflow script
+├── nextflow.log.9                  # Nextflow log file
+├── output_nf.txt                   # Nextflow output file
+├── output_rs.txt                   # Rust output file
+└── reads/
+    ├── sample.fastq.rar            # Compressed FASTQ sample file
+    └── trimmed_sample.fastq.rar    # Compressed trimmed FASTQ sample file
+```
 
 #### How to run:
 
