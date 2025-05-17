@@ -10,27 +10,32 @@ The Nextflow pipeline shown below orchestrates ephemeral container tasks that ea
 
 This pipeline ensures ephemeral containers each run a specialized Rust tool, either rust_noodles_coverage for coverage or rust_noodles_variant for variant extraction. The ephemeral approach is valuable in AI-driven genomic projects, where large data sets can be automatically subdivided among many computing nodes. Container images fix the Rust environment for reproducibility, while Nextflow manages parallel dispatch, error handling, and final merges.
 
-#### Files contents:
-* experiment_71/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_71/src/
-  * main.rs (rust script)
-  * main.nf (nextflow script)
-  * bams.txt (text file contain sorted bam file list)
-  * cohort.vcf (cohort vcf file)
-  * regions.txt (region list text file)
-  * sample1.sam (sample 1 sam file to make sample1.bam file)
-  * sample1.bam (sample 1 bam file as input file)
-  * sample1.sorted.bam.bai (indexed sorted sample 1 bam file)
-  * sample2.sam (sample 2 sam file to make sample1.bam file)
-  * sample2.bam (sample 2 bam file as input file)
-  * sample2.sorted.bam.bai (indexed sorted sample 2 bam file)
-  * variants.vcf (variants vcf file)
-  * output.txt (text file output)
-* experiment_71/target/debug/
-  * rust_noodles_tool.rar (compressed rust_noodles_tool execution file output from running main.rs)
-* experiment_71/src/work/fc/c33468689ba766ec2e2b2e5f570587/
-  * coverage_ouput.txt (overage text file output)
+#### Project Structure:
+
+```plaintext
+experiment_71/
+├── Cargo.toml                  # Rust dependencies
+├── src/
+│   ├── main.rs                 # Rust implementation
+│   ├── main.nf                 # Nextflow workflow
+│   ├── bams.txt                # Text file containing sorted BAM file list
+│   ├── cohort.vcf              # Cohort VCF file
+│   ├── regions.txt             # Region list text file
+│   ├── sample1.sam             # Sample 1 SAM file to create sample1.bam
+│   ├── sample1.bam             # Sample 1 BAM file as input
+│   ├── sample1.sorted.bam.bai  # Indexed sorted sample 1 BAM file
+│   ├── sample2.sam             # Sample 2 SAM file to create sample2.bam
+│   ├── sample2.bam             # Sample 2 BAM file as input
+│   ├── sample2.sorted.bam.bai  # Indexed sorted sample 2 BAM file
+│   ├── variants.vcf            # Variants VCF file
+│   ├── output.txt              # Text file output
+│   └── work/                   # Nextflow work directory
+│       └── fc/c33468689ba766ec2e2b2e5f570587/
+│           └── coverage_ouput.txt            # Coverage text file output
+└── target/
+    └── debug/
+        └── rust_noodles_tool.rar  # Compressed Rust noodles tool executable
+```
 
 #### How to run:
 
