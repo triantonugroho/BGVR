@@ -6,12 +6,15 @@ This code demonstrates how to conditionally offload computations to GPU or FPGA 
 
 In this code, the GPU and FPGA modules each simulate device initialization before applying a trivial computation to every element in the input data. The GPU path doubles each value, while the FPGA path adds ten. In practice, these stubs would be replaced by real kernels or bitstream invocations, with memory transfers to and from the device. If neither feature is present, the program multiplies the data by 1.1 on the CPU to provide a fallback. At runtime, Rust checks whether the feature flags “gpu” or “fpga” are active, conditionally compiling in the corresponding code blocks. This approach keeps the code simple yet extensible, allowing developers to maintain specialized paths for different acceleration options.
 
-#### Files contents:
-* experiment_31_4/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* src/
-  * main.rs (rust script)
-  * output.txt (output file)
+#### Project Structure:
+
+```plaintext
+experiment_31_4/
+└── Cargo.toml                     # Rust project configuration and dependencies
+src/
+├── main.rs                        # Main Rust script containing program logic
+└── output.txt                     # Text output file
+```
 
 #### How to run:
 
