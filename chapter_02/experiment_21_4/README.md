@@ -6,14 +6,19 @@ In many bioinformatics workflows, one might receive a set of files representing 
 
 The code first defines a helper function, count_occurrences, to locate overlapping instances of a target motif in a string. It then provides three specialized functions—process_fastq, process_bam, and process_vcf—each handling a different file format using community crates like bio (for FASTQ) and rust-htslib (for SAM/BAM and VCF). In each function, Rust reads the input records, extracts the relevant sequences or alleles into a Vec<String>, and then calls par_iter() from Rayon to distribute the motif-counting workload across available CPU cores. Finally, main orchestrates these steps by specifying a motif (e.g., “GATTACA”), applying each function to its corresponding file, and printing out how many total motif matches are found. This design cleanly separates reading logic from parallel processing, remains memory-safe, and can be scaled or adapted to handle larger inputs or more complex analyses without sacrificing performance or maintainability.
 
-#### Files contents:
-* main.rs (rust script)
-* main.nf (nextflow script)
-* example.fastq.rara (compressed example.fastq)
-* example.bam (bam file)
-* example.vcf (vcf file)
-* Cargo.toml (Cargo.toml file)
-* output.txt (output file)
+#### Project Structure:
+
+```plaintext
+experiment_21_4/
+├── Cargo.toml                     # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                    # Main Rust script containing program logic
+    ├── main.nf                    # Nextflow workflow script
+    ├── example.fastq.rara         # Compressed FASTQ example file (note: unusual .rara extension)
+    ├── example.bam                # BAM alignment file
+    ├── example.vcf                # VCF variant call file
+    └── output.txt                 # Output file
+```
 
 #### How to run:
 
