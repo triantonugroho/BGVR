@@ -6,12 +6,15 @@ This Rust code demonstrates how to build and merge partial suffix arrays for gen
 
 Rank 0 determines chunk boundaries by evenly partitioning the text across size ranks, then each rank extracts its assigned substring. The function build_local_suffix_array naively sorts suffix positions based on their lexicographical order, returning a PartialSuffixArray containing those positions plus an offset to indicate where the chunk appears in the global text. A gather operation collects these partial structures at rank 0, which then merges them into a single global suffix array by comparing each suffix substring in a BTreeMap. Because the merging step sorts suffixes across all chunks, the final output is a global ordering of suffix positions that can be used as a baseline for downstream tasks (e.g., LCP array or BWT construction).
 
-#### Files contents:
-* experiment_32_2/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_32_3/src/
-  * main.rs (rust script)
-  * output.txt (output file)
+#### Project Structure:
+
+```plaintext
+experiment_32_2/
+└── Cargo.toml                     # Rust project configuration and dependencies
+experiment_32_3/src/
+├── main.rs                        # Main Rust script containing program logic
+└── output.txt                     # Text output file
+```
 
 #### How to run:
 
