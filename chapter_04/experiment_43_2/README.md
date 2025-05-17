@@ -6,12 +6,15 @@ The code defines a MotifModel with a PWM representing the current motif guess. I
 
 This code simulates a single iteration of an Expectation-Maximization (EM)-style motif-finding approach in a high-performance computing setting. The MotifModel struct holds a position weight matrix (PWM), initialized randomly in new_random. The em_iteration function (the E-step) processes a subset of sequences by sliding the PWM along each read, selecting the highest-probability alignment, and tallying partial counts in a local partial_counts array. In a real HPC pipeline, multiple nodes would each produce such partial counts, which would then be merged (e.g., by summing across nodes). Finally, model.update_from_counts (the M-step) re-estimates PWM entries to reflect this iteration’s aggregated partial data. Over multiple iterations—and across multiple HPC nodes—this procedure converges on a refined motif model that best explains the data segments distributed across the cluster.
 
-#### Files contents:
-* experiment_43_2/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_43_2/src/
-  * main.rs (rust script)
-  * output.txt (output file)
+#### Project Structure:
+
+```plaintext
+experiment_43_2/
+├── Cargo.toml                     # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                    # Main Rust script containing program logic
+    └── output.txt                 # Output file
+```
 
 #### How to run:
 
