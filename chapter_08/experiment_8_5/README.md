@@ -54,6 +54,7 @@ A comprehensive application that performs various genomic analyses including rea
 A parallel processing workflow for distributed variant calling across multiple chromosomes.
 
 #### Project Structure
+```plaintext
 experiment_8_5/
 ├── Cargo.toml                  # Rust dependencies
 ├── src/
@@ -76,6 +77,7 @@ experiment_8_5/
     ├── sample1.annotated.tsv   # Annotation results of annotation pipeline from main.rs
     ├── sample1.bam             # Alignment results of annotation alignment pipeline from main.rs
     └── sample1.vcf             # Variant calling results of variant calling pipeline from main.rs
+```
 
 #### Installation
 
