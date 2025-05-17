@@ -6,12 +6,15 @@ This Rust code shows how one might implement a parallelized Gibbs sampling routi
 
 In the sample code, the GibbsSampler struct holds a motif model (like a PWM) and the sequences. The run_one_iteration method picks a random sequence, “unassigns” its motif position, then samples a new position for that sequence’s motif from a distribution proportional to the motif’s likelihood. Real Bayesian approaches would also maintain posterior distributions for the motif parameters, but for brevity this snippet only tracks the motif location in each sequence. The run_parallel_chains function demonstrates launching multiple threads (rayon::scope) where each chain runs independently for a fixed number of iterations. After the chains complete, one might compare or merge the results. This design captures the central idea of parallelizing Gibbs sampling: each chain is a Markov chain that explores motif placements, and concurrency reduces overall runtime for large data sets.
 
-#### Files contents:
-* experiment_43_3/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_43_3/src/
-  * main.rs (rust script)
-  * output.txt (output file)
+#### Project Structure:
+
+```plaintext
+experiment_43_3/
+├── Cargo.toml                     # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                    # Main Rust script containing program logic
+    └── output.txt                 # Output file
+``
 
 #### How to run:
 
