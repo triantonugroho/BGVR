@@ -12,135 +12,170 @@ The container image is built automatically by Wave via containers/variant.Docker
 
 In practice, organisations report 30–50 % shorter wall-times after switching from monolithic Bash+C++ pipelines to this Rust-first DAG model, largely because statically linked binaries start within tens of milliseconds, allowing extremely fine-grained sharding without Docker cold-start penalties. Moreover, formal memory safety and ownership semantics cut crash-loop rates in half, simplifying GMP and HIPAA compliance audits. Such outcomes translate directly into faster drug-development cycles and more reliable evidence for precision-medicine trials.
 
-#### Files contents:
-* experiment_8_5/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_8_5/src/
-  * main.rs (rust script)
-  * cohort_A.vcf (cohort A vcf file for input file)
-  * cohort_B.vcf (cohort B vcf file for input file)
-  * synthetic_variant_data.csv (synthetic variant data result csv file)
-  * query_results.parquet (query results parquet file as output file)
-  * output.txt (text file output)
-
-#### How to run:
-
-run main.rs in wsl:
-
-```wsl
-cargo run | tee output.txt
-```
-
-(run main.rs with cohort_A.vcf, cohort_B.vcf and synthetic_variant_data.csv as input files and create query_results.parquet output file)
-
-#### [dependencies]
+#### cargo.toml
 
 ```toml
-noodles = { version = "0.6", features = ["vcf"] }  # Use noodles version 0.6 for VCF
-csv = "1.1"  # for CSV file processing
-serde = { version = "1.0", features = ["derive"] }  # for serialization
-serde_json = "1.0"  # if you're using JSON as well
-rayon = "1.5"  # for parallel processing
-polars = { version = "0.47.0", features = ["parquet", "csv"] }  # For DataFrame manipulation, with CSV and Parquet features
-anyhow = "1.0"  # For error handling
-bio = "0.38.0"  # Ensure this version supports VCF functionality
-log = "0.4"  # For logging
-env_logger = "0.9"  # For logger initialization
-num_cpus = "1.14.0"  # For getting CPU count
+[package]
+name = "genomic_pipeline"
+version = "0.1.0"
+edition = "2021"
+authors = ["Your Name <your.email@example.com>"]
+description = "Genomic variant analysis pipeline"
+
+[dependencies]
+clap = { version = "4.3", features = ["derive"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+anyhow = "1.0"
+thiserror = "1.0"
+noodles-bam = "0.34"
+noodles-vcf = "0.32"
+noodles-fasta = "0.26"
+noodles-gff = "0.26"
+tokio = { version = "1.29", features = ["full"] }
+rayon = "1.7"
+serde = { version = "1.0", features = ["derive"] }
+toml = "0.7"
+tempfile = "3.7"
+indicatif = "0.17"
+human_format = "1.0"
+num_cpus = "1.15"
 ```
 
-#### 📋 Explanation of the Output
-##### ✅ Parallel Processing and File Reading
-The command:
+#### Genomic Variant Analysis Pipeline
+This project implements a comprehensive genomic variant analysis pipeline using Rust and Nextflow, providing efficient tools for alignment, variant calling, and annotation of genomic data.
 
-```bash
-cargo run | tee output.txt
+#### Overview
+The genomic pipeline consists of two main components:
+
+##### 1. Rust-based Command-line Tool (main.rs):
+A comprehensive application that performs various genomic analyses including read alignment, variant calling, and annotation.
+##### 2. Nextflow Workflow (main.nf):  
+A parallel processing workflow for distributed variant calling across multiple chromosomes.
+
+#### Project Structure
+experiment_8_5/
+├── Cargo.toml                  # Rust dependencies
+├── src/
+│   ├── main.rs                 # Rust implementation
+│   ├── main.nf                 # Nextflow workflow
+│   └── work/                   # Nextflow work directory
+│       └── e8/0b5747dd1534.../ # Nextflow execution results
+│           └── chr1.vcf.bgz    # Output variant file of main.nf 
+├── data/
+│   ├── chroms.txt              # List of chromosomes
+│   ├── pipeline.toml           # Pipeline configuration
+│   ├── sample.bam              # Sample BAM file
+│   ├── sample.bam.bai          # BAM index
+│   ├── sample.fa               # Reference genome
+│   ├── sample.fa.fai           # Genome index
+│   ├── sample.gff              # Gene annotation
+│   ├── sample.sam              # SAM file
+│   └── sample_reads.fastq      # Raw sequencing reads
+└── results/
+    ├── sample1.annotated.tsv   # Annotation results of annotation pipeline from main.rs
+    ├── sample1.bam             # Alignment results of annotation alignment pipeline from main.rs
+    └── sample1.vcf             # Variant calling results of variant calling pipeline from main.rs
+
+#### Installation
+
+.experiment_8_5/
+
+```wsl
+cargo build --release
 ```
 
-executes your Rust application and logs its output to output.txt.
+#### Running the Pipeline
+##### Rust Pipeline (main.rs)
+The Rust pipeline provides four main commands: align, call, annotate, and pipeline (which runs all three steps in sequence).
 
-* Parallelism: The output shows that the program starts with 8 threads, utilizing all available CPU cores via the rayon thread pool:
+Since the actual implementation might have some environment-specific dependencies, a shell script run_simulation.sh is provided to simulate the pipeline execution:
 
-```text
-Starting pangenome analysis with 8 threads
+```wsl
+# Make simulation script executable
+chmod +x run_simulation.sh
+
+# For alignment only
+./run_simulation.sh data/pipeline.toml align \
+  --reads data/sample_reads.fastq \
+  --reference data/sample.fa \
+  --out-bam ./results/sample1.bam
+
+# For variant calling only
+./run_simulation.sh data/pipeline.toml call \
+  --bam data/sample.bam \
+  --reference data/sample.fa \
+  --out-vcf ./results/sample1.vcf
+
+# For annotation only
+./run_simulation.sh data/pipeline.toml annotate \
+  --vcf ./results/sample1.vcf \
+  --gff data/sample.gff \
+  --output ./results/sample1.annotated.tsv
+
+# For complete pipeline
+./run_simulation.sh data/pipeline.toml pipeline \
+  --reads data/sample_reads.fastq \
+  --reference data/sample.fa \
+  --gff data/sample.gff \
+  --output-dir ./results \
+  --sample sample1
 ```
 
-* VCF Reading:
+##### Running Nextflow Workflow (main.nf)
+The Nextflow workflow focuses on the variant calling step, processing multiple chromosomes in parallel:
 
-```text
-Reading variants from cohort_A.vcf
-Reading variants from cohort_B.vcf
+.experiment_8_5/src/
+
+```wsl
+# Run the workflow
+nextflow run main.nf
 ```
 
-Each file was parsed in under 10 milliseconds:
+#### Output Files
+##### Rust Pipeline Output
 
-```text
-Read 1000 variants from cohort_A.vcf in 5.77ms
-Read 1000 variants from cohort_B.vcf in 6.09ms
-```
+**1. Alignment:** results/sample1.bam - Aligned reads in BAM format
+**2. Variant Calling:** results/sample1.vcf - Variants in VCF format
+**3. Annotation:** results/sample1.annotated.tsv - Annotated variants in TSV format
 
-##### 🧬 Variant Set Algebra Results
+##### Nextflow Workflow Output
 
-* Union (A ∪ B): 2000 variants — all unique across both cohorts.
+* Chromosome-specific Variant Calls: work/*/chr*.vcf.bgz - Compressed VCF files with variants for each chromosome
 
-* Intersection (A ∩ B): 0 — no shared variants between the two sets.
+#### Explanation of Results
+##### Rust Pipeline
+The Rust pipeline performs three main steps:
 
-* A \ B and B \ A: 1000 variants each — all variants are cohort-specific.
+**1. Alignment:** Maps raw sequencing reads to a reference genome using algorithms like BWA or Minimap2, producing a sorted and indexed BAM file.
+**2. Variant Calling:** Identifies genomic variants (SNPs, indels) by comparing aligned reads to the reference genome, filtering based on quality metrics.
+**3. Annotation:** Adds functional information to variants by intersecting them with gene annotations and databases, calculating potential effects.
 
-* Jaccard Index: 0.0000, indicating no overlap between cohort A and B variants.
+The pipeline outputs detailed statistics:
 
-```text
-Variant set comparison:
-  A∪B = 2000 variants
-  A∩B = 0 variants
-  A\B = 1000 variants
-  B\A = 1000 variants
-  Jaccard index = 0.0000
-```
+* Number of aligned reads (1,000,000 in the example)
+* Number of variants called (10,000 in the example)
+* Number of annotated variants (5,000 in the example)
+* Total processing time (6 seconds in the example)
 
-##### 📊 CSV File Processing
+##### Nextflow Workflow
+The Nextflow workflow demonstrates parallel processing capabilities by:
 
-* synthetic_variant_data.csv was read into a Polars DataFrame with:
-  * 1000 rows
-  * 7 fields: CHROM, POS, REF, ALT, GT, GQ, and DP
-```text
-DataFrame query results:
-  Variants in CSV: 1000
-  DataFrame schema: ...
-```
+* Processing each chromosome as a separate task
+* Reading inputs from a shared data directory
+* Creating chromosome-specific variant files
 
-* Statistics Note: Skipped due to compatibility issues with polars 0.47.0.
+This approach enables efficient scaling across computational resources, with each chromosome being processed independently.
 
-##### 💾 Export Operation
+#### Conclusion
+This genomic analysis pipeline demonstrates a modern approach to bioinformatics workflows by:
 
-* Successfully exported the DataFrame to a Parquet file:
+**1. Combining Multiple Technologies:** Using Rust for performance-critical components and Nextflow for distributed execution.
+**2. Modularity:** Providing separate components (alignment, variant calling, annotation) that can be run independently or as a complete pipeline.
+**3. Configuration Flexibility:** Supporting customization through a TOML configuration file for various parameters.
+**4. Progress Tracking:** Implementing visual progress bars and detailed logging for monitoring long-running processes.
+**5. Parallelization:** Leveraging multi-threading within tools and parallel processing across chromosomes.
 
-```text
-Exported DataFrame with 1000 rows to query_results.parquet
-```
-
-##### ⏱️ Performance
-
-* Total runtime: Only 55 milliseconds for the entire process, which includes:
-  * Multi-threaded parsing of 2,000 VCF entries
-  * Set operations
-  * Reading a 1,000-row CSV
-  * Exporting to Parquet
-
-```text
-Total execution time: 55.27ms
-```
-
-#### ✅ Conclusion
-This execution confirms that your Rust-based pangenome tool is:
-
-* ⚡ Fast and Efficient: Processes multiple files and performs variant set algebra and CSV I/O in under 60 milliseconds.
-
-* 🧵 Scalable: Uses all available cores with rayon to parallelize I/O-bound and compute-bound tasks.
-
-* 🛠️ Reliable: Provides error handling, schema validation, and gracefully skips unsupported features (e.g., Polars stats).
-
-* 🧬 Biologically Informative: Set operations reveal that the two cohorts have zero shared variants, likely indicating they originate from entirely distinct populations or datasets.
-
-* 🧱 Ready for Integration: Generates intermediate results in efficient formats like Parquet, enabling easy downstream analysis in cloud-native or Python-based workflows.
+The pipeline is designed to be extensible, allowing for the addition of new features or the replacement of specific components while maintaining overall workflow integrity.
+The simulation mode demonstrated here allows for testing the pipeline structure without requiring the complete bioinformatics toolkit installation, making it accessible for educational and development purposes.
 
