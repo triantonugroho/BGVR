@@ -16,23 +16,28 @@ print("Rust + tch output:", result)
 
 This setup demonstrates how PyO3 can bridge Rust and Python, letting you leverage Rust’s concurrency and memory safety guarantees for computationally heavy tasks while seamlessly integrating with Python-based machine learning or data analysis pipelines.
 
-#### Files contents:
-* lib.rs (rust script to make library python)
-* Testing pyo3_tch_example.ipynb (python notebook)
-* Cargo.toml (Cargo.toml file)
-* target/debug/
-  * pyo3_tch_example.d
-  * pyo3_tch_example.dll
-  * pyo3_tch_example.dll.exp
-  * pyo3_tch_example.dll.lib
-  * pyo3_tch_example.pdb
-* target/wheels/
-  * experiment_21_9-0.1.0-cp311-cp311-win_amd64.whl
-* ~anaconda3/Lib/site-packages/pyo3_tch_example/
-  * __init__ (Python Source File)
-  * pyo3_tch_example.cp311-win_amd64.pyd
-* ~anaconda3/Lib/site-packages/pyo3_tch_example/__pycache__/
-  * __init__.cpython-311 (Compiled Python File)
+#### Project Structure:
+
+```plaintext
+experiment_21_9/
+├── lib.rs                         # Rust script to make Python library
+├── Testing pyo3_tch_example.ipynb # Python notebook for testing
+├── Cargo.toml                     # Rust project configuration and dependencies
+├── target/debug/
+│   ├── pyo3_tch_example.d
+│   ├── pyo3_tch_example.dll
+│   ├── pyo3_tch_example.dll.exp
+│   ├── pyo3_tch_example.dll.lib
+│   └── pyo3_tch_example.pdb
+└── target/wheels/
+    └── experiment_21_9-0.1.0-cp311-cp311-win_amd64.whl
+
+~anaconda3/Lib/site-packages/pyo3_tch_example/
+├── __init__                       # Python Source File
+├── pyo3_tch_example.cp311-win_amd64.pyd
+└── __pycache__/
+    └── __init__.cpython-311      # Compiled Python File
+```
 
 #### How to run:
 
