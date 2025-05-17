@@ -10,12 +10,15 @@ The core function, build_knn_graph, leverages Rayon to run in parallel. First, t
 
 Once the k-NN graph is available, the compute_pseudotime function uses a breadth-first search to measure how many “steps” each cell is from a chosen root cell. This BFS distance—stored in the pseudotime vector—serves as a basic proxy for progression, such as in single-cell developmental trajectories. The BFS continues until all reachable nodes are processed, resulting in a vector that can be used for downstream tasks like ordering or clustering cells based on their distances from the root.
 
-#### Files contents:
-* experiment_46_1/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_46_1/src/
-  * main.rs (rust script)
-  * output.txt (output file)
+#### Project Structure:
+
+```plaintext
+experiment_46_1/
+├── Cargo.toml                     # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                    # Main Rust script containing program logic
+    └── output.txt                 # Text output file
+```
 
 #### How to run:
 
