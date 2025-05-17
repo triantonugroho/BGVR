@@ -8,14 +8,17 @@ After parsing the input file through Needletail, the code collects all reads int
 
 Each crate addresses different concerns. needletail uses efficient buffering for reading, avoiding the overhead of loading entire files at once. dashmap ensures lock-free updates to the shared map, while Arc allows multiple threads to share a single data structure with reference counting. In larger-scale HPC runs, ephemeral containers each run an instance of this program for a subset of input data, merging partial JSON outputs in a final step. Industrial setups often add extensive logging, memory usage checks, and specialized partitioning logic to guarantee consistent load balancing. By embedding such code in Nextflow or Snakemake pipelines, engineers achieve robust HPC workflows that adapt seamlessly from local clusters to large cloud-based HPC environments. We will discuss more about Nextflow in the following section.
 
-#### Files contents:
-* experiment_35/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_35/src/
-  * main.rs (rust script)
-  * reads.fq.rar (compressed reads.fq)
-  * kmer_counts.json.rar (compressed kmer_counts.json)
-  * output.txt (output file)
+#### Project Structure:
+
+```plaintext
+experiment_35/
+├── Cargo.toml                      # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                     # Main Rust script containing program logic
+    ├── reads.fq.rar                # Compressed FASTQ reads file
+    ├── kmer_counts.json.rar        # Compressed JSON file containing k-mer counts
+    └── output.txt                  # Text output file
+```
 
 #### How to run:
 
