@@ -8,14 +8,17 @@ The program demonstrates how partial outputs from multiple FASTQ chunks can be c
 
 AI engineers and bioinformaticians increasingly run these Rust workflows via Nextflow. A typical pipeline might define one process to chunk large FASTQ files, another to perform the parallel read-length analysis, and a final process to merge partial JSONs. Firms in the pharmaceutical sector have reportedly leveraged ephemeral cloud HPC to process thousands of human exomes overnight using similar strategies, with the combination of Nextflow’s scheduling and Rust’s concurrency delivering predictable runtimes and minimal error rates in large, mission-critical projects.
 
-#### Files contents:
-* experiment_51_3/
-  * Cargo.toml (Cargo.toml file for dependencies)
-*experiment_51_3/src/
-  * main.rs (rust script)
-  * partial_ouput.json (json partial input file)
-  * merged_ouput.json (json merged output file)
-  * output.txt (text file output)
+#### Project Structure:
+
+```plaintext
+experiment_51_3/
+├── Cargo.toml              # Rust project configuration and dependencies
+└── src/
+    ├── main.rs             # Main Rust script containing program logic
+    ├── partial_ouput.json  # JSON partial input file
+    ├── merged_ouput.json   # JSON merged output file
+    └── output.txt          # Text file output
+```
 
 #### How to run:
 
