@@ -4,11 +4,16 @@
 
 Real-world genomics pipelines must orchestrate string-based (alignment, assembly) and numerical (factorization, clustering) algorithms at large scale. Rust’s type safety, along with HPC frameworks like Nextflow, helps ensure that tasks can be distributed across multiple nodes without risk of memory corruption or data races (Holmes 2022). Below is a mini-example combining concurrency, the bio crate for reading FASTA, and partial de Bruijn graph assembly.
 
-#### Files contents:
-* main.rs (rust script)
-* reads.fasta (fasta file)
-* Cargo.toml (Cargo.toml file)
-* output.txt (output file)
+#### Project Structure:
+
+```plaintext
+experiment_23_2/
+├── Cargo.toml                     # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                    # Main Rust script containing program logic
+    ├── reads.fasta                # FASTA file containing sequence reads
+    └── output.txt                 # Output file
+```
 
 #### How to run:
 
