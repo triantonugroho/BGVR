@@ -8,10 +8,15 @@ This Rust program demonstrates how to calculate the total GC content across mult
 
 At the systems level, Rust still offers low-level features. For example, if you wanted to hand-optimize k-mer counting by directly manipulating bits to compress sequences, Rust’s type system allows you to define bitfields or custom pointer arithmetic. That level of control is reminiscent of classical HPC approaches in C, but Rust’s compile-time checks prevent improper usage of allocated memory.
 
-#### Files contents:
-* main.rs (rust script)
-* Cargo.toml (Cargo.toml file)
-* output.txt (output file)
+#### Project Structure:
+
+```plaintext
+experiment_21_8/
+├── Cargo.toml                     # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                    # Main Rust script containing program logic
+    └── output.txt                 # Output file
+```
 
 #### How to run:
 
