@@ -21,19 +21,22 @@ When these technologies are combined, the result is a powerful, modular, and eff
 
 This setup is well-suited to real-world scenarios where large volumes of sequencing data need to be processed reliably and quickly. By leveraging containers (e.g., Docker or Singularity images that include Rust, ABySS, and Nextflow), scientists and bioinformaticians can share their pipelines and deploy them consistently across different compute infrastructures—local servers, HPC clusters, or the cloud. The end result is a reproducible and scalable framework that can handle ever-increasing volumes of genomic data.
 
-#### Files contents:
-* experiment_36_3/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_36_3/src/
-  * main.rs (rust script)
-  * main.nf (nextflow script)
-  * sample.fastq.rar (compressed sample.fastq)
-  * filtered_sample.fastq.rar (compressed filtered_sample.fastq)
-  * output_nf.txt
-  * output_rs.txt
-  * nextflow.log.9 (nextflow log)
-  * assembly-1.dot
-  * assembly-1.path
+#### Project Structure:
+
+```plaintext
+experiment_36_3/
+├── Cargo.toml                       # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                      # Main Rust script containing program logic
+    ├── main.nf                      # Nextflow workflow script
+    ├── sample.fastq.rar             # Compressed FASTQ sample file
+    ├── filtered_sample.fastq.rar    # Compressed filtered FASTQ sample file
+    ├── output_nf.txt                # Nextflow output file
+    ├── output_rs.txt                # Rust output file
+    ├── nextflow.log.9               # Nextflow log file
+    ├── assembly-1.dot               # Assembly graph in DOT format
+    └── assembly-1.path              # Assembly path file
+```
 
 #### How to run:
 
