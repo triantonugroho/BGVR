@@ -6,15 +6,18 @@ In this simplified example, we demonstrate a workflow for reading a synthetic FA
 
 The Nextflow pipeline reads a synthetic FASTQ file (synthetic_reads.fastq) and sends it to a single process that compiles a Rust program via Cargo, then runs the resulting binary. Within this Rust program, each FASTQ record is parsed to retrieve its sequence data, and these sequences—assumed to be of the same length for simplicity—are used to build a Position Weight Matrix (PWM) by counting nucleotide frequencies per position and normalizing them to probabilities. Next, a simple first-order Markov Random Field (MRF) model is constructed by tallying each pair of adjacent nucleotides (e.g., A→C) across all sequences and converting these counts to transition probabilities. Finally, the results are written to two separate files—pwm_results.txt for the position-wise probabilities and mrf_results.txt for the transition probabilities—thereby completing the workflow.
 
-#### Files contents:
-* experiment_41/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_41/src/
-  * main.rs (rust script)
-  * main.nf (nextflow script)
-  * synthetic_reads.fastq.rar (compressed synthetic_reads.fastq)
-  * mrf_results.txt (mrf results output file)
-  * pwm_results.txt (pwm results output file)
+#### Project Structure:
+
+```plaintext
+experiment_41/
+├── Cargo.toml                        # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                       # Main Rust script containing program logic
+    ├── main.nf                       # Nextflow workflow script
+    ├── synthetic_reads.fastq.rar     # Compressed synthetic reads FASTQ file
+    ├── mrf_results.txt               # MRF results output file
+    └── pwm_results.txt               # PWM results output file
+```
 
 #### How to run:
 
