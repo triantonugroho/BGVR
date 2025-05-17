@@ -18,31 +18,36 @@ This architecture is well-suited for HPC or cloud-native execution because Nextf
 
 In industry, AI engineers and bioinformaticians often adopt these Rust-based workflows for large-scale clinical genomics, especially when verifying pipeline quality across hundreds or thousands of patient samples. Nextflow’s ephemeral containers ensure that each sample’s job is isolated, simplifying concurrency while maximizing resource utilization in the cloud. Several major institutions have reported success combining concurrency in Rust with HPC schedulers to achieve near-linear speedups in coverage analyses, mismatch profiling, and iterative base quality recalibration. By carefully merging partial statistics and applying robust error models, these pipelines reduce the chance of spurious variations, thereby expediting the journey from raw sequence data to actionable pharmaceutical or clinical insights.
 
-#### Files contents:
-* experiment_66/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_66/src/
-  * main.rs (rust script)
-  * main.nf (nextflow script)
-  * ref.fasta (reference fasta file input of running main.nf)
-  * sample1.bam (sample 1 bam file)
-  * sample1.bam.bai (indexed sample1.bam)
-  * sample2.bam (sample 2 bam file)
-  * sample2.bam.bai (indexed sample 2 bam file)
-  * samples.txt (bam file list text file)
-  * output.txt (text file output)
-* experiment_66/target/debug/
-  * coverage_tool.rar (compressed coverage_tool execution file output from running main.rs)
-* experiment_66/src/work/00/0a411925d46014156042e1bea75fb6/
-  * qc_sample2.txt (qc sample 2 text file output of main.nf)
-* experiment_66/src/work/06/d38cf8ad57020c7c201495e34fd2fb/
-  * merged_qc.json (merged qc json file output of main.nf)
-* experiment_66/src/work/34/a224f5da1fa542aa5550573c247af6/
-  * recalibrated_sample2 (recalibrated sample 2 output of main.nf)
-* experiment_66/src/work/94/801ac075db5ca612b281ca49bb37ef/
-  * qc_sample1.txt (qc sample 1 text file output) 
-* experiment_66/src/work/d1/17126f401e8bb379225705f2125c17/
-  * recalibrated_sample1 (recalibrated sample 1 output of main.nf)
+#### Project Structure:
+
+```plaintext
+experiment_66/
+├── Cargo.toml                  # Rust dependencies
+├── src/
+│   ├── main.rs                 # Rust implementation
+│   ├── main.nf                 # Nextflow workflow
+│   ├── ref.fasta               # Reference fasta file input for main.nf
+│   ├── sample1.bam             # Sample 1 BAM file
+│   ├── sample1.bam.bai         # Indexed sample1.bam
+│   ├── sample2.bam             # Sample 2 BAM file
+│   ├── sample2.bam.bai         # Indexed sample2.bam
+│   ├── samples.txt             # BAM file list
+│   ├── output.txt              # Text file output
+│   └── work/                   # Nextflow work directory
+│       ├── 00/0a411925d46014156042e1bea75fb6/
+│       │   └── qc_sample2.txt                  # QC sample 2 text output
+│       ├── 06/d38cf8ad57020c7c201495e34fd2fb/
+│       │   └── merged_qc.json                  # Merged QC JSON output
+│       ├── 34/a224f5da1fa542aa5550573c247af6/
+│       │   └── recalibrated_sample2            # Recalibrated sample 2 output
+│       ├── 94/801ac075db5ca612b281ca49bb37ef/
+│       │   └── qc_sample1.txt                  # QC sample 1 text output
+│       └── d1/17126f401e8bb379225705f2125c17/
+│           └── recalibrated_sample1            # Recalibrated sample 1 output
+└── target/
+    └── debug/
+        └── coverage_tool.rar   # Compressed coverage tool executable from main.rs
+```
 
 #### How to run:
 
