@@ -14,29 +14,34 @@ In this workflow, the coverageCalc process uses the rust_coverage_tool compiled 
 
 In production pipelines, one often adds more robust error handling (e.g., retries for transient failures), logging strategies (potentially with structured logs that can be aggregated by tools like the ELK stack), and versioning (ensuring that each container runs a fixed version of Rust and the coverage tool). Such practices foster reproducibility and traceability, whether you are working on a single workstation or a massive cloud cluster.
 
-#### Files contents:
-* experiment_68/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_68/src/
-  * main.rs (rust script)
-  * main.nf (nextflow script)
-  * coverage_result.txt (coverage result text file output)
-  * bams.txt (text file contain bam file list)
-  * merged_coverage.txt (merged coverage text file output)
-  * regions.txt (region list text file)
-  * test.fa (test fasta file)
-  * test.fa.fai (indexed test.fa)
-  * test.fa.pac (text.fa pac file)
-  * test.fa.sa (test.fa sa file)
-  * test.fq (test fastq file)
-  * test.sam (test sam file to make test1.bam file)
-  * test1.bam (bam file as input file)
-  * test1.bam.bai (indexed test1.bam file)
-  * output.txt (text file output)
-* experiment_68/target/debug/
-  * rust_coverage_tool.rar (compressed rust_coverage_tool execution file output from running main.rs)
-* experiment_68/src/work/d4/11e6167375d7b5428a9ae72341aa85/
-  * merged_coverage.txt (merged coverage text file output)
+#### Project Structure:
+
+```plaintext
+experiment_68/
+├── Cargo.toml                  # Rust dependencies
+├── src/
+│   ├── main.rs                 # Rust implementation
+│   ├── main.nf                 # Nextflow workflow
+│   ├── coverage_result.txt     # Coverage result text file output
+│   ├── bams.txt                # Text file containing BAM file list
+│   ├── merged_coverage.txt     # Merged coverage text file output
+│   ├── regions.txt             # Region list text file
+│   ├── test.fa                 # Test fasta file
+│   ├── test.fa.fai             # Indexed test.fa
+│   ├── test.fa.pac             # Test.fa PAC file
+│   ├── test.fa.sa              # Test.fa SA file
+│   ├── test.fq                 # Test fastq file
+│   ├── test.sam                # Test SAM file to create test1.bam
+│   ├── test1.bam               # BAM file as input
+│   ├── test1.bam.bai           # Indexed test1.bam file
+│   ├── output.txt              # Text file output
+│   └── work/                   # Nextflow work directory
+│       └── d4/11e6167375d7b5428a9ae72341aa85/
+│           └── merged_coverage.txt            # Merged coverage text file output
+└── target/
+    └── debug/
+        └── rust_coverage_tool.rar  # Compressed Rust coverage tool executable
+```
 
 #### How to run:
 
