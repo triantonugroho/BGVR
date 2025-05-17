@@ -6,12 +6,17 @@ An example demonstrating how Rust’s built-in data structures, such as Vectors,
 
 This code reads each record from a FASTQ file via the Reader provided by the bio crate, storing the read ID and its length in a HashMap. Rust’s Strings and HashMaps offer a straightforward and memory-safe way to handle complex genomic data sets, since the compiler ensures that references to these data structures are correctly managed at runtime. The result is a type-safe approach to file parsing and data manipulation in large-scale bioinformatics tasks, aligning with HPC needs while preserving code clarity and reliability.
 
-#### Files contents:
-* main.rs (rust script)
-* reads.fastq.rar (compressed reads.fastq)
-* Cargo.toml (Cargo.toml file)
-* output.txt
- 
+#### Project Structure:
+
+```plaintext
+experiment_21_10/
+├── Cargo.toml                     # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                    # Main Rust script containing program logic
+    ├── reads.fastq.rar            # Compressed FASTQ reads file
+    └── output.txt                 # Output text file
+ ```
+
 #### How to run:
 
 ```powershell
