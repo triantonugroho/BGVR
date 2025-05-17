@@ -18,48 +18,53 @@ Such ephemeral task orchestration saves both time and computational resources. W
 
 Many AI engineers in pharmaceutical R&D apply these Rust workflows to large-scale population studies, often investigating how certain intervals or variants correlate with disease risk or drug response. By combining ephemeral container usage with well-crafted interval trees or graph-based references, they can analyze multi-terabyte genomic data sets in a fraction of the time once required by more conventional scripting. Reports from major consortia confirm that dynamic load balancing and concurrency safety prevent the data corruption or performance bottlenecks sometimes seen with more ad-hoc approaches (Di Tommaso et al. (2017)).
 
-#### Files contents:
-* experiment_65/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_65/src/
-  * main.rs (rust script)
-  * main.nf (nextflow script)
-  * bams.txt (bams dataset list in text file)
-  * genome_intervals.txt (genome intervals in text file)
-  * sample1.bam (sample 1 bam file)
-  * sample2.bam (sample 2 bam file)
-  * output.txt (text file output)
-* experiment_65/target/debug/
-  * interval_query_tool.rar (compressed interval_query_tool execution file output from running main.rs)
-* experiment_64/src/work/1b/90098e3428a3e74a207b0d7487cc61/
-  * coverage_sample2.bam.tsv (tsv coverage sample 2 output file)
-* experiment_64/src/work/1e/e68580ed5054b0a8c2004c5451626c/
-  * merged_coverage.tsv (tsv merged coverage output file)
-  * query_result_50-60.tsv (tsv query result region 50-60 output file)
-* experiment_64/src/work/5e/4032832140ba89a1a6f61fd225a275/
-  * merged_coverage.tsv (tsv merged coverage output file)
-  * query_result_40-70.tsv (tsv query result region 50-60 output file)
-* experiment_64/src/work/20/8f63f34a73e7b282c8b7ceddf3a14a/
-  * coverage_sample1.bam.tsv (tsv coverage sample 1 output file) 
-* experiment_64/src/work/63/4004f9ab588f91e2b3c2b0cf759ccf/
-  * merged_coverage.tsv (tsv merged coverage output file)
-  * query_result_40-70.tsv (tsv query result region 40-70 output file)
-* experiment_64/src/work/b9/c791cf844bb5d13891840c0ad99942/
-  * merged_coverage.tsv (tsv merged coverage output file)
-  * query_result_20-40.tsv (tsv query result region 20-40 output file)
-* experiment_64/src/work/bc/2072d2366055ffe43d52fc4fd916ef/
-  * merged_coverage.tsv (tsv merged coverage output file)
-  * query_result_1-10.tsv (tsv query result region 1-10 output file) 
-* experiment_64/src/work/e3/68fcb7fdfa6d9564a7f1799986a01b/
-  * merged_coverage.tsv (tsv merged coverage output file)
-  * query_result_0-5.tsv (tsv query result region 0-5 output file) 
-* experiment_64/src/work/ed/a4a1d8967a56e3e735289c62ec5c37/
-  * merged_coverage.tsv (tsv merged coverage output file)
-  * coverage_sample1.bam.tsv (tsv coverage sample 1 output file) 
-  * coverage_sample2.bam.tsv (tsv coverage sample 2 output file) 
-* experiment_64/src/work/f4/04206d570d36efc492253ba1bffe2f/
-  * merged_coverage.tsv (tsv merged coverage output file)
-  * query_result_5-25.tsv (tsv query result region 5-25 output file)
+#### Project Structure:
+
+```plaintext
+experiment_65/
+├── Cargo.toml                  # Rust dependencies
+├── src/
+│   ├── main.rs                 # Rust implementation
+│   ├── main.nf                 # Nextflow workflow
+│   ├── bams.txt                # BAMs dataset list
+│   ├── genome_intervals.txt    # Genome intervals
+│   ├── sample1.bam             # Sample 1 BAM file
+│   ├── sample2.bam             # Sample 2 BAM file
+│   ├── output.txt              # Text file output
+│   └── work/                   # Nextflow work directory
+│       ├── 1b/90098e3428a3e74a207b0d7487cc61/
+│       │   └── coverage_sample2.bam.tsv        # TSV coverage sample 2 output
+│       ├── 1e/e68580ed5054b0a8c2004c5451626c/
+│       │   ├── merged_coverage.tsv             # TSV merged coverage output
+│       │   └── query_result_50-60.tsv          # TSV query result region 50-60
+│       ├── 5e/4032832140ba89a1a6f61fd225a275/
+│       │   ├── merged_coverage.tsv             # TSV merged coverage output
+│       │   └── query_result_40-70.tsv          # TSV query result region 40-70
+│       ├── 20/8f63f34a73e7b282c8b7ceddf3a14a/
+│       │   └── coverage_sample1.bam.tsv        # TSV coverage sample 1 output
+│       ├── 63/4004f9ab588f91e2b3c2b0cf759ccf/
+│       │   ├── merged_coverage.tsv             # TSV merged coverage output
+│       │   └── query_result_40-70.tsv          # TSV query result region 40-70
+│       ├── b9/c791cf844bb5d13891840c0ad99942/
+│       │   ├── merged_coverage.tsv             # TSV merged coverage output
+│       │   └── query_result_20-40.tsv          # TSV query result region 20-40
+│       ├── bc/2072d2366055ffe43d52fc4fd916ef/
+│       │   ├── merged_coverage.tsv             # TSV merged coverage output
+│       │   └── query_result_1-10.tsv           # TSV query result region 1-10
+│       ├── e3/68fcb7fdfa6d9564a7f1799986a01b/
+│       │   ├── merged_coverage.tsv             # TSV merged coverage output
+│       │   └── query_result_0-5.tsv            # TSV query result region 0-5
+│       ├── ed/a4a1d8967a56e3e735289c62ec5c37/
+│       │   ├── merged_coverage.tsv             # TSV merged coverage output
+│       │   ├── coverage_sample1.bam.tsv        # TSV coverage sample 1 output
+│       │   └── coverage_sample2.bam.tsv        # TSV coverage sample 2 output
+│       └── f4/04206d570d36efc492253ba1bffe2f/
+│           ├── merged_coverage.tsv             # TSV merged coverage output
+│           └── query_result_5-25.tsv           # TSV query result region 5-25
+└── target/
+    └── debug/
+        └── interval_query_tool.rar # Compressed interval query tool executable
+```
 
 #### How to run:
 
