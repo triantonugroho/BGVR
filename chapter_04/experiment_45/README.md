@@ -12,13 +12,16 @@ Instead of locking a single global graph structure during processing, each chunk
 
 Once all chunks have been processed and merged, the final splicing graph is written to disk. In a production scenario, this step would typically involve binary serialization (e.g., using bincode) or a more advanced format (e.g., JSON) to store adjacency maps and coverage information. In this demonstration, however, a placeholder text output is used to illustrate that the consolidated graph is readily available for downstream analysis, visualization, or further data integration.
 
-#### Files contents:
-* experiment_45/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_45/src/
-  * main.rs (rust script)
-  * partial_splicing_graph.bin (output file)
-  * output.txt (output file)
+#### Project Structure:
+
+```plaintext
+experiment_45/
+├── Cargo.toml                        # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                       # Main Rust script containing program logic
+    ├── partial_splicing_graph.bin    # Binary format output file containing partial splicing graph
+    └── output.txt                    # Text output file
+```
 
 #### How to run:
 
