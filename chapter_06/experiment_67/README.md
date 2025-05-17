@@ -16,26 +16,31 @@ In the splitBcf step, the large BCF file is indexed and then partitioned by chro
 
 Finally, the mergeIntegrations stage uses a hypothetical rust_merge_integration tool to combine partial JSON outputs into a single final_integration.json. This consolidated file can be further analyzed using Python, R, or additional Rust pipelines. For large-scale deployments, Nextflow can automatically spin up more containers based on the number of chromosomes or BAM files, while Rust’s performance characteristics keep memory usage and execution times predictable. This design helps maintain efficiency even when analyzing massive datasets in distributed computing environments.
 
-#### Files contents:
-* experiment_67/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_67/src/
-  * main.rs (rust script)
-  * main.nf (nextflow script)
-  * ref.fa (reference fasta file input)
-  * ref.fa.fai (indexed ref.fa)
-  * annotations.gff (annotation gff file input)
-  * bams.txt (text file contain bam file name list)
-  * test.vcf (test vcf file)
-  * test1.bam (test 1 bam file input file)
-  * test1.bam.bai (indexed test1.bam)
-  * test1.sam (sam file to make test1.bam file)
-  * test1.sorted.bam.bai (sorted indexed test1.bam file)
-  * output.txt (text file output)
-* experiment_67/target/debug/
-  * rust_integrate_tool.rar (compressed rust_integrate_tool execution file output from running main.rs)
-* experiment_67/src/work/5a/a130bb1fc0ec5c8c10aaeb3f5e1308/
-  * integrated_test1.bam_split_chr1.bcf.json (integrated tes1.bam_split_chr1.bcf json output file)
+#### Project Structure:
+
+```plaintext
+experiment_67/
+├── Cargo.toml                  # Rust dependencies
+├── src/
+│   ├── main.rs                 # Rust implementation
+│   ├── main.nf                 # Nextflow workflow
+│   ├── ref.fa                  # Reference fasta file input
+│   ├── ref.fa.fai              # Indexed reference fasta
+│   ├── annotations.gff         # Annotation GFF file input
+│   ├── bams.txt                # Text file containing BAM file name list
+│   ├── test.vcf                # Test VCF file
+│   ├── test1.bam               # Test 1 BAM file input
+│   ├── test1.bam.bai           # Indexed test1.bam
+│   ├── test1.sam               # SAM file to create test1.bam
+│   ├── test1.sorted.bam.bai    # Sorted indexed test1.bam
+│   ├── output.txt              # Text file output
+│   └── work/                   # Nextflow work directory
+│       └── 5a/a130bb1fc0ec5c8c10aaeb3f5e1308/
+│           └── integrated_test1.bam_split_chr1.bcf.json  # Integrated test1.bam split chr1 BCF JSON output
+└── target/
+    └── debug/
+        └── rust_integrate_tool.rar  # Compressed Rust integrate tool executable
+```
 
 #### How to run:
 
