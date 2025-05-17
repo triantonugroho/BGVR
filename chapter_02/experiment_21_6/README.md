@@ -6,23 +6,28 @@ When building a Rust project for Python interoperability, you can specify crate-
 
 In this code, you configure a Rust crate as a Python extension by setting crate-type = ["cdylib"] and enabling PyO3’s "extension-module" feature. In reverse_complement, the snippet imports BioPython’s Bio.Seq module, dynamically creates a Seq object from the Rust string, and calls the reverse_complement method. Any Python exceptions become PyErrs, gracefully bridging the Python–Rust boundary. The second function, gc_content, shows how you can call additional modules (e.g., Bio.SeqUtils.GC) in exactly the same manner. This design is robust (due to explicit error handling), comprehensive (extensible by simply defining new Rust functions and exposing them to Python), and scalable (capable of multi-threading in Rust for CPU-bound tasks and seamlessly returning control to Python for broader pipeline logic). Once compiled using Maturin or Cargo, you can import the .so (or .pyd) file in Python, meaning you get a fully integrated environment combining Python’s extensive libraries with Rust’s performance.
 
-#### Files contents:
-* lib.rs (rust script to make library python)
-* Testing pyo3_biopython_example.ipynb (python notebook)
-* Cargo.toml (Cargo.toml file)
-* target/debug/
-  * pyo3_biopython_example.d
-  * pyo3_biopython_example.dll
-  * pyo3_biopython_example.dll.exp
-  * pyo3_biopython_example.dll.lib
-  * pyo3_biopython_example.pdb
-* target/wheels/
-  * experiment_21_6-0.1.0-cp311-cp311-win_amd64.whl
-* ~anaconda3/Lib/site-packages/pyo3_biopython_example/
-  * __init__ (Python Source File)
-  * pyo3_biopython_example.cp311-win_amd64.pyd
-* ~anaconda3/Lib/site-packages/pyo3_biopython_example/__pycache__/
-  * __init__.cpython-311 (Compiled Python File)
+#### Project Structure:
+
+```plaintext
+experiment_21_6/
+├── lib.rs                         # Rust script to make Python library
+├── Testing pyo3_biopython_example.ipynb # Python notebook for testing
+├── Cargo.toml                     # Rust project configuration and dependencies
+├── target/debug/
+│   ├── pyo3_biopython_example.d
+│   ├── pyo3_biopython_example.dll
+│   ├── pyo3_biopython_example.dll.exp
+│   ├── pyo3_biopython_example.dll.lib
+│   └── pyo3_biopython_example.pdb
+└── target/wheels/
+    └── experiment_21_6-0.1.0-cp311-cp311-win_amd64.whl
+
+~anaconda3/Lib/site-packages/pyo3_biopython_example/
+├── __init__                       # Python Source File
+├── pyo3_biopython_example.cp311-win_amd64.pyd
+└── __pycache__/
+    └── __init__.cpython-311      # Compiled Python File
+```
 
 #### How to run:
 
