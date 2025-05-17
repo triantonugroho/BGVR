@@ -16,24 +16,29 @@ The RUN_COVERAGE process receives tuples that include a sample identifier along 
 
 In this Nextflow script, coverageCalc is invoked once for each combination of BAM file and genomic region. Nextflow takes care of scheduling these tasks on available compute resources, whether those are local cores, HPC cluster nodes, or cloud instances. The ephemeral containers each run the Rust coverage tool, generating partial JSON files that are then merged in the final stage of the pipeline. This pattern, known as scatter-gather, exemplifies a standard approach for handling large genomic datasets by splitting them into manageable subsets and recombining the results.
 
-#### Files contents:
-* experiment_75/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_75/src/
-  * main.rs (rust script)
-  * main.nf (nextflow script)
-  * test.bam (test bam file)
-  * test.bam.bai (indexed test.bam file)
-  * test.sam (test sam file to make test.bam file)
-  * output.txt (text file output)
-* experiment_75/src/work/65/54b3be71f96f81cbb7987c87cd42f1/
-  * test.coverage.json (test coverage json file)
-* experiment_75/src/work/f0/c029dbc59728cf12ca4ea10d38edb5/
-  * test.coverage.json (test coverage json file)
-* experiment_75/src/work/fb/a19c2d0203adcbff8bc1a8c54dc6c6/
-  * merged_coverage.json (merged coverage json file)
-* experiment_75/target/debug/
-  * rust_coverage_tool.rar (compressed rust_coverage_tool execution file output from running main.rs)
+#### Project Structure:
+
+```plaintext
+experiment_75/
+├── Cargo.toml                  # Rust dependencies
+├── src/
+│   ├── main.rs                 # Rust implementation
+│   ├── main.nf                 # Nextflow workflow
+│   ├── test.bam                # Test BAM file
+│   ├── test.bam.bai            # Indexed test.bam file
+│   ├── test.sam                # Test SAM file to create test.bam
+│   ├── output.txt              # Text file output
+│   └── work/                   # Nextflow work directory
+│       ├── 65/54b3be71f96f81cbb7987c87cd42f1/
+│       │   └── test.coverage.json        # Test coverage JSON file
+│       ├── f0/c029dbc59728cf12ca4ea10d38edb5/
+│       │   └── test.coverage.json        # Test coverage JSON file
+│       └── fb/a19c2d0203adcbff8bc1a8c54dc6c6/
+│           └── merged_coverage.json      # Merged coverage JSON file
+└── target/
+    └── debug/
+        └── rust_coverage_tool.rar  # Compressed Rust coverage tool executable
+```
 
 #### How to run:
 
