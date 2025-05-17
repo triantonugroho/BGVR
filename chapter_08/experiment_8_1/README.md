@@ -6,14 +6,17 @@ Below is an illustrative Rust code snippet that computes genotype frequencies, p
 
 In this code, rust-htslib is employed for reading and parsing VCF/BCF files. The rayon crate can be used for parallel iterators if multiple shards of the genome need processing concurrently. ndarray assists with numerical operations for genotype frequency calculations, while statrs ensures robust statistical distributions. polars offers efficient DataFrame manipulation to keep results organized in memory. With thoughtful adjustments to memory usage, chunk sizes, and concurrency levels, this approach scales up to industrial-size datasets typically encountered in large consortia or AI-driven pharmaceutical pipelines.
 
-#### Files contents:
-* experiment_8_1/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_8_1/src/
-  * main.rs (rust script)
-  * synthetic.vcf (synthetic vcf file for input file)
-  * synthetic.vcf.hw_results.csv (synthetic.vcf result csv file)
-  * output.txt (text file output)
+#### Project Structure:
+
+```plaintext
+experiment_8_1/
+├── Cargo.toml                  # Rust dependencies
+├── src/
+│   ├── main.rs                 # Rust implementation
+│   ├── synthetic.vcf           # Synthetic VCF file (input file)
+│   ├── synthetic.vcf.hw_results.csv  # Synthetic VCF result CSV file
+│   └── output.txt              # Text file output
+```
 
 #### How to run:
 
