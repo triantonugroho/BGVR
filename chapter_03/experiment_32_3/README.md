@@ -12,15 +12,18 @@ To run the code locally, you then either create a new Rust project or clone an e
 
 In a large-scale environment, each ephemeral job might generate its own partial JSON file, which can subsequently be merged by a follow-up Nextflow process or separate program—thereby combining all suffix arrays, adjusting offsets for each chunk, and sorting them into a final global index. If your workflow calls for boundary-spanning operations, such as building full BWT or handling k-mer overlaps, you can include additional bases (e.g., k-1 overlap) at each chunk boundary. Because the naive approach in this demonstration sorts all suffix positions in memory, it can be computationally and memory-intensive for extensive data; production-ready solutions often rely on advanced suffix array algorithms (like SA-IS), chunk partitioning, or fully distributed indexing frameworks. Furthermore, one would typically include more robust error handling, file validation, and resource management to handle extremely large inputs. Overall, Nextflow manages the high-level workflow in stand-alone mode—whether on a local PC or a cloud/HPC environment—while the Rust code handles partial suffix array creation in a thread-safe, concurrent manner.
 
-#### Files contents:
-* experiment_32_3/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_32_3/src/
-  * main.rs (rust script)
-  * main.nf (nextflow script)
-  * large_sequence.fa (fasta file)
-  * partial_suffix_arrays.json (json ouput file)
-  * output.txt (output file)
+#### Project Structure:
+
+```plaintext
+experiment_32_3/
+├── Cargo.toml                         # Rust project configuration and dependencies
+└── src/
+    ├── main.rs                        # Main Rust script containing program logic
+    ├── main.nf                        # Nextflow workflow script
+    ├── large_sequence.fa              # FASTA file containing sequence data
+    ├── partial_suffix_arrays.json     # JSON output file containing partial suffix arrays
+    └── output.txt                     # Text output file
+```
 
 #### How to run:
 
