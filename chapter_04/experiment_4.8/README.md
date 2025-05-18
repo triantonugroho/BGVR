@@ -28,18 +28,6 @@ experiment_4.8/
         └── peak_part1.json             # Peak part 1 JSON data file
 ```
     
-#### How to run:
-
-run synthesize dataset.ipynb in Visual Studio Code or in Google Colab to get 4 json file required : eqtl_part1.json, eqtl_part2.json, motif_part1.json, and peak_part1.json and copy or move to experiment_48/src/data/ folder 
-
-run main.rs in powershell:
-
-```powershell
-cargo run | tee output.txt
-```
-
-(run main.rs and get the partial_adjacency.bin output and output.txt)
-
 #### Cargo.toml
 
 ```toml
@@ -54,6 +42,19 @@ serde_json = "1"
 rayon = "1.10.0"
 reqwest = { version = "0.12.14", features = ["blocking", "json"] }
 ```
+
+#### How to run:
+
+run synthesize dataset.ipynb in Visual Studio Code or in Google Colab to get 4 json file required : eqtl_part1.json, eqtl_part2.json, motif_part1.json, and peak_part1.json and copy or move to experiment_48/src/data/ folder 
+
+run main.rs in powershell:
+
+```powershell
+cargo run | tee output.txt
+```
+
+(run main.rs and get the partial_adjacency.bin output and output.txt)
+
 
 #### Explanation of the Output
 This Rust program integrates multi-omics data by combining eQTL associations, peak calls, and motif hits into a single dataset. The merged results are written to integrated.json.
