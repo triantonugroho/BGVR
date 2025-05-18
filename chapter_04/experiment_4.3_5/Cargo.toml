@@ -1,6 +1,6 @@
 [package]
-name = "experiment_43_5"
-version = "0.1.0"
+name = "experiment_4.3_5"
+version = "0.1.0".
 edition = "2024"
 
 [dependencies]
