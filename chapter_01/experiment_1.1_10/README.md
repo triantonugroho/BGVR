@@ -1,6 +1,6 @@
-## 2.1. Introduction to Rust Programming Language
+## 1.1. Introduction to Rust Programming Language
 
-### experiment_21_10
+### experiment_1.1_10
 
 An example demonstrating how Rust’s built-in data structures, such as Vectors, HashMaps, and Strings, can be combined with the bio crate for typical bioinformatics tasks. In this snippet, we parse a FASTQ file, store each record’s length in a HashMap keyed by read ID, and then summarize the collected statistics.
 
@@ -9,7 +9,7 @@ This code reads each record from a FASTQ file via the Reader provided by the bio
 #### Project Structure:
 
 ```plaintext
-experiment_21_10/
+experiment_1.1_10/
 ├── Cargo.toml                     # Rust project configuration and dependencies
 └── src/
     ├── main.rs                    # Main Rust script containing program logic
