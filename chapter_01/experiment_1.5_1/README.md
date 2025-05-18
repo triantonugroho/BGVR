@@ -40,17 +40,8 @@ experiment_1.5_1/
     └── SRR11192680.sra            # Downloaded SRA file
 ```
 
-#### How to run:
-
-run in WSL:
-
-```wsl
-nextflow run main.nf | tee output.txt
-```
-
-(run main.nf and save the output in output.txt)
-  
-#### Cargo.toml
+#
+### Cargo.toml
 
 ```toml
 [package]
@@ -61,6 +52,16 @@ edition = "2021"
 [dependencies]
 
 ```
+#### How to run:
+
+run in WSL:
+
+```wsl
+nextflow run main.nf | tee output.txt
+```
+
+(run main.nf and save the output in output.txt)
+  
 
 #### Explanation of the Output
 This Nextflow workflow (main.nf) automates the process of:
