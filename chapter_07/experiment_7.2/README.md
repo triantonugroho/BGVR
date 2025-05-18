@@ -1,6 +1,6 @@
 ## 7.2. Advanced Algorithms for High-Throughput Genomic Data
 
-### experiment_72
+### experiment_7.2
 
 In real HPC or cloud settings, developers combine these advanced algorithms with ephemeral container tasks that handle partial data merges. The snippet below, written in an AI engineer style, shows a simplified Rust program that simulates partial suffix array or k-mer index construction for large references. By dividing the reference into slices and building partial indexes concurrently, developers can harness HPC concurrency or ephemeral VMs in the cloud. The code uses rayon, a commonly used concurrency crate in Rust, but developers can also use crossbeam or asynchronous frameworks like tokio if suitable for their pipeline.
 
@@ -13,7 +13,7 @@ In real pipelines, ephemeral tasks reduce overhead by releasing resources once e
 #### Project Structure:
 
 ```plaintext
-experiment_72/
+experiment_7.2/
 ├── Cargo.toml                  # Rust dependencies
 ├── src/
 │   ├── main.rs                 # Rust implementation
@@ -48,6 +48,21 @@ experiment_72/
         └── rust_kmer_index_tool.rar  # Compressed Rust k-mer index tool executable
 ```
 
+#### Cargo.toml
+
+```toml
+[package]
+name = "rust_kmer_index_tools"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+clap = { version = "4.5", features = ["derive"] }
+rayon = "1.8"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+```
+
 #### How to run:
 
 run main.rs in wsl:
@@ -71,14 +86,6 @@ params.chunk_size    = 1000000
 params.outdir        = 'results'
 params.threads       = Runtime.runtime.availableProcessors()
 
-#### [dependencies]
-
-```toml
-clap = { version = "4.5", features = ["derive"] }
-rayon = "1.8"
-serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0"
-```
 
 #### Explanation of the Output
 ##### 🔍 Main Output Explanation
