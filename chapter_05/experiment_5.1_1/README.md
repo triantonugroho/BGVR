@@ -1,6 +1,6 @@
 ## 5.1. Introduction to Sequence Analysis
 
-### experiment_51_1
+### experiment_5.1_1
 
 The following code showcases a HyperLogLog (HLL) implementation in Rust, a probabilistic data structure designed for estimating the cardinality (the count of unique elements) of a data set. Unlike traditional methods that store every distinct element, HyperLogLog employs a fixed-size array of small counters, making it extremely memory efficient, particularly for very large data streams. The structure is defined by a parameter p, which determines the number of registers m=2^p. Each incoming item is hashed to a 64-bit value, and the top p bits index into one of these registers. The remaining bits are then examined to find the longest run of leading zeros, and the register is updated with the maximum such run observed over time. By only storing these small counters, HyperLogLog achieves a compact representation of a potentially massive set.
 
@@ -13,11 +13,23 @@ The estimation of unique elements happens in the estimate function, which applie
 #### Project Structure:
 
 ```plaintext
-experiment_51_1/
+experiment_5.1_1/
 ├── Cargo.toml                  # Rust dependencies
 └── src/
     ├── main.rs                 # Rust implementation
     └── output.txt              # Output file
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_5.1_1"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+
 ```
 
 #### How to run:
@@ -30,11 +42,6 @@ cargo run | tee output.txt
 
 (run main.rs and save the output in output.txt)
   
-#### [dependencies]
-
-```toml
-only use std
-```
 
 #### Explanation of the Output
 
