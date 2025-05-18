@@ -1,6 +1,6 @@
-## 2.1. Introduction to Rust Programming Language
+## 1.1. Introduction to Rust Programming Language
 
-### experiment_21_9
+### experiment_1.1_9
 
 Here is a simple example demonstrating how a Rust library can use tch (the Rust bindings for PyTorch) and then expose this functionality to Python via PyO3, allowing Rust to handle computationally heavy workloads while Python remains the interface for scripting or orchestrating workflows. First, create a new Cargo project and edit the Cargo.toml file so that the library name matches pyo3_tch_example, specifying cdylib for the crate type. Include both PyO3 and tch in the dependencies, enabling the extension-module feature for PyO3 so that a Python extension can be compiled. In src/lib.rs, place the following code.
 
@@ -19,7 +19,7 @@ This setup demonstrates how PyO3 can bridge Rust and Python, letting you leverag
 #### Project Structure:
 
 ```plaintext
-experiment_21_9/
+experiment_1.1_9/
 ├── lib.rs                         # Rust script to make Python library
 ├── Testing pyo3_tch_example.ipynb # Python notebook for testing
 ├── Cargo.toml                     # Rust project configuration and dependencies
@@ -30,13 +30,31 @@ experiment_21_9/
 │   ├── pyo3_tch_example.dll.lib
 │   └── pyo3_tch_example.pdb
 └── target/wheels/
-    └── experiment_21_9-0.1.0-cp311-cp311-win_amd64.whl
+    └── experiment_1.1_9-0.1.0-cp311-cp311-win_amd64.whl
 
 ~anaconda3/Lib/site-packages/pyo3_tch_example/
 ├── __init__                       # Python Source File
 ├── pyo3_tch_example.cp311-win_amd64.pyd
 └── __pycache__/
     └── __init__.cpython-311      # Compiled Python File
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_1.1_9"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+pyo3 = { version = "0.23.5", features = ["extension-module"] }
+tch = "0.19.0"
+
+[lib]
+name = "pyo3_tch_example"
+crate-type = ["cdylib"]
+
 ```
 
 #### How to run:
@@ -47,18 +65,7 @@ cargo run
 
 (run lib.rs and make pyo3_tch_example python library)
   
-#### [dependencies]
 
-```toml
-pyo3 = { version = "0.23.5", features = ["extension-module"] }
-tch = "0.19.0"
-```
-#### [lib]
-
-```toml
-name = "pyo3_tch_example"
-crate-type = ["cdylib"]
-```
 #### Explanation of the Output
 
 ##### Understanding the Code
