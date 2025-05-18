@@ -1,6 +1,6 @@
 ## 7.3. Optimizing Performance and Memory Usage
 
-### experiment_73
+### experiment_7.3
 
 An AI engineer might approach large-scale genomic pipelines with an eye to memory mapping, concurrency, and micro-optimization in Rust. The example code below demonstrates how to memory-map a FASTA file using memmap2 and parallelize a line-based operation with rayon, but the same principles can apply to partial coverage analysis or variant queries. The code is “production ready” in that it handles file errors robustly and can integrate seamlessly with HPC container environments. For advanced numeric tasks, crates like ndarray can store coverage arrays, linfa might apply machine learning to coverage patterns, and tch-rs can integrate PyTorch if deep neural models are needed. Some developers also incorporate polar for advanced data querying, though care must be taken to manage concurrency with large data sets.
 
@@ -13,7 +13,7 @@ The container myrust/memmap_hpc:latest would be built from a Dockerfile containi
 #### Project Structure:
 
 ```plaintext
-experiment_73/
+experiment_7.3/
 ├── Cargo.toml                  # Rust dependencies
 ├── src/
 │   ├── main.rs                 # Rust implementation
@@ -41,6 +41,25 @@ experiment_73/
         └── rust_mmap_tool.rar  # Compressed Rust memory-mapped tool executable
 ```
 
+#### Cargo.toml
+
+```toml
+[package]
+name = "rust_mmap_tool"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = "1.0"
+clap = { version = "4.4", features = ["derive"] }
+log = "0.4"
+env_logger = "0.11"
+memmap2 = "0.9.5"
+rayon = "1.8"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+```
+
 #### How to run:
 
 run main.rs in wsl:
@@ -65,18 +84,6 @@ params.threads = Runtime.runtime.availableProcessors()
 params.memory = '2.GB'
 params.container_version = 'latest'
 
-#### [dependencies]
-
-```toml
-anyhow = "1.0"
-clap = { version = "4.4", features = ["derive"] }
-log = "0.4"
-env_logger = "0.11"
-memmap2 = "0.9.5"
-rayon = "1.8"
-serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0"
-```
 
 #### Explanation of the Output
 ##### ✅ main.rs – Rust-based Genomic Analyzer
