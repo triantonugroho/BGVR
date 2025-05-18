@@ -1,6 +1,6 @@
 ## 4.1. Introduction to Functional Genomics Data Structures
 
-### experiment_41
+### experiment_4.1
 
 In this simplified example, we demonstrate a workflow for reading a synthetic FASTQ file to build a Position Weight Matrix (PWM) and then a simple Markov Random Field (MRF) using Rust. A stand alone Nextflow serves as our workflow engine, orchestrating the steps and ensuring reproducibility. Rust’s safety and performance make it an excellent choice for bioinformatics tasks, while Nextflow provides a robust framework for pipeline development and execution across diverse compute environments.
 
@@ -9,7 +9,7 @@ The Nextflow pipeline reads a synthetic FASTQ file (synthetic_reads.fastq) and s
 #### Project Structure:
 
 ```plaintext
-experiment_41/
+experiment_4.1/
 ├── Cargo.toml                        # Rust project configuration and dependencies
 └── src/
     ├── main.rs                       # Main Rust script containing program logic
@@ -17,6 +17,18 @@ experiment_41/
     ├── synthetic_reads.fastq.rar     # Compressed synthetic reads FASTQ file
     ├── mrf_results.txt               # MRF results output file
     └── pwm_results.txt               # PWM results output file
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_4.1"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+bio = "2.0.3"
 ```
 
 #### How to run:
@@ -31,12 +43,6 @@ run main.nf in WSL:
 
 ```wsl
 nextflow run main.nf --synthetic_fastq 'synthetic_reads.fastq'
-```
-
-#### [dependencies]
-
-```toml
-bio = "2.0.3"
 ```
 
 #### Explanation of the Output
