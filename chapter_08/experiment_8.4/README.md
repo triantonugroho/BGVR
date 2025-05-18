@@ -63,7 +63,7 @@ noodles-fasta= "0.26.0"
 
 run main.rs in wsl:
 
-/mnt/c/Users/trian/BGVR/chapter_08/experiment_8_4/
+/mnt/c/Users/trian/BGVR/chapter_08/experiment_8.4/
 
 ```wsl
 cargo build --release
@@ -72,11 +72,11 @@ cargo build --release
 (compile variant-annotator executable file)
 
 ```wsl
-/mnt/c/Users/trian/BGVR/chapter_08/experiment_8_4/target/release/variant-annotator \
-  --vcf /mnt/c/Users/trian/BGVR/chapter_08/experiment_8_4/src/sample.vcf \
-  --gff /mnt/c/Users/trian/BGVR/chapter_08/experiment_8_4/src/sample.gff \
-  --gnomad /mnt/c/Users/trian/BGVR/chapter_08/experiment_8_4/src/sample.freq.tsv.gz \
-  --reference /mnt/c/Users/trian/BGVR/chapter_08/experiment_8_4/src/ref.fa \
+/mnt/c/Users/trian/BGVR/chapter_08/experiment_8.4/target/release/variant-annotator \
+  --vcf /mnt/c/Users/trian/BGVR/chapter_08/experiment_8.4/src/sample.vcf \
+  --gff /mnt/c/Users/trian/BGVR/chapter_08/experiment_8.4/src/sample.gff \
+  --gnomad /mnt/c/Users/trian/BGVR/chapter_08/experiment_8.4/src/sample.freq.tsv.gz \
+  --reference /mnt/c/Users/trian/BGVR/chapter_08/experiment_8.4/src/ref.fa \
   --output annotated.parquet \
   --verbose \
   --threads 4 \
