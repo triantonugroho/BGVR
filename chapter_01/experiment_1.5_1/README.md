@@ -1,6 +1,6 @@
-## 2.5. Acquiring and Cleaning Data
+## 1.5. Acquiring and Cleaning Data
 
-### experiment_25_1
+### experiment_1.5_1
 
 Below is the complete Nextflow script that demonstrates a streamlined pipeline without containers. It downloads .sra files for a list of accessions, performs a simulated checksum verification, and moves the final outputs to a specified directory. You can store this script in a file named main.nf and adjust parameters as needed.
 
@@ -31,7 +31,7 @@ Running the pipeline typically involves executing nextflow run main.nf in the di
 #### Project Structure:
 
 ```plaintext
-experiment_25_1/
+experiment_1.5_1/
 ├── Cargo.toml                     # Rust project configuration and dependencies
 ├── main.nf                        # Nextflow workflow script
 ├── nextflow.log.9                 # Nextflow log file
@@ -50,9 +50,17 @@ nextflow run main.nf | tee output.txt
 
 (run main.nf and save the output in output.txt)
   
-#### [dependencies]
+#### Cargo.toml
 
-no dependencies
+```toml
+[package]
+name = "experiment_1.5_1"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+```
 
 #### Explanation of the Output
 This Nextflow workflow (main.nf) automates the process of:
