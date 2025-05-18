@@ -1,6 +1,6 @@
 ## 3.1. Introduction to Data Structures and Algorithms
 
-### experiment_31_4
+### experiment_3.1_4
 
 This code demonstrates how to conditionally offload computations to GPU or FPGA in Rust by relying on feature flags in Cargo. In a single program, it provides three possible paths: one for GPU-accelerated processing, one for FPGA-accelerated processing, and a CPU-based fallback. Depending on which feature is enabled at compile time, the code will either initialize the relevant device and perform a placeholder transformation on an array of floats, or default to a simple CPU calculation if neither specialized device is available. This allows for a flexible design in which a single source tree can adapt to a variety of hardware environments without complex branching in the codebase.
 
@@ -9,11 +9,28 @@ In this code, the GPU and FPGA modules each simulate device initialization befor
 #### Project Structure:
 
 ```plaintext
-experiment_31_4/
+experiment_3.1_4/
 └── Cargo.toml                     # Rust project configuration and dependencies
 src/
 ├── main.rs                        # Main Rust script containing program logic
 └── output.txt                     # Text output file
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_3.1_4"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rand = "0.9.0"
+rayon = "1.10.0"
+
+[features]
+gpu = []
+fpga = []
 ```
 
 #### How to run:
@@ -25,19 +42,6 @@ cargo run | tee output.txt
 ```
 
 (run main.rs and save the output in output.txt)
-  
-#### [dependencies]
-
-```toml
-rand = "0.9.0"
-rayon = "1.10.0"
-```
-
-#### [features]
-```toml
-gpu = []
-fpga = []
-```
 
 ##### Explanation of the Output:
 This Rust program is designed to demonstrate how computations can be offloaded to different hardware accelerators (GPU, FPGA) or fallback to CPU processing, depending on the active feature flags at compile time. The program uses conditional compilation with cfg attributes to control which hardware-accelerated path gets executed.
