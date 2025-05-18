@@ -23,7 +23,7 @@ Cargo.toml                     # Rust project configuration and dependencies fil
 
 ```toml
 [package]
-name = "experiment_21_1"
+name = "experiment_1.1_1"
 version = "0.1.0"
 edition = "2021"
 
