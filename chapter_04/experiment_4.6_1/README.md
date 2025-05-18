@@ -13,11 +13,23 @@ Once the k-NN graph is available, the compute_pseudotime function uses a breadth
 #### Project Structure:
 
 ```plaintext
-experiment_46_1/
+experiment_4.6_1/
 ├── Cargo.toml                     # Rust project configuration and dependencies
 └── src/
     ├── main.rs                    # Main Rust script containing program logic
     └── output.txt                 # Text output file
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_4.6_1"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+rayon = "1.10.0"
 ```
 
 #### How to run:
@@ -29,11 +41,6 @@ cargo run | tee output.txt
 ```
 (run main.rs and save the output in output.txt)
 
-#### [dependencies]
-
-```toml
-rayon = "1.10.0"
-```
 
 #### Explanation of the Output
 My Rust program constructs a k-Nearest Neighbor (k-NN) graph based on the expression profiles of single-cell data and then computes a pseudotime trajectory using Breadth-First Search (BFS).
