@@ -1,6 +1,6 @@
-## 2.1. Introduction to Rust Programming Language
+## 1.1. Introduction to Rust Programming Language
 
-### experiment_21_8
+### experiment_1.1_8
 
 Demonstrates how Rust’s higher-order functions and iterators can apply a functional programming style to a set of genomic reads. The code below compiles out of the box, does not rely on external crates, and can be executed with either rustc or cargo.
 
@@ -11,11 +11,22 @@ At the systems level, Rust still offers low-level features. For example, if you 
 #### Project Structure:
 
 ```plaintext
-experiment_21_8/
+experiment_1.1_8/
 ├── Cargo.toml                     # Rust project configuration and dependencies
 └── src/
     ├── main.rs                    # Main Rust script containing program logic
     └── output.txt                 # Output file
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_1.1_8"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
 ```
 
 #### How to run:
@@ -25,10 +36,6 @@ cargo run | tee output.txt
 ```
 
 (run main.rs and save the output in output.txt)
-  
-#### [dependencies]
-
-No dependencies.
 
 #### Explanation of the Output
 
