@@ -1,0 +1,31 @@
+{
+    "nodes": [
+      {"id": 1, "sequence": "ACTG", "chrom": "chr1", "pos": 1000},
+      {"id": 2, "sequence": "GACT", "chrom": "chr1", "pos": 1004},
+      {"id": 3, "sequence": "TGAC", "chrom": "chr1", "pos": 1008},
+      {"id": 4, "sequence": "CAGT", "chrom": "chr1", "pos": 1012},
+      {"id": 5, "sequence": "GTCA", "chrom": "chr1", "pos": 1016},
+      {"id": 6, "sequence": "ACGT", "chrom": "chr2", "pos": 2000},
+      {"id": 7, "sequence": "CGTA", "chrom": "chr2", "pos": 2004},
+      {"id": 8, "sequence": "GTAC", "chrom": "chr2", "pos": 2008},
+      {"id": 9, "sequence": "TACG", "chrom": "chr2", "pos": 2012},
+      {"id": 10, "sequence": "ACGT", "chrom": "chr2", "pos": 2016}
+    ],
+    "edges": [
+      {"from": 1, "to": 2},
+      {"from": 2, "to": 3},
+      {"from": 3, "to": 4},
+      {"from": 4, "to": 5},
+      {"from": 6, "to": 7},
+      {"from": 7, "to": 8},
+      {"from": 8, "to": 9},
+      {"from": 9, "to": 10},
+      {"from": 2, "to": 4},
+      {"from": 7, "to": 9}
+    ],
+    "metadata": {
+      "name": "Sample Pangenome Graph",
+      "version": "1.0",
+      "description": "A small sample graph for testing variant-scorer"
+    }
+  }

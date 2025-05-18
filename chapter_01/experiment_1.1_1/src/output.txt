@@ -1,0 +1,2 @@
+Length: 10000000, GC: 4999007
+Successfully processed 1 sequences.

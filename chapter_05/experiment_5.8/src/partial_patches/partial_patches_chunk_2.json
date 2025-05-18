@@ -1,0 +1,19 @@
+{
+    "patches": [
+      {
+        "contig": "chr3",
+        "position": 54321,
+        "ref_base": 67,
+        "suggested_base": 71,
+        "coverage": 48
+      },
+      {
+        "contig": "chr3",
+        "position": 54322,
+        "ref_base": 84,
+        "suggested_base": 65,
+        "coverage": 52
+      }
+    ]
+  }
+  

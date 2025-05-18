@@ -1,0 +1,11 @@
+{
+    "chr1:100": [
+        {"base": "A", "quality": 30},
+        {"base": "A", "quality": 28},
+        {"base": "G", "quality": 25}
+    ],
+    "chr1:101": [
+        {"base": "C", "quality": 35},
+        {"base": "T", "quality": 30}
+    ]
+}
