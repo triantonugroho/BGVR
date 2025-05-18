@@ -1,6 +1,6 @@
 ## 6.2. Parsing and Indexing Alignments
 
-### experiment_62
+### experiment_6.2
 
 The following Rust program calculates coverage over multiple genomic regions in parallel. It uses rust-htslib for alignment parsing and indexing, rayon for concurrency, and anyhow for robust error handling. Additional logging is provided through env_logger and the log crate. The snippet first defines a parallel_coverage function and then integrates it into a main routine that handles command-line arguments and logs progress.
 
@@ -16,7 +16,7 @@ This configuration illustrates how Nextflow splits the workload among different 
 
 #### Project Structure:
 ```plaintext
-experiment_62/
+experiment_6.2/
 ├── Cargo.toml                  # Rust dependencies
 ├── src/
 │   ├── main.rs                 # Rust implementation
@@ -32,6 +32,23 @@ experiment_62/
         └── coverage_tool.rar   # Compressed coverage_tool execution file/container
 ```
 
+#### Cargo.toml
+
+```toml
+[package]
+name = "coverage_tool"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = "1.0"
+clap = { version = "4.4", features = ["derive"] }
+env_logger = "0.11.7"
+log = "0.4"
+rayon = "1.8"
+rust-htslib = "0.49.0"
+```
+
 #### How to run:
 
 run in wsl:
@@ -42,16 +59,6 @@ nextflow run main.nf
 
 (run main.nf with example.bam and example.bam.bai input and made coverage_1_1-50000.txt and coverage_1_50001-100000.txt output)
   
-#### [dependencies]
-
-```toml
-anyhow = "1.0"
-clap = { version = "4.4", features = ["derive"] }
-env_logger = "0.11.7"
-log = "0.4"
-rayon = "1.8"
-rust-htslib = "0.49.0"
-```
 
 #### Explanation of the Output
 When running nextflow run main.nf in WSL, the Nextflow workflow executes the coverage_tool binary in parallel for each genomic region specified in params.region_list. Here's what happens step by step:
