@@ -1,6 +1,6 @@
 ## 5.4. De Novo Assembly Approaches
 
-### experiment_54
+### experiment_5.4
 
 The following Rust program demonstrates a chunk-based strategy for building a k-mer count table and constructing a minimal de Bruijn graph from potentially large FASTQ inputs. By splitting the FASTQ reading process into chunks, it avoids loading all reads into memory at once. Each chunk’s records are then processed in parallel with Rayon, and the partial de Bruijn graphs are serialized to disk. In high-performance computing (HPC) or cloud-based environments, ephemeral tasks could run this chunking step in parallel for different portions of the input, writing separate partial graphs for downstream merging.
 
@@ -11,7 +11,7 @@ During each chunk’s processing, the code constructs a local FnvHashMap of k-me
 #### Project Structure:
 
 ```plaintext
-experiment_54/
+experiment_5.4/
 ├── Cargo.toml             # Rust project configuration and dependencies
 └── src/
     ├── main.rs            # Main Rust script containing program logic
@@ -29,9 +29,15 @@ cargo run -- --input C:\Users\trian\BGVR\chapter_05\experiment_54\src\example.fa
 
 (run main.rs using two input dataset path)
   
-#### [dependencies]
+#### Cargo.toml
 
 ```toml
+[package]
+name = "kmer_debruijn_builder"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
 anyhow = "1.0"
 rayon = "1.8"
 needletail = "0.6.3"
