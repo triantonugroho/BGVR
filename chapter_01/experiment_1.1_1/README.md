@@ -1,6 +1,6 @@
 ## 1.1. Introduction to Rust Programming Language
 
-## experiment_1.1_1
+### experiment_1.1_1
 
 Below is a Rust code illustrating how to read all sequences from a FASTA file, store them in a vector of strings, and process them in parallel with Rayon. This approach avoids the lifetime and ownership issues that arise when returning references to data held within a local mutex. By reading the file sequentially, converting each record’s bytes to UTF-8, and pushing the resulting strings into a Vec<String>, the code ensures that the data is fully owned, making it safe to be passed around or returned.
 
@@ -8,7 +8,7 @@ Once the sequences are loaded, the snippet uses Rayon’s parallel iterator (par
 
 By wrapping the vector of sequences in a Mutex and then converting it into a local copy, Rust ensures that no two threads can mutate the data simultaneously, preventing data races. Any attempt to borrow the sequences vector incorrectly—say, by attempting a second mutable reference while another one is active—would fail at compile time. This guarantees that the code remains memory-safe, even under parallel workloads often found in genomics and functional biology pipelines.
 
-## Project Structure:
+#### Project Structure:
 
 ```plaintext
 experiment_1.1_1/src/
@@ -19,15 +19,21 @@ experiment_1.1_1/               # Empty or duplicate project directory
 Cargo.toml                     # Rust project configuration and dependencies file (at root level)
 ```
 
-## How to run:
+#### How to run:
 
 cargo run | tee output.txt
 
 (run main.rs and save the output in output.txt)
   
-## [dependencies]
+#### Cargo.toml
 
 ```toml
+[package]
+name = "experiment_21_1"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
 bio = "2.0.3"
 rayon = "1.10.0"
 ```
