@@ -1,6 +1,6 @@
 ## 3.1. Introduction to Data Structures and Algorithms
 
-### experiment_31_7
+### experiment_3.1_7
 
 #### 1. Nextflow
 An example Nextflow pipeline and accompanying Rust code that demonstrate how to construct both a de Bruijn graph and a Bloom filter for genomic analysis on FASTQ data. This setup is intended to be standalone on a typical PC, using Nextflow to orchestrate the workflow locally, while the Rust code handles reading the FASTQ file, building the data structures, and parallelizing the workload via Rayon. In practice, you would adapt these skeletons for large-scale data and HPC environments, possibly adding chunked data handling, distributed file systems, or MPI-based communication. Nonetheless, the example shows how these pieces fit together in principle.
@@ -17,7 +17,7 @@ This example is highly simplified. Real genomic use cases often involve splittin
 #### Project Structure:
 
 ```plaintext
-experiment_31_7/
+experiment_3.1_7/
 ├── Cargo.toml                     # Rust project configuration and dependencies
 └── src/
     ├── main.rs                    # Main Rust script containing program logic
@@ -31,6 +31,20 @@ experiment_31_7/
         └── rustc_info.json        # Rust compiler information file
 ```
 
+#### Cargo.toml
+```toml
+[package]
+name = "experiment_3.1_7"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rayon = "1.7"
+needletail = "0.6"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+```
+
 #### How to run:
 
 run in powershell:
@@ -41,14 +55,6 @@ cargo run main.nf | tee output.txt
 
 (run main.nf  and save the output in output.txt)
 
-#### [dependencies]
-
-```toml
-rayon = "1.7"
-needletail = "0.6"
-serde = { version = "1", features = ["derive"] }
-serde_json = "1"
-```
 
 #### Explanation of the Output:
 This system is a Nextflow pipeline that compiles and runs a Rust program to analyze FASTQ data, building a De Bruijn graph and a Bloom filter from DNA sequences. Let's break down the steps and explain the output:
