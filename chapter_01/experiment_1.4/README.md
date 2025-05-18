@@ -1,13 +1,13 @@
-## 2.4. AI/ML Implementation with Rust Crates
+## 1.4. AI/ML Implementation with Rust Crates
 
-### experiment_24
+### experiment_1.4
 
 Below is a sample Rust code snippet demonstrating how to do K-means clustering with linfa and then, in a separate pipeline, train a neural network with tch-rs. Each step includes commentary on how to handle industrial-scale issues like concurrency and data loading.
 
 #### Project Structure:
 
 ```plaintext
-experiment_24/
+experiment_1.4/
 ├── Cargo.toml                     # Rust project configuration and dependencies
 └── src/
     ├── main.rs                    # Main Rust script containing program logic
@@ -24,9 +24,15 @@ cargo run | tee output.txt
 
 (run main.rs and save the output in output.txt)
   
-#### [dependencies]
+#### Cargo.toml
 
 ```toml
+[package]
+name = "experiment_1.4"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
 linfa = "0.7.1"
 linfa-clustering = "0.7.1"
 tch = "0.19.0"
