@@ -1,6 +1,6 @@
 ## 3.5. High-Performance Computing and Parallelization
 
-### experiment_35
+### experiment_3.5
 
 The following Rust code demonstrates a robust approach to counting k-mers in large genomic data files (FASTA or FASTQ) using concurrent, local aggregation. It leverages the Needletail crate for reading sequence data, Rayon for parallel processing, and DashMap for merging partial results. This design allows for efficient, multi-core counting of k-mers even in memory-constrained or large-scale scenarios, helping address the complexity of modern genomic datasets.
 
@@ -11,13 +11,29 @@ Each crate addresses different concerns. needletail uses efficient buffering for
 #### Project Structure:
 
 ```plaintext
-experiment_35/
+experiment_3.5/
 ├── Cargo.toml                      # Rust project configuration and dependencies
 └── src/
     ├── main.rs                     # Main Rust script containing program logic
     ├── reads.fq.rar                # Compressed FASTQ reads file
     ├── kmer_counts.json.rar        # Compressed JSON file containing k-mer counts
     └── output.txt                  # Text output file
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_3.5"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rayon = "1.7"             # For parallel processing
+needletail = "0.6.3"        # For FASTA/FASTQ parsing
+dashmap = "6.1.0"           # For concurrent hashmap
+serde = { version = "1.0", features = ["derive"] }  # For serialization
+serde_json = "1.0"        # For JSON output
 ```
 
 #### How to run:
@@ -30,15 +46,6 @@ cargo run | tee output.txt
 
 (run main.rs and save the output in output.txt)
   
-#### [dependencies]
-
-```toml
-rayon = "1.7"             # For parallel processing
-needletail = "0.6.3"        # For FASTA/FASTQ parsing
-dashmap = "6.1.0"           # For concurrent hashmap
-serde = { version = "1.0", features = ["derive"] }  # For serialization
-serde_json = "1.0"        # For JSON output
-```
 
 #### Explanation of the Output
 This Rust program processes a FASTQ/FASTA file, extracts k-mers of length 𝑘, counts their occurrences in a parallelized manner, and then saves the counts to kmer_counts.json.
