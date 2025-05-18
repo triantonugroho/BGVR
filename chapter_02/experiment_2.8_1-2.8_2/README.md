@@ -1,6 +1,6 @@
-## 1.8. Tools and Frameworks
+## 2.8. Tools and Frameworks
 
-### experiment_18_1_2 
+### experiment_2.8_1-2.8_2 
 
 #### Rust Code
 
@@ -20,7 +20,7 @@ Inside the Rust program, command-line arguments specify a k-mer size, an input F
 #### Project Structure:
 
 ```plaintext
-experiment_18_1_2/
+experiment_2.8_1-2.8_2/
 ├── Cargo.toml                     # Rust project configuration and dependencies
 └── src/
     ├── main.rs                    # Main Rust script containing program logic
@@ -31,6 +31,18 @@ experiment_18_1_2/
     └── reads.rar                  # Compressed reads.fastq (renamed from SRR11192680_1.fastq)
 ```
 
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_2.8_1-2.8_2"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+```
+
 #### How to run:
 
 ```wsl
@@ -39,9 +51,6 @@ nextflow run main.nf
 
 (run the nextflow script that will run the workflow and save the output in de_bruijn_graph.txt)
   
-#### [dependencies]
-
-only use standard "std"
 
 #### Explanation of the Output: de_bruijn_graph.txt
 
