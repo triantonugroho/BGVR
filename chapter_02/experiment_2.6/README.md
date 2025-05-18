@@ -22,12 +22,12 @@ experiment_2.6/
 
 ```toml
 [package]
-name = "experiment_2.5"
+name = "experiment_2.6"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-tch = "0.19.0"
+rayon = "1.10.0"
 ```
 
 #### How to run
