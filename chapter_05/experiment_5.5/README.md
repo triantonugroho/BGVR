@@ -24,16 +24,6 @@ experiment_5.5/
         └── partial_varians_chunk_0.json  # Partial variants in chunk 0 JSON output file
 ```
 
-#### How to run:
-
-run in powershell:
-
-```powershell
-cargo run -- --pileup-input pileup.json --hypotheses-input hypotheses.json --chunk-size 5000 --output-dir output --merged-output merged_variants.json | tee output.txt
-```
-
-(run main.rs with chunk size 5000, 2 json input file name and 1 json output filename)
-  
 #### Cargo.toml
 
 ```toml
@@ -52,6 +42,17 @@ serde_json = "1.0"
 bincode = "2.0.1"
 clap = { version = "4.4", features = ["derive"] }
 ```
+
+#### How to run:
+
+run in powershell:
+
+```powershell
+cargo run -- --pileup-input pileup.json --hypotheses-input hypotheses.json --chunk-size 5000 --output-dir output --merged-output merged_variants.json | tee output.txt
+```
+
+(run main.rs with chunk size 5000, 2 json input file name and 1 json output filename)
+  
 
 #### Explanation of the Output
 
