@@ -1,6 +1,6 @@
-## 1.3. De Bruijn Graphs
+## 2.3. De Bruijn Graphs
 
-### experiment_13
+### experiment_2.3
 
 Below is a Rust code that demonstrates building a simple De Bruijn graph from a FASTA file by extracting overlapping k-mers and linking them, thereby avoiding pairwise alignments for each read. De Bruijn graphs are commonly employed in genome assembly because they can efficiently represent overlapping k-mers, simplifying reconstruction. By keeping memory usage explicit and parallelizing iteration, the program remains robust and scalable to large data sets containing millions of reads. It leverages Rust’s strong memory safety and concurrency features, along with crates like “rayon” for parallel processing and “nalgebra”/“ndarray” for numeric tasks, ensuring efficient performance in high-throughput sequencing scenarios.
 
@@ -13,7 +13,7 @@ Several success stories highlight substantial reductions in runtime and cost onc
 #### Project Structure:
 
 ```plaintext
-experiment_13/
+experiment_2.3/
 ├── Cargo.toml                     # Rust project configuration and dependencies
 └── src/
     ├── main.rs                    # Main Rust script containing program logic
@@ -21,9 +21,15 @@ experiment_13/
     └── output.txt                 # Output file
 ```
 
-#### [dependencies]
+#### Cargo.toml
 
 ```toml
+[package]
+name = "experiment_2.3"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
 bio = "2.0.3"
 nalgebra = "0.33.2"
 ndarray = "0.16.1"
