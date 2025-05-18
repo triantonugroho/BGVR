@@ -1,6 +1,6 @@
-## 2.6. Scientific Computation Workflow with Rust and Nextflow
+## 1.6. Scientific Computation Workflow with Rust and Nextflow
 
-### experiment_26_1
+### experiment_1.6_1
 
 #### Nextflow Script:
 Below is an example Nextflow DSL2 script demonstrating how to run a Rust read-trimming tool in parallel across multiple FASTQ files. Each file is processed by a separate job, and the pipeline remains agnostic to whether it executes on-premises under SLURM or in the cloud through other Nextflow executors.
@@ -13,9 +13,9 @@ The Rust trimmer itself can be a simple program that removes low-quality bases f
 #### Project Structure:
 
 ```plaintext
-experiment_26_1/
+experiment_1.6_1/
 └── Cargo.toml                      # Rust project configuration and dependencies
-experiment_26_1/src/
+experiment_1.6_1/src/
 ├── main.rs                         # Main Rust script containing program logic
 ├── main.nf                         # Nextflow workflow script
 ├── nextflow.log.9                  # Nextflow log file
@@ -38,7 +38,15 @@ nextflow run main.nf | tee output.txt
   
 #### [dependencies]
 
-no dependencies
+```toml
+[package]
+name = "my_rust_trim"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+```
 
 #### Explanation of the Output
 The provided outputs (output_nf.txt and output_rs.txt) describe the execution results of the Rust-based FASTQ trimmer within a Nextflow pipeline. Below is an analysis of each output:
