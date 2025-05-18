@@ -1,6 +1,6 @@
 ## 5.7. RNA-seq and Transcriptomic Analysis
 
-### experiment_57
+### experiment_5.7
 
 This Rust program uses rust-htslib to read a BAM file in chunks, tallying up transcript-level expression counts in parallel using Rayon. By chunking the records, you can handle large BAM files in a memory-efficient way. Each chunk’s partial results are written to disk, enabling a strategy where ephemeral jobs (e.g., in an HPC cluster) each process a subset of the data.
 
@@ -11,7 +11,7 @@ When the partial tasks are completed, the code merges all partial results by rea
 #### Project Structure:
 
 ```plaintext
-experiment_57/
+experiment_5.7/
 ├── Cargo.toml                                  # Rust project configuration and dependencies
 └── src/
     ├── main.rs                                 # Main Rust script containing program logic
@@ -34,9 +34,15 @@ cargo run -- --bam-input example.bam --annotation example.gtf --chunk-size 5000 
 
 (run main.rs with chunk size 5000, input file name example.bam, output directory partial_counts and output file name merged_counts.json and save the output text in output.txt) 
   
-#### [dependencies]
+#### Cargo toml
 
 ```toml
+[package]
+name = "transcript_counter"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
 anyhow = "1.0"
 rust-htslib = "0.49.0"
 rayon = "1.7"
