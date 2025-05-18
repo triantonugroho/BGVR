@@ -1,6 +1,6 @@
 ## 4.3. Motif Discovery and Regulatory Element Identification
 
-### experiment_43_5
+### experiment_4.3_5
 
 #### 1. Nextflow 
 Below is an illustrative Nextflow pipeline and Rust code combination that implements motif-discovery workflow. The pipeline demonstrates how to chunk genomic data, scan for motifs in parallel with Rust and the rayon crate, and merge partial results into a final output. In real-world HPC or cloud settings, ephemeral containers can spin up and shut down per chunk, reducing cost while maintaining high throughput (Lee and Park, 2023).
@@ -15,7 +15,7 @@ The TATAPattern struct stores the acceptable nucleotides for each position (e.g.
 #### Project Structure:
 
 ```plaintext
-experiment_43_5/
+experiment_4.3_5/
 ├── Cargo.toml                       # Rust project configuration and dependencies
 ├── motif_scanner                    # Output executable file
 └── src/
@@ -27,12 +27,27 @@ experiment_43_5/
     └── tata_scan_merged.json.rar    # Compressed TATA scan merged results JSON file
 ```
 
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_4.3_5"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+rayon = "1.10.0"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+bio = "2.2.0"
+```
+
 #### How to run:
 
 run main.rs in powershell:
 
 ```powershell
-cargo run --release -- "C:\Users\trian\BGVR\chapter_04\experiment_43_5\src\genome.fa" "C:\Users\trian\BGVR\chapter_04\experiment_43_5\src\output.json"
+cargo run --release -- "C:\Users\trian\BGVR\chapter_04\experiment_4.3_5\src\genome.fa" "C:\Users\trian\BGVR\chapter_04\experiment_4.3_5\src\output.json"
 ```
 
 run main.nf in WSL:
@@ -41,14 +56,6 @@ run main.nf in WSL:
 nextflow run main.nf --input_fasta genome.fa --chunk_size 1000000
 ```
 
-#### [dependencies]
-
-```toml
-rayon = "1.10.0"
-serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0"
-bio = "2.2.0"
-```
 
 #### Explanation of the Output
 My Nextflow pipeline and Rust motif scanner successfully ran and generated the following output:
