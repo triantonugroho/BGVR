@@ -1,6 +1,6 @@
 ## 5.8. Integrating Short and Long Reads
 
-### experiment_58
+### experiment_5.8
 
 This Rust program demonstrates a “partial polishing” approach for hybrid assemblies, processing short-read alignments in chunks to build correction patches. It leverages rust-htslib to read BAM files, rayon for parallel iteration, and anyhow for streamlined error handling. By grouping alignment records by their contig (TID), it accumulates potential mismatches relative to a simplistic “reference base” assumption, packaging each mismatch into a CorrectionPatch.
 
@@ -16,7 +16,7 @@ The partial patches from each chunk are immediately serialized to JSON and writt
 #### Project Structure:
 
 ```plaintext
-experiment_58/
+experiment_5.8/
 ├── Cargo.toml                                  # Rust project configuration and dependencies
 └── src/
     ├── main.rs                                 # Main Rust script containing program logic
@@ -31,6 +31,27 @@ experiment_58/
         └── partial_patches_chunk_3.json        # Partial patches in chunk 3 JSON output file
 ```
 
+#### Cargo.toml
+
+```toml
+[package]
+name = "transcript_counting"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = "1.0"
+bam = "0.1.2"              
+rust-htslib = "0.49.0"      
+rayon = "1.8.0"             
+serde = { version = "1.0", features = ["derive"] } 
+serde_json = "1.0"           
+log = "0.4.20"               
+env_logger = "0.11.7"       
+clap = { version = "4.4", features = ["derive"] }  
+bio = "2.2.0"               
+```
+
 #### How to run:
 
 run in wsl:
@@ -41,20 +62,6 @@ cargo run -- --bam-input input.bam --gtf annotations.gtf --output merged_correct
 
 (run main.rs with input filename input.bam and output file name merged_correction.json output text in output.txt) 
   
-#### [dependencies]
-
-```toml
-anyhow = "1.0"
-bam = "0.1.2"              
-rust-htslib = "0.49.0"      
-rayon = "1.8.0"             
-serde = { version = "1.0", features = ["derive"] } 
-serde_json = "1.0"           
-log = "0.4.20"               
-env_logger = "0.11.7"       
-clap = { version = "4.4", features = ["derive"] }  
-bio = "2.2.0"   
-```
 
 #### Explanation of the Output
 
