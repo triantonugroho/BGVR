@@ -1,6 +1,6 @@
 ## 4.6. Single-Cell Functional Genomics
 
-### experiment_46_1
+### experiment_4.6_1
 
 This Rust code demonstrates a parallelized approach to constructing a k-nearest neighbor (k-NN) graph for a set of single-cell data, a common task in bioinformatics pipelines where large datasets must be efficiently processed. After building the k-NN graph, a simple breadth-first search (BFS) is used to derive a “pseudotime” measure, which can provide a rough chronological ordering of cells based on their similarity.
 
