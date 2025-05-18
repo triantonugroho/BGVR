@@ -1,3 +1,0 @@
-vcf_files/merged.vcf
-vcf_files/sample1.vcf
-vcf_files/sample2.vcf

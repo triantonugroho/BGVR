@@ -1,1 +1,0 @@
-Would execute: echo 'Mock kmer tool execution' --input chunk_2.fa --output partial_chunk_2.json

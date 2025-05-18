@@ -1,1 +1,0 @@
-FASTQ file has been successfully downloaded to 'C:\Users\trian\BGVR\chapter_01\experiment_17\src'.

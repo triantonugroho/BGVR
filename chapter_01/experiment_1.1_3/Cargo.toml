@@ -1,8 +1,0 @@
-[package]
-name = "experiment_21_3"
-version = "0.1.0"
-edition = "2021"
-
-[dependencies]
-rayon = "1.10.0"
-bio = "2.0.3"

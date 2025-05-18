@@ -1,5 +1,0 @@
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 2.63s
-     Running `/mnt/c/Users/trian/BGVR/chapter_02/experiment_21_4/target/debug/experiment_21_4`
-FASTQ: Found motif 'GATTACA' 0 times.
-BAM: Found motif 'GATTACA' 230 times.
-VCF: Found motif 'GATTACA' 0 times.
