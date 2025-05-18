@@ -1,6 +1,6 @@
-## 1.2. Markov Random Fields
+## 2.2. Markov Random Fields
 
-### experiment_12
+### experiment_2.2
 
 Markov Random Fields (MRFs) are graphical models that capture dependencies among variables—in this case, the nucleotides at each position in a sequence. Even a simple MRF linking consecutive nucleotides can reveal how Rust helps construct and store adjacency structures that represent these relationships. By extending this approach, you can design sophisticated models or run inference algorithms (such as belief propagation) to analyze motifs omarkor interactions in genomic data.
 
@@ -13,7 +13,7 @@ Reading sequences is handled by the “bio::io::fasta” crate, which provides a
 #### Project Structure:
 
 ```plaintext
-experiment_12/
+experiment_2.2/
 ├── Cargo.toml                     # Rust project configuration and dependencies
 └── src/
     ├── main.rs                    # Main Rust script containing program logic
@@ -21,9 +21,15 @@ experiment_12/
     └── output.txt                 # Output file
 ```
 
-#### [dependencies]
+#### Cargo.toml
 
 ```toml
+[package]
+name = "experiment_2.2"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
 bio = "2.0.3"
 nalgebra = "0.33.2"
 ndarray = "0.16.1"
