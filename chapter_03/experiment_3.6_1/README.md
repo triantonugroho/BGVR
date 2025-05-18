@@ -1,6 +1,6 @@
 ## 3.6. Putting It All Together—Rust and Nextflow Integration
 
-### experiment_36_1
+### experiment_3.6_1
 
 #### 1. Nextflow
 
@@ -36,7 +36,7 @@ This code demonstrates a naive “FM-index building” step, in practice. Real H
 #### Project Structure:
 
 ```plaintext
-experiment_36_1/
+experiment_3.6_1/
 └── Cargo.toml                      # Rust project configuration and dependencies
 experiment_36_1/src/                 # Note: Directory name has a typo (missing 'e')
 ├── main.rs                         # Main Rust script containing program logic
@@ -44,6 +44,19 @@ experiment_36_1/src/                 # Note: Directory name has a typo (missing 
 ├── reference.fa                    # Reference FASTA file
 ├── partial_fm_indexes.json         # JSON output file containing partial FM-indexes
 └── output.txt                      # Text output file
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_3.6_1"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
 ```
 
 #### How to run:
@@ -56,12 +69,6 @@ cargo run main.nf | tee output.txt
 
 (run main.nf and save the output in output.txt)
   
-#### [dependencies]
-
-```toml
-serde = { version = "1", features = ["derive"] }
-serde_json = "1"
-```
 
 #### Explanation of the Output
 
