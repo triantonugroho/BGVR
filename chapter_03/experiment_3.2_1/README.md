@@ -1,6 +1,6 @@
 ## 3.2. Sequence Data Structures and Strings Algorithms
 
-### experiment_32_1
+### experiment_3.2_1
 
 This code demonstrates a simple, parallel approach for detecting a known genomic “pattern” (e.g., a short sequence) within large genomic data using MPI and the Knuth-Morris-Pratt (KMP) algorithm. By splitting the genomic reference (or read data) across multiple ranks, each node handles a portion of the text plus any necessary overlap, ensuring that pattern matches spanning chunk boundaries are not missed. This design scales effectively across many ranks, which is common in HPC environments where genomic references can be gigabytes or terabytes in size.
 
@@ -9,7 +9,7 @@ Rank 0 loads the genomic data from a file, computes chunk boundaries, and distri
 #### Project Structure:
 
 ```plaintext
-experiment_32_1/
+experiment_3.2_1/
 ├── Cargo.toml                            # Rust project configuration and dependencies
 └── src/
     ├── main.rs                           # Main Rust script containing program logic
@@ -31,8 +31,13 @@ cargo run | tee output.txt
 #### [dependencies]
 
 ```toml
-rand = "0.9.0"
-rayon = "1.10.0"
+[package]
+name = "experiment_3.2_1"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+mpi = "0.8.0"
 ```
 
 #### Explanation of the Output:
