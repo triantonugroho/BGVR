@@ -1,6 +1,6 @@
 ## 3.4. Indexing and Searching in Large-Scale Biological Datasets
 
-### experiment_34
+### experiment_3.4
 
 The code illustrates a minimal Bloom filter implementation in Rust for k-mers derived from FASTA or FASTQ data. It reads a specified input file, splits the reads into k-mers in parallel using Rayon, and then sequentially inserts those k-mers into a Bloom filter, which is ultimately serialized to JSON. By relying on parallel iteration for k-mer extraction, the code effectively distributes the workload across CPU cores, while avoiding data races or the need for locks by performing Bloom filter insertions in a single-threaded pass.
 
@@ -11,13 +11,29 @@ In HPC practice, ephemeral containers can use this code to build partial Bloom f
 #### Project Structure:
 
 ```plaintext
-experiment_34/
+experiment_3,4/
 ├── Cargo.toml                      # Rust project configuration and dependencies
 └── src/
     ├── main.rs                     # Main Rust script containing program logic
     ├── reads.fq.rar                # Compressed FASTQ reads file
     ├── bloom.json                  # Bloom filter JSON file
     └── output.txt                  # Text output file
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_3.4"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rayon = "1.7"
+needletail = "0.6"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+bitvec = "1.0.1"
 ```
 
 #### How to run:
@@ -30,15 +46,6 @@ cargo run | tee output.txt
 
 (run main.rs and save the output in output.txt)
   
-#### [dependencies]
-
-```toml
-rayon = "1.7"
-needletail = "0.6"
-serde = { version = "1", features = ["derive"] }
-serde_json = "1"
-bitvec = "1.0.1"
-```
 
 #### Explanation of the Output
 The Rust program implements a Bloom filter to store and check for the presence of k-mers (substrings of length 𝑘) in sequencing reads. The Bloom filter is a probabilistic data structure that efficiently checks set membership while allowing for false positives but no false negatives.
