@@ -1,6 +1,6 @@
 ## 6.6. Quality Control and Error Modeling
 
-### experiment_66
+### experiment_6.6
 
 To demonstrate parallel coverage and mismatch calculations from a BAM file, the following program uses the rust-htslib crate for reading alignments, rayon for concurrency, and anyhow for robust error handling. The design can be integrated into larger pipelines managed by workflow engines like Nextflow or HPC schedulers such as SLURM or PBS. Additional libraries for deep learning (tch-rs) or advanced numeric operations (ndarray) can be introduced as needed, while the core concepts of safe concurrency and scalable data processing remain unchanged.
 
@@ -21,7 +21,7 @@ In industry, AI engineers and bioinformaticians often adopt these Rust-based wor
 #### Project Structure:
 
 ```plaintext
-experiment_66/
+experiment_6.6/
 ├── Cargo.toml                  # Rust dependencies
 ├── src/
 │   ├── main.rs                 # Rust implementation
@@ -49,6 +49,21 @@ experiment_66/
         └── coverage_tool.rar   # Compressed coverage tool executable from main.rs
 ```
 
+#### Cargo.toml
+
+```toml
+[package]
+name = "coverage_tool"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = "1.0"
+clap = { version = "4.5", features = ["derive"] }
+rayon = "1.10"
+rust-htslib = "0.49.0"
+```
+
 #### How to run:
 
 run main.rs in wsl:
@@ -70,16 +85,6 @@ params.sample_list = 'samples.txt'
 params.region     = 'chr1:1-32'
 params.mock = true  // Set to true to use mock commands for testing
 
-#### [dependencies]
-
-```toml
-anyhow = "1.0"
-clap = { version = "4.5", features = ["derive"] }
-env_logger = "0.11"
-log = "0.4"
-rayon = "1.10"
-rust-htslib = "0.49.0"
-```
 
 #### Explanation of the Output
 The output directory structure and files shown reflect the following stages in your Nextflow pipeline:
