@@ -14,16 +14,6 @@ experiment_1.4/
     └── output.txt                 # Output file
 ```
 
-#### How to run:
-
-run in powershell:
-
-```powershell
-cargo run | tee output.txt
-```
-
-(run main.rs and save the output in output.txt)
-  
 #### Cargo.toml
 
 ```toml
@@ -40,6 +30,17 @@ anyhow = "1.0"
 thiserror = "2.0.11"
 ndarray = { version = "0.15", features = ["approx"] }
 ```
+
+#### How to run:
+
+run in powershell:
+
+```powershell
+cargo run | tee output.txt
+```
+
+(run main.rs and save the output in output.txt)
+  
 
 #### Explanation of the Output
 
