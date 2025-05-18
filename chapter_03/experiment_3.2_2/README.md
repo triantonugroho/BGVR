@@ -1,6 +1,6 @@
 ## 3.2. Sequence Data Structures and Strings Algorithms
 
-### experiment_32_2
+### experiment_3.2_2
 
 This Rust code demonstrates how to build and merge partial suffix arrays for genomic data in an MPI environment by having each rank receive a segment of the reference (or read) text, construct a local suffix array, and then gather all partial results on rank 0 for global merging, enabling parallelization of suffix array construction—particularly important for large genomes where a single node might encounter time or memory constraints. It further illustrates a simplified HPC scenario for building partial suffix arrays or BWT segments across multiple nodes, merging them into a unified index on rank 0. Each node obtains a portion of the text, constructs a local suffix structure (such as a suffix array or BWT), and sends it to the root node, which combines these partial outputs. Although placeholders are used for demonstration, the example highlights how Rust’s safety guarantees, concurrency features, and MPI-based communication can be harnessed for large-scale string indexing tasks such as suffix array or BWT construction.
 
@@ -9,11 +9,25 @@ Rank 0 determines chunk boundaries by evenly partitioning the text across size r
 #### Project Structure:
 
 ```plaintext
-experiment_32_2/
+experiment_3.2_2/
 └── Cargo.toml                     # Rust project configuration and dependencies
 experiment_32_3/src/
 ├── main.rs                        # Main Rust script containing program logic
 └── output.txt                     # Text output file
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_3.2_2"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+bincode = "1.3.3"
+mpi = "0.8.0"
+serde = { version = "1.0", features = ["derive"] }
 ```
 
 #### How to run:
@@ -26,13 +40,6 @@ cargo run | tee output.txt
 
 (run main.rs and save the output in output.txt)
   
-#### [dependencies]
-
-```toml
-mpi = "0.8.0"
-serde = { version = "1.0", features = ["derive"] }
-bincode = "2.0.0"
-```
 
 #### Explanation of the Output:
 The program is designed to create a suffix array for a given text using parallel computing (MPI). Here's a detailed breakdown of the output:
