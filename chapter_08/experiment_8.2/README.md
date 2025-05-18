@@ -1,6 +1,6 @@
 ## 8.2. Data Structures for Variant Representation
 
-### experiment_8_2
+### experiment_8.2
 
 This Rust program exemplifies the language’s strength in high-performance bioinformatics workflows, particularly in pangenome variant analysis. It efficiently reads and compares VCF files using parallel set operations, calculates variant overlap statistics between cohorts, and integrates CSV-based genotype quality data analysis with export capabilities to modern formats like Parquet. The use of Rust’s safe concurrency via Rayon and expressive data handling with Polars highlights a practical, scalable approach for genomic data analysis pipelines.
 
@@ -11,7 +11,7 @@ Over the next five years, pangenome variant analysis is expected to evolve in se
 #### Project Structure:
 
 ```plaintext
-experiment_8_2/
+experiment_8.2/
 ├── Cargo.toml                  # Rust dependencies
 ├── src/
 │   ├── main.rs                 # Rust implementation
@@ -22,19 +22,15 @@ experiment_8_2/
 │   └── output.txt              # Text file output
 ```
 
-#### How to run:
-
-run main.rs in wsl:
-
-```wsl
-cargo run | tee output.txt
-```
-
-(run main.rs with cohort_A.vcf, cohort_B.vcf and synthetic_variant_data.csv as input files and create query_results.parquet output file)
-
-#### [dependencies]
+#### Cargo.toml
 
 ```toml
+[package]
+name = "pangenome_tool"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
 noodles = { version = "0.6", features = ["vcf"] }  # Use noodles version 0.6 for VCF
 csv = "1.1"  # for CSV file processing
 serde = { version = "1.0", features = ["derive"] }  # for serialization
@@ -47,6 +43,17 @@ log = "0.4"  # For logging
 env_logger = "0.9"  # For logger initialization
 num_cpus = "1.14.0"  # For getting CPU count
 ```
+
+#### How to run:
+
+run main.rs in wsl:
+
+```wsl
+cargo run | tee output.txt
+```
+
+(run main.rs with cohort_A.vcf, cohort_B.vcf and synthetic_variant_data.csv as input files and create query_results.parquet output file)
+
 
 #### 📋 Explanation of the Output
 ##### ✅ Parallel Processing and File Reading
