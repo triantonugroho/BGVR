@@ -1,6 +1,6 @@
 ## 8.3. Algorithms for Variant Detection
 
-### experiment_8_3
+### experiment_8.3
 
 This Rust-based genomic variant caller is designed for efficient and accurate identification of genetic variations from next-generation sequencing data stored in BAM/CRAM files. The program implements a fast parallel processing pipeline that scans aligned reads, performs pileups at each genomic position, applies sophisticated statistical models to identify variants, and exports results in a structured Parquet format for downstream analysis. It leverages the Rust ecosystem's high-performance bioinformatics libraries, including noodles for BAM/FASTA handling, polars for data manipulation, and rayon for parallel processing, while incorporating comprehensive error handling, detailed logging, and progress tracking for robust analysis of large genomic datasets.
 
@@ -9,7 +9,7 @@ The variant calling pipeline works by first validating input files and parsing c
 #### Project Structure:
 
 ```plaintext
-experiment_8_3/
+experiment_8.3/
 ├── Cargo.toml                  # Rust dependencies
 ├── src/
 │   ├── main.rs                 # Rust implementation
@@ -19,19 +19,17 @@ experiment_8_3/
 │   └── output.txt              # Text file output
 ```
 
-#### How to run:
-
-run main.rs in wsl:
-
-```wsl
-cargo run -- --bam mapped.bam --fasta reference.fa --out variants.parquet | tee output.txt
-```
-
-(run main.rs with mapped.bam and reference.fa as input files and create variants.parquet output file)
-
-#### [dependencies]
+#### Cargo.toml
 
 ```toml
+[package]
+name = "variant-caller"
+version = "0.1.0"
+edition = "2021"
+# Use the newer resolver to help with dependency conflicts
+resolver = "2"
+
+[dependencies]
 anyhow        = "1.0"
 clap          = { version = "4.3", features = ["derive"] }
 colored       = "2.0.0"
@@ -52,6 +50,17 @@ polars        = { version = "0.32.1", features = ["parquet","lazy","strings"] }
 default = ["parallel"]
 parallel = ["rayon"]
 ```
+
+#### How to run:
+
+run main.rs in wsl:
+
+```wsl
+cargo run -- --bam mapped.bam --fasta reference.fa --out variants.parquet | tee output.txt
+```
+
+(run main.rs with mapped.bam and reference.fa as input files and create variants.parquet output file)
+
 
 ####  Explanation of the Output
 
