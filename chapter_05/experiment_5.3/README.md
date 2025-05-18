@@ -1,6 +1,6 @@
 ## 5.3. Alignment and Mapping Algorithms
 
-### experiment_53
+### experiment_5.3
 
 The following code illustrates how to build partial FM-indexes for a reference genome and then perform parallel alignment of reads in Rust. The reference genome is subdivided into multiple chunks, each of which is indexed separately. Splitting the genome in this way can help manage memory usage when dealing with very large references in HPC environments. The partial indexes are each stored on disk, allowing ephemeral tasks to construct or load only the chunks they need for specific stages of an alignment pipeline.
 
@@ -15,12 +15,29 @@ In HPC or industrial settings, the partial indexes could be built on different n
 #### Project Structure:
 
 ```plaintext
-experiment_53/
+experiment_5.3/
 ├── Cargo.toml             # Rust project configuration and dependencies
 └── src/
     ├── main.rs            # Main Rust script containing program logic
     ├── reads.fq           # FASTQ file containing sequencing reads
     └── reference.fa       # FASTA file containing reference sequences
+```
+
+#### Cargo.toml
+```toml
+[package]
+name = "experiment_5.3"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = "1.0"
+rayon = "1.8"
+bio = "2.1.0"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+bincode = "2.0.1"
+clap = { version = "4.0", features = ["derive"] }
 ```
 
 #### How to run:
@@ -33,17 +50,6 @@ cargo run -- --reference reference.fa --reads reads.fq
 
 (run main.rs using two input dataset path)
   
-#### [dependencies]
-
-```toml
-anyhow = "1.0"
-rayon = "1.8"
-bio = "2.1.0"
-serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0"
-bincode = "2.0.1"
-clap = { version = "4.0", features = ["derive"] }
-```
 
 #### Explanation of the Output
 
