@@ -19,12 +19,6 @@ experiment_1.1_1/               # Empty or duplicate project directory
 Cargo.toml                     # Rust project configuration and dependencies file (at root level)
 ```
 
-#### How to run:
-
-cargo run | tee output.txt
-
-(run main.rs and save the output in output.txt)
-  
 #### Cargo.toml
 
 ```toml
@@ -38,13 +32,20 @@ bio = "2.0.3"
 rayon = "1.10.0"
 ```
 
-## Explanation of the Output
+#### How to run:
+
+cargo run | tee output.txt
+
+(run main.rs and save the output in output.txt)
+  
+
+#### Explanation of the Output
 
 Your Rust program reads a FASTA file, processes its sequences in parallel, and writes results to an output file (output.txt). The key metrics computed for each sequence are:
 1. Length: The total number of nucleotides in the sequence.
 2. GC Content: The count of 'G' (Guanine) and 'C' (Cytosine) bases in the sequence.
 
-### 1. Given the output:
+##### 1. Given the output:
 
 Length: 10000000, GC: 4999007
 
@@ -54,7 +55,7 @@ Successfully processed 1 sequences.
 * GC: 4,999,007 → About 49.99% of the sequence consists of G or C bases.
 *Successfully processed 1 sequences. → The FASTA file contained only one sequence, which was fully analyzed.
 
-### 2. How This Happens in the Code:
+##### 2. How This Happens in the Code:
 
 1. Reading the FASTA File (load_sequences())
    * The program opens example.fasta, reads all sequences, and stores them in a Vec<String>.
@@ -66,7 +67,7 @@ Successfully processed 1 sequences.
   * Each result (Length: ..., GC: ...) is written to the file.
   * The program logs the total number of sequences processed.
 
-## Conclusion
+#### Conclusion
 
 The program successfully analyzed a FASTA-formatted sequencing dataset by computing sequence length and GC content in parallel using Rayon. This efficient processing enables downstream applications such as genome composition analysis, species classification, and quality assessment in bioinformatics workflows.
 
