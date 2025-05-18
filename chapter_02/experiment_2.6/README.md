@@ -1,6 +1,6 @@
-## 1.6. Brief Introduction to CRISPR System
+## 2.6. Brief Introduction to CRISPR System
 
-### experiment_16
+### experiment_2.6
 
 Below is a sample Rust code demonstrating how one might blend concurrency patterns with specialized data structures to handle large genomic data, taking a simplified approach to building and merging suffix arrays. This illustration reflects the broader theme of robust engineering: even as data sizes explode in CRISPR or proteomics projects, parallelism and efficient algorithms help keep analyses feasible on modern HPC clusters.
 
@@ -9,7 +9,7 @@ In the snippet above, we first load a genomic sequence from a FASTA-like file, s
 #### Project Structure:
 
 ```plaintext
-experiment_16/
+experiment_2.6/
 ├── Cargo.toml                                       # Rust project configuration and dependencies
 └── src/
     ├── main.rs                                      # Main Rust script containing program logic
@@ -18,6 +18,18 @@ experiment_16/
     └── output.txt                                   # Output file
 ```
  
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_2.5"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tch = "0.19.0"
+```
+
 #### How to run
 
 ```powershell
@@ -25,11 +37,6 @@ cargo run | tee output.txt
 ```
 (run main.rs and save the output in output.txt)
   
-## [dependencies]
-
-```toml
-rayon = "1.10.0"
-```
 
 #### Explanation of the Output
 
