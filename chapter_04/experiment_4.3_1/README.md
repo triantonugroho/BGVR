@@ -1,6 +1,6 @@
 ## 4.3. Motif Discovery and Regulatory Element Identification
 
-### experiment_43_1
+### experiment_4.3_1
 
 The following Rust snippet demonstrates a minimal hidden Markov model (HMM) for a motif-finding scenario, treating “motif” and “non-motif” as distinct states in a DNA sequence. Each state has specified transition probabilities (how likely it is to remain in the current state or switch to the other) and emission probabilities (how likely each nucleotide is under that state). In a real setup, multiple states might represent different motif positions or more complex background distributions. This toy example focuses on capturing whether a genomic position is likely within a motif or background.
 
@@ -20,6 +20,18 @@ experiment_43_1/
     └── output.txt                 # Output file
 ```
 
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_4.3_1"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+
+```
+
 #### How to run:
 
 run main.rs in powershell:
@@ -29,11 +41,6 @@ cargo run | tee output.txt
 ```
 (run main.rs and save the output in output.txt)
 
-#### [dependencies]
-
-```toml
-only use std
-```
 
 #### Explanation of the Output
 The output of the Hidden Markov Model (HMM) motif-finding program shows the input DNA sequence and the most likely state path computed by the Viterbi algorithm. Let's go through the details step-by-step:
