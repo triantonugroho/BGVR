@@ -1,6 +1,6 @@
 ## 3.1. Introduction to Data Structures and Algorithms
 
-### experiment_31_1
+### experiment_3.1_1
 
 This code demonstrates a parallel, thread-safe Bloom Filter implementation in Rust for handling synthetic genomic data. The program generates a collection of random DNA sequences—each composed of bases A, C, G, and T—and inserts them into a Bloom Filter to enable efficient membership checks. By leveraging atomic booleans (AtomicBool) and parallel iterators (via the Rayon library), the code performs concurrent insertion and membership queries without the need for explicit locking. This design is especially relevant for large data sets, like genomic information, where high throughput and parallel data processing are crucial.
 
@@ -9,11 +9,24 @@ Internally, the Bloom Filter maintains a fixed-size bit array (m bits), along wi
 #### Project Structure:
 
 ```plaintext
-experiment_31_1/
+experiment_3.1_1/
 └── Cargo.toml                     # Rust project configuration and dependencies
 src/
 ├── main.rs                        # Main Rust script containing program logic
 └── output.txt                     # Text output file
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_3.1_1"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rand = "0.9.0"
+rayon = "1.10.0"
 ```
 
 #### How to run:
@@ -26,12 +39,19 @@ cargo run | tee output.txt
 
 (run main.rs and save the output in output.txt)
   
-#### [dependencies]
+#### Cargo.toml
 
 ```toml
+[package]
+name = "experiment_3.1_1"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
 rand = "0.9.0"
 rayon = "1.10.0"
 ```
+
 #### Explanation of the Output:
 The Rust program uses a Bloom Filter to insert and test the membership of DNA sequences. Here is a breakdown of the output:
 
