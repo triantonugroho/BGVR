@@ -17,6 +17,18 @@ experiment_1.1_10/
     └── output.txt                 # Output text file
  ```
 
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_1.1_10"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+bio = "2.2.0"
+```
+
 #### How to run:
 
 ```powershell
@@ -25,11 +37,7 @@ cargo run | tee output.txt
 
 (run main.rs and save the output in output.txt)
   
-#### [dependencies]
 
-```toml
-bio = "2.2.0"
-```
 
 #### Explanation of the Output
 
