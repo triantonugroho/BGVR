@@ -1,6 +1,6 @@
 ## 4.2. Graph-Based Models for Gene Regulatory Networks (GRNs)
 
-### experiment_42
+### experiment_4.2
 
 #### 1. Nextflow 
 The following scenario demonstrates how to compute a correlation-based adjacency matrix from a synthetic gene expression dataset using both Rust and Nextflow. Rust (with the rayon and ndarray crates) performs high-performance, parallelized computation of pairwise Pearson correlations, while Nextflow orchestrates the workflow in a reproducible and scalable manner. By combining these technologies, you can easily transition from local development to large-scale HPC or cloud environments without changing your core Rust code.
@@ -13,7 +13,7 @@ The Rust code generates a synthetic gene expression matrix for a user-defined nu
 #### Project Structure:
 
 ```plaintext
-experiment_42/
+experiment_4.2/
 ├── Cargo.toml                     # Rust project configuration and dependencies
 └── src/
     ├── main.rs                    # Main Rust script containing program logic
@@ -42,10 +42,18 @@ run main.nf in WSL:
 nextflow run main.nf --num_genes 1000 --num_samples 50 --output_file partial_adjacency.bin
 ```
 
-#### [dependencies]
+#### Cargo.toml
 
 ```toml
-bio = "2.0.3"
+[package]
+name = "experiment_4.2"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+rayon = "1.10.0"
+ndarray = "0.16.1"
+rand = "0.9.0"
 ```
 
 #### Explanation of the Output
