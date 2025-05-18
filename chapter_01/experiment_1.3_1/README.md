@@ -20,7 +20,7 @@ experiment_23_1/
 
 ```toml
 [package]
-name = "experiment_23_1"
+name = "experiment_1.3_1"
 version = "0.1.0"
 edition = "2021"
 
