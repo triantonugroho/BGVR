@@ -1,6 +1,6 @@
 ## 4.6. Single-Cell Functional Genomics
 
-### experiment_46_2
+### experiment_4.6_2
 
 This Rust code provides a high-performance, parallel implementation of sparse matrix–vector multiplication using the Compressed Sparse Row (CSR) format. By leveraging the Rayon library, each row of the CSR matrix is processed concurrently, which makes the code well-suited for large-scale numerical or HPC applications. It demonstrates how Rust’s zero-cost abstractions, compile-time safety checks, and ergonomic concurrency tooling can effectively handle data-intensive workloads.
 
@@ -9,11 +9,23 @@ The core data structure, CsrMatrix, stores non-zero values (values), their corre
 #### Project Structure:
 
 ```plaintext
-experiment_46_2/
+experiment_4.6_2/
 ├── Cargo.toml                     # Rust project configuration and dependencies
 └── src/
     ├── main.rs                    # Main Rust script containing program logic
     └── output.txt                 # Text output file
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_4.6_2"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+rayon = "1.10.0"
 ```
 
 #### How to run:
@@ -26,11 +38,6 @@ cargo run | tee output.txt
 
 (run main.rs and save the output in output.txt)
 
-#### [dependencies]
-
-```toml
-rayon = "1.10.0"
-```
 
 #### Explanation of the Output
 My Rust program performs parallel sparse matrix-vector multiplication using the Compressed Sparse Row (CSR) format. The multiplication is done efficiently using Rayon for parallelization and Mutex for thread-safe accumulation.
