@@ -1,6 +1,6 @@
 ## 4.3. Motif Discovery and Regulatory Element Identification
 
-### experiment_43_4
+### experiment_4.3_4
 
 The code belowshowcased here scans DNA sequences for TATA-like motifs in a robust and scalable way. It defines a customizable TATAPattern structure that can represent both exact and partial (mismatch-tolerant) TATA-box motifs, then uses parallel iteration (via the rayon crate) to rapidly process multiple sequences. This approach is suitable for larger-scale genomic data where performance and flexibility are essential—such as in scanning entire genomes or large collections of promoter regions for putative TATA boxes.
 
@@ -9,11 +9,23 @@ The TATAPattern struct stores the acceptable nucleotides for each position (e.g.
 #### Project Structure:
 
 ```plaintext
-experiment_43_4/
+experiment_4.3_4/
 ├── Cargo.toml                     # Rust project configuration and dependencies
 └── src/
     ├── main.rs                    # Main Rust script containing program logic
     └── output.txt                 # Output file
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_4.3_4"
+version = "0.1.0".
+edition = "2024"
+
+[dependencies]
+rayon = "1.10.0"
 ```
 
 #### How to run:
@@ -25,11 +37,6 @@ cargo run | tee output.txt
 ```
 (run main.rs and save the output in output.txt)
 
-#### [dependencies]
-
-```toml
-rayon = "1.10.0"
-```
 
 #### Explanation of Output
 The main.rs code implements a TATA box detection algorithm in DNA sequences using pattern matching with support for mismatches. Here's a detailed explanation of the process and output:
