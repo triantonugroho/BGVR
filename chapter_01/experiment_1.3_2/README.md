@@ -1,18 +1,35 @@
-## 2.3. Data Structures and Algorithms in Rust
+## 1.3. Data Structures and Algorithms in Rust
 
-### experiment_23_2
+### experiment_1.3_2
 
 Real-world genomics pipelines must orchestrate string-based (alignment, assembly) and numerical (factorization, clustering) algorithms at large scale. Rust’s type safety, along with HPC frameworks like Nextflow, helps ensure that tasks can be distributed across multiple nodes without risk of memory corruption or data races (Holmes 2022). Below is a mini-example combining concurrency, the bio crate for reading FASTA, and partial de Bruijn graph assembly.
 
 #### Project Structure:
 
 ```plaintext
-experiment_23_2/
+experiment_1.3_2/
 ├── Cargo.toml                     # Rust project configuration and dependencies
 └── src/
     ├── main.rs                    # Main Rust script containing program logic
     ├── reads.fasta                # FASTA file containing sequence reads
     └── output.txt                 # Output file
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_1.3_2"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rayon = "1.7"
+bio = "2.2.0"
+anyhow = "1.0"
+structopt = "0.3"
+log = "0.4"
+env_logger = "0.11.6"
 ```
 
 #### How to run:
@@ -25,16 +42,6 @@ cargo run | tee output.txt
 
 (run main.rs and save the output in output.txt)
   
-#### [dependencies]
-
-```toml
-rayon = "1.7"
-bio = "2.2.0"
-anyhow = "1.0"
-structopt = "0.3"
-log = "0.4"
-env_logger = "0.11.6"
-```
 
 #### Explanation of the Output
 This Rust program constructs a de Bruijn graph from a FASTA file containing DNA reads. The output provides details about the graph construction process, including the number of reads processed and the final number of (k-1)-mer prefixes.
