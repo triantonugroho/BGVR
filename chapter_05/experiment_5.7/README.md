@@ -24,16 +24,6 @@ experiment_5.7/
         └── partial_counts_chunk_2.json         # Partial counts in chunk 2 JSON output file
 ```
 
-#### How to run:
-
-run in wsl:
-
-```wsl
-cargo run -- --bam-input example.bam --annotation example.gtf --chunk-size 5000 --partial-outdir partial_counts --merged-output merged_counts.json | tee output.txt
-```
-
-(run main.rs with chunk size 5000, input file name example.bam, output directory partial_counts and output file name merged_counts.json and save the output text in output.txt) 
-  
 #### Cargo toml
 
 ```toml
@@ -50,6 +40,17 @@ serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 clap = { version = "4.3", features = ["derive"] }
 ```
+
+#### How to run:
+
+run in wsl:
+
+```wsl
+cargo run -- --bam-input example.bam --annotation example.gtf --chunk-size 5000 --partial-outdir partial_counts --merged-output merged_counts.json | tee output.txt
+```
+
+(run main.rs with chunk size 5000, input file name example.bam, output directory partial_counts and output file name merged_counts.json and save the output text in output.txt) 
+  
 
 #### Explanation of the Output and Conclusion
 The program processes a BAM file containing aligned sequencing reads and maps them to transcript annotations from a GTF file. The primary output consists of transcript-level read counts, which are then merged into a final JSON file containing the total counts for each transcript.
