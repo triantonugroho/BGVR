@@ -1,6 +1,6 @@
 ## 3.1. Introduction to Data Structures and Algorithms
 
-### experiment_31_6
+### experiment_3.1_6
 
 In this example code, the program reads each FASTA record, computes basic statistics such as GC content, and then outputs the aggregated results in JSON format. The snippet demonstrates a straightforward yet robust approach, where the code loops over each record from the FASTA file as needletail parses it and converts that record into a Rust structure. The structure stores sequence length, GC content, and the record identifier. Because needletail returns each record as a copy-on-write slice (Cow<'_, [u8]>), the code simply borrows the slice for computations instead of allocating new buffers. Once all records have been collected into a vector, they are written to a file in JSON form using serde_json.
 
@@ -9,7 +9,7 @@ The program calculates each sequence’s GC content by counting the occurrences 
 #### Project Structure:
 
 ```plaintext
-experiment_31_6/
+experiment_3.1_6/
 └── Cargo.toml                     # Rust project configuration and dependencies
 src/
 ├── main.rs                        # Main Rust script containing program logic
@@ -31,6 +31,12 @@ cargo run | tee output.txt
 #### [dependencies]
 
 ```toml
+[package]
+name = "experiment_3.1_6"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
 needletail = "0.6.3"  # For parsing FASTA/FASTQ files
 serde = { version = "1.0", features = ["derive"] }  # For serializing/deserializing data
 serde_json = "1.0"  # For writing JSON output
