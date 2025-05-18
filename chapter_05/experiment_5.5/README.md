@@ -1,6 +1,6 @@
 ## 5.5. Variant Calling and Genotyping
 
-### experiment_55
+### experiment_5.5
 
 This Rust code processes variant hypotheses for a single or multiple genomic positions in a parallel and chunked fashion. The pileup data, which contains base and quality information, is loaded from a JSON file, and a list of variant hypotheses is retrieved from another JSON file. These hypotheses each specify a chromosome, position, reference base, and an alternative base to test. Because a real HPC pipeline might contain millions of hypotheses, the code is designed to break them into manageable chunks to reduce memory overhead, writing partial results after each chunk is processed.
 
@@ -13,7 +13,7 @@ Finally, all partial results written to the output directory are reopened, deser
 #### Project Structure:
 
 ```plaintext
-experiment_55/
+experiment_5.5/
 ├── Cargo.toml                         # Rust project configuration and dependencies
 └── src/
     ├── main.rs                        # Main Rust script containing program logic
@@ -34,14 +34,23 @@ cargo run -- --pileup-input pileup.json --hypotheses-input hypotheses.json --chu
 
 (run main.rs with chunk size 5000, 2 json input file name and 1 json output filename)
   
-#### [dependencies]
+#### Cargo.toml
 
 ```toml
+[package]
+name = "kmer_debruijn_builder"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
 anyhow = "1.0"
-rayon = "1.7"
+rayon = "1.8"
+needletail = "0.6.3"
+fnv = "1.0"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
-clap = { version = "4.0", features = ["derive"] }
+bincode = "2.0.1"
+clap = { version = "4.4", features = ["derive"] }
 ```
 
 #### Explanation of the Output
