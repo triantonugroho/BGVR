@@ -1,6 +1,6 @@
 ## 4.3. Motif Discovery and Regulatory Element Identification
 
-### experiment_43_3
+### experiment_4.3_3
 
 This Rust code shows how one might implement a parallelized Gibbs sampling routine for motif discovery. Each parallel chain maintains a separate “guessed” motif configuration, sampling new motif positions from a conditional probability distribution based on the other sequences’ motif assignments. In a real HPC environment, multiple processes or threads each run a Gibbs chain independently, possibly seeded with different random initial states, and after a specified number of iterations, the partial results are consolidated (e.g., by picking the chain with the highest posterior or by averaging motif parameters).
 
@@ -9,12 +9,25 @@ In the sample code, the GibbsSampler struct holds a motif model (like a PWM) and
 #### Project Structure:
 
 ```plaintext
-experiment_43_3/
+experiment_4.3_3/
 ├── Cargo.toml                     # Rust project configuration and dependencies
 └── src/
     ├── main.rs                    # Main Rust script containing program logic
     └── output.txt                 # Output file
 ``
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_4.3_3"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+rand = "0.9.0"
+rayon = "1.10.0"
+```
 
 #### How to run:
 
@@ -25,12 +38,6 @@ cargo run | tee output.txt
 ```
 (run main.rs and save the output in output.txt)
 
-#### [dependencies]
-
-```toml
-rand = "0.9.0"
-rayon = "1.10.0"
-```
 
 #### Explanation of Output
 The main.rs code implements a Gibbs sampling algorithm for motif discovery in DNA sequences. Here's a step-by-step breakdown of what the output represents:
