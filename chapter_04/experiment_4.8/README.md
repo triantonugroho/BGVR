@@ -1,7 +1,7 @@
 
 ## 4.8. Summary of Key Functional Genomics Algorithms
 
-### experiment_48
+### experiment_4.8
 
 For an AI engineer, implementing key functional genomics algorithms in Rust typically involves modular code design, concurrency best practices, and HPC orchestration. A well-structured Rust project might separate domain-specific modules, such as eqtl, motif, or splicing, each with subroutines for file I/O, HPC concurrency patterns, or data transformations. Shared crates like rayon facilitate parallel iteration, while memmap2 enables memory-mapped file access for large references, and tch-rs can be invoked for advanced deep learning tasks, such as CNN-based motif discovery. The code snippet below illustrates how one might perform a partial merge of multi-omics results—epigenetic signals, eQTL associations, and motif hits—into an integrated table. We briefly comment on each crate used.
 
@@ -10,7 +10,7 @@ The snippet uses serde for reading and writing JSON, rayon for concurrency, and 
 #### Project Structure:
 
 ```plaintext
-experiment_48/
+experiment_4.8/
 ├── Cargo.toml                          # Rust project configuration and dependencies
 └── src/
     ├── main.rs                         # Main Rust script containing program logic
@@ -40,9 +40,15 @@ cargo run | tee output.txt
 
 (run main.rs and get the partial_adjacency.bin output and output.txt)
 
-#### [dependencies]
+#### Cargo.toml
 
 ```toml
+[package]
+name = "experiment_4.8"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 rayon = "1.10.0"
