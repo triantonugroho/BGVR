@@ -1,6 +1,6 @@
 ## 4.7. eQTL Mapping and Functional Variant Discovery
 
-### experiment_47
+### experiment_4.7
 
 An AI engineer tasked with implementing an eQTL pipeline in Rust might structure it as follows: first parse genotype data into in-memory arrays or memory-mapped structures (using memmap2) for large data sets; next, run association tests in parallel (split by gene or SNP) using rayon or MPI-based approaches; then, merge partial results in a final step. The Rust code below demonstrates a parallel solution for computing eQTL (expression quantitative trait loci) associations between SNP data and gene expression data. Each SNP is processed on a separate thread, while the linear regression-based eQTL analysis is carried out locally for all genes. The results are then merged into a single collection, providing a scalable approach for large genomic datasets in HPC or cloud environments.
 
@@ -9,12 +9,25 @@ After defining structs to represent SNP genotypes and gene expressions, the prog
 #### Project Structure:
 
 ```plaintext
-experiment_47/
+experiment_4.7/
 ├── Cargo.toml                     # Rust project configuration and dependencies
 └── src/
     ├── main.rs                    # Main Rust script containing program logic
     ├── output.txt                 # Text output file
     └── partial_eqtl.csv           # CSV file containing partial eQTL results
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_4.7"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+rayon = "1.10.0"
+statrs = "0.18.0"
 ```
 
 #### How to run:
@@ -26,12 +39,6 @@ cargo run | tee output.txt
 ```
 (run main.rs and get the partial_eqtl.csv output and output.txt)
 
-#### [dependencies]
-
-```toml
-rayon = "1.10.0"
-statrs = "0.18.0"
-```
 
 #### Explanation of the Output
 This Rust program performs parallel eQTL (expression Quantitative Trait Loci) analysis using linear regression for each SNP-gene pair. The results are stored in partial_eqtl.csv.
