@@ -1,6 +1,6 @@
 ## 4.4. Epigenomic Data Integration and Algorithms
 
-### experiment_44
+### experiment_4.4
 
 The following Rust code snippet demonstrates a streamlined approach for calling peaks (e.g., regions of high signal intensity) on genomic coverage data, which might arise from experiments like ChIP-seq or ATAC-seq. It addresses real-world tasks where large chromosomal data must be efficiently scanned to identify potential regulatory regions. To ensure scalability in high-performance computing (HPC) or cloud settings, the solution uses the Rayon library for parallel processing and employs a flexible smoothing function to reduce noise in coverage profiles.
 
@@ -11,11 +11,23 @@ The resulting partial_peaks.bed file (or multiple such files, one per node) can 
 #### Project Structure:
 
 ```plaintext
-experiment_44/
+experiment_4.4/
 ├── Cargo.toml                     # Rust project configuration and dependencies
 └── src/
     ├── main.rs                    # Main Rust script containing program logic
     └── partial_peaks.bed          # BED format output file containing partial peaks
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_4.4"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+rayon = "1.10.0"
 ```
 
 #### How to run:
@@ -27,11 +39,6 @@ cargo run
 ```
 (run main.rs and get the output partial_peaks.bed)
 
-#### [dependencies]
-
-```toml
-rayon = "1.10.0"
-```
 
 #### Explanation of the Output
 My Rust program performs the following steps:
