@@ -1,6 +1,6 @@
 ## 6.7. Integrative Analyses with Rust-HTSlib
 
-### experiment_67
+### experiment_6.7
 
 The following Rust program integrates read coverage and variant annotation and it demonstrates how developers might handle concurrency, logging, and error handling while reading data from a BAM file with rust-htslib, parsing variants from a BCF file, and annotating each variant with gene information loaded from a GFF. Crates like ndarray or tch-rs can be included for advanced numerical or deep-learning tasks, while concurrency and safety are guided by Rust’s type system, preventing the data corruption issues common in large genomic pipelines.
 
@@ -19,7 +19,7 @@ Finally, the mergeIntegrations stage uses a hypothetical rust_merge_integration 
 #### Project Structure:
 
 ```plaintext
-experiment_67/
+experiment_6.7/
 ├── Cargo.toml                  # Rust dependencies
 ├── src/
 │   ├── main.rs                 # Rust implementation
@@ -42,12 +42,29 @@ experiment_67/
         └── rust_integrate_tool.rar  # Compressed Rust integrate tool executable
 ```
 
+#### Cargo.toml
+
+```toml
+[package]
+name = "rust_integrate_tool"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = "1.0"
+clap = { version = "4.4", features = ["derive"] }
+env_logger = "0.11.8"
+log = "0.4"
+rayon = "1.8"
+rust-htslib = "0.49.0"
+```
+
 #### How to run:
 
 run main.rs in wsl:
 
 ```wsl
-cargo run -- --bam /mnt/c/Users/trian/BGVR/chapter_06/experiment_67/src/test1.bam --bcf /mnt/c/Users/trian/BGVR/chapter_06/experiment_67/src/cohort.bcf --gff /mnt/c/Users/trian/BGVR/chapter_06/experiment_67/src/annotations.gff | tee output.txt
+cargo run -- --bam /mnt/c/Users/trian/BGVR/chapter_06/experiment_6.7/src/test1.bam --bcf /mnt/c/Users/trian/BGVR/chapter_06/experiment_6.7/src/cohort.bcf --gff /mnt/c/Users/trian/BGVR/chapter_06/experiment_6.7/src/annotations.gff | tee output.txt
 ```
 
 (run main.rs with test1.bam, cohort.bcf and annotations.gff as input parameter and save the output in output.txt)
@@ -64,16 +81,6 @@ params.bcf_file = 'cohort.bcf'
 params.gff_file = 'annotations.gff'
 params.bam_dir = '.' // Default to current directory
 
-#### [dependencies]
-
-```toml
-anyhow = "1.0"
-clap = { version = "4.4", features = ["derive"] }
-env_logger = "0.11.8"
-log = "0.4"
-rayon = "1.8"
-rust-htslib = "0.49.0"
-```
 
 #### ✅ Explanation of Output and Workflow Execution
 Workflow executed successfully in Nextflow DSL2, and each process produced the expected outputs. Let's walk through what happened and explain the final result.
