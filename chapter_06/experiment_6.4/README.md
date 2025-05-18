@@ -1,6 +1,6 @@
 ## 6.4. Parallel and Distributed Processing of HTS Data
 
-### experiment_64
+### experiment_6.4
 
 The following Rust program is demonstrating parallelized read counting in a BAM file across multiple genomic regions. The code is designed for both HPC cluster schedulers and cloud platforms, making it suitable for ephemeral compute instances that rapidly process a subset of data before shutting down. The snippet uses the rust-htslib crate for reading BAM files, rayon for concurrency, and includes enhancements for clearer error handling and logging. Additional strategies, such as streaming data through channels or adding advanced numeric libraries (e.g., ndarray, linfa) or deep learning frameworks (e.g., tch-rs), can be easily built on top of this foundation.
 
@@ -17,7 +17,7 @@ Many AI engineers and bioinformaticians have adopted these Rust and Nextflow sol
 #### Project Structure:
 
 ```plaintext
-experiment_64/
+experiment_6.4/
 ├── Cargo.toml                  # Rust dependencies
 ├── src/
 │   ├── main.rs                 # Rust implementation
@@ -35,6 +35,23 @@ experiment_64/
 └── target/
     └── debug/
         └── bam_read_counter.rar # Compressed BAM read counter execution file from main.rs
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_64"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+clap = { version = "4.0", features = ["derive"] }
+anyhow = "1.0"
+log = "0.4"
+env_logger = "0.11.8"
+rayon = "1.7"
+rust-htslib = "0.49.0"
 ```
 
 #### How to run:
@@ -59,15 +76,6 @@ params.output_dir = "results"
 params.region = "chr1:1-32"
 params.mock = true  // Set to true to use mock commands instead of actual tools
 
-#### [dependencies]
-
-```toml
-clap = { version = "4.0", features = ["derive"] }
-anyhow = "1.0"
-log = "0.4"
-rayon = "1.7"
-rust-htslib = "0.49.0"
-```
 
 #### Explanation of the Output
 We ran a complete Nextflow pipeline (main.nf) to simulate a variant calling workflow using mock data and a custom Rust tool (bam_read_counter) for read processing. Here's a breakdown of what each part of the pipeline did and what the final output means:
