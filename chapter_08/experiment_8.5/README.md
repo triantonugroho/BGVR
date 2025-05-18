@@ -1,6 +1,6 @@
 ## 8.5. Integrating Variant Analysis into Nextflow Pipelines
 
-### experiment_8_5
+### experiment_8.5
 
 This Rust-based genomic variant analysis pipeline orchestrates the complex workflow of processing next-generation sequencing data through alignment, variant calling, and annotation stages. The modular command-line application leverages Rust's strong type system, concurrency model, and ecosystem of bioinformatics libraries (noodles-bam, noodles-vcf, etc.) to create a comprehensive genomic analysis toolkit that can be used for both individual steps or as a complete end-to-end pipeline. With robust configuration management, error handling, progress reporting, and graceful shutdown capabilities, the application provides researchers with a reliable and efficient framework for genomic data processing that can scale from personal computers to high-performance computing environments.
 
@@ -11,6 +11,32 @@ Each module (align, call, annotate) lives in its own crate so that compile times
 The container image is built automatically by Wave via containers/variant.Dockerfile and signed with cosine. Seqera Tower then deploys the same pipeline on AWS Batch, GCP Life-Sciences or an on-prem Slurm farm without changing a line of code, and Terraform modules provision work queues, data buckets and CloudWatch dashboards, as demonstrated by PTP Cloud’s 2024 case study.
 
 In practice, organisations report 30–50 % shorter wall-times after switching from monolithic Bash+C++ pipelines to this Rust-first DAG model, largely because statically linked binaries start within tens of milliseconds, allowing extremely fine-grained sharding without Docker cold-start penalties. Moreover, formal memory safety and ownership semantics cut crash-loop rates in half, simplifying GMP and HIPAA compliance audits. Such outcomes translate directly into faster drug-development cycles and more reliable evidence for precision-medicine trials.
+
+#### Project Structure
+```plaintext
+experiment_8_5/
+├── Cargo.toml                  # Rust dependencies
+├── src/
+│   ├── main.rs                 # Rust implementation
+│   ├── main.nf                 # Nextflow workflow
+│   └── work/                   # Nextflow work directory
+│       └── e8/0b5747dd1534.../ # Nextflow execution results
+│           └── chr1.vcf.bgz    # Output variant file of main.nf 
+├── data/
+│   ├── chroms.txt              # List of chromosomes 
+│   ├── pipeline.toml           # Pipeline configuration
+│   ├── sample.bam              # Sample BAM file
+│   ├── sample.bam.bai          # BAM index
+│   ├── sample.fa               # Reference genome
+│   ├── sample.fa.fai           # Genome index
+│   ├── sample.gff              # Gene annotation
+│   ├── sample.sam              # SAM file
+│   └── sample_reads.fastq      # Raw sequencing reads
+└── results/
+    ├── sample1.annotated.tsv   # Annotation results of annotation pipeline from main.rs
+    ├── sample1.bam             # Alignment results of annotation alignment pipeline from main.rs
+    └── sample1.vcf             # Variant calling results of variant calling pipeline from main.rs
+```
 
 #### cargo.toml
 
@@ -53,35 +79,10 @@ A comprehensive application that performs various genomic analyses including rea
 ##### 2. Nextflow Workflow (main.nf):  
 A parallel processing workflow for distributed variant calling across multiple chromosomes.
 
-#### Project Structure
-```plaintext
-experiment_8_5/
-├── Cargo.toml                  # Rust dependencies
-├── src/
-│   ├── main.rs                 # Rust implementation
-│   ├── main.nf                 # Nextflow workflow
-│   └── work/                   # Nextflow work directory
-│       └── e8/0b5747dd1534.../ # Nextflow execution results
-│           └── chr1.vcf.bgz    # Output variant file of main.nf 
-├── data/
-│   ├── chroms.txt              # List of chromosomes 
-│   ├── pipeline.toml           # Pipeline configuration
-│   ├── sample.bam              # Sample BAM file
-│   ├── sample.bam.bai          # BAM index
-│   ├── sample.fa               # Reference genome
-│   ├── sample.fa.fai           # Genome index
-│   ├── sample.gff              # Gene annotation
-│   ├── sample.sam              # SAM file
-│   └── sample_reads.fastq      # Raw sequencing reads
-└── results/
-    ├── sample1.annotated.tsv   # Annotation results of annotation pipeline from main.rs
-    ├── sample1.bam             # Alignment results of annotation alignment pipeline from main.rs
-    └── sample1.vcf             # Variant calling results of variant calling pipeline from main.rs
-```
-
+#### How to Run
 #### Installation
 
-.experiment_8_5/
+.experiment_8.5/
 
 ```wsl
 cargo build --release
@@ -127,7 +128,7 @@ chmod +x run_simulation.sh
 ##### Running Nextflow Workflow (main.nf)
 The Nextflow workflow focuses on the variant calling step, processing multiple chromosomes in parallel:
 
-.experiment_8_5/src/
+.experiment_8.5/src/
 
 ```wsl
 # Run the workflow
