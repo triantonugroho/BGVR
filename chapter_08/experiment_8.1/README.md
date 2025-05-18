@@ -1,6 +1,6 @@
 ## 8.1. Fundamentals of Genetic Variation
 
-### experiment_8_1
+### experiment_8.1
 
 Below is an illustrative Rust code snippet that computes genotype frequencies, performs a chi-square–based HW p-value calculation, and exploits concurrency to handle separate chunks of the genome. This example is adapted for industrial-scale usage by incorporating crates that enhance numerical stability, data handling, and concurrency.
 
@@ -9,13 +9,29 @@ In this code, rust-htslib is employed for reading and parsing VCF/BCF files. The
 #### Project Structure:
 
 ```plaintext
-experiment_8_1/
+experiment_8.1/
 ├── Cargo.toml                  # Rust dependencies
 ├── src/
 │   ├── main.rs                 # Rust implementation
 │   ├── synthetic.vcf           # Synthetic VCF file (input file)
 │   ├── synthetic.vcf.hw_results.csv  # Synthetic VCF result CSV file
 │   └── output.txt              # Text file output
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "vcf_analysis"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+rust-htslib = "0.49.0"
+rayon = "1.5.1"
+ndarray = "0.16.1"
+statrs = "0.18.0"
+polars = { version = "0.46", features = ["lazy"] }
 ```
 
 #### How to run:
@@ -28,15 +44,6 @@ cargo run -- synthetic.vcf 0 1000000
 
 (run main.rs and create synthetic.vcf.hw_results.csv output)
 
-#### [dependencies]
-
-```toml
-rust-htslib = "0.49.0"
-rayon = "1.5.1"
-ndarray = "0.16.1"
-statrs = "0.18.0"
-polars = { version = "0.46", features = ["lazy"] }
-```
 
 #### Explanation of the Output
 
