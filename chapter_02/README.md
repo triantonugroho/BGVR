@@ -1,68 +1,42 @@
-# 2. Setting Up the Rust Development Environment
+# 1. Introduction to Bioinformatics and Functional Genomics
 
-## 2.1. Introduction to Rust Programming Language
+##  1.2. Markov Random Fields
 
-### experiment_21_1 
-Rust code illustrating how to read all sequences from a FASTA file, store them in a vector of strings, and process them in parallel with Rayon.
+### experiment_12
+Reads FASTA sequences from a file using the Rust “bio” crate, then constructs a simple Markov Random Field (MRF) by treating each position in each sequence as a graph node identified by (sequence_id, position)
 
-### experiment_21_2 
-A simple example that demonstrates Rust’s zero-cost abstractions in a genomic setting. 
+## 1.3. De Bruijn Graphs
 
-### experiment_21_3 
-A practical illustration of how Rust’s scanning a large set of DNA reads to tally the total number of occurrences of a particular motif.
+### experiment_13 
+Reads FASTA sequences from a file using the Rust “bio” crate, then constructs a simple Markov Random Field (MRF) by treating each position in each sequence as a graph node identified by (sequence_id, position)
 
-### experiment_21_4 
-The following Rust code processes each file format in parallel to find a specific DNA motif (e.g., “GATTACA”) in FASTAQ, BAM and VCF file.
+## 1.4. Pangenome Graph Theorems
 
-### experiment_21_5 
-Rust code snippet that demonstrates generating a synthetic variation graph and tallying how many positions vs. variants exist—across available CPU threads.
+### experiment_14 
+Reads FASTA sequences from a file using the Rust “bio” crate, then constructs a simple Markov Random Field (MRF) by treating each position in each sequence as a graph node identified by (sequence_id, position)
 
-### experiment_21_6 
-Rust project for Python interoperability, we can specify crate-type = ["cdylib"] to ensure our library is compiled as a dynamic library suitable for Python imports.
+## 1.5. Introduction Machine Learning in Bioinformatic
 
-### experiment_21_7
-A brief example illustrating how Rust can handle an imperative, pointer-based approach to building a simple suffix array.
+### experiment_15
+“gene_expression.csv” contains rows of numerical values—one row per sample—and a final column indicating the label (e.g., 0 or 1). The program reads the CSV, builds a simple MLP, and iterates through mini-batches to train a binary classifier.
 
-### experiment_21_8
-Demonstrates how Rust’s higher-order functions and iterators can apply a functional programming style to a set of genomic reads which does not rely on external crates, and can be executed with either rustc or cargo.
+## 1.6. Brief Introduction to CRISPR System
 
-### experiment_21_9
-A simple example demonstrating how a Rust library can use tch (the Rust bindings for PyTorch) and then expose this functionality to Python via PyO3.
+### experiment_16 
+Rust code demonstrating how one might blend concurrency patterns with specialized data structures to handle large genomic data, taking a simplified approach to building and merging suffix arrays
 
-### experiment_21_10
-Rust code that reads each record from a FASTQ file via the Reader provided by the bio crate, storing the read ID and its length in a HashMap.
+## 1.7. Data and Computational Foundations 
 
-## 2.3. Data Structures and Algorithms in Rust
+### experiment_17_1 
+A concise example of downloading a FASTQ file from NCBI using SRAToolkit), such as NCBI. By making an HTTP request to a specified URL, the program retrieves the raw sequencing data and writes it to a local 
 
-### experiment_23_1
-A succinct Rust Classical substring-search algorithms like Knuth–Morris–Pratt (KMP) implementation.
+### experiment_17_2
+A GNN-based approach, albeit simplified, to model relationships in a gene expression matrix
 
-### experiment_23_2
-Rust code of a mini-example combining concurrency, the bio crate for reading FASTA, and partial de Bruijn graph assembly.
+## 1.8. Tools and Frameworks 
 
-## 2.4. AI/ML Implementation with Rust Crates
+### experiment_18_1_2 
+Nextflow pipeline showcases a minimal yet practical approach to downloading raw FASTQ file from NCBI using SRAToolkit and then invoking a Rust-based program to construct a De Bruijn graph.
 
-### experiment_24
-A sample Rust code snippet demonstrating how to do K-means clustering with linfa and then, in a separate pipeline, train a neural network with tch-rs.
-
-## 2.5. Acquiring and Cleaning Data
-
-### experiment_25_1
-The complete Nextflow script that demonstrates a streamlined pipeline without containers. It downloads .sra files for a list of accessions, performs a simulated checksum verification, and moves the final outputs to a specified directory. 
-
-### experiment_25_2
-A single Nextflow script that uses pinned Rust and Samtools versions as if they were installed on our system, references numeric parameters and environment variables, and ensures that future runs use the same conditions by explicitly specifying all necessary details in the pipeline script.
-
-### experiment_25_3
-A streamlined Rust tool that demonstrates how to read a FASTQ file using bio and apply a simple filter. It also includes logging for HPC environments, using crates such as env_logger to track progress and potential errors. 
-
-### experiment_25_4
-Rust code to parse metadata from a CSV file that describes sample conditions (e.g., diseased vs. healthy) and merge it with alignment statistics. 
-
-## 2.6. Scientific Computation Workflow with Rust and Nextflow
-
-### experiment_26_1
-Nextflow DSL2 script demonstrating how to run a Rust read-trimming tool in parallel across multiple FASTQ files. The Rust trimmer itself can be a simple program that removes low-quality bases from both ends of a read.
-
-### experiment_26_2
-An example sequence might begin with a Rust-based alignment tool that transforms FASTQ to BAM files, followed by a coverage parser that generates CSV files, and concluding with a machine learning step that trains or applies a model to those coverage statistics.
+### experiment_18_3 
+A typical advanced bioinformatics pipeline integrates Rust binaries into Nextflow modules, capitalizing on the language’s safety guarantees and performance benefits.

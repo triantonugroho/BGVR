@@ -1,6 +1,0 @@
-##gff-version 3
-chr1    source  gene    10  100 .   +   .   ID=gene1;Name=GENE1
-chr1    source  exon    10  50  .   +   .   Parent=gene1
-chr1    source  exon    75  100 .   +   .   Parent=gene1
-chr2    source  gene    5   80  .   -   .   ID=gene2;Name=GENE2
-chr2    source  exon    5   80  .   -   .   Parent=gene2

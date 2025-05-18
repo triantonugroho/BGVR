@@ -1,0 +1,13 @@
+Constructed MRF with 251 nodes
+nalgebra matrix dimensions: 10 x 10
+ndarray matrix dimensions: 10 x 10
+Node (4, 41) has edges:
+  -> (4, 42) with potential = 1
+Node (0, 14) has edges:
+  -> (0, 15) with potential = 1
+Node (0, 5) has edges:
+  -> (0, 6) with potential = 1
+Node (0, 46) has edges:
+  -> (0, 47) with potential = 1
+Node (4, 35) has edges:
+  -> (4, 36) with potential = 1

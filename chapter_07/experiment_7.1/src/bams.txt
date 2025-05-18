@@ -1,0 +1,2 @@
+sample1.sorted.bam
+sample2.sorted.bam

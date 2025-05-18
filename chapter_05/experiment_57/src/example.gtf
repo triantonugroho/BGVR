@@ -1,8 +1,0 @@
-1    source  exon    1150    1193    .   +   .   transcript_id "trans1";
-1    source  exon    3654    3743    .   +   .   transcript_id "trans2";
-1    source  exon    3666    3737    .   +   .   transcript_id "trans3";
-1    source  exon    3675    3804    .   +   .   transcript_id "trans4";
-1    source  exon    3710    3822    .   +   .   transcript_id "trans5";
-1    source  exon    3743    3845    .   +   .   transcript_id "trans6";
-1    source  exon    3804    3822    .   +   .   transcript_id "trans7";
-1    source  exon    3822    3845    .   +   .   transcript_id "trans8";

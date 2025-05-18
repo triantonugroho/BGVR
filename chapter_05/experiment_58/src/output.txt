@@ -1,5 +1,0 @@
-Processed chunk 0 with 10000 records. Partial patches stored at "partial_patches/partial_patches_chunk_0.json".
-Processed chunk 1 with 10000 records. Partial patches stored at "partial_patches/partial_patches_chunk_1.json".
-Processed chunk 2 with 10000 records. Partial patches stored at "partial_patches/partial_patches_chunk_2.json".
-Processed chunk 3 with 4298 records. Partial patches stored at "partial_patches/partial_patches_chunk_3.json".
-Merged 4 total correction patches into "merged_corrections.json".

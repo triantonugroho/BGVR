@@ -1,1 +1,0 @@
-Total GC content in sequences >= 50 nt: 4999007
