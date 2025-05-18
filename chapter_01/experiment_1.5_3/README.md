@@ -1,6 +1,6 @@
 ## 2.5. Acquiring and Cleaning Data
 
-### experiment_25_3
+### experiment_1.5_3
 
 An AI engineer tasked with data preprocessing in Rust may develop specialized utilities that parse metadata, filter reads by quality, or convert between genomic file formats. The following code snippet shows a streamlined Rust tool that demonstrates how to read a FASTQ file using bio and apply a simple filter. It also includes logging for HPC environments, using crates such as env_logger to track progress and potential errors. In production, these steps might be integrated into a Nextflow pipeline, ensuring that each HPC job references pinned versions of Rust and its crates.
 
@@ -8,13 +8,27 @@ In this snippet, the bio crate handles FASTQ parsing and writing. The env_logger
 
 #### Project Structure:
 ```plaintext
-experiment_25_3/
+experiment_1.5_3/
 ├── Cargo.toml                     # Rust project configuration and dependencies
 └── src/
     ├── main.rs                    # Main Rust script containing program logic
     ├── reads.fastq.rar            # Compressed FASTQ reads file
     ├── filtered_reads.fastq.rar   # Compressed filtered FASTQ reads file
     └── output.txt                 # Output file
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_1.5_3"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+bio = "2.2.0"        # For FASTQ/FASTA parsing
+log = "0.4.20"       # For logging facade
+env_logger = "0.11.6" # For environment-based logging configuration
 ```
 
 #### How to run:
@@ -27,13 +41,7 @@ cargo run | tee output.txt
 
 (run main.rs and save the output in output.txt)
   
-#### [dependencies]
 
-```toml
-bio = "2.2.0"        # For FASTQ/FASTA parsing
-log = "0.4.20"       # For logging facade
-env_logger = "0.11.6" # For environment-based logging configuration
-```
 #### Explanation of the Output
 
 ##### Overview of the Rust Program
