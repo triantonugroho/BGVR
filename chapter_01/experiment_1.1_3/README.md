@@ -17,18 +17,26 @@ experiment_1.1_3/src/
 └── output.txt                     # Output file
 ```
 
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_1.1_3"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rayon = "1.10.0"
+bio = "2.0.3"
+```
+
 #### How to run:
 
 cargo run | tee output.txt
 
 (run main.rs and save the output in output.txt)
   
-#### [dependencies]
 
-```toml
-rayon = "1.10.0"
-bio = "2.0.3"
-```
 
 #### Explanation of the Output
 The program searches for occurrences of the DNA motif "GATTACA" within sequences read from a FASTA file (reads.fasta).
