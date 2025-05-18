@@ -1,6 +1,6 @@
 ## 8.4. Variant-annotation Principles
 
-### experiment_8_4
+### experiment_8.4
 
 The code below presents a robust genomic variant annotation pipeline that integrates multiple data sources to predict the pathogenicity of genetic variants. This tool processes VCF files containing genetic variants and enriches them with critical annotations including gene context from GFF files, population allele frequencies from gnomAD, and potential splicing effects predicted by a neural network model. The comprehensive framework applies a logistic function to combine these annotations into a pathogenicity score, enabling researchers to prioritize variants for further investigation in disease studies, clinical diagnostics, or variant interpretation workflows.
 
@@ -9,7 +9,7 @@ This pipeline functions through a sophisticated multi-step process that begins b
 #### Project Structure:
 
 ```plaintext
-experiment_8_4/
+experiment_8.4/
 ├── Cargo.toml                  # Rust dependencies
 ├── src/
 │   ├── main.rs                 # Rust implementation
@@ -25,9 +25,16 @@ experiment_8_4/
 │       └── variant-annotator   # Compiled variant-annotator executable
 ```
 
-#### [dependencies]
+#### Cargo.toml
 
 ```toml
+[package]
+name = "variant-annotator"
+version = "0.2.0"
+edition = "2021"
+resolver = "2"
+
+[dependencies]
 anyhow       = "1.0"
 clap         = { version = "4.3", features = ["derive"] }
 log          = "0.4"
