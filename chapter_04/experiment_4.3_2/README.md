@@ -1,6 +1,6 @@
 ## 4.3. Motif Discovery and Regulatory Element Identification
 
-### experiment_43_2
+### experiment_4.3_2
 
 The code defines a MotifModel with a PWM representing the current motif guess. In the em_iteration function, each HPC node performs a local E-step by evaluating how well each DNA sequence aligns with the motif, accumulating partial counts in a local array. These partial counts are then merged (e.g., via MPI) into a global count matrix, on which the M-step is applied to recalculate PWM entries. Although real MEME has more complex components (like handling multiple motifs, background models, or variable motif lengths), this toy version shows the core dynamic: partial responsibilities are computed locally, then combined to update the motif model. Rust’s concurrency and HPC-oriented structure can scale this approach to large sets of DNA reads.
 
@@ -9,11 +9,23 @@ This code simulates a single iteration of an Expectation-Maximization (EM)-style
 #### Project Structure:
 
 ```plaintext
-experiment_43_2/
+experiment_4.3_2/
 ├── Cargo.toml                     # Rust project configuration and dependencies
 └── src/
     ├── main.rs                    # Main Rust script containing program logic
     └── output.txt                 # Output file
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_4.3_2"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+rand = "0.9.0"
 ```
 
 #### How to run:
@@ -25,11 +37,6 @@ cargo run | tee output.txt
 ```
 (run main.rs and save the output in output.txt)
 
-#### [dependencies]
-
-```toml
-rand = "0.9.0"
-```
 
 #### Explanation of the Output
 The program is implementing an Expectation-Maximization (EM) algorithm for motif finding using a Position Weight Matrix (PWM). Let's walk through the output:
