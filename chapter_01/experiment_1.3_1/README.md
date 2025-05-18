@@ -9,7 +9,7 @@ The KMP search’s O(n + m) time complexity is vital for high-throughput motif d
 #### Project Structure:
 
 ```plaintext
-experiment_23_1/
+experiment_1.3_1/
 ├── Cargo.toml                     # Rust project configuration and dependencies
 └── src/
     ├── main.rs                    # Main Rust script containing program logic
