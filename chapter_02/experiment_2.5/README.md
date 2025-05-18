@@ -1,6 +1,6 @@
-## 1.5. Introduction Machine Learning in Bioinformatics
+## 2.5. Introduction Machine Learning in Bioinformatics
 
-### experiment_15
+### experiment_2.5
 
 Below is an illustrative Rust program that demonstrates how one might employ a deep neural network, via the tch-rs crate (Rust bindings for PyTorch), to classify genomic or transcriptomic data. In this hypothetical scenario, we assume we have a CSV file containing gene expression values along with sample labels indicating, for example, the presence or absence of a particular disease phenotype. Our goal is to train a multi-layer perceptron (MLP) to distinguish positive from negative cases based on their expression profiles.
 
@@ -9,7 +9,7 @@ In this example, “gene_expression.csv” contains rows of numerical values—o
 #### Project Structure:
 
 ```plaintext
-experiment_15/
+experiment_2.5/
 ├── Cargo.toml                     # Rust project configuration and dependencies
 └── src/
     ├── main.rs                    # Main Rust script containing program logic
@@ -18,6 +18,18 @@ experiment_15/
     └── output.txt                 # Output file
 ```
   
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_2.5"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tch = "0.19.0"
+```
+
 #### How to run
 
 ```powershell
@@ -25,11 +37,6 @@ cargo run | tee output.txt
 ```
 (run main.rs and save the output in output.txt)
   
-#### [dependencies]
-
-```toml
-tch = "0.19.0"
-```
 
 #### Explanation of the Output
 
