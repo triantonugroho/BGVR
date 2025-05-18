@@ -1,6 +1,6 @@
 ## 4.5. Transcriptomics and Alternative Splicing Algorithms
 
-### experiment_45
+### experiment_4.5
 
 This Rust code snippet demonstrates a straightforward approach to building and merging partial splicing graphs, which represent gene transcripts by connecting exons and splice junctions. In typical RNA-seq or transcriptomics workflows, large numbers of read alignments must be processed to infer splicing patterns across the genome. By chunking these alignments, processing them in parallel, and merging partial results, this solution efficiently scales to large datasets commonly encountered in high-throughput sequencing experiments.
 
@@ -15,12 +15,24 @@ Once all chunks have been processed and merged, the final splicing graph is writ
 #### Project Structure:
 
 ```plaintext
-experiment_45/
+experiment_4.5/
 ├── Cargo.toml                        # Rust project configuration and dependencies
 └── src/
     ├── main.rs                       # Main Rust script containing program logic
     ├── partial_splicing_graph.bin    # Binary format output file containing partial splicing graph
     └── output.txt                    # Text output file
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_4.5"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+rayon = "1.10.0"
 ```
 
 #### How to run:
@@ -32,11 +44,6 @@ cargo run | tee output.txt
 ```
 (run main.rs and get the partial_splicing_graph.bin output and output.txt)
 
-#### [dependencies]
-
-```toml
-rayon = "1.10.0"
-```
 
 #### Explanation of the Output
 My Rust program constructs a splicing graph based on a set of alignment data. The output consists of:
