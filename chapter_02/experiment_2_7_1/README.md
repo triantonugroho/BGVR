@@ -1,6 +1,6 @@
-## 1.7. Data and Computational Foundations
+## 2.7. Data and Computational Foundations
 
-### experiment 17_1 
+### experiment 2_7_1 
 
 A concise example of downloading a FASTQ file from NCBI using SRAToolkit), such as NCBI. By making an HTTP request to a specified URL, the program retrieves the raw sequencing data and writes it to a local
 
@@ -9,13 +9,25 @@ The following Rust code provides a concise example of downloading a FASTQ file f
 #### Project Structure:
 
 ```plaintext
-experiment_17_1/
+experiment_2_7_1/
 ├── Cargo.toml                     # Rust project configuration and dependencies
 └── src/
     ├── main.rs                    # Main Rust script containing program logic
     ├── SRR11192680_1.rar          # SRR11192680_1.fastq compressed in RAR file
     ├── SRR11192680_2.rar          # SRR11192680_2.fastq compressed in RAR file
     └── output.txt                 # Output file
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_2_7"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
 ```
 
 #### How to run:
@@ -26,9 +38,6 @@ cargo run | tee output.txt
 
 (run main.rs and save the output in output.txt)
   
-#### [dependencies]
-
-only use "std"
 
 SRAToolkit : fasterq-dump tool need to be installed 
 
@@ -48,7 +57,7 @@ This program downloads a FASTQ file from the SRA (Sequence Read Archive) using t
 
 * The output is saved to the directory:
 
-  C:\Users\trian\BGVR\chapter_01\experiment_17_1\src
+  C:\Users\trian\BGVR\chapter_01\experiment_2_7_1\src
 
 ##### 2. Breakdown of the Output
 
