@@ -1,6 +1,6 @@
-## 2.1. Introduction to Rust Programming Language
+## 1.1. Introduction to Rust Programming Language
 
-### experiment_21_5
+### experiment_1_1_5
 
 Below is a Rust code snippet that demonstrates generating a synthetic variation graph and processing it in a parallelized fashion. Each “node” of the graph can represent a simple genomic position or a base substitution variant. We use a customized rand environment to randomly produce these nodes, and then Rayon to distribute counting tasks—such as tallying how many positions vs. variants exist—across available CPU threads. The snippet also shows how pattern matching and Rust’s algebraic data types allow for explicit, compile-time distinctions between different kinds of genomic nodes, making the code safe, clear, and scalable.
 
@@ -9,13 +9,26 @@ The program defines an enum GraphNode with two variants, Position(usize) and Var
 #### Project Structure:
 
 ```plaintext
-experiment_21_5/
+experiment_1_1_5/
 ├── Cargo.toml                     # Rust project configuration and dependencies
 └── src/
     ├── main.rs                    # Main Rust script containing program logic
     ├── main.nf                    # Nextflow workflow script
     ├── example.fasta              # FASTA sequence file
     └── output.txt                 # Output file
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_1_1_5"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rayon = "1.10.0"
+rand = "0.9.0"
 ```
 
 #### How to run:
@@ -26,12 +39,6 @@ cargo run | tee output.txt
 
 (run main.rs and save the output in output.txt)
   
-#### [dependencies]
-
-```toml
-rayon = "1.10.0"
-rand = "0.9.0"
-```
 
 #### Explanation of the Output
 
