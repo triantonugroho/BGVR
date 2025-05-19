@@ -1,6 +1,6 @@
 ## 6.1. Introduction to HTS Data Structures and Formats
 
-### experiment_61
+### experiment_6_1
 
 Below is a production-oriented example that demonstrates how to read a large BAM file, process coverage data in parallel using rayon, and collect the results in a thread-safe shared data structure. This program includes command-line parsing via clap, basic logging through env_logger, and improved error handling with anyhow. Such an approach is suitable for industrial workloads where code needs to be robust, maintainable, and easily integrated with larger pipelines or workflow managers like Nextflow.
 
@@ -12,7 +12,7 @@ This Nextflow pipeline demonstrates how to split the workload by region and exec
 
 #### Project Structure:
 ```plaintext
-experiment_61/
+experiment_6_1/
 ├── Cargo.toml                  # Rust dependencies
 ├── src/
 │   ├── main.rs                 # Rust implementation
@@ -22,6 +22,23 @@ experiment_61/
 └── target/
     └── debug/
         └── coverage_tool.rar   # Compressed coverage_tool execution file/container
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "coverage_tool"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = "1.0"
+clap = { version = "4.4", features = ["derive"] }
+env_logger = "0.11.7"
+log = "0.4"
+rayon = "1.8"
+rust-htslib = "0.49.0"
 ```
 
 #### How to run:
@@ -35,16 +52,6 @@ nextflow run main.nf
 
 (run main.rs with input.bam region '1:1-1000000' and save the output in coverage.txt and run main.nf)
   
-#### [dependencies]
-
-```toml
-anyhow = "1.0"
-clap = { version = "4.4", features = ["derive"] }
-env_logger = "0.11.7"
-log = "0.4"
-rayon = "1.8"
-rust-htslib = "0.49.0"
-```
 
 #### Explanation of the Output:
 
