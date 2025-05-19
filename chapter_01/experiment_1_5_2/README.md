@@ -1,6 +1,6 @@
-## 2.5. Acquiring and Cleaning Data
+## 1.5. Acquiring and Cleaning Data
 
-### experiment_25_2
+### experiment_1_5_2
 
 In this pipeline, all software is assumed to be installed on your machine or HPC cluster. If you have a module system on HPC, you might load specific Rust and Samtools versions by name. On a local PC, you might rely on a version manager or direct binary installation. Either way, the principle remains the same: you explicitly declare which versions of your tools you need so that colleagues or future runs of the pipeline can replicate the environment as closely as possible. By tracking data version labels, numeric parameters, and environment variables, you create a clear, traceable record of how each result was produced.
 
@@ -15,7 +15,7 @@ Each step in Nextflow is a process that consumes and produces data via channels.
 #### Project Structure:
 
 ```plaintext
-experiment_25_2/
+experiment_1_5_2/
 ├── Cargo.toml                     # Rust project configuration and dependencies
 ├── main.nf                        # Nextflow workflow script
 ├── nextflow.log.7                 # Nextflow log file
@@ -25,6 +25,18 @@ experiment_25_2/
     └── publish_ouput/             # Published output directory
         ├── myapp                  # Application executable
         └── results.txt            # Results text file
+```
+
+#### [dependencies]
+
+```toml
+[package]
+name = "experiment_1_5_2"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
 ```
 
 #### How to run:
@@ -37,9 +49,6 @@ nextflow run main.nf | tee output.txt
 
 (run main.nf and save the output in output.txt)
   
-#### [dependencies]
-
-no dependencies
 
 #### Explanation of the Output
 
