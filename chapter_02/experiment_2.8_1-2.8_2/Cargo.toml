@@ -1,6 +1,0 @@
-[package]
-name = "experiment_2.8_1-2.8_2"
-version = "0.1.0"
-edition = "2021"
-
-[dependencies]

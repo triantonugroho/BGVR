@@ -1,6 +1,6 @@
 ## 5.7. RNA-seq and Transcriptomic Analysis
 
-### experiment_5.7
+### experiment_57
 
 This Rust program uses rust-htslib to read a BAM file in chunks, tallying up transcript-level expression counts in parallel using Rayon. By chunking the records, you can handle large BAM files in a memory-efficient way. Each chunk’s partial results are written to disk, enabling a strategy where ephemeral jobs (e.g., in an HPC cluster) each process a subset of the data.
 
@@ -11,7 +11,7 @@ When the partial tasks are completed, the code merges all partial results by rea
 #### Project Structure:
 
 ```plaintext
-experiment_5.7/
+experiment_57/
 ├── Cargo.toml                                  # Rust project configuration and dependencies
 └── src/
     ├── main.rs                                 # Main Rust script containing program logic
@@ -24,23 +24,6 @@ experiment_5.7/
         └── partial_counts_chunk_2.json         # Partial counts in chunk 2 JSON output file
 ```
 
-#### Cargo toml
-
-```toml
-[package]
-name = "transcript_counter"
-version = "0.1.0"
-edition = "2024"
-
-[dependencies]
-anyhow = "1.0"
-rust-htslib = "0.49.0"
-rayon = "1.7"
-serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0"
-clap = { version = "4.3", features = ["derive"] }
-```
-
 #### How to run:
 
 run in wsl:
@@ -51,6 +34,16 @@ cargo run -- --bam-input example.bam --annotation example.gtf --chunk-size 5000 
 
 (run main.rs with chunk size 5000, input file name example.bam, output directory partial_counts and output file name merged_counts.json and save the output text in output.txt) 
   
+#### [dependencies]
+
+```toml
+anyhow = "1.0"
+rust-htslib = "0.49.0"
+rayon = "1.7"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+clap = { version = "4.3", features = ["derive"] }
+```
 
 #### Explanation of the Output and Conclusion
 The program processes a BAM file containing aligned sequencing reads and maps them to transcript annotations from a GTF file. The primary output consists of transcript-level read counts, which are then merged into a final JSON file containing the total counts for each transcript.

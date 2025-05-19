@@ -1,6 +1,5 @@
-## 1.1. Introduction to Rust Programming Language
 
-### experiment_1.1_2
+## experiment_21_2
 
 Below is a simple example that demonstrates Rust’s zero-cost abstractions in a genomic setting. This example reads a FASTA file and uses Rust’s iterator adapters (such as map, filter, and for_each) to process genomic sequences without incurring additional runtime overhead. Despite the high-level functional style, the compiler optimizes these operations down to efficient machine code, making them comparable to hand-written loops in languages like C or C++.
 
@@ -9,7 +8,7 @@ This code reads a FASTA file using the bio::io::fasta crate, which emits a strea
 #### Project Structure:
 
 ```plaintext
-experiment_1.1_2/
+experiment_21_2/
 ├── Cargo.toml                     # Rust project configuration and dependencies
 └── src/
     ├── main.rs                    # Main Rust script containing program logic
@@ -23,15 +22,9 @@ cargo run | tee output.txt
 
 (run main.rs and save the output in output.txt)
   
-#### Cargo.toml
+#### [dependencies]
 
 ```toml
-[package]
-name = "experiment_1.1_2"
-version = "0.1.0"
-edition = "2021"
-
-[dependencies]
 bio = "2.0.3"
 ```
 #### Explanation of the Output

@@ -1,7 +1,0 @@
-[package]
-name = "experiment_1.1_10"
-version = "0.1.0"
-edition = "2021"
-
-[dependencies]
-bio = "2.2.0"

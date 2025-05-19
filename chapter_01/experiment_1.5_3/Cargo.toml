@@ -1,9 +1,0 @@
-[package]
-name = "experiment_1.5_3"
-version = "0.1.0"
-edition = "2021"
-
-[dependencies]
-bio = "2.2.0"        # For FASTQ/FASTA parsing
-log = "0.4.20"       # For logging facade
-env_logger = "0.11.6" # For environment-based logging configuration

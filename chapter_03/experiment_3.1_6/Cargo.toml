@@ -1,9 +1,0 @@
-[package]
-name = "experiment_3.1_6"
-version = "0.1.0"
-edition = "2021"
-
-[dependencies]
-needletail = "0.6.3"  # For parsing FASTA/FASTQ files
-serde = { version = "1.0", features = ["derive"] }  # For serializing/deserializing data
-serde_json = "1.0"  # For writing JSON output

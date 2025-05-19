@@ -1,6 +1,6 @@
 ## 7.5. Integrating Rust Noodles into Nextflow Pipelines
 
-### experiment_7.5
+### experiment_75
 
 This Rust code example demonstrates how to open and index a BAM file if necessary, calculate base‐by‐base coverage over a specific genomic region using the noodles-bam and noodles-core crates, and finally serialize the results to JSON via serde. It showcases how to integrate multiple crates to perform essential bioinformatics tasks in a performant and maintainable manner, laying the groundwork for more advanced genomic operations.
 
@@ -19,7 +19,7 @@ In this Nextflow script, coverageCalc is invoked once for each combination of BA
 #### Project Structure:
 
 ```plaintext
-experiment_7.5/
+experiment_75/
 ├── Cargo.toml                  # Rust dependencies
 ├── src/
 │   ├── main.rs                 # Rust implementation
@@ -40,21 +40,6 @@ experiment_7.5/
         └── rust_coverage_tool.rar  # Compressed Rust coverage tool executable
 ```
 
-#### Cargo.toml
-
-```toml
-[package]
-name = "rust_coverage_tool"
-version = "0.1.0"
-edition = "2024"
-
-[dependencies]
-noodles-bam = "0.5"
-noodles-core = "0.5"
-serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0"
-```
-
 #### How to run:
 
 run main.rs in wsl:
@@ -73,6 +58,14 @@ nextflow run main.nf
 
 run main.nf and create test_coverage.json and merged_coverage.json
 
+#### [dependencies]
+
+```toml
+noodles-bam = "0.5"
+noodles-core = "0.5"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+```
 
 #### Explanation of the Output
 ##### 🛠 main.rs (Rust Program)
