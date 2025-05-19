@@ -1,6 +1,6 @@
 ## 3.3. Graph Data Structures for Genome Assembly and Beyond
 
-### experiment_33
+### experiment_3_3
 
 The following code demonstrates how to build partial de Bruijn graphs from FASTQ data in Rust, leveraging needletail to efficiently parse sequences and Petgraph to represent overlapping k-mers in an undirected graph. By splitting the reads into chunks and processing them in parallel with Rayon, each segment of data contributes to a partial de Bruijn graph, which is then serialized for further merging or analysis. In practice, this design can handle large genomic datasets by distributing work across multiple cores and managing memory usage more effectively than a single, monolithic graph construction.
 
@@ -9,13 +9,29 @@ The program reads all sequences from a FASTQ file, divides them into equal-sized
 #### Project Structure:
 
 ```plaintext
-experiment_33/
+experiment_3_3/
 ├── Cargo.toml                                # Rust project configuration and dependencies
 └── src/
     ├── main.rs                               # Main Rust script containing program logic
     ├── reads.fq.rar                          # Compressed FASTQ reads file
     ├── partial_debrujin_graphs.json.rar      # Compressed JSON output file containing partial de Bruijn graphs
     └── output.txt                            # Text output file
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_3_3"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rayon = "1.7"
+needletail = "0.6"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+petgraph = "0.7.1"
 ```
 
 #### How to run:
@@ -28,15 +44,6 @@ cargo run | tee output.txt
 
 (run main.rs and save the output in output.txt)
   
-#### [dependencies]
-
-```toml
-rayon = "1.7"
-needletail = "0.6"
-serde = { version = "1", features = ["derive"] }
-serde_json = "1"
-petgraph = "0.7.1"
-```
 
 #### Explanation of the Output
 The Rust program implements a parallelized de Bruijn graph construction for sequencing reads using k-mers (substrings of length  𝑘. The program reads a FASTA/FASTQ file, extracts sequences, splits them into chunks, and constructs partial de Bruijn graphs in parallel using the rayon library.
