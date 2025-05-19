@@ -25,9 +25,16 @@ experiment_8_4/
 │       └── variant-annotator   # Compiled variant-annotator executable
 ```
 
-#### [dependencies]
+#### Cargo.toml
 
 ```toml
+[package]
+name = "variant-annotator"
+version = "0.2.0"
+edition = "2021"
+resolver = "2"
+
+[dependencies]
 anyhow       = "1.0"
 clap         = { version = "4.3", features = ["derive"] }
 log          = "0.4"
