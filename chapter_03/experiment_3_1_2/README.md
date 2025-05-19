@@ -1,6 +1,6 @@
 ## 3.1. Introduction to Data Structures and Algorithms
 
-### experiment_31_2
+### experiment_3_1_2
 
 This code demonstrates a parallel, thread-safe MinHash implementation in Rust that computes approximate set similarities on synthetic genomic data. The program generates random DNA sequences of a specified length and uses them to create two datasets. Each dataset is processed by a MinHasher that applies multiple hash seeds in parallel, determining a “minimum hash value” across all items for each seed. This approach is particularly relevant for high-throughput genomic or large-scale text data, where efficiently estimating set overlap becomes necessary.
 
@@ -9,11 +9,24 @@ Internally, the MinHasher maintains a specified number of hash seeds. For each i
 #### Project Structure:
 
 ```plaintext
-experiment_31_2/
+experiment_3_1_2/
 └── Cargo.toml                     # Rust project configuration and dependencies
 src/
 ├── main.rs                        # Main Rust script containing program logic
 └── output.txt                     # Text output file
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_3_1_2"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rand = "0.9.0"
+rayon = "1.10.0"
 ```
 
 #### How to run:
@@ -26,12 +39,7 @@ cargo run | tee output.txt
 
 (run main.rs and save the output in output.txt)
   
-#### [dependencies]
 
-```toml
-rand = "0.9.0"
-rayon = "1.10.0"
-```
 #### Explanation of the Output:
 The program computes MinHash signatures for two sets of synthetic DNA sequences and calculates the approximate Jaccard similarity between them.
 
