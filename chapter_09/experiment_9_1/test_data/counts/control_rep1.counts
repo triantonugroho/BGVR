@@ -1,0 +1,10 @@
+ENSG00000001	120
+ENSG00000002	85
+ENSG00000003	450
+ENSG00000004	230
+ENSG00000005	15
+__no_feature	1234
+__ambiguous	567
+__too_low_aQual	89
+__not_aligned	45
+__alignment_not_unique	123
