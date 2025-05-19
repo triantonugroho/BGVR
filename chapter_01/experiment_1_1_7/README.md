@@ -1,6 +1,6 @@
-## 2.1. Introduction to Rust Programming Language
+## 1.1. Introduction to Rust Programming Language
 
-### experiment_21_7
+### experiment_1_1_7
 
 Here is a brief example illustrating how Rust can handle an imperative, pointer-based approach to building a simple suffix array. This style is reminiscent of C++ in that it manipulates raw pointers for performance-critical tasks. Rust’s compiler still enforces strict rules about the pointer’s lifetime, preventing you from using it once the underlying data goes out of scope.
 
@@ -9,12 +9,24 @@ In this snippet, build_suffix_array manually handles pointer arithmetic to compa
 #### Project Structure:
 
 ```plaintext
-experiment_21_7/
+experiment_1_1_7/
 ├── Cargo.toml                     # Rust project configuration and dependencies
 └── src/
     ├── main.rs                    # Main Rust script containing program logic
     ├── reads.fasta                # FASTA file containing sequence reads
     └── output.txt                 # Output file
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_1_1_7"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
 ```
 
 #### How to run:
@@ -25,9 +37,6 @@ cargo run | tee output.txt
 
 (run main.rs and save the output in output.txt)
   
-#### [dependencies]
-
-only use "std"
 
 #### Explanation of the Output
 
