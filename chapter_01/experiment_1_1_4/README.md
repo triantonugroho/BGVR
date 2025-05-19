@@ -1,6 +1,6 @@
-## 2.1. Introduction to Rust Programming Language
+## 1.1. Introduction to Rust Programming Language
 
-### experiment_21_4
+### experiment_1_1_4
 
 In many bioinformatics workflows, one might receive a set of files representing different stages of an analysis pipeline: a FASTQ file with raw reads, a BAM file showing how those reads align to a reference genome, and a VCF file listing detected variants. To illustrate a unified approach, the following Rust code processes each file format in parallel to find a specific DNA motif (e.g., “GATTACA”). While real-world projects often require more complex logic (like checking CIGAR alignments in BAM or genotype fields in VCF), this demo showcases how Rust can handle these formats consistently and efficiently, leveraging multi-threaded execution through Rayon.
 
@@ -9,7 +9,7 @@ The code first defines a helper function, count_occurrences, to locate overlappi
 #### Project Structure:
 
 ```plaintext
-experiment_21_4/
+experiment_1_1_4/
 ├── Cargo.toml                     # Rust project configuration and dependencies
 └── src/
     ├── main.rs                    # Main Rust script containing program logic
@@ -20,6 +20,20 @@ experiment_21_4/
     └── output.txt                 # Output file
 ```
 
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_1_1_4"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+bio = "2.0.3"
+rayon = "1.10.0"
+rust-htslib = "0.49.0"
+```
+
 #### How to run:
 
 ```nextflow
@@ -28,13 +42,6 @@ nextflow run main.nf | tee output.txt
 
 (run main.nf in WSL terminal and save the output in output.txt)
 
-#### [dependencies]
-
-```toml
-bio = "2.0.3"
-rayon = "1.10.0"
-rust-htslib = "0.49.0"
-```
 
 #### Explanation of the Output
 
