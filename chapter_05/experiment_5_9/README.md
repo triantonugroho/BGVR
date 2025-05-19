@@ -1,6 +1,6 @@
 ## 5.9. Summary of Key Concepts in Sequence Analysis
 
-### experiment_59
+### experiment_5_9
 
 This Rust program chains alignment and variant calling in a parallel, chunked fashion, producing partial JSON outputs and merging them into a final result. By breaking the read files into chunks—each handled in parallel or by ephemeral tasks in an HPC environment—the memory footprint remains manageable, and reruns on partial failures can be isolated to specific chunks.
 
@@ -13,7 +13,7 @@ These partial variant results are then serialized to a JSON file, named and stor
 #### Project Structure:
 
 ```plaintext
-experiment_59/
+experiment_5_9/
 ├── Cargo.toml                                  # Rust project configuration and dependencies
 └── src/
     ├── main.rs                                 # Main Rust script containing program logic
@@ -26,6 +26,22 @@ experiment_59/
         └── partial_variants_0000.json          # Partial variants in chunk 0 JSON output file
 ```
   
+#### Cargo.toml
+
+```toml
+[package]
+name = "multi_step_pipeline"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+rayon = "1.8"            
+serde = { version = "1.0", features = ["derive"] }  
+serde_json = "1.0"        
+clap = { version = "4.4", features = ["derive"] }  
+anyhow = "1.0"             
+```
+
 #### How to run:
 
 run in powershell: 
@@ -36,15 +52,6 @@ cargo run -- --reads reads_1.fastq reads_2.fastq --ref ref.fa --out final_varian
 
 (run main.rs with 2 fastq file input reads_1.fastq and reads_2.fastq and 1 fasta file input ref.fa, using chunk size 10 and output directory name and save output text in output.txt) 
   
-#### [dependencies]
-
-```toml
-rayon = "1.8"            
-serde = { version = "1.0", features = ["derive"] }  
-serde_json = "1.0"        
-clap = { version = "4.4", features = ["derive"] }  
-anyhow = "1.0"   
-```
 
 #### Explanation of the Output and Conclusion
 
