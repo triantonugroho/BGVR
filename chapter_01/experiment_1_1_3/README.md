@@ -1,6 +1,6 @@
-## 2.1. Introduction to Rust Programming Language
+## 1.1. Introduction to Rust Programming Language
 
-### experiment_21_3
+### experiment_1_1_3
 
 Here is a practical illustration of how Rust’s concurrency model can handle bioinformatics tasks in a parallel environment. For example, consider scanning a large set of DNA reads to tally the total number of occurrences of a particular motif. Using Rayon, you can safely distribute the workload across multiple threads without worrying about data races or improper memory sharing:
 
@@ -9,12 +9,25 @@ The code first opens a FASTA file using the bio crate and collects all DNA reads
 #### Project Structure:
 
 ```plaintext
-experiment_21_3/
+experiment_1_1_3/
 └── Cargo.toml                     # Rust project configuration and dependencies
-experiment_21_3/src/
+experiment_1_1_3/src/
 ├── main.rs                        # Main Rust script containing program logic
 ├── reads.fasta                    # FASTA file containing sequence reads
 └── output.txt                     # Output file
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_1_1_3"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rayon = "1.10.0"
+bio = "2.0.3"
 ```
 
 #### How to run:
@@ -23,12 +36,6 @@ cargo run | tee output.txt
 
 (run main.rs and save the output in output.txt)
   
-#### [dependencies]
-
-```toml
-rayon = "1.10.0"
-bio = "2.0.3"
-```
 
 #### Explanation of the Output
 The program searches for occurrences of the DNA motif "GATTACA" within sequences read from a FASTA file (reads.fasta).
