@@ -1,6 +1,6 @@
-## 2.6. Scientific Computation Workflow with Rust and Nextflow
+## 1.6. Scientific Computation Workflow with Rust and Nextflow
 
-### experiment_26_2
+### experiment_1_6_2
 
 In more complex bioinformatics pipelines, multiple Rust tools often run sequentially or in parallel. An example sequence might begin with a Rust-based alignment tool that transforms FASTQ to BAM files, followed by a coverage parser that generates CSV files, and concluding with a machine learning step that trains or applies a model to those coverage statistics. Each tool is represented as a separate process in Nextflow, and each process references a container with pinned crate versions and compiled binaries. The Nextflow DSL allows users to define how these outputs channel into subsequent steps in a way that naturally mirrors a DAG.
 
@@ -103,7 +103,7 @@ In conclusion, combining Rust with Nextflow creates a powerful paradigm for bioi
 #### Project Structure:
 
 ```plaintext
-experiment_26_2/
+experiment_1_6_2/
 └── Cargo.toml                     # Rust project configuration and dependencies
 src/
 ├── main.nf                        # Nextflow workflow script
@@ -112,6 +112,18 @@ src/
 ├── dataset_v1.0/                  # Dataset folder
 └── reads/
     └── sample.fastq.rar           # Compressed FASTQ sample file
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_1_6_2"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
 ```
 
 #### How to run:
@@ -124,7 +136,6 @@ nextflow run main.nf | tee output.txt
 
 (run main.nf and save the output in output.txt)
   
-#### [dependencies]
 
 It Needs 3 Rust Script to run this workflow:
 * RUST_ALIGN   
