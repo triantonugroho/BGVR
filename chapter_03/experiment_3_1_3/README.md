@@ -1,6 +1,6 @@
 ## 3.1. Introduction to Data Structures and Algorithms
 
-### experiment_31_3
+### experiment_3_1_3
 
 This code demonstrates a scenario where different types of genomic data—such as microbial, eukaryotic, pangenome, single-cell transcriptomic, and Hi-C assays—require different indexing approaches. It defines a trait-based framework that can build either linear or graph-based indexes depending on the genomic context, then uses Rayon to construct each index in parallel. The result is a scalable infrastructure where large datasets, each with unique characteristics, can be assigned the most suitable index structure and processed concurrently.
 
@@ -9,11 +9,24 @@ Internally, the code maintains a vector of tasks that specify both the genome ty
 #### Project Structure:
 
 ```plaintext
-experiment_31_3/
+experiment_3_1_3/
 └── Cargo.toml                     # Rust project configuration and dependencies
 src/
 ├── main.rs                        # Main Rust script containing program logic
 └── output.txt                     # Text output file
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_3_1_2"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rand = "0.9.0"
+rayon = "1.10.0"
 ```
 
 #### How to run:
@@ -26,11 +39,6 @@ cargo run | tee output.txt
 
 (run main.rs and save the output in output.txt)
   
-#### [dependencies]
-
-```toml
-rayon = "1.10.0"
-```
 
 #### Explanation of the Output:
 This program simulates the construction of genomic indexes for different types of genomic data using Rayon for parallel execution. Here’s a breakdown of the program and the output:
