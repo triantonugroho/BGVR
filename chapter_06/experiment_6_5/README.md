@@ -1,6 +1,6 @@
 ## 6.5. Advanced Data Structures for HTS Analysis
 
-### experiment_65
+### experiment_6_5
 
 The following Rust program uses an interval tree for genomic coverage queries in Rust. It includes a command-line interface, logging, and concurrency considerations, illustrating how developers can integrate this data structure into HPC or cloud-based pipelines. The tree construction sorts intervals, identifies a center, and divides intervals into left and right subtrees, thereby enabling efficient queries for overlapping intervals. Once the tree is built, queries can safely be performed in parallel thanks to Rust’s immutability by default, eliminating the need for manual synchronization.
 
@@ -21,7 +21,7 @@ Many AI engineers in pharmaceutical R&D apply these Rust workflows to large-scal
 #### Project Structure:
 
 ```plaintext
-experiment_65/
+experiment_6_5/
 ├── Cargo.toml                  # Rust dependencies
 ├── src/
 │   ├── main.rs                 # Rust implementation
@@ -66,6 +66,22 @@ experiment_65/
         └── interval_query_tool.rar # Compressed interval query tool executable
 ```
 
+#### Cargo.toml
+
+```toml
+[package]
+name = "interval_query_tool"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = "1.0"
+clap = { version = "4.4", features = ["derive"] }
+env_logger = "0.11.8"
+log = "0.4"
+rayon = "1.7"
+```
+
 #### How to run:
 
 run main.rs in wsl:
@@ -90,15 +106,6 @@ params.ref_intervals  = 'genome_intervals.txt'
 params.parallel_chunck_size = 50000 
 params.mock = true 
 
-#### [dependencies]
-
-```toml
-anyhow = "1.0"
-clap = { version = "4.4", features = ["derive"] }
-env_logger = "0.11.8"
-log = "0.4"
-rayon = "1.7"
-```
 
 #### Explanation of the Output
 The output directory structure and files shown reflect the following stages in your Nextflow pipeline:
