@@ -1,6 +1,6 @@
 ## 6.8. Summary and Future Directions
 
-### experiment_68
+### experiment_6_8
 
 The following Rust program demonstrates how to create a command-line binary for computing coverage in a BAM file. It uses clap (successor to structopt) for argument parsing, anyhow for robust error handling, and rust-htslib for BAM/CRAM indexing and iteration. This design is ideal for HPC or cloud pipelines orchestrated by Nextflow. Each workflow step can be containerized with Docker or Singularity to guarantee reproducible environments, ensuring that the Rust toolchain and associated system libraries remain consistent across clusters or cloud providers.
 
@@ -17,7 +17,7 @@ In production pipelines, one often adds more robust error handling (e.g., retrie
 #### Project Structure:
 
 ```plaintext
-experiment_68/
+experiment_6_8/
 ├── Cargo.toml                  # Rust dependencies
 ├── src/
 │   ├── main.rs                 # Rust implementation
@@ -43,6 +43,22 @@ experiment_68/
         └── rust_coverage_tool.rar  # Compressed Rust coverage tool executable
 ```
 
+#### Cargo.toml
+
+```toml
+[package]
+name = "rust_coverage_tool"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = "1.0"
+clap = { version = "4.4", features = ["derive"] }
+log = "0.4"
+env_logger = "0.11"
+rust-htslib = "0.49.0"
+```
+
 #### How to run:
 
 run main.rs in wsl:
@@ -64,15 +80,6 @@ params.bam_list     = 'bams.txt'
 params.region_list  = 'regions.txt'
 params.outdir       = '.' // Default to current directory
 
-#### [dependencies]
-
-```toml
-anyhow = "1.0"
-clap = { version = "4.4", features = ["derive"] }
-log = "0.4"
-env_logger = "0.11"
-rust-htslib = "0.49.0"
-```
 
 #### Explanation of the Output
 ##### 🦀 main.rs (Rust program)
