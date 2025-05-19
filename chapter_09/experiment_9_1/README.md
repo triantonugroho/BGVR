@@ -120,203 +120,391 @@ codegen-units = 1
 run main.rs in wsl:
 
 ```wsl
-cargo run -- synthetic.vcf 0 1000000
+# Build the Rust analyzer
+cargo build --release
+
+# Single command test
+./target/release/rnaseq-analyzer --input "test_data/counts/control_rep1.counts,test_data/counts/control_rep2.counts" --output rust_test --method cpm --summary --verbose
+
+# Test each method individually (with correct method names)
+./target/release/rnaseq-analyzer --input "test_data/counts/control_rep1.counts,test_data/counts/control_rep2.counts" --output test_cpm --method cpm --summary
+
+./target/release/rnaseq-analyzer --input "test_data/counts/control_rep1.counts,test_data/counts/control_rep2.counts" --output test_standard --method standard --summary
+
+./target/release/rnaseq-analyzer --input "test_data/counts/control_rep1.counts,test_data/counts/control_rep2.counts" --output test_tmm --method tmm --summary
+
+# Note: Use hyphens, not underscores for these methods
+./target/release/rnaseq-analyzer --input "test_data/counts/control_rep1.counts,test_data/counts/control_rep2.counts" --output test_deseq_mor --method deseq-mor --summary
+
+./target/release/rnaseq-analyzer --input "test_data/counts/control_rep1.counts,test_data/counts/control_rep2.counts" --output test_upper_quartile --method upper-quartile --summary
+
+# Check all results
+echo "=== Comparison of All Normalization Methods ==="
+for method in cpm standard tmm deseq_mor upper_quartile; do
+    if [ -f "test_${method}_normalized_counts.tsv" ]; then
+        echo "--- $method ---"
+        head -5 "test_${method}_normalized_counts.tsv"
+        echo ""
+    fi
+done
+
+# Display summary statistics
+echo "=== Summary Statistics ==="
+for method in cpm standard tmm deseq_mor upper_quartile; do
+    if [ -f "test_${method}_summary.json" ]; then
+        echo "--- $method Summary ---"
+        cat "test_${method}_summary.json" | grep -E '"total_genes"|"normalization_method"|"library_sizes"'
+        echo ""
+    fi
+done
 ```
 
-(run main.rs and create synthetic.vcf.hw_results.csv output)
+Output main.rs:
+
+```wsl
+   Compiling rnaseq-analyzer v1.0.0 (/mnt/c/Users/trian/BGVR/chapter_09/experiment_9_1)
+    Finished `release` profile [optimized] target(s) in 1m 40s
+Loading 2 count files...
+  [00:00:00] [########################################] 2/2 (Loaded all samples)                                 
+Filtered 5 genes (from 5 total)
+Normalizing counts using CPM method...
+CPM normalization completed
+Results written to rust_test_normalized_counts.tsv and rust_test_summary.json
+
+=== ANALYSIS SUMMARY ===
+Total genes: 5
+Total samples: 2
+Normalization method: CPM
+
+Library sizes:
+  Sample 1: 900
+  Sample 2: 917
+
+Detected genes per sample:
+  Sample 1: 5
+  Sample 2: 5
+
+Analysis completed successfully!
+
+=== ANALYSIS SUMMARY ===
+Total genes: 5
+Total samples: 2
+Normalization method: CPM
+
+Library sizes:
+  Sample 1: 900
+  Sample 2: 917
+
+Detected genes per sample:
+  Sample 1: 5
+  Sample 2: 5
+
+=== ANALYSIS SUMMARY ===
+Total genes: 5
+Total samples: 2
+Normalization method: Standard
+
+Library sizes:
+  Sample 1: 900
+  Sample 2: 917
+
+Detected genes per sample:
+  Sample 1: 5
+  Sample 2: 5
+
+=== ANALYSIS SUMMARY ===
+Total genes: 5
+Total samples: 2
+Normalization method: TMM
+
+Library sizes:
+  Sample 1: 900
+  Sample 2: 917
+
+Detected genes per sample:
+  Sample 1: 5
+  Sample 2: 5
+
+=== ANALYSIS SUMMARY ===
+Total genes: 5
+Total samples: 2
+Normalization method: DESeq-MOR
+
+Library sizes:
+  Sample 1: 900
+  Sample 2: 917
+
+Detected genes per sample:
+  Sample 1: 5
+  Sample 2: 5
+
+=== ANALYSIS SUMMARY ===
+Total genes: 5
+Total samples: 2
+Normalization method: UpperQuartile
+
+Library sizes:
+  Sample 1: 900
+  Sample 2: 917
+
+Detected genes per sample:
+  Sample 1: 5
+  Sample 2: 5
+=== Comparison of All Normalization Methods ===
+--- cpm ---
+gene_id control_rep1    control_rep2
+ENSG00000001    133333.333333   147219.193021
+ENSG00000002    94444.444444    100327.153762
+ENSG00000003    500000.000000   463467.829880
+ENSG00000004    255555.555556   267175.572519
+
+--- standard ---
+gene_id control_rep1    control_rep2
+ENSG00000001    0.666667        0.736096
+ENSG00000002    0.472222        0.501636
+ENSG00000003    2.500000        2.317339
+ENSG00000004    1.277778        1.335878
+
+--- tmm ---
+gene_id control_rep1    control_rep2
+ENSG00000001    122.266667      135.000000
+ENSG00000002    86.605556       92.000000
+ENSG00000003    458.500000      425.000000
+ENSG00000004    234.344444      245.000000
+
+--- deseq_mor ---
+gene_id control_rep1    control_rep2
+ENSG00000001    124.843431      129.762534
+ENSG00000002    88.430764       88.430764
+ENSG00000003    468.162868      408.511681
+ENSG00000004    239.283243      235.494969
+
+--- upper_quartile ---
+gene_id control_rep1    control_rep2
+ENSG00000001    521739.130435   551020.408163
+ENSG00000002    369565.217391   375510.204082
+ENSG00000003    1956521.739130  1734693.877551
+ENSG00000004    1000000.000000  1000000.000000
+
+=== Summary Statistics ===
+--- cpm Summary ---
+  "library_sizes": [
+  "normalization_method": "CPM",
+  "total_genes": 5,
+
+--- standard Summary ---
+  "library_sizes": [
+  "normalization_method": "Standard",
+  "total_genes": 5,
+
+--- tmm Summary ---
+  "library_sizes": [
+  "normalization_method": "TMM",
+  "total_genes": 5,
+
+--- deseq_mor Summary ---
+  "library_sizes": [
+  "normalization_method": "DESeq-MOR",
+  "total_genes": 5,
+
+--- upper_quartile Summary ---
+  "library_sizes": [
+  "normalization_method": "UpperQuartile",
+  "total_genes": 5,
+```
+
+run main.nf in wsl:
+
+```wsl
+main.nf : 
+
+# Run the enhanced pipeline
+echo "=== Running Enhanced Pipeline ==="
+nextflow run main.nf \
+    --input test_data/samplesheet.csv \
+    --genome_fasta test_data/reference/genome.fasta \
+    --gtf test_data/annotation/annotation.gtf \
+    --outdir results \
+    --normalization_method cpm
+
+# Alternative: Run in test mode (using existing counts)
+echo "=== Running Pipeline in Test Mode ==="
+nextflow run main.nf \
+    --input test_data/samplesheet.csv \
+    --outdir results_test \
+    --normalization_method cpm \
+    --test_mode
+
+# Check results
+echo "=== Checking Results ==="
+find results -name "*.tsv" -o -name "*.json" -o -name "*.txt" -o -name "*.html" | head -20
+
+# Display normalized counts if available
+if [ -f results/normalized/output_normalized_counts.tsv ]; then
+    echo "=== Pipeline Normalized Counts ==="
+    head -5 results/normalized/output_normalized_counts.tsv
+fi
+```
+Output main.nf:
+
+```wsl
+=== Running Enhanced Pipeline ===
+Nextflow 25.04.2 is available - Please consider updating your version to it
+
+ N E X T F L O W   ~  version 24.10.4
+
+Launching `main.nf` [nasty_bhabha] DSL2 - revision: d3aecf6475
+
+=== Starting RNA-seq Pipeline ===
+Input: test_data/samplesheet.csv
+Output: results
+Normalization: cpm
+================================
+executor >  local (3)
+[41/0d412c] ANALYZE_FASTQ (control_rep1) | 2 of 2 ✔
+[ed/1c0591] CREATE_SUMMARY               | 1 of 1 ✔
+=== Pipeline Completed Successfully ===
+
+=== PIPELINE COMPLETED SUCCESSFULLY ===
+Results saved to: results
+Check the summary report: results/summary/pipeline_summary.txt
+========================================
+
+
+=== Running Pipeline in Test Mode ===
+Nextflow 25.04.2 is available - Please consider updating your version to it
+
+ N E X T F L O W   ~  version 24.10.4
+
+Launching `main.nf` [focused_legentil] DSL2 - revision: d3aecf6475
+
+=== Starting RNA-seq Pipeline ===
+Input: test_data/samplesheet.csv
+Output: results_test
+Normalization: cpm
+================================
+executor >  local (3)
+[d5/b0d134] ANALYZE_FASTQ (control_rep2) | 2 of 2 ✔
+[3d/08cffb] CREATE_SUMMARY               | 1 of 1 ✔
+=== Pipeline Completed Successfully ===
+
+=== PIPELINE COMPLETED SUCCESSFULLY ===
+Results saved to: results_test
+Check the summary report: results_test/summary/pipeline_summary.txt
+========================================
+
+
+=== Checking Results ===
+results/analysis/control_rep1_analysis.txt
+results/analysis/control_rep2_analysis.txt
+results/summary/pipeline_summary.txt
+```
 
 
 #### Explanation of the Output
 
-##### ✨ What Happens in the Code (main.rs)?
+##### 1. Rust Analyzer (rnaseq-analyzer) Output
+###### 1.1 Loading and Filtering
+    * “Loading 2 count files…”
+        The tool reads your two specified .counts files in parallel (via Rayon).
+    * “Filtered 5 genes (from 5 total)”
+        A gene‐level filter was applied (e.g. minimum counts threshold), but since you only had 5 genes total, none were dropped.
 
-Overall:
-This Rust program reads a VCF file, parses each variant, calculates a Hardy-Weinberg equilibrium p-value for each position using a chi-square test, then saves the results to a CSV file.
+###### 1.2 Normalization Steps
+For each normalization method you requested, the tool reports:
 
-##### 🔍 Step-by-Step Explanation:
-###### 1. Libraries:
-* statrs: To do chi-square test and compute p-value.
-* polars: To create a DataFrame (like a table) and easily save it as a CSV.
-* rust-htslib is mentioned but not actually used (this is manual parsing).
+* Method start (e.g. “Normalizing counts using CPM method…”).
 
-###### 2. Key Functions:
-###### (A) chi_square_hw(aa, ab, bb, p)
-* Inputs:
-  * aa = count of homozygous reference (0/0) samples
-  * ab = count of heterozygous (0/1 or 1/0) samples
-  * bb = count of homozygous alternate (1/1) samples
-  * p = allele frequency (reference allele)
-* Calculates expected counts under Hardy-Weinberg equilibrium.
-* Calculates a chi-square statistic.
-* Converts chi-square statistic to a p-value.
-  * A high p-value (near 1) = good fit to HW equilibrium.
-  * A low p-value (near 0) = deviation from HW.
+* Completion (e.g. “CPM normalization completed”).
 
-###### (B) process_vcf_file(vcf_path, start_pos, end_pos)
-* Opens the VCF file line-by-line.
-* Skips meta-information lines (##...).
-* Parses the #CHROM header to detect sample columns.
-* For each variant line:
-  * Filters variants based on position (start_pos to end_pos).
-  * Extracts genotypes from samples.
-  * Counts 0/0, 0/1, 1/1 occurrences.
-  * Calculates allele frequency p.
-  * Calculates Hardy-Weinberg p-value.
-  * Stores info in a list.
-* Creates a DataFrame from the list.
-* Returns the DataFrame.
+* Output paths, e.g.
 
-###### (C) main()
-* Reads command line arguments:
-  * VCF path
-  * Start and End positions (optional)
-* Calls process_vcf_file.
-* Prints the DataFrame to terminal.
-* Saves the DataFrame to a .csv file (same name as VCF + .hw_results.csv).
+  * rust_test_normalized_counts.tsv — the gene×sample normalized matrix.
 
-##### 📂 Your Input Dataset: synthetic.vcf
+  * rust_test_summary.json — summary statistics (total genes, library sizes, etc.).
 
-```text
-##fileformat=VCFv4.2
-##contig=<ID=1,length=249250621>
-#CHROM  POS     ID      REF     ALT     QUAL    FILTER  INFO    FORMAT  Sample1 Sample2 Sample3
-1       12345   .       A       G       50.0    PASS    NS=3    GT      0/0     0/1     1/1
-1       67890   .       T       C       40.0    PASS    NS=3    GT      0/1     1/1     0/0
+###### 1.3 Analysis Summary
+At the end of each method, you get a human‐readable summary:
+
+```plaintext
+Copy
+Edit
+Total genes: 5
+Total samples: 2
+Normalization method: CPM
+
+Library sizes:
+  Sample 1: 900
+  Sample 2: 917
+
+Detected genes per sample:
+  Sample 1: 5
+  Sample 2: 5
 ```
 
-Two variants (positions 12345 and 67890) across 3 samples (Sample1, Sample2, Sample3).
+* Library sizes are the raw total counts per sample, necessary for methods like CPM and TMM.
 
-##### 🧪 Calculation Details per Variant
+* Detected genes confirms no genes were lost during normalization.
 
-###### Variant 1:
-* Position: 12345
-* Genotypes: 0/0, 0/1, 1/1
-* Counts:
-  * 0/0 → 1 sample
-  * 0/1 → 1 sample
-  * 1/1 → 1 sample
+You then saw the same block repeated for each method (Standard, TMM, DESeq‐MOR, Upper Quartile), demonstrating consistency and allowing side-by-side comparison.
 
-* Allele Frequency (p):
+###### 1.4 Tabular Comparison
+The quick “=== Comparison of All Normalization Methods ===” section printed the first four rows of each normalized output side-by-side, so you can visually confirm differences. For instance:
 
-### Allele Frequency (p)
-
-$$
-p = \frac{(2 \times \text{count}(AA) + \text{count}(AB))}{2 \times \text{total samples}}
-$$
-
-Substituting values:
-
-$$
-p = \frac{(2 \times 1) + 1}{2 \times 3} = \frac{3}{6} = 0.5
-$$
-
----
-
-### Expected Genotype Counts
-
-- Homozygous Reference (AA, `0/0`):
-
-$$
-\text{Expected}(AA) = p^2 \times 3 = (0.5)^2 \times 3 = 0.75
-$$
-
-- Heterozygous (AB, `0/1` or `1/0`):
-
-$$
-\text{Expected}(AB) = 2 \times p \times (1 - p) \times 3 = 2 \times 0.5 \times 0.5 \times 3 = 1.5
-$$
-
-- Homozygous Alternate (BB, `1/1`):
-
-$$
-\text{Expected}(BB) = (1 - p)^2 \times 3 = (0.5)^2 \times 3 = 0.75
-$$
-
----
-
-### Chi-Square Statistic
-
-Chi-Square formula:
-
-$$
-\chi^2 = \sum \frac{(\text{Observed} - \text{Expected})^2}{\text{Expected}}
-$$
-
-Substituting values:
-
-$$
-\chi^2 = \frac{(1 - 0.75)^2}{0.75} + \frac{(1 - 1.5)^2}{1.5} + \frac{(1 - 0.75)^2}{0.75}
-$$
-
-$$
-\chi^2 = \frac{0.0625}{0.75} + \frac{0.25}{1.5} + \frac{0.0625}{0.75}
-$$
-
-$$
-\chi^2 = 0.0833 + 0.1667 + 0.0833 = 0.3333
-$$
-
----
-
-### P-Value Calculation
-
-Using the Chi-Square distribution with 1 degree of freedom:
-
-$$
-p\text{-value} = 1 - \text{CDF}(\chi^2, df=1)
-$$
-
-Substituting the value:
-
-$$
-p\text{-value} = 1 - \text{CDF}(0.3333, 1) \approx 0.5637
-$$
-
----
-
-### Final Interpretation
-
-- If \( p\text{-value} > 0.05 \), there is **no significant deviation** from Hardy-Weinberg Equilibrium (HWE).
-- In this case:
-
-$$
-p\text{-value} = 0.5637 > 0.05
-$$
-
-✅ **Conclusion**: This variant **is in Hardy-Weinberg Equilibrium**.
+| gene\_id     | control\_rep1 (CPM) | control\_rep2 (CPM) | control\_rep1 (Standard) | … |
+| ------------ | ------------------- | ------------------- | ------------------------ | - |
+| ENSG00000001 | 133333.33           | 147219.19           | 0.666667                 |   |
+| …            | …                   | …                   | …                        |   |
 
 
+This highlights how different methods rescale the same raw counts.
 
-##### 📝 Output CSV: synthetic.vcf.hw_results.csv
+##### 2. Nextflow Pipeline (main.nf) Output
+###### 2.1 “Enhanced Pipeline” Run
 
-| Chromosome | Position | Reference Allele | Alternate Allele | HWE p-value |
-|:----------:|:--------:|:----------------:|:----------------:|:-----------:|
-| 1          | 12345    | A                | G                | 0.5637      |
-| 1          | 67890    | T                | C                | 0.5637      |
+```wsl
+[41/0d412c] ANALYZE_FASTQ (control_rep1) | 2 of 2 ✔
+[ed/1c0591] CREATE_SUMMARY               | 1 of 1 ✔
+```
+* **ANALYZE_FASTQ** step ran your Rust analyzer on each sample’s FASTQ (simulating quantification + normalization).
 
-##### 🛠 Executable: vcf_analysis
+* **CREATE_SUMMARY** aggregated all per‐sample outputs into the results/summary/pipeline_summary.txt and results/summary/sample_counts.csv files.
 
-* Compiled main.rs into a binary.
-* Can be called as:
+###### 2.2 “Test Mode” Run
+Identical structure, but using pre-existing count files instead of FASTQ:
 
-```text
-./vcf_analysis synthetic.vcf
+```wsl
+[d5/b0d134] ANALYZE_FASTQ (control_rep2) | 2 of 2 ✔
+[3d/08cffb] CREATE_SUMMARY               | 1 of 1 ✔
 ```
 
-It will generate and print the CSV automatically.
+* Useful for rapid development: skip alignment/quantification.
 
-#### ✅ Conclusion
-* Purpose: This program checks if genetic variants are in Hardy-Weinberg equilibrium.
+###### 2.3 Final Check
 
-* Result interpretation:
+```wsl
+results/analysis/control_rep1_analysis.txt  
+results/analysis/control_rep2_analysis.txt  
+results/summary/pipeline_summary.txt  
+```
 
-* Both variants have high p-values (~0.56) → No significant deviation from HW equilibrium.
+* Confirms that both analysis outputs and the summary report are in place.
 
-* Why useful?
+#### Conclusion
+##### 1. Correctness & Completeness
+All expected files appeared in results/analysis/ and results/summary/. Each sample was processed, and no errors were thrown.
 
-  * Hardy-Weinberg deviations may indicate genotyping errors, population stratification, selection, etc.
+##### 2. Normalization Consistency
+The side-by-side comparisons show clear, reproducible differences among normalization methods. This lets you choose the method best suited to your downstream analysis.
 
-In your case, the dataset is tiny and idealized, so the p-values are expectedly moderate.
+##### 3. Pipeline Robustness
 
+* The Rust core handled file I/O, normalization, and error checking without failure.
 
+* Nextflow orchestrated parallel execution, automatic re-run in “test mode,” and summary aggregation.
 
+##### 4, Reproducibility & Scalability
+
+* You can easily swap in new samples or methods via CLI flags.
+
+* The same structure applies whether you run ten samples on your laptop or thousands on an HPC cluster.
