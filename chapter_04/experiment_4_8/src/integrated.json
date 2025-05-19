@@ -1,0 +1,142 @@
+[
+  {
+    "snp_id": "rs789033",
+    "gene_id": "ENSG781584707921",
+    "p_value": 0.204807,
+    "peak_id": null,
+    "motif_id": null
+  },
+  {
+    "snp_id": "rs773185",
+    "gene_id": "ENSG709182318666",
+    "p_value": 0.68261,
+    "peak_id": null,
+    "motif_id": null
+  },
+  {
+    "snp_id": "rs235176",
+    "gene_id": "ENSG913807581238",
+    "p_value": 0.919093,
+    "peak_id": null,
+    "motif_id": null
+  },
+  {
+    "snp_id": "rs823958",
+    "gene_id": "ENSG871011481629",
+    "p_value": 0.489633,
+    "peak_id": null,
+    "motif_id": null
+  },
+  {
+    "snp_id": "rs408803",
+    "gene_id": "ENSG863151663345",
+    "p_value": 0.012408,
+    "peak_id": null,
+    "motif_id": null
+  },
+  {
+    "snp_id": "rs918361",
+    "gene_id": "ENSG213204446761",
+    "p_value": 0.978522,
+    "peak_id": null,
+    "motif_id": null
+  },
+  {
+    "snp_id": "rs153153",
+    "gene_id": "ENSG898544632884",
+    "p_value": 0.424794,
+    "peak_id": null,
+    "motif_id": null
+  },
+  {
+    "snp_id": "rs242932",
+    "gene_id": "ENSG500011035388",
+    "p_value": 0.382703,
+    "peak_id": null,
+    "motif_id": null
+  },
+  {
+    "snp_id": "rs828916",
+    "gene_id": "ENSG382305842139",
+    "p_value": 0.826031,
+    "peak_id": null,
+    "motif_id": null
+  },
+  {
+    "snp_id": "rs688557",
+    "gene_id": "ENSG489553750087",
+    "p_value": 0.583812,
+    "peak_id": null,
+    "motif_id": null
+  },
+  {
+    "snp_id": "rs337177",
+    "gene_id": "ENSG383783317270",
+    "p_value": 0.522871,
+    "peak_id": null,
+    "motif_id": null
+  },
+  {
+    "snp_id": "rs549469",
+    "gene_id": "ENSG943972461477",
+    "p_value": 0.213321,
+    "peak_id": null,
+    "motif_id": null
+  },
+  {
+    "snp_id": "rs106848",
+    "gene_id": "ENSG981308398759",
+    "p_value": 0.035064,
+    "peak_id": null,
+    "motif_id": null
+  },
+  {
+    "snp_id": "rs756663",
+    "gene_id": "ENSG501912954177",
+    "p_value": 0.848275,
+    "peak_id": null,
+    "motif_id": null
+  },
+  {
+    "snp_id": "rs316598",
+    "gene_id": "ENSG189182585110",
+    "p_value": 0.260536,
+    "peak_id": null,
+    "motif_id": null
+  },
+  {
+    "snp_id": "rs369607",
+    "gene_id": "ENSG753960020191",
+    "p_value": 0.671157,
+    "peak_id": null,
+    "motif_id": null
+  },
+  {
+    "snp_id": "rs736851",
+    "gene_id": "ENSG734789954413",
+    "p_value": 0.790431,
+    "peak_id": null,
+    "motif_id": null
+  },
+  {
+    "snp_id": "rs901450",
+    "gene_id": "ENSG122179629417",
+    "p_value": 0.113861,
+    "peak_id": null,
+    "motif_id": null
+  },
+  {
+    "snp_id": "rs907073",
+    "gene_id": "ENSG694089547421",
+    "p_value": 0.798507,
+    "peak_id": null,
+    "motif_id": null
+  },
+  {
+    "snp_id": "rs621222",
+    "gene_id": "ENSG327096809381",
+    "p_value": 0.824804,
+    "peak_id": null,
+    "motif_id": null
+  }
+]
