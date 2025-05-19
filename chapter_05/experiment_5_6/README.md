@@ -1,6 +1,6 @@
 ## 5.6. Structural Variant Detection
 
-### experiment_56
+### experiment_5_6
 
 This Rust code provides a parallelized, chunk-based approach to naive split-read detection for structural variant (SV) analysis. It reads alignment segments—represented by minimal fields such as read ID, chromosome, alignment start, and orientation—from a streaming JSON input. By processing chunks of alignment records, it avoids storing the entire dataset in memory at once, which is crucial for high-performance computing (HPC) environments. The partial results for each chunk are written out so that, in the event of a disruption, the pipeline can resume without reprocessing the entire input file.
 
@@ -13,7 +13,7 @@ Once all chunks are processed, the program scans the partial output directory fo
 #### Project Structure:
 
 ```plaintext
-experiment_56/
+experiment_5_6/
 ├── Cargo.toml                                  # Rust project configuration and dependencies
 └── src/
     ├── main.rs                                 # Main Rust script containing program logic
@@ -23,6 +23,22 @@ experiment_56/
     └── partial_breakpoints/
         ├── partial_breakpoints_0.json          # Partial breakpoints in chunk 0 JSON output file
         └── partial_breakpoints_1.json          # Partial breakpoints in chunk 1 JSON output file
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "sv_detector"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = "1.0"
+rayon = "1.7"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+clap = { version = "4.3", features = ["derive"] }
 ```
 
 #### How to run:
@@ -35,15 +51,6 @@ cargo run --release -- --alignment-input alignment_data.json --chunk-size 2 --pa
 
 (run main.rs with chunk size 2, input file name alignment_data.json, output directory partial_breakspoints and output file name merged_breakpoints.json and save the output text in output.txt) 
   
-#### [dependencies]
-
-```toml
-anyhow = "1.0"
-rayon = "1.7"
-serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0"
-clap = { version = "4.3", features = ["derive"] }
-```
 
 #### Explanation of the Output
 
