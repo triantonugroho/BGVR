@@ -1,6 +1,6 @@
 ## 7.4. Advanced Processing for Complex Genomic Scenarios
 
-### experiment_74
+### experiment_7_4
 
 Graph-based references, or advanced data structures for dense/sparse variation, often demand specialized software. Rust is increasingly favored because concurrency at this scale can lead to subtle memory corruption in lower-level languages. The snippet below demonstrates a simplified Rust function for merging single-sample VCFs into a preliminary multi-sample VCF, confirming consistent contigs and sample IDs. Though a fully featured multi-sample merge might require coordinate-based matching of variant positions, this example illustrates how concurrency, error handling, and HPC synergy might be organized.
 This code memory-maps the file and splits it by newlines in memory, though real-world usage might parse FASTA headers and sequences more intelligently. The concurrency arises naturally when we process lines in parallel with .par_iter(). For HPC usage, ephemeral containers can each map the file, process an assigned slice, and combine partial results in a final stage.
@@ -14,7 +14,7 @@ In HPC or cloud infrastructures, ephemeral tasks each handle a chunk of the samp
 #### Files contents:
 
 ```plaintext
-experiment_74/
+experiment_7_4/
 ├── Cargo.toml                  # Rust dependencies
 ├── src/
 │   ├── main.rs                 # Rust implementation
@@ -65,6 +65,12 @@ params.tool_path = "/mnt/c/Users/trian/BGVR/chapter_07/experiment_74/target/debu
 #### [dependencies]
 
 ```toml
+[package]
+name = "rust_vcf_merge_tool"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
 anyhow = "1.0"
 clap = { version = "4.0", features = ["derive"] }
 rayon = "1.5"
@@ -116,7 +122,7 @@ This file defines a Nextflow pipeline that automates the execution of the Rust m
 * Produces:
   * pipeline_report.html
 
-###### 📂 Output Directory: /mnt/c/Users/trian/BGVR/chapter_07/experiment_74/src/results/
+###### 📂 Output Directory: /mnt/c/Users/trian/BGVR/chapter_07/experiment_7_4/src/results/
 You will find:
 * merged_vcf.bcf – The merged variant file
 * pipeline_report.html – A simple HTML summary
