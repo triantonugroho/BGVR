@@ -1,6 +1,6 @@
 ## 5.1. Introduction to Sequence Analysis
 
-### experiment_51_2
+### experiment_5_1_2
 
 This pair of Rust programs demonstrates a practical approach to high-throughput sequence data analysis using concurrency and partial output merging. The first program processes a FASTQ file to compute basic read statistics—specifically the distribution of read lengths, along with totals for the number of reads and cumulative base count. It uses the needletail crate for efficient streaming of large (possibly gzipped) FASTQ data and relies on Rayon to allow for future parallel processing should the data parsing be adapted to multiple threads. The resulting statistics are stored in a JSON file, which can be considered a partial output if the dataset is chunked.
 
@@ -9,12 +9,29 @@ The program reads command-line arguments using clap and opens the specified FAST
 #### Project Structure:
 
 ```plaintext
-experiment_51_2/
+experiment_5_1_2/
 ├── Cargo.toml              # Rust project configuration and dependencies
 └── src/
     ├── main.rs             # Main Rust script containing program logic
     ├── example.fastq.rar   # Compressed FASTQ example file
     └── partial_output.json # JSON partial output file for reference
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "hpc_fastq_stats"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+rayon = "1.7"
+needletail = "0.6.3"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+anyhow = "1.0"
+clap = { version = "4.4", features = ["derive"] }
 ```
 
 #### How to run:
@@ -27,16 +44,6 @@ cargo run -- --input C:\Users\trian\BGVR\chapter_05\experiment_51_2\src\example.
 
 (run main.rs with input path of fastq file)
   
-#### [dependencies]
-
-```toml
-rayon = "1.7"
-needletail = "0.6.3"
-serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0"
-anyhow = "1.0"
-clap = { version = "4.4", features = ["derive"] }
-```
 
 #### Explanation of the Output
 
