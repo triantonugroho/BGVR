@@ -1,6 +1,6 @@
-## 2.5. Acquiring and Cleaning Data
+## 1.5. Acquiring and Cleaning Data
 
-### experiment_25_4
+### experiment_1_5_4
 
 For more advanced data transformations, developers might adopt polars for tabular data. Suppose a user wants to parse metadata from a CSV file that describes sample conditions (e.g., diseased vs. healthy) and merge it with alignment statistics. polars can load large CSV files quickly while Rust’s strong type checking ensures columns are properly named and typed. The next code block outlines a minimal example:
 
@@ -9,13 +9,25 @@ This code demonstrates two functions (read_csv_basic and read_csv_advanced) for 
 #### Project Structure:
 
 ```plaintext
-experiment_25_4/
+experiment_1_5_4/
 ├── Cargo.toml                     # Rust project configuration and dependencies
 └── src/
     ├── main.rs                    # Main Rust script containing program logic
     ├── output.csv                 # CSV output file
     ├── Synthesize CSV File.ipynb  # Python notebook to synthesize output.csv
     └── output.txt                 # Text output file
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_1_5_4"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+polars = { version = "0.46.0", features = ["csv", "lazy"] }
 ```
 
 #### How to run:
@@ -28,11 +40,6 @@ cargo run | tee output.txt
 
 (run main.rs and save the output in output.txt)
   
-#### [dependencies]
-
-```toml
-polars = { version = "0.46.0", features = ["csv", "lazy"] }
-```
 
 #### Explanation of the Output
 
