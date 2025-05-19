@@ -1,6 +1,6 @@
-## 2.6. Scientific Computation Workflow with Rust and Nextflow
+## 1.6. Scientific Computation Workflow with Rust and Nextflow
 
-### experiment_26_1
+### experiment_1_6_1
 
 #### Nextflow Script:
 Below is an example Nextflow DSL2 script demonstrating how to run a Rust read-trimming tool in parallel across multiple FASTQ files. Each file is processed by a separate job, and the pipeline remains agnostic to whether it executes on-premises under SLURM or in the cloud through other Nextflow executors.
@@ -13,7 +13,7 @@ The Rust trimmer itself can be a simple program that removes low-quality bases f
 #### Project Structure:
 
 ```plaintext
-experiment_26_1/
+experiment_1_6_1/
 └── Cargo.toml                      # Rust project configuration and dependencies
 experiment_26_1/src/
 ├── main.rs                         # Main Rust script containing program logic
@@ -26,6 +26,18 @@ experiment_26_1/src/
     └── trimmed_sample.fastq.rar    # Compressed trimmed FASTQ sample file
 ```
 
+#### Cargo.toml
+
+```toml
+[package]
+name = "my_rust_trim"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+```
+
 #### How to run:
 
 run in WSL:
@@ -36,9 +48,6 @@ nextflow run main.nf | tee output.txt
 
 (run main.nf and save the output in output.txt)
   
-#### [dependencies]
-
-no dependencies
 
 #### Explanation of the Output
 The provided outputs (output_nf.txt and output_rs.txt) describe the execution results of the Rust-based FASTQ trimmer within a Nextflow pipeline. Below is an analysis of each output:
@@ -85,8 +94,8 @@ executor >  local (2)
 Output File Paths
 
 ```sh
-/mnt/c/Users/trian/BGVR/chapter_02/experiment_26_1/src/work/7e/a51a5f8c64944739abd4e89d067c9d/trimmed_trimmed_sample.fastq
-/mnt/c/Users/trian/BGVR/chapter_02/experiment_26_1/src/work/6d/ef8b4f966fad114a8651e7d27a67f1/trimmed_sample.fastq
+/mnt/c/Users/trian/BGVR/chapter_02/experiment_1_6_1/src/work/7e/a51a5f8c64944739abd4e89d067c9d/trimmed_trimmed_sample.fastq
+/mnt/c/Users/trian/BGVR/chapter_02/experiment_1_6_1/src/work/6d/ef8b4f966fad114a8651e7d27a67f1/trimmed_sample.fastq
 ```
 * The trimmed FASTQ files were saved at specific locations.
 * A possible issue is that one file is named trimmed_trimmed_sample.fastq, indicating that the trimming process may have been applied twice unintentionally.
