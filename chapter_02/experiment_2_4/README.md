@@ -1,6 +1,6 @@
-## 1.4. Pangenome Graph Theorems
+## 2.4. Pangenome Graph Theorems
 
-### experiment_14
+### experiment_2_4
 
 In the scenario below, we imagine having multiple genomic haplotypes, each stored in a separate FASTA file. We wish to merge these sequences into a single pangenome structure that captures shared subpaths and preserves haplotype-specific variants. By leveraging Rust’s concurrency features (via “rayon”), we can scale to large sets of FASTA files while ensuring memory safety and efficiency. In addition, we employ succinct indexing concepts by labeling subpaths (k-mers) and merging them into equivalence classes that unify homologous regions of different haplotypes.
 
@@ -35,7 +35,7 @@ Once these three FASTA files have been saved to the src/ folder, the next step i
 #### Project Structure:
 
 ```plaintext
-experiment_14/
+experiment_2_4/
 ├── Cargo.toml                     # Rust project configuration and dependencies
 └── src/
     ├── main.rs                    # Main Rust script containing program logic
@@ -53,9 +53,15 @@ cargo run | tee output.txt
 
 (run main.rs and save the output in output.txt)
 
-#### [dependencies]
+#### Cargo.toml
 
 ```toml
+[package]
+name = "experiment_2_4"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
 bio = "2.0.3"
 rayon = "1.10.0"
 ```
