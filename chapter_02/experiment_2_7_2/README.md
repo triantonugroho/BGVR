@@ -1,6 +1,6 @@
-## 1.7. Data and Computational Foundations
+## 2.7. Data and Computational Foundations
 
-### experiment_17_2
+### experiment_2_7_2
 
 A GNN-based approach, albeit simplified, to model relationships in a gene expression matrix.
 
@@ -13,11 +13,26 @@ Several success stories document how re-engineering legacy scripts into Rust-bas
 #### Project Structure:
 
 ```plaintext
-experiment_17_2/
+experiment_2_7_2/
 ├── Cargo.toml                     # Rust project configuration and dependencies
 └── src/
     ├── main.rs                    # Main Rust script containing program logic
     └── output.txt                 # Output file
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_2_7_2"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+nalgebra = "0.33.2"
+ndarray = "0.16.1"
+rayon = "1.10.0"
+rand = "0.9"
 ```
 
 #### How to run:
@@ -28,14 +43,6 @@ cargo run | tee output.txt
 
 (run main.rs and save the output in output.txt)
   
-#### [dependencies]
-
-```toml
-nalgebra = "0.33.2"
-ndarray = "0.16.1"
-rayon = "1.10.0"
-rand = "0.9"
-```
 
 #### Explanation of the Output
 
