@@ -1,6 +1,6 @@
 ## 6.3. Variant Call Format (VCF/BCF) Handling
 
-### experiment_63
+### experiment_6_3
 
 Below is a production-level example that demonstrates how to filter a BCF file in parallel using rust-htslib, rayon, and additional Rust crates for robust error handling and logging. It processes records in chunks to avoid excessive memory use, which is critical for large population-level datasets. This setup is well-suited for HPC environments and cloud-based workflows alike, where reliability, speed, and memory efficiency are of paramount importance.
 
@@ -18,7 +18,7 @@ By combining the memory-safe, high-performance Rust filtering tool with Nextflow
 
 #### Project Structure:
 ```plaintext
-experiment_63/
+experiment_6_3/
 ├── Cargo.toml                  # Rust dependencies
 ├── src/
 │   ├── main.rs                 # Rust implementation
@@ -33,6 +33,23 @@ experiment_63/
 └── target/
     └── debug/
         └── bcf_filter_tool.rar # Compressed BCF filter tool execution file from main.rs
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "bcf_filter_tool"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = "1.0"
+clap = { version = "4.4", features = ["derive"] }
+env_logger = "0.11.7"
+log = "0.4"
+rayon = "1.8"
+rust-htslib = "0.49.0"
 ```
 
 #### How to run:
@@ -53,16 +70,6 @@ nextflow run main.nf
 
 (run main.nf with input wgs_cohort.bcf and output file name filtered_ouput.bcf with params.min_qual = 30, params.min_depth = 10, and params.chunk_size  = 50000)
 
-#### [dependencies]
-
-```toml
-anyhow = "1.0"
-clap = { version = "4.4", features = ["derive"] }
-env_logger = "0.11.7"
-log = "0.4"
-rayon = "1.8"
-rust-htslib = "0.49.0"
-```
 
 #### Explanation of the Output
 
