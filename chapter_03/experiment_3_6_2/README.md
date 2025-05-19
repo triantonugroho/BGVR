@@ -1,6 +1,6 @@
 ## 3.6. Putting It All Together—Rust and Nextflow Integration
 
-### experiment_36_2
+### experiment_3_6_2
 
 #### 1. Nextflow
 
@@ -13,7 +13,7 @@ This pipeline “scatters” read files across ephemeral containers in the ALIGN
 #### Project Structure:
 
 ```plaintext
-experiment_36_2/
+experiment_3_6_2/
 └── Cargo.toml                      # Rust project configuration and dependencies
 experiment_36_1/src/                # Note: Directory number mismatch (36_1 vs 36_2)
 ├── main.rs                         # Main Rust script containing program logic
@@ -22,6 +22,20 @@ experiment_36_1/src/                # Note: Directory number mismatch (36_1 vs 3
 ├── ouput.txt                       # Output file (note: typo in filename, missing 't')
 └── reads/
     └── sample.fq.rar               # Compressed FASTQ sample file
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_3_6_2"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+bincode = "1.3.3"  # Use this version to avoid breaking changes
 ```
 
 #### How to run:
@@ -34,13 +48,6 @@ cargo run main.nf | tee output.txt
 
 (run main.nf and save the output in output.txt)
   
-#### [dependencies]
-
-```toml
-serde = { version = "1", features = ["derive"] }
-serde_json = "1"
-bincode = "1.3.3"  # Use this version to avoid breaking changes
-```
 
 #### Explanation of the Output
 The program consists of two main components:
