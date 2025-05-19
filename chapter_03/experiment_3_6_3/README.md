@@ -1,6 +1,6 @@
 ## 3.6. Putting It All Together—Rust and Nextflow Integration
 
-### experiment_36_3
+### experiment_3_6_3
 
 #### 1. Nextflow
 
@@ -24,7 +24,7 @@ This setup is well-suited to real-world scenarios where large volumes of sequenc
 #### Project Structure:
 
 ```plaintext
-experiment_36_3/
+experiment_3_6_3/
 ├── Cargo.toml                       # Rust project configuration and dependencies
 └── src/
     ├── main.rs                      # Main Rust script containing program logic
@@ -36,6 +36,18 @@ experiment_36_3/
     ├── nextflow.log.9               # Nextflow log file
     ├── assembly-1.dot               # Assembly graph in DOT format
     └── assembly-1.path              # Assembly path file
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "rust_preprocess"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+clap = { version = "4.4.7", features = ["derive"] }
 ```
 
 #### How to run:
@@ -56,11 +68,6 @@ cargo run main.nf | tee output_nf.txt
 
 (run main.nf and save the output in output_rs.txt)
   
-#### [dependencies]
-
-```toml
-clap = { version = "4.4.7", features = ["derive"] }
-```
 
 #### Explanation of the Output
 
