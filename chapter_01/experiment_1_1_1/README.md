@@ -1,4 +1,4 @@
-## experiment_21_1
+## experiment_1_1_1
 
 Below is a Rust code illustrating how to read all sequences from a FASTA file, store them in a vector of strings, and process them in parallel with Rayon. This approach avoids the lifetime and ownership issues that arise when returning references to data held within a local mutex. By reading the file sequentially, converting each record’s bytes to UTF-8, and pushing the resulting strings into a Vec<String>, the code ensures that the data is fully owned, making it safe to be passed around or returned.
 
@@ -9,7 +9,7 @@ By wrapping the vector of sequences in a Mutex and then converting it into a loc
 ## Project Structure:
 
 ```plaintext
-experiment_21_1/src/
+experiment_1_1_1/src/
 ├── main.rs                    # Main Rust script containing program logic
 ├── example.fasta              # FASTA file
 └── output.txt                 # Output file
@@ -17,18 +17,25 @@ experiment_21_1/               # Empty or duplicate project directory
 Cargo.toml                     # Rust project configuration and dependencies file (at root level)
 ```
 
+## Cargo.toml
+
+```toml
+[package]
+name = "experiment_1_1_1"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+bio = "2.0.3"
+rayon = "1.10.0"
+```
+
 ## How to run:
 
 cargo run | tee output.txt
 
 (run main.rs and save the output in output.txt)
-  
-## [dependencies]
 
-```toml
-bio = "2.0.3"
-rayon = "1.10.0"
-```
 
 ## Explanation of the Output
 
