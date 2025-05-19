@@ -18,33 +18,101 @@ In pharmaceutical and biotechnology settings, teams frequently report significan
 
 #### Project Structure:
 
-
-
-
 ```plaintext
-experiment_8_1/
-├── Cargo.toml                  # Rust dependencies
-├── src/
-│   ├── main.rs                 # Rust implementation
-│   ├── synthetic.vcf           # Synthetic VCF file (input file)
-│   ├── synthetic.vcf.hw_results.csv  # Synthetic VCF result CSV file
-│   └── output.txt              # Text file output
+experiment_9_1/
+├── results/                            # top-level results directory
+│   ├── analysis/                       # analysis outputs
+│   │   ├── control_rep1_analysis.txt  # control replicate 1 analysis
+│   │   └── control_rep2_analysis.txt  # control replicate 2 analysis
+│   └── summary/                        # summary outputs
+│       ├── pipeline_summary.txt       # pipeline summary text
+│       └── sample_counts.csv          # sample counts table
+├── src/                                # source code
+│   └── main.rs                         # Rust main implementation
+├── target/                             # compiled artifacts
+│   └── release/                        # release build outputs
+│       └── rnaseq-analyzer             # compiled executable
+├── test_data/                          # test datasets
+│   ├── annotation/                     # annotation files
+│   │   └── annotation.gtf              # GTF annotation input
+│   ├── counts/                         # raw count files
+│   │   ├── control_rep1.counts        # control replicate 1 counts
+│   │   ├── control_rep2.counts        # control replicate 2 counts
+│   │   ├── control_rep3.counts        # control replicate 3 counts
+│   │   ├── treated_rep1.counts        # treated replicate 1 counts
+│   │   ├── treated_rep2.counts        # treated replicate 2 counts
+│   │   └── treated_rep3.counts        # treated replicate 3 counts
+│   ├── fastq/                          # FASTQ inputs
+│   │   ├── control_rep1_R1.fastq.gz   # control rep1 forward reads
+│   │   ├── control_rep1_R2.fastq.gz   # control rep1 reverse reads
+│   │   ├── control_rep2_R1.fastq.gz   # control rep2 forward reads
+│   │   ├── control_rep2_R2.fastq.gz   # control rep2 reverse reads
+│   │   ├── control_rep3_R1.fastq.gz   # control rep3 forward reads
+│   │   ├── control_rep3_R2.fastq.gz   # control rep3 reverse reads
+│   │   ├── treated_rep1_R1.fastq.gz   # treated rep1 forward reads
+│   │   ├── treated_rep1_R2.fastq.gz   # treated rep1 reverse reads
+│   │   ├── treated_rep2_R1.fastq.gz   # treated rep2 forward reads
+│   │   ├── treated_rep2_R2.fastq.gz   # treated rep2 reverse reads
+│   │   ├── treated_rep3_R1.fastq.gz   # treated rep3 forward reads
+│   │   └── treated_rep3_R2.fastq.gz   # treated rep3 reverse reads
+│   └── reference/                      # reference genome
+│       └── genome.fasta                # genome reference FASTA
+└── work/                               # workflow intermediate outputs
+    ├── 41/                            # process 41 outputs
+    │   └── 0d412c3b546ed3dd3259e6ae67ac7c/
+    │       └── control_rep1_analysis.txt  # work output for control rep1
+    ├── 48/                            # process 48 outputs
+    │   └── c59bb55f23054efd2ceca26282924f/
+    │       ├── pipeline_summary.txt       # work pipeline summary
+    │       └── sample_counts.csv          # work sample counts
+    └── 86/                            # process 86 outputs
+        └── 8334ebb087906d20c1f8976c3190ff/
+            └── control_rep2_analysis.txt  # work output for control rep2
+
 ```
 
 #### Cargo.toml
 
 ```toml
 [package]
-name = "vcf_analysis"
-version = "0.1.0"
-edition = "2024"
+name = "rnaseq-analyzer"
+version = "1.0.0"
+edition = "2021"
+authors = ["RNA-seq Pipeline Team"]
+description = "High-performance RNA-seq count normalization and analysis tool"
+license = "MIT"
 
 [dependencies]
-rust-htslib = "0.49.0"
-rayon = "1.5.1"
-ndarray = "0.16.1"
-statrs = "0.18.0"
-polars = { version = "0.46", features = ["lazy"] }
+# Core functionality
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+ndarray = { version = "0.15", features = ["rayon"] }
+rayon = "1.7"
+anyhow = "1.0"
+thiserror = "1.0"
+
+# CLI interface
+clap = { version = "4.4", features = ["derive"] }
+
+# File I/O
+csv = "1.3"
+flate2 = "1.0"
+
+# Mathematical operations
+statrs = "0.16"
+
+# Progress and logging
+indicatif = "0.17"
+log = "0.4"
+env_logger = "0.10"
+
+[dev-dependencies]
+tempfile = "3.8"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
 ```
 
 #### How to run:
