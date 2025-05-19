@@ -1,0 +1,52 @@
+=== RNA-seq Pipeline Summary Report ===
+Generated: Mon May 19 16:03:48 WIB 2025
+Normalization Method: cpm
+Output Directory: results
+
+Total Samples Processed: 2
+
+=== Individual Sample Reports ===
+
+Processing control_rep1_analysis.txt...
+=== Sample Analysis Report ===
+Sample ID: control_rep1
+Analysis Date: Mon May 19 16:03:47 WIB 2025
+
+--- FastQ Files ---
+R1 File: control_rep1_R1.fastq.gz
+R2 File: control_rep1_R2.fastq.gz
+
+--- Read Counts ---
+R1 Read Count: 1
+R2 Read Count: 1
+Total Paired Reads: 1
+
+--- Basic Statistics ---
+Normalization Method: cpm
+N bases in R1: 0
+
+---
+
+Processing control_rep2_analysis.txt...
+=== Sample Analysis Report ===
+Sample ID: control_rep2
+Analysis Date: Mon May 19 16:03:47 WIB 2025
+
+--- FastQ Files ---
+R1 File: control_rep2_R1.fastq.gz
+R2 File: control_rep2_R2.fastq.gz
+
+--- Read Counts ---
+R1 Read Count: 1
+R2 Read Count: 1
+Total Paired Reads: 1
+
+--- Basic Statistics ---
+Normalization Method: cpm
+N bases in R1: 0
+
+---
+
+
+=== Pipeline Completion ===
+All samples processed successfully!
