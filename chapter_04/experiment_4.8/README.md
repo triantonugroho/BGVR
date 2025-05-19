@@ -1,7 +1,7 @@
 
 ## 4.8. Summary of Key Functional Genomics Algorithms
 
-### experiment_48
+### experiment_4_8
 
 For an AI engineer, implementing key functional genomics algorithms in Rust typically involves modular code design, concurrency best practices, and HPC orchestration. A well-structured Rust project might separate domain-specific modules, such as eqtl, motif, or splicing, each with subroutines for file I/O, HPC concurrency patterns, or data transformations. Shared crates like rayon facilitate parallel iteration, while memmap2 enables memory-mapped file access for large references, and tch-rs can be invoked for advanced deep learning tasks, such as CNN-based motif discovery. The code snippet below illustrates how one might perform a partial merge of multi-omics results—epigenetic signals, eQTL associations, and motif hits—into an integrated table. We briefly comment on each crate used.
 
@@ -10,7 +10,7 @@ The snippet uses serde for reading and writing JSON, rayon for concurrency, and 
 #### Project Structure:
 
 ```plaintext
-experiment_48/
+experiment_4_8/
 ├── Cargo.toml                          # Rust project configuration and dependencies
 └── src/
     ├── main.rs                         # Main Rust script containing program logic
@@ -28,9 +28,24 @@ experiment_48/
         └── peak_part1.json             # Peak part 1 JSON data file
 ```
     
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_4_8"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+rayon = "1.10.0"
+reqwest = { version = "0.12.14", features = ["blocking", "json"] }
+```
+
 #### How to run:
 
-run synthesize dataset.ipynb in Visual Studio Code or in Google Colab to get 4 json file required : eqtl_part1.json, eqtl_part2.json, motif_part1.json, and peak_part1.json and copy or move to experiment_48/src/data/ folder 
+run synthesize dataset.ipynb in Visual Studio Code or in Google Colab to get 4 json file required : eqtl_part1.json, eqtl_part2.json, motif_part1.json, and peak_part1.json and copy or move to experiment_4_8/src/data/ folder 
 
 run main.rs in powershell:
 
@@ -40,14 +55,6 @@ cargo run | tee output.txt
 
 (run main.rs and get the partial_adjacency.bin output and output.txt)
 
-#### [dependencies]
-
-```toml
-serde = { version = "1", features = ["derive"] }
-serde_json = "1"
-rayon = "1.10.0"
-reqwest = { version = "0.12.14", features = ["blocking", "json"] }
-```
 
 #### Explanation of the Output
 This Rust program integrates multi-omics data by combining eQTL associations, peak calls, and motif hits into a single dataset. The merged results are written to integrated.json.
