@@ -6,16 +6,119 @@ The code implements a sophisticated genomic variant scoring pipeline that combin
 
 The pipeline operates by first loading a pangenome graph and a trained ONNX model, then processing VCF files in parallel batches to maximize throughput. For each variant, the system extracts features including allele lengths, graph-based metrics (node degree, centrality), and sequence complexity, arranges them into tensors for efficient batch processing, then runs inference through the neural network to produce variant scores. Simultaneously, it leverages WhatsHap's phasing algorithms to group variants into haplotype blocks, providing additional context for interpreting complex genomic regions. The implementation incorporates robust error handling, progress reporting, comprehensive logging, and flexible output formats (Parquet, Arrow, CSV, JSON), while tracking detailed statistics throughout execution. The architecture supports both single-file processing and batch operations across multiple VCFs, making it adaptable to both targeted analyses and population-scale studies.
 
-#### Files contents:
-* experiment_8_6/
-  * Cargo.toml (Cargo.toml file for dependencies)
-* experiment_8_6/src/
-  * main.rs (rust script)
-  * cohort_A.vcf (cohort A vcf file for input file)
-  * cohort_B.vcf (cohort B vcf file for input file)
-  * synthetic_variant_data.csv (synthetic variant data result csv file)
-  * query_results.parquet (query results parquet file as output file)
-  * output.txt (text file output)
+#### Project Structure
+
+```
+experiment_8_6/
+├── Cargo.toml                          # Main workspace configuration
+├── src/
+│   ├── main.rs                         # Main Rust application
+│   ├── generate_onnx_model.py          # Python script to generate ONNX model
+│   ├── sample_graph.json               # Sample pangenome graph (input)
+│   ├── sample_variants.vcf             # Sample VCF file (input)
+│   ├── variant_model.onnx               # Trained ONNX model (input)
+│   └── vcf_list.txt                    # List of VCF files for batch processing (input)
+├── mock_libs/                          # Mock library implementations
+│   ├── odgi/
+│   │   ├── Cargo.toml                  # ODGI mock library configuration
+│   │   └── src/
+│   │       └── lib.rs                  # ODGI graph operations mock
+│   ├── onnxruntime/
+│   │   ├── Cargo.toml                  # ONNX Runtime mock library configuration
+│   │   └── src/
+│   │       └── lib.rs                  # ONNX inference mock
+│   └── whatshap-rs/
+│       ├── Cargo.toml                  # WhatsHap phasing mock library configuration
+│       └── src/
+│           └── lib.rs                  # Variant phasing mock
+├── results/
+│   └── results.arrow                   # Output file (scored variants)
+└── target/debug/
+    └── variant-scorer.rar              # Compiled executable (compressed)
+```
+
+#### Directory Descriptions
+
+##### Root Files
+- **Cargo.toml**: Workspace configuration defining the main project and mock library dependencies
+
+#### src/
+Contains the main application source code and input files:
+- **main.rs**: Core variant scoring application written in Rust
+- **generate_onnx_model.py**: Python utility to create the ONNX model for variant scoring
+- **sample_graph.json**: Example pangenome graph in JSON format
+- **sample_variants.vcf**: Sample VCF file containing genetic variants
+- **variant_model.onnx**: Pre-trained machine learning model for variant scoring
+- **vcf_list.txt**: Text file listing multiple VCF files for batch processing
+
+##### mock_libs/
+Mock implementations of external libraries for development and testing:
+- **odgi/**: Mock pangenome graph library for graph operations
+- **onnxruntime/**: Mock ONNX runtime for machine learning inference
+- **whatshap-rs/**: Mock variant phasing library
+
+##### results/
+Output directory containing processed results:
+- **results.arrow**: Scored variants in Apache Arrow format
+
+##### target/debug/
+Build artifacts directory:
+- **variant-scorer.rar**: Compiled executable (compressed for distribution)
+
+#### File Types
+
+| Extension | Description |
+|-----------|-------------|
+| `.rs` | Rust source code |
+| `.py` | Python script |
+| `.toml` | Configuration file (Cargo) |
+| `.json` | JSON data file |
+| `.vcf` | Variant Call Format file |
+| `.onnx` | ONNX machine learning model |
+| `.txt` | Plain text file |
+| `.arrow` | Apache Arrow binary format |
+| `.rar` | Compressed archive |
+
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "variant-scorer"
+version = "0.1.0"
+edition = "2021"
+authors = ["Your Name <your.email@example.com>"]
+description = "A tool for scoring genetic variants using pangenome graphs and machine learning"
+
+[dependencies]
+anyhow = "1.0"
+clap = { version = "4.4", features = ["derive"] }
+ndarray = "0.15"
+odgi = { path = "./mock_libs/odgi" }
+onnxruntime = { path = "./mock_libs/onnxruntime" }
+polars = { version = "0.33", features = ["parquet", "ipc", "json", "lazy", "dtype-full"] }
+rayon = "1.8"
+rust-htslib = "0.44"
+serde = { version = "1.0", features = ["derive"] }
+whatshap-rs = { path = "./mock_libs/whatshap-rs" }
+num_cpus = "1.16"
+tracing = "0.1"
+tracing-subscriber = "0.3"
+indicatif = "0.17"
+thiserror = "1.0"
+tempfile = "3.8"
+serde_json = "1.0"
+rand = "0.8"
+
+[features]
+default = []
+cuda = []
+
+[profile.release]
+lto = true
+codegen-units = 1
+opt-level = 3
+```
 
 #### How to run:
 
@@ -27,21 +130,6 @@ cargo run | tee output.txt
 
 (run main.rs with cohort_A.vcf, cohort_B.vcf and synthetic_variant_data.csv as input files and create query_results.parquet output file)
 
-#### [dependencies]
-
-```toml
-noodles = { version = "0.6", features = ["vcf"] }  # Use noodles version 0.6 for VCF
-csv = "1.1"  # for CSV file processing
-serde = { version = "1.0", features = ["derive"] }  # for serialization
-serde_json = "1.0"  # if you're using JSON as well
-rayon = "1.5"  # for parallel processing
-polars = { version = "0.47.0", features = ["parquet", "csv"] }  # For DataFrame manipulation, with CSV and Parquet features
-anyhow = "1.0"  # For error handling
-bio = "0.38.0"  # Ensure this version supports VCF functionality
-log = "0.4"  # For logging
-env_logger = "0.9"  # For logger initialization
-num_cpus = "1.14.0"  # For getting CPU count
-```
 
 #### 📋 Explanation of the Output
 ##### ✅ Parallel Processing and File Reading
