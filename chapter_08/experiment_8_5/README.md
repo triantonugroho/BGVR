@@ -12,7 +12,33 @@ The container image is built automatically by Wave via containers/variant.Docker
 
 In practice, organisations report 30–50 % shorter wall-times after switching from monolithic Bash+C++ pipelines to this Rust-first DAG model, largely because statically linked binaries start within tens of milliseconds, allowing extremely fine-grained sharding without Docker cold-start penalties. Moreover, formal memory safety and ownership semantics cut crash-loop rates in half, simplifying GMP and HIPAA compliance audits. Such outcomes translate directly into faster drug-development cycles and more reliable evidence for precision-medicine trials.
 
-#### cargo.toml
+#### Project Structure
+```plaintext
+experiment_8_5/
+├── Cargo.toml                  # Rust dependencies
+├── src/
+│   ├── main.rs                 # Rust implementation
+│   ├── main.nf                 # Nextflow workflow
+│   └── work/                   # Nextflow work directory
+│       └── e8/0b5747dd1534.../ # Nextflow execution results
+│           └── chr1.vcf.bgz    # Output variant file of main.nf 
+├── data/
+│   ├── chroms.txt              # List of chromosomes 
+│   ├── pipeline.toml           # Pipeline configuration
+│   ├── sample.bam              # Sample BAM file
+│   ├── sample.bam.bai          # BAM index
+│   ├── sample.fa               # Reference genome
+│   ├── sample.fa.fai           # Genome index
+│   ├── sample.gff              # Gene annotation
+│   ├── sample.sam              # SAM file
+│   └── sample_reads.fastq      # Raw sequencing reads
+└── results/
+    ├── sample1.annotated.tsv   # Annotation results of annotation pipeline from main.rs
+    ├── sample1.bam             # Alignment results of annotation alignment pipeline from main.rs
+    └── sample1.vcf             # Variant calling results of variant calling pipeline from main.rs
+```
+
+#### Cargo.toml
 
 ```toml
 [package]
@@ -53,31 +79,6 @@ A comprehensive application that performs various genomic analyses including rea
 ##### 2. Nextflow Workflow (main.nf):  
 A parallel processing workflow for distributed variant calling across multiple chromosomes.
 
-#### Project Structure
-```plaintext
-experiment_8_5/
-├── Cargo.toml                  # Rust dependencies
-├── src/
-│   ├── main.rs                 # Rust implementation
-│   ├── main.nf                 # Nextflow workflow
-│   └── work/                   # Nextflow work directory
-│       └── e8/0b5747dd1534.../ # Nextflow execution results
-│           └── chr1.vcf.bgz    # Output variant file of main.nf 
-├── data/
-│   ├── chroms.txt              # List of chromosomes 
-│   ├── pipeline.toml           # Pipeline configuration
-│   ├── sample.bam              # Sample BAM file
-│   ├── sample.bam.bai          # BAM index
-│   ├── sample.fa               # Reference genome
-│   ├── sample.fa.fai           # Genome index
-│   ├── sample.gff              # Gene annotation
-│   ├── sample.sam              # SAM file
-│   └── sample_reads.fastq      # Raw sequencing reads
-└── results/
-    ├── sample1.annotated.tsv   # Annotation results of annotation pipeline from main.rs
-    ├── sample1.bam             # Alignment results of annotation alignment pipeline from main.rs
-    └── sample1.vcf             # Variant calling results of variant calling pipeline from main.rs
-```
 
 #### Installation
 
