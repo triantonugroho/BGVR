@@ -1,6 +1,6 @@
-## 2.3. Data Structures and Algorithms in Rust
+## 1.3. Data Structures and Algorithms in Rust
 
-### experiment_23_1
+### experiment_1_3_1
 
 Classical substring-search algorithms like Knuth–Morris–Pratt (KMP) and Boyer–Moore remain core building blocks in bioinformatics. While tools like BLAST and Bowtie handle complex alignments, simpler tasks—like scanning for motifs or barcodes—often rely on well-known linear or sublinear time solutions (Knuth et al. 1977; Gusfield 1997). Below is a succinct Rust KMP implementation.
 
@@ -9,11 +9,23 @@ The KMP search’s O(n + m) time complexity is vital for high-throughput motif d
 #### Project Structure:
 
 ```plaintext
-experiment_23_1/
+experiment_1_3_1/
 ├── Cargo.toml                     # Rust project configuration and dependencies
 └── src/
     ├── main.rs                    # Main Rust script containing program logic
     └── output.txt                 # Output file
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_1_3_1"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
 ```
 
 #### How to run:
@@ -26,9 +38,6 @@ cargo run | tee output.txt
 
 (run main.rs and save the output in output.txt)
   
-#### [dependencies]
-
-no dependencies
 
 #### Explanation of the Output
 This Rust program implements the Knuth-Morris-Pratt (KMP) algorithm to efficiently search for occurrences of a pattern (ATGC) within a given DNA sequence (ATGCGATATCGATGCGATGCGATGC). The program identifies all the positions in the sequence where the pattern appears.
