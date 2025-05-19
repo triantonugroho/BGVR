@@ -1,6 +1,6 @@
 ## 7.1. Foundational Data Structures in Rust Noodles
 
-### experiment_71
+### experiment_7_1
 
 Below is a code panel that highlights Rust integration using noodles-bam and noodles-vcf for coverage calculations and variant reading. This code is structured for HPC concurrency, streaming partial results from multiple intervals. The coverage is simply counted in this demonstration, but advanced logic could store coverage in an in-memory segment tree for subsequent queries.
 
@@ -13,7 +13,7 @@ This pipeline ensures ephemeral containers each run a specialized Rust tool, eit
 #### Project Structure:
 
 ```plaintext
-experiment_71/
+experiment_7_1/
 ├── Cargo.toml                  # Rust dependencies
 ├── src/
 │   ├── main.rs                 # Rust implementation
@@ -37,6 +37,26 @@ experiment_71/
         └── rust_noodles_tool.rar  # Compressed Rust noodles tool executable
 ```
 
+#### Cargo.toml
+
+```toml
+[package]
+name = "rust_noodles_coverage"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+noodles = { version = "0.5", features = ["bam", "core", "vcf"] }
+rayon = "1.5.1"
+clap = { version = "4", features = ["derive"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+log = "0.4"
+env_logger = "0.11.8"
+thiserror = "2.0.12"
+anyhow = "1.0"
+```
+
 #### How to run:
 
 run main.rs in wsl:
@@ -56,21 +76,8 @@ nextflow run main.nf
 run main.nf with this parameters:
 params.bam_list = "bams.txt"
 params.vcf_file = "cohort.vcf"
-params.rust_bin = "/mnt/c/Users/trian/BGVR/chapter_07/experiment_71/target/debug"
+params.rust_bin = "/mnt/c/Users/trian/BGVR/chapter_07/experiment_7_1/target/debug"
 
-#### [dependencies]
-
-```toml
-noodles = { version = "0.5", features = ["bam", "core", "vcf"] }
-rayon = "1.5.1"
-clap = { version = "4", features = ["derive"] }
-serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0"
-log = "0.4"
-env_logger = "0.11.8"
-thiserror = "2.0.12"
-anyhow = "1.0"
-```
 
 #### Explanation of the Output
 ##### ✅ main.rs Explanation (Rust CLI Tool)
