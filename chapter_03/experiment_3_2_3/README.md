@@ -1,6 +1,6 @@
 ## 3.2. Sequence Data Structures and Strings Algorithms
 
-### experiment_32_3
+### experiment_3_2_3
 
 #### 1. Nextflow
 The Nextflow script below provides two processes: one for building the Rust binary (optional if you prefer a precompiled artifact), and another to run the partial suffix array program on a given FASTA file. Each chunk in the FASTA sequence is processed in parallel using Rayon, yielding multiple partial arrays that are then serialized as JSON. For industrial-scale tasks, ephemeral nodes might each handle a single chunk of the sequence before merging partial JSON outputs into a single suffix array. The Rust code itself exemplifies a simplified approach, illustrating how chunking, parallel sorting, and minimal offset adjustments can be done in a safe, robust manner.
@@ -15,7 +15,7 @@ In a large-scale environment, each ephemeral job might generate its own partial 
 #### Project Structure:
 
 ```plaintext
-experiment_32_3/
+experiment_3_2_3/
 ├── Cargo.toml                         # Rust project configuration and dependencies
 └── src/
     ├── main.rs                        # Main Rust script containing program logic
@@ -23,6 +23,20 @@ experiment_32_3/
     ├── large_sequence.fa              # FASTA file containing sequence data
     ├── partial_suffix_arrays.json     # JSON output file containing partial suffix arrays
     └── output.txt                     # Text output file
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_3_2_3"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rayon = "1.7"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
 ```
 
 #### How to run:
@@ -35,13 +49,6 @@ cargo run main.nf | tee output.txt
 
 (run main.nf and save the output in output.txt)
   
-#### [dependencies]
-
-```toml
-rayon = "1.7"
-serde = { version = "1", features = ["derive"] }
-serde_json = "1"
-```
 
 #### Explanation of the Output:
 The program you are running is a Nextflow pipeline that automates the compilation and execution of a Rust program for building partial suffix arrays on a large DNA sequence stored in a FASTA file. Here’s a breakdown of each part of the output:
