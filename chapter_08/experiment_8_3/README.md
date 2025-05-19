@@ -29,9 +29,17 @@ cargo run -- --bam mapped.bam --fasta reference.fa --out variants.parquet | tee 
 
 (run main.rs with mapped.bam and reference.fa as input files and create variants.parquet output file)
 
-#### [dependencies]
+#### Cargo.toml
 
 ```toml
+[package]
+name = "variant-caller"
+version = "0.1.0"
+edition = "2021"
+# Use the newer resolver to help with dependency conflicts
+resolver = "2"
+
+[dependencies]
 anyhow        = "1.0"
 clap          = { version = "4.3", features = ["derive"] }
 colored       = "2.0.0"
