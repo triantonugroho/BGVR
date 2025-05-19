@@ -1,6 +1,6 @@
-## 2.1. Introduction to Rust Programming Language
+## 1.1. Introduction to Rust Programming Language
 
-### experiment_21_6
+### experiment_1_1_6
 
 When building a Rust project for Python interoperability, you can specify crate-type = ["cdylib"] to ensure your library is compiled as a dynamic library suitable for Python imports. Enabling PyO3 with the "extension-module" feature allows you to generate a Python C-extension, making your library compatible with the Python ecosystem. Additionally, you may include maturin as a build dependency to simplify packaging your Rust library into Python wheels, streamlining distribution and installation.
 
@@ -9,7 +9,7 @@ In this code, you configure a Rust crate as a Python extension by setting crate-
 #### Project Structure:
 
 ```plaintext
-experiment_21_6/
+experiment_1_1_6/
 ├── lib.rs                         # Rust script to make Python library
 ├── Testing pyo3_biopython_example.ipynb # Python notebook for testing
 ├── Cargo.toml                     # Rust project configuration and dependencies
@@ -20,13 +20,29 @@ experiment_21_6/
 │   ├── pyo3_biopython_example.dll.lib
 │   └── pyo3_biopython_example.pdb
 └── target/wheels/
-    └── experiment_21_6-0.1.0-cp311-cp311-win_amd64.whl
+    └── experiment_1_1_6-0.1.0-cp311-cp311-win_amd64.whl
 
 ~anaconda3/Lib/site-packages/pyo3_biopython_example/
 ├── __init__                       # Python Source File
 ├── pyo3_biopython_example.cp311-win_amd64.pyd
 └── __pycache__/
     └── __init__.cpython-311      # Compiled Python File
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_1_1_6"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+pyo3 = { version = "0.23.5", features = ["extension-module"] }
+
+[lib]
+name = "pyo3_biopython_example"
+crate-type = ["cdylib"]
 ```
 
 #### How to run:
@@ -37,17 +53,6 @@ cargo run
 
 (run lib.rs and make pyo3_biopython_example python library)
   
-#### [dependencies]
-
-```toml
-pyo3 = { version = "0.23.5", features = ["extension-module"] }
-```
-#### [lib]
-
-```toml
-name = "pyo3_biopython_example"
-crate-type = ["cdylib"]
-```
 #### Explanation of the Output
 The output "pyo3_biopython_example (python library)" indicates that the Rust code has been successfully compiled into a Python library using PyO3. This means that Python users can now import and use the Rust functions as if they were native Python functions.
 
