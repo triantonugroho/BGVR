@@ -1,6 +1,6 @@
-## 1.8. Tools and Frameworks
+## 2.8. Tools and Frameworks
 
-### experiment_18_3
+### experiment_2_8_3
 
 In practical deployments, a typical advanced bioinformatics pipeline integrates Rust binaries into Nextflow modules, capitalizing on the language’s safety guarantees and performance benefits. Below is a Rust example that demonstrates HPC-level concurrency and memory management for processing alignment files. The code uses crates like “rust-bio” for parsing BAM records, “ndarray” or “nalgebra” for vectorized operations, and “rayon” for concurrency on multi-core systems. Each crate serves a distinct role in building a robust, scalable workflow.
 
@@ -9,13 +9,28 @@ In this example, “rust-htslib” provides high-performance routines for readin
 #### Project Structure:
 
 ```plaintext
-experiment_18_3/
+experiment_2_8_3/
 ├── Cargo.toml                     # Rust project configuration and dependencies
 └── src/
     ├── main.rs                    # Main Rust script containing program logic
     ├── main.nf                    # Nextflow workflow script
     ├── reads.bam                  # BAM alignment file
     └── output.txt                 # Output file
+```
+
+#### Cargo.toml
+
+```toml
+[package]
+name = "experiment_2_8_3"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+nalgebra = "0.33.2"
+ndarray = "0.16.1"
+rayon = "1.10.0"
+rust-htslib = "0.47.1"
 ```
 
 #### How to run:
@@ -26,14 +41,6 @@ cargo run main.nf
 
 (run the nextflow script that will run the main.rs and save the output in output.txt)
 
-#### [dependencies]
-
-```toml
-nalgebra = "0.33.2"
-ndarray = "0.16.1"
-rayon = "1.10.0"
-rust-htslib = "0.47.1"
-```
 
 #### Explanation of the Output
 
