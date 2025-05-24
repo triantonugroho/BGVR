@@ -31,3 +31,8 @@ Cargo.lock
 
 # Custom rule untuk experiment_18_1_2 reads.fastq
 chapter_01/experiment_18_1_2/src/work/*/reads.fastq
+# Ignore Nextflow intermediate outputs for experiment_9_2
+chapter_09/experiment_9_2/work/
+chapter_09/experiment_9_2/target/
+chapter_09/experiment_9_2/results*/
+chapter_09/experiment_9_2/.nextflow.log*
