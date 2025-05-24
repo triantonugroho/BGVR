@@ -12,36 +12,59 @@ This Nextflow pipeline implements a three-stage workflow with conditional execut
 
 #### Project Structure:
 
-```
+```plaintext
 experiment_9_3/
 ├── Cargo.toml                              # Rust package configuration and dependencies
-├── generate_data.py                        # Python script to generate synthetic dataset
 ├── main.nf                                 # Nextflow pipeline script
-├── assets/
-│   └── multiqc_config.yml                  # MultiQC configuration file
-├── conf/
-│   ├── base.config                         # Base Nextflow configuration
-│   ├── igenomes.config                     # iGenomes reference configuration
-│   ├── modules.config                      # Nextflow modules configuration
-│   └── test.config                         # Test configuration parameters
-├── data/
-│   ├── kmer_index.rar                      # Compressed k-mer index JSON file
-│   ├── reads.fastq                         # Input RNA-seq reads in FASTQ format
-│   ├── transcripts.fasta                   # Reference transcripts in FASTA format
-│   └── true_expression.tsv                 # Ground truth expression values (for validation)
-├── results/
-│   ├── quantification.tsv                  # Direct Rust tool quantification output
-│   └── quantification_k25.tsv              # Quantification results with k-mer length 25
-├── results/pseudoalignment/
-│   ├── reads_pseudoalign.log               # Pseudo-alignment process log
-│   └── reads_quantification.tsv            # Transcript quantification results
-├── results_nextflow/pseudoalignment/
-│   ├── reads_pseudoalign.log               # Nextflow pipeline pseudo-alignment log
-│   └── reads_quantification.tsv            # Nextflow pipeline quantification output
-├── src/
-│   └── main.rs                             # Rust pseudo-alignment implementation
-└── target/release/
-    └── rust_pseudoalign                    # Compiled Rust executable binary
+├── generate_sample_data.py                 # Python script to generate sample data
+├── rnaseq-normalizer                       # Compiled Rust executable binary
+├── README.md                               # Project documentation
+├── nextflow.config                         # Nextflow configuration (optional)
+│
+├── src/                                    # Rust source code
+│   └── main.rs                            # Main Rust normalization implementation
+│
+├── target/                                 # Rust build artifacts
+│   └── release/
+│       └── rnaseq-normalizer              # Compiled Rust executable binary
+│
+├── test_data_small/                        # Small test dataset (100 genes × 6 samples)
+│   ├── raw_counts.tsv                     # Raw count data
+│   ├── batch_metadata.tsv                 # Sample batch information
+│   └── README.md                          # Dataset description
+│
+├── test_data_medium/                       # Medium test dataset (1,000 genes × 12 samples)
+│   ├── raw_counts.tsv                     # Raw count data
+│   ├── batch_metadata.tsv                 # Sample batch information
+│   └── README.md                          # Dataset description
+│
+├── test_data_large/                        # Large test dataset (5,000 genes × 24 samples)
+│   ├── raw_counts.tsv                     # Raw count data
+│   ├── batch_metadata.tsv                 # Sample batch information
+│   └── README.md                          # Dataset description
+│
+├── results/                                # Final pipeline outputs
+│   ├── normalized_counts.tsv              # DESeq2-style normalized counts
+│   ├── normalization_stats.txt            # Size factors and normalization statistics
+│   ├── corrected_counts.tsv               # Batch-corrected counts (if batch correction enabled)
+│   ├── batch_correction_log.txt           # Batch correction processing log
+│   └── summary.txt                        # Comprehensive pipeline summary report
+│
+└── work/                                   # Nextflow working directory (temporary files)
+    ├── 07/
+    │   └── 4315c6682960910f75c0ee92c4e3ee/
+    │       └── summary.txt                # Process-specific summary
+    ├── 34/
+    │   └── d047061e8076a874b3b2ea2adc430d/
+    │       ├── normalized_counts.tsv      # Intermediate normalized counts
+    │       ├── normalization_stats.txt    # Intermediate statistics
+    │       └── rnaseq-normalizer          # Process-local binary copy
+    ├── 54/
+    │   └── 8616295b7ea49b858dcf0b8acd7407/
+    │       └── validation_report.txt      # Input validation report
+    └── 81/
+        └── bf1320833832674e387716c46199e5/
+            └── corrected_counts.tsv       # Intermediate batch-corrected counts
 ```
 
 #### Cargo.toml
