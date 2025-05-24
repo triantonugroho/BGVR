@@ -1,0 +1,7 @@
+sample_id	condition	batch	replicate
+Control_Batch1_Rep1	Control	Batch1	Rep1
+Treatment_Batch2_Rep1	Treatment	Batch2	Rep1
+Control_Batch3_Rep2	Control	Batch3	Rep2
+Treatment_Batch1_Rep2	Treatment	Batch1	Rep2
+Control_Batch2_Rep3	Control	Batch2	Rep3
+Treatment_Batch3_Rep3	Treatment	Batch3	Rep3
