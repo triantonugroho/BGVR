@@ -1,0 +1,8 @@
+Batch Correction Summary
+========================
+Input entries: 12000
+Output entries: 12000
+Batch distribution:
+  Batch1: 4000 samples
+  Batch2: 4000 samples
+  Batch3: 4000 samples

@@ -1,0 +1,40 @@
+RNA-seq Normalization Pipeline Summary
+=====================================
+Generated: 2025-05-24 23:55:22
+
+PIPELINE STATUS: SUCCESS
+========================
+✅ Normalization: COMPLETED
+✅ Batch Correction: Applied
+✅ Quality Control: COMPLETED
+
+INPUT PARAMETERS:
+================
+- Input file: test_data_medium/raw_counts.tsv
+- Output directory: results
+- Minimum count threshold: 1.0
+- Pseudocount: 1.0
+- Batch metadata: test_data_medium/batch_metadata.tsv
+
+PROCESSING RESULTS:
+==================
+- Raw count entries: 11999
+- Normalized entries: 12000
+- Batch corrected entries: 12000
+
+OUTPUT FILES:
+============
+✓ normalized_counts.tsv (12000 entries)
+✓ normalization_stats.txt
+✓ corrected_counts.tsv (12000 entries)
+✓ batch_correction_log.txt
+✓ summary.txt
+
+NEXT STEPS:
+===========
+1. Review normalization_stats.txt for detailed statistics
+2. Use normalized_counts.tsv for differential expression analysis
+3. Compare batch effects using corrected_counts.tsv
+
+PIPELINE COMPLETED SUCCESSFULLY
+Data is ready for downstream analysis.
