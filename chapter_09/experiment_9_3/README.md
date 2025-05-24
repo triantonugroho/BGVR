@@ -343,8 +343,9 @@ executor >  local (3)
 
 #### Output
 
-batch_correction_log.txt:
+**batch_correction_log.txt:**
 
+```
 Batch Correction Summary
 ========================
 Input entries: 12000
@@ -353,9 +354,11 @@ Batch distribution:
   Batch1: 4000 samples
   Batch2: 4000 samples
   Batch3: 4000 samples
+```
 
-corrected_counts.tsv:
+**corrected_counts.tsv:**
 
+```
 gene_id	sample_id	corrected_count
 GENE_00001	Control_Batch1_Rep1	416.107304
 GENE_00001	Control_Batch1_Rep4	399.222937
@@ -382,9 +385,11 @@ GENE_00002	Treatment_Batch2_Rep4	221.448568
 GENE_00002	Treatment_Batch3_Rep3	231.720726
 GENE_00002	Treatment_Batch3_Rep6	263.316828
 ...
+```
 
-normalization_stats.txt:
+**normalization_stats.txt:**
 
+```
 RNA-seq Normalization Statistics
 ================================
 Total genes: 1000
@@ -405,9 +410,11 @@ Treatment_Batch2_Rep1	1.458530
 Treatment_Batch2_Rep4	1.471448
 Treatment_Batch3_Rep3	0.679698
 Treatment_Batch3_Rep6	0.681878
+```
 
-normalized_counts.tsv:
+**normalized_counts.tsv:**
 
+```
 gene_id	sample_id	normalized_count
 GENE_00001	Control_Batch1_Rep1	416.107304
 GENE_00001	Control_Batch1_Rep4	399.222937
@@ -434,9 +441,11 @@ GENE_00002	Treatment_Batch2_Rep4	233.103756
 GENE_00002	Treatment_Batch3_Rep3	220.686406
 GENE_00002	Treatment_Batch3_Rep6	250.777931
 ...
+```
 
-Summary.txt:
+**Summary.txt:**
 
+```
 RNA-seq Normalization Pipeline Summary
 =====================================
 Generated: 2025-05-24 23:55:22
@@ -477,6 +486,7 @@ NEXT STEPS:
 
 PIPELINE COMPLETED SUCCESSFULLY
 Data is ready for downstream analysis.
+```
 
 ####  Output Analysis and Conclusion
 
