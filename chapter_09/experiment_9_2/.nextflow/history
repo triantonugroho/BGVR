@@ -1,0 +1,3 @@
+2025-05-24 08:14:27	5.6s	nice_perlman	ERR	86bdecc931a62b7452fbe8cd32effdae	581155e8-1411-4c21-b03e-32851669b952	nextflow run main.nf --method pseudo --reads 'data/*.fastq*' --kmer_index data/kmer_index.json --outdir results_nextflow
+2025-05-24 08:25:05	11.5s	fabulous_wegener	OK	86bdecc931a62b7452fbe8cd32effdae	581155e8-1411-4c21-b03e-32851669b952	nextflow run main.nf --method pseudo --reads 'data/*.fastq*' --kmer_index data/kmer_index.json --outdir results_nextflow -resume
+2025-05-24 08:26:57	15.1s	magical_einstein	OK	86bdecc931a62b7452fbe8cd32effdae	581155e8-1411-4c21-b03e-32851669b952	nextflow run main.nf --method pseudo --reads 'data/*.fastq*' -resume
