@@ -230,6 +230,53 @@ Batch metadata saved to test_data_large/batch_metadata.tsv
 
 # Build the Rust application
 cargo build --release
+
+(base) trian@triantoharyo:/mnt/c/Users/trian/BGVR/chapter_09/experiment_9_3$ cargo build --release
+   Compiling proc-macro2 v1.0.95
+   Compiling autocfg v1.4.0
+   Compiling unicode-ident v1.0.18
+   Compiling memchr v2.7.4
+   Compiling serde v1.0.219
+   Compiling utf8parse v0.2.2
+   Compiling libc v0.2.172
+   Compiling colorchoice v1.0.3
+   Compiling anstyle-parse v0.2.6
+   Compiling is_terminal_polyfill v1.70.1
+   Compiling regex-syntax v0.8.5
+   Compiling anstyle v1.0.10
+   Compiling anstyle-query v1.1.2
+   Compiling num-traits v0.2.19
+   Compiling matrixmultiply v0.3.10
+   Compiling aho-corasick v1.1.3
+   Compiling anstream v0.6.18
+   Compiling itoa v1.0.15
+   Compiling clap_lex v0.7.4
+   Compiling regex-automata v0.4.9
+   Compiling serde_json v1.0.140
+   Compiling quote v1.0.40
+   Compiling strsim v0.11.1
+   Compiling syn v2.0.101
+   Compiling thiserror v1.0.69
+   Compiling rawpointer v0.2.1
+   Compiling ryu v1.0.20
+   Compiling anyhow v1.0.98
+   Compiling num-integer v0.1.46
+   Compiling num-complex v0.4.6
+   Compiling clap_builder v4.5.38
+   Compiling is-terminal v0.4.16
+   Compiling csv-core v0.1.12
+   Compiling regex v1.11.1
+   Compiling termcolor v1.4.1
+   Compiling humantime v2.2.0
+   Compiling log v0.4.27
+   Compiling ndarray v0.15.6
+   Compiling env_logger v0.10.2
+   Compiling serde_derive v1.0.219
+   Compiling thiserror-impl v1.0.69
+   Compiling clap v4.5.38
+   Compiling csv v1.3.1
+   Compiling rnaseq-normalizer v1.0.0 (/mnt/c/Users/trian/BGVR/chapter_09/experiment_9_3)
+    Finished `release` profile [optimized] target(s) in 1m 00s
 ```
 
 Run main.nf in wsl:
