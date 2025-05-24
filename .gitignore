@@ -36,3 +36,11 @@ chapter_09/experiment_9_2/work/
 chapter_09/experiment_9_2/target/
 chapter_09/experiment_9_2/results*/
 chapter_09/experiment_9_2/.nextflow.log*
+# Ignore Nextflow outputs & runtime files in experiment_9_2
+chapter_09/experiment_9_2/work/
+chapter_09/experiment_9_2/target/
+chapter_09/experiment_9_2/results*/
+chapter_09/experiment_9_2/.nextflow.log*
+chapter_09/experiment_9_2/mode=prod
+chapter_09/experiment_9_2/nextflow
+chapter_09/experiment_9_2/nextflow.secret*
