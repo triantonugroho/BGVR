@@ -1,0 +1,19 @@
+[2025-05-24T01:27:00Z INFO  rust_pseudoalign] Starting pseudo-alignment with parameters:
+[2025-05-24T01:27:00Z INFO  rust_pseudoalign]   Index file: kmer_index.json
+[2025-05-24T01:27:00Z INFO  rust_pseudoalign]   Reads file: reads.fastq
+[2025-05-24T01:27:00Z INFO  rust_pseudoalign]   Output file: reads_quantification.tsv
+[2025-05-24T01:27:00Z INFO  rust_pseudoalign]   K-mer length: 31
+[2025-05-24T01:27:00Z INFO  rust_pseudoalign]   Threads: 2
+[2025-05-24T01:27:00Z INFO  rust_pseudoalign]   Min read length: 50
+[2025-05-24T01:27:00Z INFO  rust_pseudoalign] Loading k-mer index from: kmer_index.json
+[2025-05-24T01:27:07Z INFO  rust_pseudoalign] Loaded 1732031 k-mers for 1000 transcripts in 7.135424574s
+[2025-05-24T01:27:07Z INFO  rust_pseudoalign] Processing reads from: reads.fastq
+[2025-05-24T01:27:08Z INFO  rust_pseudoalign] Results written to: reads_quantification.tsv
+
+=== Quantification Summary ===
+Total reads processed: 49512
+Reads aligned: 48327
+Alignment rate: 97.61%
+Processing time: 727.523947ms
+Transcripts with non-zero counts: 973
+[2025-05-24T01:27:08Z INFO  rust_pseudoalign] Pseudo-alignment completed successfully!
