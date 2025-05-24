@@ -1,0 +1,20 @@
+RNA-seq Normalization Statistics
+================================
+Total genes: 1000
+Total samples: 12
+Zero counts: 92
+Geometric means computed: 1000
+
+Size Factors:
+Control_Batch1_Rep1	0.997339
+Control_Batch1_Rep4	0.994432
+Control_Batch2_Rep3	1.501198
+Control_Batch2_Rep6	1.488839
+Control_Batch3_Rep2	0.702338
+Control_Batch3_Rep5	0.704060
+Treatment_Batch1_Rep2	0.973800
+Treatment_Batch1_Rep5	0.976141
+Treatment_Batch2_Rep1	1.458530
+Treatment_Batch2_Rep4	1.471448
+Treatment_Batch3_Rep3	0.679698
+Treatment_Batch3_Rep6	0.681878
