@@ -1,0 +1,4 @@
+File: raw_counts.tsv
+Lines: 12000
+Columns: 3
+✓ Third column appears numeric
