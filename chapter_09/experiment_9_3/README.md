@@ -2,15 +2,13 @@
 
 ### experiment_9_3
 
-Many bioinformatic pipelines adopt a multi-stage approach: raw counts are collected from alignment or pseudo-alignment, subjected to normalization, and optionally corrected for batch effects. Below is a Rust program that demonstrates how one could implement a size factor normalization pipeline using the “ndarray” crate for matrix manipulation and “serde” for serialization of gene count data. This example operates in a production-ready style, emphasizing error handling and clarity.
+Many bioinformatics pipelines adopt a multi-stage approach: raw counts are collected from alignment or pseudo-alignment, subjected to normalization, and optionally corrected for batch effects. Below is a Rust program that implements a comprehensive DESeq2-style normalization pipeline using the ndarray crate for efficient matrix operations and clap for command-line interface. This production-ready implementation emphasizes robust error handling, comprehensive logging, quality control checks, and statistical reporting.
 
-This code assumes a tab-separated file of gene counts with three columns: gene ID, sample ID, and raw count. It constructs a dense matrix via ndarray::Array2, though for large, sparse datasets, a sparse representation would be more memory-efficient. The median-ratio approach is implemented by computing the geometric mean of each gene across samples, then finding the median ratio per sample to derive size factors. In production pipelines, additional care would be taken to handle zeros, apply logs where appropriate, and manage any extreme values.
+This code processes tab-separated files with three columns (gene ID, sample ID, and raw count) and implements a complete normalization workflow. The program automatically handles header detection, constructs dense matrices via ndarray::Array2, and applies the median-ratio method for size factor calculation. Key features include comprehensive quality control checks that warn about low-count samples and zero-expression genes, robust geometric mean computation using log-space arithmetic to handle zeros gracefully, and detailed statistical reporting. The implementation uses HashSet for efficient gene/sample collection, HashMap for fast indexing, and provides extensive logging throughout the process. Size factors are calculated by computing geometric means across samples for each gene, then finding the median ratio per sample, with safeguards against division by very small numbers and fallback handling for edge cases.
 
-Below is a Nextflow script that orchestrates tasks including reading in raw counts, performing Rust-based normalization, and optionally performing batch correction with a script or tool of choice. This file can be extended to incorporate alignment or quantification steps from previous chapters, and containerization for reproducibility.
+Below is a comprehensive Nextflow pipeline that orchestrates a complete RNA-seq normalization workflow, including parameter validation, DESeq2-style normalization using a custom Rust binary, optional batch correction with Python scripting, and automated summary reporting. This production-ready pipeline features robust error handling, conditional process execution, and modular design that can be easily extended to incorporate upstream alignment steps or downstream analysis modules, with built-in support for containerization and reproducibility.
 
-In this Nextflow file, the “NORMALIZE” process invokes the Rust executable that implements median-ratio normalization. A subsequent “BATCH_CORRECT” step conditionally applies a script, potentially running ComBat or limma’s removeBatchEffect via an R script, contingent on the pipeline parameter. This modularity facilitates easy insertion of new steps, such as specialized transformations for domain-specific data.
-
-In practical settings, AI engineers and bioinformaticians often integrate these Rust workflows into large-scale Nextflow pipelines to handle massive cohorts spanning multiple research centers. Studies have reported significant performance gains from Rust’s concurrency features when normalizing thousands of samples concurrently, accelerating the feedback loop in drug discovery pipelines. For example, a major pharmaceutical company recently employed a Rust-based normalization workflow to unify expression data from international trials, enabling more reliable cross-cohort analyses. With careful attention to data structures, scaling factors, and batch correction, these pipelines deliver actionable insights that drive target validation and biomarker discovery.
+This Nextflow pipeline implements a three-stage workflow with conditional execution and comprehensive error handling. The NORMALIZE_COUNTS process invokes the custom Rust normalizer binary with configurable parameters for minimum count thresholds and pseudocounts, ensuring robust statistical normalization. The BATCH_CORRECT process conditionally executes based on pipeline parameters, implementing a Python-based batch correction algorithm that reads metadata, applies correction factors per batch, and generates detailed processing logs. The CREATE_SUMMARY process uses bash scripting to count entries across all output files and generate a comprehensive text-based report with pipeline status, processing statistics, and next-step recommendations. The pipeline features automatic parameter validation, file existence checking, and graceful handling of optional processes through Nextflow's conditional execution and empty channel mechanisms.
 
 #### Project Structure:
 
@@ -50,33 +48,45 @@ experiment_9_3/
 
 ```toml
 [package]
-name = "bio-pseudo-align"
-version = "0.1.0"
+name = "rnaseq-normalizer"
+version = "1.0.0"
 edition = "2021"
+authors = ["Bioinformatics Pipeline <pipeline@example.com>"]
+description = "A robust RNA-seq count normalization tool implementing DESeq2-style normalization"
+license = "MIT"
+repository = "https://github.com/username/rnaseq-normalizer"
+keywords = ["bioinformatics", "rnaseq", "normalization", "genomics"]
+categories = ["science", "command-line-utilities"]
 
 [[bin]]
-name = "rust_pseudoalign"
+name = "rnaseq-normalizer"
 path = "src/main.rs"
 
 [dependencies]
-rayon = "1.8"
+clap = "4.4"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 ndarray = "0.15"
-clap = { version = "4.4", features = ["derive"] }
 log = "0.4"
 env_logger = "0.10"
+csv = "1.3"
 anyhow = "1.0"
 thiserror = "1.0"
-dashmap = "5.5"
-indicatif = "0.17"
-bio = "1.4"
-flate2 = "1.0"
-crossbeam-channel = "0.5"
 
 [dev-dependencies]
 tempfile = "3.8"
-criterion = "0.5"
+assert_cmd = "2.0"
+predicates = "3.0"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
+
+[profile.dev]
+opt-level = 0
+debug = true
 ```
 
 #### How to run:
@@ -84,38 +94,181 @@ criterion = "0.5"
 Run main.rs in wsl:
 
 ```wsl
-# Build project
+# Generating sample datasets
+python3 generate_sample_data.py --create-test-sets
+
+(base) trian@triantoharyo:/mnt/c/Users/trian/BGVR/chapter_09/experiment_9_3$ python3 generate_sample_data.py --create-test-sets
+
+==================================================
+Creating small dataset
+==================================================
+Generating count data for 100 genes and 6 samples
+Samples: ['Control_Batch1_Rep1', 'Treatment_Batch2_Rep1', 'Control_Batch3_Rep2', 'Treatment_Batch1_Rep2', 'Control_Batch2_Rep3', 'Treatment_Batch3_Rep3']    
+Count data saved to test_data_small/raw_counts.tsv
+Total entries: 600
+
+Sample summary statistics:
+                          sum     mean       std
+sample_id
+Control_Batch1_Rep1    121744  1217.44   5410.98
+Control_Batch2_Rep3    182868  1828.68   8119.22
+Control_Batch3_Rep2     85673   856.73   3817.46
+Treatment_Batch1_Rep2  177157  1771.57  10619.84
+Treatment_Batch2_Rep1  265264  2652.64  15914.06
+Treatment_Batch3_Rep3  124150  1241.50   7435.00
+
+Batch metadata saved to test_data_small/batch_metadata.tsv
+               sample_id  condition   batch replicate
+0    Control_Batch1_Rep1    Control  Batch1      Rep1
+1  Treatment_Batch2_Rep1  Treatment  Batch2      Rep1
+2    Control_Batch3_Rep2    Control  Batch3      Rep2
+3  Treatment_Batch1_Rep2  Treatment  Batch1      Rep2
+4    Control_Batch2_Rep3    Control  Batch2      Rep3
+5  Treatment_Batch3_Rep3  Treatment  Batch3      Rep3
+
+==================================================
+Creating medium dataset
+==================================================
+Generating count data for 1000 genes and 12 samples
+Samples: ['Control_Batch1_Rep1', 'Treatment_Batch2_Rep1', 'Control_Batch3_Rep2', 'Treatment_Batch1_Rep2', 'Control_Batch2_Rep3', 'Treatment_Batch3_Rep3', 'Control_Batch1_Rep4', 'Treatment_Batch2_Rep4', 'Control_Batch3_Rep5', 'Treatment_Batch1_Rep5', 'Control_Batch2_Rep6', 'Treatment_Batch3_Rep6']
+Count data saved to test_data_medium/raw_counts.tsv
+Total entries: 12000
+
+Sample summary statistics:
+                           sum     mean      std
+sample_id
+Control_Batch1_Rep1    1018613  1018.61  4310.49
+Control_Batch1_Rep4    1016802  1016.80  4311.36
+Control_Batch2_Rep3    1528010  1528.01  6455.06
+Control_Batch2_Rep6    1526836  1526.84  6457.09
+Control_Batch3_Rep2     712936   712.94  3014.94
+Control_Batch3_Rep5     712487   712.49  3011.59
+Treatment_Batch1_Rep2   988472   988.47  3259.87
+Treatment_Batch1_Rep5   988128   988.13  3259.86
+Treatment_Batch2_Rep1  1481055  1481.06  4882.99
+Treatment_Batch2_Rep4  1482618  1482.62  4895.75
+Treatment_Batch3_Rep3   692524   692.52  2282.66
+Treatment_Batch3_Rep6   692372   692.37  2284.82
+
+Batch metadata saved to test_data_medium/batch_metadata.tsv
+                sample_id  condition   batch replicate
+0     Control_Batch1_Rep1    Control  Batch1      Rep1
+1   Treatment_Batch2_Rep1  Treatment  Batch2      Rep1
+2     Control_Batch3_Rep2    Control  Batch3      Rep2
+3   Treatment_Batch1_Rep2  Treatment  Batch1      Rep2
+4     Control_Batch2_Rep3    Control  Batch2      Rep3
+5   Treatment_Batch3_Rep3  Treatment  Batch3      Rep3
+6     Control_Batch1_Rep4    Control  Batch1      Rep4
+7   Treatment_Batch2_Rep4  Treatment  Batch2      Rep4
+8     Control_Batch3_Rep5    Control  Batch3      Rep5
+9   Treatment_Batch1_Rep5  Treatment  Batch1      Rep5
+10    Control_Batch2_Rep6    Control  Batch2      Rep6
+11  Treatment_Batch3_Rep6  Treatment  Batch3      Rep6
+
+==================================================
+Creating large dataset
+==================================================
+Generating count data for 5000 genes and 24 samples
+Samples: ['Control_Batch1_Rep1', 'Treatment_Batch2_Rep1', 'Control_Batch3_Rep2', 'Treatment_Batch1_Rep2', 'Control_Batch2_Rep3', 'Treatment_Batch3_Rep3', 'Control_Batch1_Rep4', 'Treatment_Batch2_Rep4', 'Control_Batch3_Rep5', 'Treatment_Batch1_Rep5', 'Control_Batch2_Rep6', 'Treatment_Batch3_Rep6', 'Control_Batch1_Rep7', 'Treatment_Batch2_Rep7', 'Control_Batch3_Rep8', 'Treatment_Batch1_Rep8', 'Control_Batch2_Rep9', 'Treatment_Batch3_Rep9', 'Control_Batch1_Rep10', 'Treatment_Batch2_Rep10', 'Control_Batch3_Rep11', 'Treatment_Batch1_Rep11', 'Control_Batch2_Rep12', 'Treatment_Batch3_Rep12']
+Count data saved to test_data_large/raw_counts.tsv
+Total entries: 120000
+
+Sample summary statistics:
+                            sum     mean      std
+sample_id
+Control_Batch1_Rep1     5165875  1033.18  4604.06
+Control_Batch1_Rep10    5163123  1032.62  4602.93
+Control_Batch1_Rep4     5164717  1032.94  4605.86
+Control_Batch1_Rep7     5164445  1032.89  4601.41
+Control_Batch2_Rep12    7750705  1550.14  6911.43
+Control_Batch2_Rep3     7744291  1548.86  6907.55
+Control_Batch2_Rep6     7746969  1549.39  6890.92
+Control_Batch2_Rep9     7744835  1548.97  6900.54
+Control_Batch3_Rep11    3613411   722.68  3215.51
+Control_Batch3_Rep2     3616974   723.39  3221.16
+Control_Batch3_Rep5     3615901   723.18  3222.08
+Control_Batch3_Rep8     3617985   723.60  3225.90
+Treatment_Batch1_Rep11  5530921  1106.18  6331.18
+Treatment_Batch1_Rep2   5528316  1105.66  6321.97
+Treatment_Batch1_Rep5   5530108  1106.02  6327.55
+Treatment_Batch1_Rep8   5531661  1106.33  6330.35
+Treatment_Batch2_Rep1   8289776  1657.96  9478.67
+Treatment_Batch2_Rep10  8286080  1657.22  9487.85
+Treatment_Batch2_Rep4   8289718  1657.94  9484.27
+Treatment_Batch2_Rep7   8288062  1657.61  9475.80
+Treatment_Batch3_Rep12  3871461   774.29  4429.80
+Treatment_Batch3_Rep3   3865950   773.19  4423.72
+Treatment_Batch3_Rep6   3868881   773.78  4426.27
+Treatment_Batch3_Rep9   3870449   774.09  4430.08
+
+Batch metadata saved to test_data_large/batch_metadata.tsv
+                 sample_id  condition   batch replicate
+0      Control_Batch1_Rep1    Control  Batch1      Rep1
+1    Treatment_Batch2_Rep1  Treatment  Batch2      Rep1
+2      Control_Batch3_Rep2    Control  Batch3      Rep2
+3    Treatment_Batch1_Rep2  Treatment  Batch1      Rep2
+4      Control_Batch2_Rep3    Control  Batch2      Rep3
+5    Treatment_Batch3_Rep3  Treatment  Batch3      Rep3
+6      Control_Batch1_Rep4    Control  Batch1      Rep4
+7    Treatment_Batch2_Rep4  Treatment  Batch2      Rep4
+8      Control_Batch3_Rep5    Control  Batch3      Rep5
+9    Treatment_Batch1_Rep5  Treatment  Batch1      Rep5
+10     Control_Batch2_Rep6    Control  Batch2      Rep6
+11   Treatment_Batch3_Rep6  Treatment  Batch3      Rep6
+12     Control_Batch1_Rep7    Control  Batch1      Rep7
+13   Treatment_Batch2_Rep7  Treatment  Batch2      Rep7
+14     Control_Batch3_Rep8    Control  Batch3      Rep8
+15   Treatment_Batch1_Rep8  Treatment  Batch1      Rep8
+16     Control_Batch2_Rep9    Control  Batch2      Rep9
+17   Treatment_Batch3_Rep9  Treatment  Batch3      Rep9
+18    Control_Batch1_Rep10    Control  Batch1     Rep10
+19  Treatment_Batch2_Rep10  Treatment  Batch2     Rep10
+20    Control_Batch3_Rep11    Control  Batch3     Rep11
+21  Treatment_Batch1_Rep11  Treatment  Batch1     Rep11
+22    Control_Batch2_Rep12    Control  Batch2     Rep12
+23  Treatment_Batch3_Rep12  Treatment  Batch3     Rep12
+
+# Build the Rust application
 cargo build --release
-
-# Generate data
-python3 generate_data.py --num-transcripts 500 --num-reads 50000
-
-# Run pseudo-alignment
-cargo run --release -- --verbose
-
-# Large dataset with compression
-python3 generate_data.py --num-transcripts 2000 --num-reads 200000
-
-# Run with custom parameters
-cargo run --release -- --threads 8 \
-    --kmer-length 31 \
-    --index data/kmer_index.json \
-    --reads data/reads.fastq \
-    --verbose
-
 ```
 
 Run main.nf in wsl:
 
 ```wsl
-python3 generate_data.py --num-transcripts 1000 --num-reads 50000
+nextflow run main.nf --input test_data_medium/raw_counts.tsv --batch_correct true --batch_metadata test_data_medium/batch_metadata.tsv
 
-nextflow run main.nf \
-    --method pseudo \
-    --reads 'data/.fastq' \
-    --kmer_index 'data/kmer_index.json' \
-    --outdir results_nextflow \
-    -resume
+(base) trian@triantoharyo:/mnt/c/Users/trian/BGVR/chapter_09/experiment_9_3$ nextflow run main.nf --input test_data_medium/raw_counts.tsv --batch_correct true --batch_metadata test_data_medium/batch_metadata.tsv
+Nextflow 25.04.2 is available - Please consider updating your version to it
+
+ N E X T F L O W   ~  version 24.10.4
+
+Launching `main.nf` [ecstatic_bernard] DSL2 - revision: 97a88934d7
+
+
+RNA-seq Normalization Pipeline
+==============================
+Input file:           test_data_medium/raw_counts.tsv
+Output directory:     results
+Batch correction:     true
+Batch metadata:       test_data_medium/batch_metadata.tsv
+Min count threshold:  1.0
+Pseudocount:          1.0
+
+executor >  local (3)
+[34/d04706] NORMALIZE_COUNTS (normalizing)    [100%] 1 of 1 ✔
+[ee/4bc77f] BATCH_CORRECT (batch_correction)  [100%] 1 of 1 ✔
+[07/4315c6] CREATE_SUMMARY (creating_summary) [100%] 1 of 1 ✔
+
+        🎉 SUCCESS! Pipeline completed successfully.
+
+        📁 Results in: results/
+        ├── normalized_counts.tsv      📊 Main results
+        ├── normalization_stats.txt    📈 Statistics
+        ├── corrected_counts.tsv       🔧 Batch corrected
+        ├── batch_correction_log.txt   📝 Batch log
+        └── summary.txt                📄 Pipeline summary
+
+        📋 Check summary.txt for complete results!
 ```
 
 #### Pseudo-alignment Pipeline Analysis & Results
