@@ -119,139 +119,160 @@ debug = true
 Run main.rs in wsl:
 
 ```wsl
-# Generating sample datasets
-python3 generate_sample_data.py --create-test-sets
+(base) trian@triantoharyo:/mnt/c/Users/trian/BGVR/chapter_09/experiment_9_4$ python3 generate_the_data.py --create-test-sets
 
-(base) trian@triantoharyo:/mnt/c/Users/trian/BGVR/chapter_09/experiment_9_3$ python3 generate_sample_data.py --create-test-sets
-
-==================================================
-Creating small dataset
-==================================================
-Generating count data for 100 genes and 6 samples
-Samples: ['Control_Batch1_Rep1', 'Treatment_Batch2_Rep1', 'Control_Batch3_Rep2', 'Treatment_Batch1_Rep2', 'Control_Batch2_Rep3', 'Treatment_Batch3_Rep3']    
-Count data saved to test_data_small/raw_counts.tsv
+============================================================
+Creating small differential expression dataset
+============================================================
+Generating normalized counts for 100 genes and 6 samples
+Control samples: ['Control_Rep1', 'Control_Rep2', 'Control_Rep3']
+Treatment samples: ['Treatment_Rep1', 'Treatment_Rep2', 'Treatment_Rep3']
+Normalized count data saved to de_test_data_small/normalized_counts.tsv
 Total entries: 600
 
 Sample summary statistics:
-                          sum     mean       std
+                count    mean     std
 sample_id
-Control_Batch1_Rep1    121744  1217.44   5410.98
-Control_Batch2_Rep3    182868  1828.68   8119.22
-Control_Batch3_Rep2     85673   856.73   3817.46
-Treatment_Batch1_Rep2  177157  1771.57  10619.84
-Treatment_Batch2_Rep1  265264  2652.64  15914.06
-Treatment_Batch3_Rep3  124150  1241.50   7435.00
+Control_Rep1      100  112.17  148.09
+Control_Rep2      100  113.63  160.47
+Control_Rep3      100  117.08  171.10
+Treatment_Rep1    100  165.20  340.56
+Treatment_Rep2    100  167.97  274.89
+Treatment_Rep3    100  140.25  233.00
 
-Batch metadata saved to test_data_small/batch_metadata.tsv
-               sample_id  condition   batch replicate
-0    Control_Batch1_Rep1    Control  Batch1      Rep1
-1  Treatment_Batch2_Rep1  Treatment  Batch2      Rep1
-2    Control_Batch3_Rep2    Control  Batch3      Rep2
-3  Treatment_Batch1_Rep2  Treatment  Batch1      Rep2
-4    Control_Batch2_Rep3    Control  Batch2      Rep3
-5  Treatment_Batch3_Rep3  Treatment  Batch3      Rep3
+Gene categories:
+- Upregulated: 10 genes (10.0%)
+- Downregulated: 10 genes (10.0%)
+- Unchanged: 80 genes (80.0%)
 
-==================================================
-Creating medium dataset
-==================================================
-Generating count data for 1000 genes and 12 samples
-Samples: ['Control_Batch1_Rep1', 'Treatment_Batch2_Rep1', 'Control_Batch3_Rep2', 'Treatment_Batch1_Rep2', 'Control_Batch2_Rep3', 'Treatment_Batch3_Rep3', 'Control_Batch1_Rep4', 'Treatment_Batch2_Rep4', 'Control_Batch3_Rep5', 'Treatment_Batch1_Rep5', 'Control_Batch2_Rep6', 'Treatment_Batch3_Rep6']
-Count data saved to test_data_medium/raw_counts.tsv
+Sample metadata saved to de_test_data_small/sample_metadata.tsv
+        sample_id      group  condition replicate   batch
+0    Control_Rep1    Control    Control         1  Batch1
+1    Control_Rep2    Control    Control         2  Batch2
+2    Control_Rep3    Control    Control         3  Batch3
+3  Treatment_Rep1  Treatment  Treatment         1  Batch1
+4  Treatment_Rep2  Treatment  Treatment         2  Batch2
+5  Treatment_Rep3  Treatment  Treatment         3  Batch3
+Dataset created in: de_test_data_small
+Files: normalized_counts.tsv, sample_metadata.tsv, README.md, expected_results.txt
+
+============================================================
+Creating medium differential expression dataset
+============================================================
+Generating normalized counts for 1000 genes and 12 samples
+Control samples: ['Control_Rep1', 'Control_Rep2', 'Control_Rep3', 'Control_Rep4', 'Control_Rep5', 'Control_Rep6']
+Treatment samples: ['Treatment_Rep1', 'Treatment_Rep2', 'Treatment_Rep3', 'Treatment_Rep4', 'Treatment_Rep5', 'Treatment_Rep6']
+Normalized count data saved to de_test_data_medium/normalized_counts.tsv
 Total entries: 12000
 
 Sample summary statistics:
-                           sum     mean      std
+                count    mean     std
 sample_id
-Control_Batch1_Rep1    1018613  1018.61  4310.49
-Control_Batch1_Rep4    1016802  1016.80  4311.36
-Control_Batch2_Rep3    1528010  1528.01  6455.06
-Control_Batch2_Rep6    1526836  1526.84  6457.09
-Control_Batch3_Rep2     712936   712.94  3014.94
-Control_Batch3_Rep5     712487   712.49  3011.59
-Treatment_Batch1_Rep2   988472   988.47  3259.87
-Treatment_Batch1_Rep5   988128   988.13  3259.86
-Treatment_Batch2_Rep1  1481055  1481.06  4882.99
-Treatment_Batch2_Rep4  1482618  1482.62  4895.75
-Treatment_Batch3_Rep3   692524   692.52  2282.66
-Treatment_Batch3_Rep6   692372   692.37  2284.82
+Control_Rep1     1000  179.78  381.15
+Control_Rep2     1000  177.78  391.13
+Control_Rep3     1000  181.06  364.63
+Control_Rep4     1000  179.62  386.98
+Control_Rep5     1000  176.90  373.53
+Control_Rep6     1000  183.00  391.46
+Treatment_Rep1   1000  226.51  554.02
+Treatment_Rep2   1000  240.46  778.09
+Treatment_Rep3   1000  230.01  572.71
+Treatment_Rep4   1000  242.19  624.56
+Treatment_Rep5   1000  231.34  584.88
+Treatment_Rep6   1000  233.34  593.73
 
-Batch metadata saved to test_data_medium/batch_metadata.tsv
-                sample_id  condition   batch replicate
-0     Control_Batch1_Rep1    Control  Batch1      Rep1
-1   Treatment_Batch2_Rep1  Treatment  Batch2      Rep1
-2     Control_Batch3_Rep2    Control  Batch3      Rep2
-3   Treatment_Batch1_Rep2  Treatment  Batch1      Rep2
-4     Control_Batch2_Rep3    Control  Batch2      Rep3
-5   Treatment_Batch3_Rep3  Treatment  Batch3      Rep3
-6     Control_Batch1_Rep4    Control  Batch1      Rep4
-7   Treatment_Batch2_Rep4  Treatment  Batch2      Rep4
-8     Control_Batch3_Rep5    Control  Batch3      Rep5
-9   Treatment_Batch1_Rep5  Treatment  Batch1      Rep5
-10    Control_Batch2_Rep6    Control  Batch2      Rep6
-11  Treatment_Batch3_Rep6  Treatment  Batch3      Rep6
+Gene categories:
+- Upregulated: 100 genes (10.0%)
+- Downregulated: 100 genes (10.0%)
+- Unchanged: 800 genes (80.0%)
 
-==================================================
-Creating large dataset
-==================================================
-Generating count data for 5000 genes and 24 samples
-Samples: ['Control_Batch1_Rep1', 'Treatment_Batch2_Rep1', 'Control_Batch3_Rep2', 'Treatment_Batch1_Rep2', 'Control_Batch2_Rep3', 'Treatment_Batch3_Rep3', 'Control_Batch1_Rep4', 'Treatment_Batch2_Rep4', 'Control_Batch3_Rep5', 'Treatment_Batch1_Rep5', 'Control_Batch2_Rep6', 'Treatment_Batch3_Rep6', 'Control_Batch1_Rep7', 'Treatment_Batch2_Rep7', 'Control_Batch3_Rep8', 'Treatment_Batch1_Rep8', 'Control_Batch2_Rep9', 'Treatment_Batch3_Rep9', 'Control_Batch1_Rep10', 'Treatment_Batch2_Rep10', 'Control_Batch3_Rep11', 'Treatment_Batch1_Rep11', 'Control_Batch2_Rep12', 'Treatment_Batch3_Rep12']
-Count data saved to test_data_large/raw_counts.tsv
+Sample metadata saved to de_test_data_medium/sample_metadata.tsv
+         sample_id      group  condition replicate   batch
+0     Control_Rep1    Control    Control         1  Batch1
+1     Control_Rep2    Control    Control         2  Batch2
+2     Control_Rep3    Control    Control         3  Batch3
+3     Control_Rep4    Control    Control         4  Batch1
+4     Control_Rep5    Control    Control         5  Batch2
+5     Control_Rep6    Control    Control         6  Batch3
+6   Treatment_Rep1  Treatment  Treatment         1  Batch1
+7   Treatment_Rep2  Treatment  Treatment         2  Batch2
+8   Treatment_Rep3  Treatment  Treatment         3  Batch3
+9   Treatment_Rep4  Treatment  Treatment         4  Batch1
+10  Treatment_Rep5  Treatment  Treatment         5  Batch2
+11  Treatment_Rep6  Treatment  Treatment         6  Batch3
+Dataset created in: de_test_data_medium
+Files: normalized_counts.tsv, sample_metadata.tsv, README.md, expected_results.txt
+
+============================================================
+Creating large differential expression dataset
+============================================================
+Generating normalized counts for 5000 genes and 24 samples
+Control samples: ['Control_Rep1', 'Control_Rep2', 'Control_Rep3', 'Control_Rep4', 'Control_Rep5', 'Control_Rep6', 'Control_Rep7', 'Control_Rep8', 'Control_Rep9', 'Control_Rep10', 'Control_Rep11', 'Control_Rep12']
+Treatment samples: ['Treatment_Rep1', 'Treatment_Rep2', 'Treatment_Rep3', 'Treatment_Rep4', 'Treatment_Rep5', 'Treatment_Rep6', 'Treatment_Rep7', 'Treatment_Rep8', 'Treatment_Rep9', 'Treatment_Rep10', 'Treatment_Rep11', 'Treatment_Rep12']
+Normalized count data saved to de_test_data_large/normalized_counts.tsv
 Total entries: 120000
 
 Sample summary statistics:
-                            sum     mean      std
+                 count    mean      std
 sample_id
-Control_Batch1_Rep1     5165875  1033.18  4604.06
-Control_Batch1_Rep10    5163123  1032.62  4602.93
-Control_Batch1_Rep4     5164717  1032.94  4605.86
-Control_Batch1_Rep7     5164445  1032.89  4601.41
-Control_Batch2_Rep12    7750705  1550.14  6911.43
-Control_Batch2_Rep3     7744291  1548.86  6907.55
-Control_Batch2_Rep6     7746969  1549.39  6890.92
-Control_Batch2_Rep9     7744835  1548.97  6900.54
-Control_Batch3_Rep11    3613411   722.68  3215.51
-Control_Batch3_Rep2     3616974   723.39  3221.16
-Control_Batch3_Rep5     3615901   723.18  3222.08
-Control_Batch3_Rep8     3617985   723.60  3225.90
-Treatment_Batch1_Rep11  5530921  1106.18  6331.18
-Treatment_Batch1_Rep2   5528316  1105.66  6321.97
-Treatment_Batch1_Rep5   5530108  1106.02  6327.55
-Treatment_Batch1_Rep8   5531661  1106.33  6330.35
-Treatment_Batch2_Rep1   8289776  1657.96  9478.67
-Treatment_Batch2_Rep10  8286080  1657.22  9487.85
-Treatment_Batch2_Rep4   8289718  1657.94  9484.27
-Treatment_Batch2_Rep7   8288062  1657.61  9475.80
-Treatment_Batch3_Rep12  3871461   774.29  4429.80
-Treatment_Batch3_Rep3   3865950   773.19  4423.72
-Treatment_Batch3_Rep6   3868881   773.78  4426.27
-Treatment_Batch3_Rep9   3870449   774.09  4430.08
+Control_Rep1      5000  175.96   452.21
+Control_Rep10     5000  177.29   468.23
+Control_Rep11     5000  177.88   449.15
+Control_Rep12     5000  176.90   459.43
+Control_Rep2      5000  176.98   437.14
+Control_Rep3      5000  172.79   422.01
+Control_Rep4      5000  176.05   448.80
+Control_Rep5      5000  176.47   459.86
+Control_Rep6      5000  181.18   518.27
+Control_Rep7      5000  174.65   446.55
+Control_Rep8      5000  172.88   426.98
+Control_Rep9      5000  173.57   440.68
+Treatment_Rep1    5000  243.27   865.59
+Treatment_Rep10   5000  248.40   915.80
+Treatment_Rep11   5000  241.65   977.39
+Treatment_Rep12   5000  232.99   781.73
+Treatment_Rep2    5000  241.29  1056.03
+Treatment_Rep3    5000  242.66   921.16
+Treatment_Rep4    5000  249.78  1036.59
+Treatment_Rep5    5000  244.13  1038.77
+Treatment_Rep6    5000  248.49  1083.69
+Treatment_Rep7    5000  254.31  1137.29
+Treatment_Rep8    5000  252.52  1169.84
+Treatment_Rep9    5000  250.26   995.91
 
-Batch metadata saved to test_data_large/batch_metadata.tsv
-                 sample_id  condition   batch replicate
-0      Control_Batch1_Rep1    Control  Batch1      Rep1
-1    Treatment_Batch2_Rep1  Treatment  Batch2      Rep1
-2      Control_Batch3_Rep2    Control  Batch3      Rep2
-3    Treatment_Batch1_Rep2  Treatment  Batch1      Rep2
-4      Control_Batch2_Rep3    Control  Batch2      Rep3
-5    Treatment_Batch3_Rep3  Treatment  Batch3      Rep3
-6      Control_Batch1_Rep4    Control  Batch1      Rep4
-7    Treatment_Batch2_Rep4  Treatment  Batch2      Rep4
-8      Control_Batch3_Rep5    Control  Batch3      Rep5
-9    Treatment_Batch1_Rep5  Treatment  Batch1      Rep5
-10     Control_Batch2_Rep6    Control  Batch2      Rep6
-11   Treatment_Batch3_Rep6  Treatment  Batch3      Rep6
-12     Control_Batch1_Rep7    Control  Batch1      Rep7
-13   Treatment_Batch2_Rep7  Treatment  Batch2      Rep7
-14     Control_Batch3_Rep8    Control  Batch3      Rep8
-15   Treatment_Batch1_Rep8  Treatment  Batch1      Rep8
-16     Control_Batch2_Rep9    Control  Batch2      Rep9
-17   Treatment_Batch3_Rep9  Treatment  Batch3      Rep9
-18    Control_Batch1_Rep10    Control  Batch1     Rep10
-19  Treatment_Batch2_Rep10  Treatment  Batch2     Rep10
-20    Control_Batch3_Rep11    Control  Batch3     Rep11
-21  Treatment_Batch1_Rep11  Treatment  Batch1     Rep11
-22    Control_Batch2_Rep12    Control  Batch2     Rep12
-23  Treatment_Batch3_Rep12  Treatment  Batch3     Rep12
+Gene categories:
+- Upregulated: 500 genes (10.0%)
+- Downregulated: 500 genes (10.0%)
+- Unchanged: 4000 genes (80.0%)
+
+Sample metadata saved to de_test_data_large/sample_metadata.tsv
+          sample_id      group  condition replicate   batch
+0      Control_Rep1    Control    Control         1  Batch1
+1      Control_Rep2    Control    Control         2  Batch2
+2      Control_Rep3    Control    Control         3  Batch3
+3      Control_Rep4    Control    Control         4  Batch1
+4      Control_Rep5    Control    Control         5  Batch2
+5      Control_Rep6    Control    Control         6  Batch3
+6      Control_Rep7    Control    Control         7  Batch1
+7      Control_Rep8    Control    Control         8  Batch2
+8      Control_Rep9    Control    Control         9  Batch3
+9     Control_Rep10    Control    Control        10  Batch1
+10    Control_Rep11    Control    Control        11  Batch2
+11    Control_Rep12    Control    Control        12  Batch3
+12   Treatment_Rep1  Treatment  Treatment         1  Batch1
+13   Treatment_Rep2  Treatment  Treatment         2  Batch2
+14   Treatment_Rep3  Treatment  Treatment         3  Batch3
+15   Treatment_Rep4  Treatment  Treatment         4  Batch1
+16   Treatment_Rep5  Treatment  Treatment         5  Batch2
+17   Treatment_Rep6  Treatment  Treatment         6  Batch3
+18   Treatment_Rep7  Treatment  Treatment         7  Batch1
+19   Treatment_Rep8  Treatment  Treatment         8  Batch2
+20   Treatment_Rep9  Treatment  Treatment         9  Batch3
+21  Treatment_Rep10  Treatment  Treatment        10  Batch1
+22  Treatment_Rep11  Treatment  Treatment        11  Batch2
+23  Treatment_Rep12  Treatment  Treatment        12  Batch3
+Dataset created in: de_test_data_large
+Files: normalized_counts.tsv, sample_metadata.tsv, README.md, expected_results.txt
 
 # Build the Rust application
 cargo build --release
