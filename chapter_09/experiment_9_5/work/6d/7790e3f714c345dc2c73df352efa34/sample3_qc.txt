@@ -1,0 +1,5 @@
+=== QC for sample3 ===
+Date: Sun May 25 12:11:07 WIB 2025
+Files: sample3_1.fastq.gz sample3_2.fastq.gz
+  sample3_1.fastq.gz: 5 reads
+  sample3_2.fastq.gz: 5 reads
