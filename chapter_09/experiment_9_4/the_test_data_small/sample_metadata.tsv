@@ -1,0 +1,7 @@
+sample_id	group	condition	replicate	batch
+Control_Rep1	Control	Control	1	Batch1
+Control_Rep2	Control	Control	2	Batch2
+Control_Rep3	Control	Control	3	Batch3
+Treatment_Rep1	Treatment	Treatment	1	Batch1
+Treatment_Rep2	Treatment	Treatment	2	Batch2
+Treatment_Rep3	Treatment	Treatment	3	Batch3
