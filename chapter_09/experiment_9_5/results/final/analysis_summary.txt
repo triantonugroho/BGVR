@@ -1,0 +1,5 @@
+=== Analysis Summary ===
+Generated: Sun May 25 12:13:15 WIB 2025
+Total genes: 5
+Total samples: 4
+Total records: 20
