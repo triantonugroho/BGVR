@@ -1,0 +1,6 @@
+sample_id	gene_id	normalized_count	raw_count
+sample1	ENSG00000001	20740	1037
+sample1	ENSG00000002	44660	2233
+sample1	ENSG00000003	2340	117
+sample1	ENSG00000004	24660	1233
+sample1	ENSG00000005	55800	2790
