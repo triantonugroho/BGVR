@@ -1,0 +1,28 @@
+=== Comprehensive Expression Analysis ===
+Generated: 2025-05-25 04:51:02
+
+Dataset Statistics:
+  total_samples: 6.00
+  total_genes: 5.00
+  mean_gene_expression: 726788.00
+  mean_sample_expression: 605656.67
+  expressed_genes: 5.00
+
+Sample Expression Totals:
+  control1: 481560.00
+  control2: 614320.00
+  sample1: 440440.00
+  sample2: 747480.00
+  sample3: 693840.00
+  sample4: 656300.00
+
+Top 20 Genes by Total Expression:
+  1: ENSG00000005 (Total: 863520.00)
+  2: ENSG00000001 (Total: 836260.00)
+  3: ENSG00000002 (Total: 744840.00)
+  4: ENSG00000004 (Total: 613400.00)
+  5: ENSG00000003 (Total: 575920.00)
+
+Condition-based Analysis:
+  control: 2 samples, mean expression: 593960.00
+  treatment: 2 samples, mean expression: 675070.00
