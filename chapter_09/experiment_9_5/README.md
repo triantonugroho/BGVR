@@ -379,20 +379,14 @@ A comprehensive RNA-seq expression analysis pipeline combining Nextflow workflow
 ## Quick Start
 
 1. Generate sample data:
-   ```bash
    chmod +x generate_sample_data.sh
    ./generate_sample_data.sh
-   ```
 
 2. Build the Rust tool:
-   ```bash
    cargo build --release
-   ```
 
 3. Run the pipeline:
-   ```bash
    nextflow run main.nf
-   ```
 
 ## Requirements
 
@@ -402,7 +396,7 @@ A comprehensive RNA-seq expression analysis pipeline combining Nextflow workflow
 
 ## Directory Structure
 
-```
+
 ├── main.nf              # Nextflow pipeline
 ├── main.rs              # Rust analysis tool
 ├── Cargo.toml           # Rust dependencies
@@ -411,7 +405,7 @@ A comprehensive RNA-seq expression analysis pipeline combining Nextflow workflow
 │   ├── genome_index/    # STAR index
 │   └── annotation/      # GTF files
 └── results/             # Pipeline outputs
-```
+
 EOF
 
 ## Ouput
@@ -422,6 +416,7 @@ EOF
 6. Generating sample metadata...
 7. Creating configuration files...
 ```
+
 ##### Generated sample data 
 
 **annotation.gtf:**
