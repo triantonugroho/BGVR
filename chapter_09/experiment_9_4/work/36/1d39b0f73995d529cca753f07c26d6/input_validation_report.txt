@@ -1,0 +1,9 @@
+Input Validation Report
+=======================
+Count data: 12000 entries
+Count header: ['gene_id', 'sample_id', 'count']
+Metadata samples: 12
+Groups found: ['Treatment', 'Control']
+✓ Required groups found
+Common samples: 12
+✓ Sufficient samples for analysis
