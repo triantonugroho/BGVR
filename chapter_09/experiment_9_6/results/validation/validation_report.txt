@@ -1,0 +1,7 @@
+Input Validation Report
+======================
+Original entries: 278,568
+Non-zero entries: 278,568
+Unique genes: 2,000
+Unique cells: 1,000
+Total counts: 1,003,463
