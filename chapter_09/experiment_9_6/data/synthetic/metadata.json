@@ -1,0 +1,17 @@
+{
+  "total_entries": 278568,
+  "unique_genes": 2000,
+  "unique_cells": 1000,
+  "total_counts": 1003462.6296762091,
+  "mean_count": 3.6022178774166775,
+  "median_count": 2.078111148222559,
+  "max_count": 78.524232475965,
+  "min_count": 1.0,
+  "generation_parameters": {
+    "n_cells": 1000,
+    "n_genes": 2000,
+    "n_cell_types": 5,
+    "seed": 42
+  },
+  "sparsity": 0.860716
+}
