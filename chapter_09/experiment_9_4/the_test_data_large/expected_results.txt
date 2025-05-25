@@ -1,0 +1,20 @@
+Expected Differential Expression Results
+========================================
+
+Dataset: Large
+Genes: 5,000
+Samples per group: 12
+
+Expected significant genes: ~1000 (20%)
+Expected upregulated: ~500 (10%)
+Expected downregulated: ~500 (10%)
+
+Statistical Power:
+- With 12 samples per group
+- Expected to detect 2+ fold changes
+- At 5% FDR with 80%+ power
+
+Visualization Expectations:
+- Volcano plot: Clear separation of significant genes
+- MA plot: Even distribution around zero for non-DE genes
+- P-value histogram: Enrichment of small p-values
