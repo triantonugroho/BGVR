@@ -73,18 +73,18 @@ experiment_9_4/
 
 ```toml
 [package]
-name = "rnaseq-normalizer"
+name = "differential-expression-analyzer"
 version = "1.0.0"
 edition = "2021"
 authors = ["Bioinformatics Pipeline <pipeline@example.com>"]
-description = "A robust RNA-seq count normalization tool implementing DESeq2-style normalization"
+description = "A robust differential expression analysis tool for RNA-seq data"
 license = "MIT"
-repository = "https://github.com/username/rnaseq-normalizer"
-keywords = ["bioinformatics", "rnaseq", "normalization", "genomics"]
+repository = "https://github.com/username/differential-expression-analyzer"
+keywords = ["bioinformatics", "rnaseq", "differential-expression", "genomics", "statistics"]
 categories = ["science", "command-line-utilities"]
 
 [[bin]]
-name = "rnaseq-normalizer"
+name = "diff-expr-analyzer"
 path = "src/main.rs"
 
 [dependencies]
@@ -92,6 +92,7 @@ clap = "4.4"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 ndarray = "0.15"
+statrs = "0.16"
 log = "0.4"
 env_logger = "0.10"
 csv = "1.3"
@@ -102,6 +103,7 @@ thiserror = "1.0"
 tempfile = "3.8"
 assert_cmd = "2.0"
 predicates = "3.0"
+approx = "0.5"
 
 [profile.release]
 opt-level = 3
@@ -277,106 +279,173 @@ Files: normalized_counts.tsv, sample_metadata.tsv, README.md, expected_results.t
 # Build the Rust application
 cargo build --release
 
-(base) trian@triantoharyo:/mnt/c/Users/trian/BGVR/chapter_09/experiment_9_3$ cargo build --release
-   Compiling proc-macro2 v1.0.95
+(base) trian@triantoharyo:/mnt/c/Users/trian/BGVR/chapter_09/experiment_9_4$ cargo build --release
    Compiling autocfg v1.4.0
+   Compiling proc-macro2 v1.0.95
    Compiling unicode-ident v1.0.18
-   Compiling memchr v2.7.4
-   Compiling serde v1.0.219
-   Compiling utf8parse v0.2.2
+   Compiling libm v0.2.15
    Compiling libc v0.2.172
-   Compiling colorchoice v1.0.3
-   Compiling anstyle-parse v0.2.6
-   Compiling is_terminal_polyfill v1.70.1
-   Compiling regex-syntax v0.8.5
-   Compiling anstyle v1.0.10
-   Compiling anstyle-query v1.1.2
+   Compiling zerocopy v0.8.25
+   Compiling memchr v2.7.4
+   Compiling cfg-if v1.0.0
+   Compiling paste v1.0.15
+   Compiling syn v1.0.109
    Compiling num-traits v0.2.19
    Compiling matrixmultiply v0.3.10
-   Compiling aho-corasick v1.1.3
-   Compiling anstream v0.6.18
-   Compiling itoa v1.0.15
-   Compiling clap_lex v0.7.4
-   Compiling regex-automata v0.4.9
-   Compiling serde_json v1.0.140
+   Compiling bytemuck v1.23.0
+   Compiling safe_arch v0.7.4
+   Compiling utf8parse v0.2.2
+   Compiling serde v1.0.219
    Compiling quote v1.0.40
-   Compiling strsim v0.11.1
-   Compiling syn v2.0.101
-   Compiling thiserror v1.0.69
    Compiling rawpointer v0.2.1
-   Compiling ryu v1.0.20
-   Compiling anyhow v1.0.98
+   Compiling syn v2.0.101
+   Compiling getrandom v0.2.16
+   Compiling typenum v1.18.0
+   Compiling rand_core v0.6.4
+   Compiling wide v0.7.32
    Compiling num-integer v0.1.46
    Compiling num-complex v0.4.6
+   Compiling ppv-lite86 v0.2.21
+   Compiling approx v0.5.1
+   Compiling anstyle-parse v0.2.6
+   Compiling aho-corasick v1.1.3
+   Compiling is_terminal_polyfill v1.70.1
+   Compiling rand_chacha v0.3.1
+   Compiling anstyle-query v1.1.2
+   Compiling regex-syntax v0.8.5
+   Compiling serde_derive v1.0.219
+   Compiling rand v0.8.5
+   Compiling colorchoice v1.0.3
+   Compiling anstyle v1.0.10
+   Compiling anstream v0.6.18
+   Compiling simba v0.6.0
+   Compiling rand_distr v0.4.3
+   Compiling regex-automata v0.4.9
+   Compiling num-rational v0.4.2
+   Compiling itoa v1.0.15
+   Compiling anyhow v1.0.98
+   Compiling nalgebra-macros v0.1.0
+   Compiling clap_lex v0.7.4
+   Compiling thiserror v1.0.69
+   Compiling strsim v0.11.1
+   Compiling serde_json v1.0.140
+   Compiling ryu v1.0.20
    Compiling clap_builder v4.5.38
+   Compiling thiserror-impl v1.0.69
+   Compiling regex v1.11.1
    Compiling is-terminal v0.4.16
    Compiling csv-core v0.1.12
-   Compiling regex v1.11.1
-   Compiling termcolor v1.4.1
-   Compiling humantime v2.2.0
    Compiling log v0.4.27
-   Compiling ndarray v0.15.6
+   Compiling termcolor v1.4.1
+   Compiling lazy_static v1.5.0
+   Compiling humantime v2.2.0
    Compiling env_logger v0.10.2
-   Compiling serde_derive v1.0.219
-   Compiling thiserror-impl v1.0.69
+   Compiling ndarray v0.15.6
    Compiling clap v4.5.38
+   Compiling nalgebra v0.29.0
    Compiling csv v1.3.1
-   Compiling rnaseq-normalizer v1.0.0 (/mnt/c/Users/trian/BGVR/chapter_09/experiment_9_3)
-    Finished `release` profile [optimized] target(s) in 1m 00s
+   Compiling statrs v0.16.1
+   Compiling differential-expression-analyzer v1.0.0 (/mnt/c/Users/trian/BGVR/chapter_09/experiment_9_4)
+    Finished `release` profile [optimized] target(s) in 1m 30s
 ```
 
 Run main.nf in wsl:
 
 ```wsl
-nextflow run main.nf --input test_data_medium/raw_counts.tsv --batch_correct true --batch_metadata test_data_medium/batch_metadata.tsv
+nextflow run main.nf \
+    --input de_test_data_medium/normalized_counts.tsv \
+    --metadata de_test_data_medium/sample_metadata.tsv \
+    --output_dir results
 
-(base) trian@triantoharyo:/mnt/c/Users/trian/BGVR/chapter_09/experiment_9_3$ nextflow run main.nf --input test_data_medium/raw_counts.tsv --batch_correct true --batch_metadata test_data_medium/batch_metadata.tsv
+(base) trian@triantoharyo:/mnt/c/Users/trian/BGVR/chapter_09/experiment_9_4$ nextflow run main.nf \
+    --input de_test_data_medium/normalized_counts.tsv \
+    --metadata de_test_data_medium/sample_metadata.tsv \
+    --output_dir results
 Nextflow 25.04.2 is available - Please consider updating your version to it
 
  N E X T F L O W   ~  version 24.10.4
 
-Launching `main.nf` [ecstatic_bernard] DSL2 - revision: 97a88934d7
+Launching `main.nf` [happy_fourier] DSL2 - revision: 6d6b63180f
 
 
-RNA-seq Normalization Pipeline
-==============================
-Input file:           test_data_medium/raw_counts.tsv
+Differential Expression Analysis Pipeline
+=========================================
+Input file:           de_test_data_medium/normalized_counts.tsv
+Metadata file:        de_test_data_medium/sample_metadata.tsv
 Output directory:     results
-Batch correction:     true
-Batch metadata:       test_data_medium/batch_metadata.tsv
-Min count threshold:  1.0
-Pseudocount:          1.0
+Control group:        Control
+Treatment group:      Treatment
+Significance level:   0.05
+Min count threshold:  10.0
 
-executor >  local (3)
-[34/d04706] NORMALIZE_COUNTS (normalizing)    [100%] 1 of 1 ✔
-[ee/4bc77f] BATCH_CORRECT (batch_correction)  [100%] 1 of 1 ✔
-[07/4315c6] CREATE_SUMMARY (creating_summary) [100%] 1 of 1 ✔
+executor >  local (5)
+[e9/d42e33] BUILD_ANALYZER (building_diff_expr_analyzer)    [100%] 1 of 1 ✔
+[36/1d39b0] VALIDATE_INPUTS (validating_inputs)             [100%] 1 of 1 ✔
+[f7/c201d7] DIFFERENTIAL_EXPRESSION (differential_analysis) [100%] 1 of 1 ✔
+[2a/d22051] GENERATE_PLOTS_DATA (generating_plot_data)      [100%] 1 of 1 ✔
+[29/302176] GENERATE_SUMMARY (generating_summary)           [100%] 1 of 1 ✔
 
-        🎉 SUCCESS! Pipeline completed successfully.
+    🎯 Differential Expression Analysis Summary
+    ==========================================
+    Completed at: 2025-05-25T03:09:22.018902827+07:00
+    Duration:     1m 26s
+    Success:      true
+    Work dir:     /mnt/c/Users/trian/BGVR/chapter_09/experiment_9_4/work
+    Exit status:  0
 
-        📁 Results in: results/
-        ├── normalized_counts.tsv      📊 Main results
-        ├── normalization_stats.txt    📈 Statistics
-        ├── corrected_counts.tsv       🔧 Batch corrected
-        ├── batch_correction_log.txt   📝 Batch log
-        └── summary.txt                📄 Pipeline summary
 
-        📋 Check summary.txt for complete results!
+        🎉 SUCCESS! Differential expression analysis completed successfully.
+
+        📁 Results available in: results/
+
+        📊 Key outputs:
+        ├── differential_expression.tsv    📈 Main DE results
+        ├── de_analysis_stats.txt          📋 Detailed statistics
+        ├── volcano_plot_data.tsv          🌋 Volcano plot data
+        ├── ma_plot_data.tsv               📊 MA plot data
+        ├── input_validation_report.txt    ✅ Validation details
+        └── summary.txt                    📄 Comprehensive summary
+
+        💡 Next steps:
+        1. Review summary.txt for overview
+        2. Check de_analysis_stats.txt for detailed statistics
+        3. Use plot data files for visualization
+        4. Filter significant genes for pathway analysis
+
+        🔬 Your differential expression analysis is ready for biological interpretation!
+
+Completed at: 25-May-2025 03:09:22
+Duration    : 1m 25s
+CPU hours   : (a few seconds)
+Succeeded   : 5
 ```
 
 #### Output
 
-**batch_correction_log.txt:**
+**differential_expression.tsv:**
 
 ```
-Batch Correction Summary
-========================
-Input entries: 12000
-Output entries: 12000
-Batch distribution:
-  Batch1: 4000 samples
-  Batch2: 4000 samples
-  Batch3: 4000 samples
+gene_id	control_mean	treatment_mean	log2_fold_change	p_value	adjusted_p_value	significant
+GENE_00001	138.467454	417.670217	1.585886	1.31e-2	7.48e-2	false
+GENE_00002	81.288552	335.530279	2.031973	3.38e-3	2.83e-2	true
+GENE_00003	165.433666	740.769551	2.156024	1.41e-3	2.00e-2	true
+GENE_00004	32.640307	149.826006	2.164622	1.34e-4	5.76e-3	true
+GENE_00005	108.540265	530.577967	2.278820	1.75e-3	2.16e-2	true
+GENE_00006	90.931687	342.379864	1.901171	1.43e-2	7.97e-2	false
+GENE_00007	875.935766	4991.133094	2.509113	7.21e-3	4.69e-2	true
+GENE_00008	7.332544	31.236137	1.951850	8.61e-3	5.41e-2	false
+GENE_00009	184.906541	1066.630124	2.521762	1.55e-3	2.08e-2	true
+GENE_00010	21.294963	107.200333	2.278915	4.16e-3	3.22e-2	true
+GENE_00011	69.005172	375.868384	2.428527	1.82e-3	2.16e-2	true
+GENE_00012	5.719729	30.779486	2.241621	7.72e-5	5.16e-3	true
+GENE_00013	185.890597	563.264005	1.594176	1.83e-2	9.40e-2	false
+GENE_00014	263.146946	1545.420130	2.549520	1.05e-2	6.38e-2	false
+GENE_00015	122.007745	576.636616	2.231413	6.04e-3	4.18e-2	true
+GENE_00016	129.945227	1173.108818	3.164531	1.42e-2	7.97e-2	false
+GENE_00017	74.739039	369.367418	2.289848	1.52e-2	8.28e-2	false
+GENE_00018	94.670368	479.851140	2.329446	4.20e-3	3.22e-2	true
+GENE_00019	151.407812	932.022395	2.613975	2.87e-3	2.55e-2	true
+...
 ```
 
 **corrected_counts.tsv:**
@@ -410,190 +479,234 @@ GENE_00002	Treatment_Batch3_Rep6	263.316828
 ...
 ```
 
-**normalization_stats.txt:**
+**ma_plot_data.tsv:**
 
 ```
-RNA-seq Normalization Statistics
-================================
-Total genes: 1000
-Total samples: 12
-Zero counts: 92
-Geometric means computed: 1000
+gene_id	average_expression	log2_fold_change	significant	regulation
+GENE_00001	8.124477	1.585886	False	none
+GENE_00002	7.710183	2.031973	True	up
+GENE_00003	8.826871	2.156024	True	up
+GENE_00004	6.527214	2.164622	True	up
+GENE_00005	8.324447	2.278820	True	up
+GENE_00006	7.765904	1.901171	False	none
+GENE_00007	11.518916	2.509113	True	up
+GENE_00008	4.342294	1.951850	False	none
+GENE_00009	9.291788	2.521762	True	up
+GENE_00010	6.027854	2.278915	True	up
+GENE_00011	7.803723	2.428527	True	up
+GENE_00012	4.266757	2.241621	True	up
+GENE_00013	8.552966	1.594176	False	none
+GENE_00014	9.822226	2.549520	False	none
+GENE_00015	8.452539	2.231413	True	up
+GENE_00016	9.349894	3.164531	False	none
+GENE_00017	7.801244	2.289848	False	none
+GENE_00018	8.171231	2.329446	True	up
+GENE_00019	9.084051	2.613975	True	up
+...
+```
 
-Size Factors:
-Control_Batch1_Rep1	0.997339
-Control_Batch1_Rep4	0.994432
-Control_Batch2_Rep3	1.501198
-Control_Batch2_Rep6	1.488839
-Control_Batch3_Rep2	0.702338
-Control_Batch3_Rep5	0.704060
-Treatment_Batch1_Rep2	0.973800
-Treatment_Batch1_Rep5	0.976141
-Treatment_Batch2_Rep1	1.458530
-Treatment_Batch2_Rep4	1.471448
-Treatment_Batch3_Rep3	0.679698
-Treatment_Batch3_Rep6	0.681878
+**summary.txt:**
+
+```
+Differential Expression Analysis Pipeline Summary
+================================================
+Generated: 2025-05-25 03:09:21
+
+PIPELINE STATUS: SUCCESS
+========================
+✅ Input Validation: COMPLETED
+✅ Differential Analysis: COMPLETED
+✅ Plot Data Generation: COMPLETED
+✅ Statistical Reporting: COMPLETED
+
+INPUT PARAMETERS:
+================
+- Normalized counts file: de_test_data_medium/normalized_counts.tsv
+- Sample metadata file: de_test_data_medium/sample_metadata.tsv
+- Control group: Control
+- Treatment group: Treatment
+- Significance threshold: 0.05
+- Minimum count threshold: 10.0
+- Output directory: results
+
+DATA PROCESSING RESULTS:
+=======================
+- Input count entries: 12000
+- Metadata samples: 12
+- Genes analyzed: 905
+- Significant genes: 141
+- Significance rate: 15.5%
+
+OUTPUT FILES:
+============
+✓ differential_expression.tsv (905 genes analyzed)
+✓ de_analysis_stats.txt (detailed statistics)
+✓ volcano_plot_data.tsv (volcano plot data)
+✓ ma_plot_data.tsv (MA plot data)
+✓ input_validation_report.txt (validation details)
+✓ summary.txt (this summary)
+
+NEXT STEPS:
+===========
+1. Review de_analysis_stats.txt for detailed statistics
+2. Use differential_expression.tsv for downstream analysis
+3. Create volcano plot using volcano_plot_data.tsv
+4. Create MA plot using ma_plot_data.tsv
+5. Filter significant genes for pathway analysis
+
+STATISTICAL SUMMARY:
+===================
+From detailed analysis:
+- Total genes analyzed: 905
+- Significant genes: 141 (15.6%)
+- Upregulated genes: 61 (6.7%)
+- Downregulated genes: 80 (8.8%)
+
+VALIDATION REPORT:
+=================
+Input Validation Report
+=======================
+Count data: 12000 entries
+Count header: ['gene_id', 'sample_id', 'count']
+Metadata samples: 12
+Groups found: ['Treatment', 'Control']
+✓ Required groups found
+Common samples: 12
+✓ Sufficient samples for analysis
+PIPELINE COMPLETED SUCCESSFULLY
+Data is ready for downstream analysis and visualization.
+
+For visualization in R:
+- Use volcano_plot_data.tsv for ggplot2 volcano plots
+- Use ma_plot_data.tsv for MA plots
+- Filter significant genes: awk -F'\t' '=="true"' differential_expression.tsv
+
+For pathway analysis:
+- Extract significant gene lists from differential_expression.tsv
+- Use tools like GSEA, DAVID, or Enrichr for functional annotation
+```
+
+**the_analysis_stats.txt:**
+
+```
+Differential Expression Analysis Statistics
+==========================================
+Total genes analyzed: 905
+Total samples: 12
+Control samples: 6
+Treatment samples: 6
+
+Significant genes: 141 (15.6%)
+Upregulated genes: 61 (6.7%)
+Downregulated genes: 80 (8.8%)
+
+Top 10 Most Significant Genes:
+gene_id	log2FC	adj_p_value
+GENE_00105	-1.754	1.52e-3
+GENE_00156	-1.657	1.52e-3
+GENE_00116	-1.769	1.55e-3
+GENE_00112	-2.134	1.66e-3
+GENE_00130	-1.779	1.78e-3
+GENE_00176	-2.067	1.78e-3
+GENE_00108	-1.342	3.07e-3
+GENE_00157	-1.678	3.07e-3
+GENE_00081	2.563	3.72e-3
+GENE_00115	-1.850	3.72e-3
+```
+**volcano_plot_data.tsv:**
+
+```
+gene_id	log2_fold_change	neg_log10_p_value	significant	regulation
+GENE_00001	1.585886	1.126098	False	none
+GENE_00002	2.031973	1.548214	True	up
+GENE_00003	2.156024	1.698970	True	up
+GENE_00004	2.164622	2.239578	True	up
+GENE_00005	2.278820	1.665546	True	up
+GENE_00006	1.901171	1.098542	False	none
+GENE_00007	2.509113	1.328827	True	up
+GENE_00008	1.951850	1.266803	False	none
+GENE_00009	2.521762	1.681937	True	up
+GENE_00010	2.278915	1.492144	True	up
+GENE_00011	2.428527	1.665546	True	up
+GENE_00012	2.241621	2.287350	True	up
+GENE_00013	1.594176	1.026872	False	none
+GENE_00014	2.549520	1.195179	False	none
+GENE_00015	2.231413	1.378824	True	up
+GENE_00016	3.164531	1.098542	False	none
+GENE_00017	2.289848	1.081970	False	none
+GENE_00018	2.329446	1.492144	True	up
+GENE_00019	2.613975	1.593460	True	up
+...
+```
+
+**expected_results.txt:**
+
+```
+Expected Differential Expression Results
+========================================
+
+Dataset: Large
+Genes: 5,000
+Samples per group: 12
+
+Expected significant genes: ~1000 (20%)
+Expected upregulated: ~500 (10%)
+Expected downregulated: ~500 (10%)
+
+Statistical Power:
+- With 12 samples per group
+- Expected to detect 2+ fold changes
+- At 5% FDR with 80%+ power
+
+Visualization Expectations:
+- Volcano plot: Clear separation of significant genes
+- MA plot: Even distribution around zero for non-DE genes
+- P-value histogram: Enrichment of small p-values
 ```
 
 **normalized_counts.tsv:**
 
 ```
-gene_id	sample_id	normalized_count
-GENE_00001	Control_Batch1_Rep1	416.107304
-GENE_00001	Control_Batch1_Rep4	399.222937
-GENE_00001	Control_Batch2_Rep3	383.693489
-GENE_00001	Control_Batch2_Rep6	388.221942
-GENE_00001	Control_Batch3_Rep2	405.787736
-GENE_00001	Control_Batch3_Rep5	383.490298
-GENE_00001	Treatment_Batch1_Rep2	221.811384
-GENE_00001	Treatment_Batch1_Rep5	203.863980
-GENE_00001	Treatment_Batch2_Rep1	191.974065
-GENE_00001	Treatment_Batch2_Rep4	207.958453
-GENE_00001	Treatment_Batch3_Rep3	195.675280
-GENE_00001	Treatment_Batch3_Rep6	209.714878
-GENE_00002	Control_Batch1_Rep1	116.309511
-GENE_00002	Control_Batch1_Rep4	114.638324
-GENE_00002	Control_Batch2_Rep3	105.915390
-GENE_00002	Control_Batch2_Rep6	110.824603
-GENE_00002	Control_Batch3_Rep2	119.600596
-GENE_00002	Control_Batch3_Rep5	90.901404
-GENE_00002	Treatment_Batch1_Rep2	210.515433
-GENE_00002	Treatment_Batch1_Rep5	193.619558
-GENE_00002	Treatment_Batch2_Rep1	224.198283
-GENE_00002	Treatment_Batch2_Rep4	233.103756
-GENE_00002	Treatment_Batch3_Rep3	220.686406
-GENE_00002	Treatment_Batch3_Rep6	250.777931
+gene_id	sample_id	count
+GENE_00001	Control_Rep1	110.34280612766383
+GENE_00001	Control_Rep2	139.68331029539823
+GENE_00001	Control_Rep3	181.63155034179445
+GENE_00001	Control_Rep4	107.21382631080921
+GENE_00001	Control_Rep5	107.21435437582568
+GENE_00001	Control_Rep6	184.71887489659503
+GENE_00001	Control_Rep7	144.79249496594912
+GENE_00001	Control_Rep8	99.90591706060374
+GENE_00001	Control_Rep9	135.34664695268415
+GENE_00001	Control_Rep10	100.08761192534743
+GENE_00001	Control_Rep11	100.01821340420719
+GENE_00001	Control_Rep12	123.67534058569831
+GENE_00001	Treatment_Rep1	297.4752335065515
+GENE_00001	Treatment_Rep2	318.0718961999217
+GENE_00001	Treatment_Rep3	474.3121968266527
+GENE_00001	Treatment_Rep4	749.5063791247022
+GENE_00001	Treatment_Rep5	343.73716275961493
+GENE_00001	Treatment_Rep6	496.77211763726615
+GENE_00001	Treatment_Rep7	671.2662643146607
 ...
 ```
 
-**Summary.txt:**
+**sample_metadata.tsv:**
 
 ```
-RNA-seq Normalization Pipeline Summary
-=====================================
-Generated: 2025-05-24 23:55:22
-
-PIPELINE STATUS: SUCCESS
-========================
-✅ Normalization: COMPLETED
-✅ Batch Correction: Applied
-✅ Quality Control: COMPLETED
-
-INPUT PARAMETERS:
-================
-- Input file: test_data_medium/raw_counts.tsv
-- Output directory: results
-- Minimum count threshold: 1.0
-- Pseudocount: 1.0
-- Batch metadata: test_data_medium/batch_metadata.tsv
-
-PROCESSING RESULTS:
-==================
-- Raw count entries: 11999
-- Normalized entries: 12000
-- Batch corrected entries: 12000
-
-OUTPUT FILES:
-============
-✓ normalized_counts.tsv (12000 entries)
-✓ normalization_stats.txt
-✓ corrected_counts.tsv (12000 entries)
-✓ batch_correction_log.txt
-✓ summary.txt
-
-NEXT STEPS:
-===========
-1. Review normalization_stats.txt for detailed statistics
-2. Use normalized_counts.tsv for differential expression analysis
-3. Compare batch effects using corrected_counts.tsv
-
-PIPELINE COMPLETED SUCCESSFULLY
-Data is ready for downstream analysis.
+sample_id	group	condition	replicate	batch
+Control_Rep1	Control	Control	1	Batch1
+Control_Rep2	Control	Control	2	Batch2
+Control_Rep3	Control	Control	3	Batch3
+Control_Rep4	Control	Control	4	Batch1
+Control_Rep5	Control	Control	5	Batch2
+Control_Rep6	Control	Control	6	Batch3
+Treatment_Rep1	Treatment	Treatment	1	Batch1
+Treatment_Rep2	Treatment	Treatment	2	Batch2
+Treatment_Rep3	Treatment	Treatment	3	Batch3
+Treatment_Rep4	Treatment	Treatment	4	Batch1
+Treatment_Rep5	Treatment	Treatment	5	Batch2
+Treatment_Rep6	Treatment	Treatment	6	Batch3
 ```
 
-####  Output Analysis and Conclusion
 
-##### Pipeline Execution Results
-
-The RNA-seq normalization pipeline successfully processed the medium-scale test dataset (1,000 genes × 12 samples) through all three stages: normalization, batch correction, and summary generation.
-
-##### Key Output Files Analysis:
-
-###### 1. Normalization Statistics (normalization_stats.txt)
-
-```
-Total genes: 1000
-Total samples: 12
-Zero counts: 92
-Size Factors: Range from 0.679698 to 1.501198
-```
-
-The size factors show expected variation across samples, with Batch2 samples having higher factors (1.45-1.50) and Batch3 samples having lower factors (0.68-0.70), indicating successful detection of batch-related technical variation. The 92 zero counts (0.77% of total) represent a healthy sparse matrix typical of RNA-seq data.
-
-###### 2. Batch Correction Results (batch_correction_log.txt)
-
-```
-Input entries: 12000
-Output entries: 12000
-Batch distribution: Equal across 3 batches (4000 samples each)
-```
-
-The batch correction successfully processed all entries with balanced batch representation, applying correction factors of 1.0 (Batch1), 0.95 (Batch2), and 1.05 (Batch3) to mitigate systematic technical effects.
-
-###### 3. Normalized vs. Batch-Corrected Counts Comparison
-
-Examining GENE_00001 across samples:
-
-* Before batch correction: Control samples show variation (383-416 normalized counts)
-* After batch correction: Batch2 samples reduced by 5%, Batch3 samples increased by 5%
-* Biological signal preservation: Treatment vs. Control differences maintained (~200 vs. 400 counts)
-
-#### Technical Performance Metrics
-
-##### Processing Efficiency:
-
-* **Build time**: 60 seconds for Rust compilation with full optimization
-*** Execution time**: ~16 seconds for complete pipeline (12,000 entries)
-* **Memory usage**: Efficient matrix operations via ndarray crate
-* **Error rate**: 0% - all processes completed successfully
-
-##### Data Quality Indicators:
-
-* **Normalization coverage**: 100% of input entries processed
-* **Size factor range**: 2.2-fold variation appropriately captured
-* **Batch effect detection**: Clear systematic differences identified and corrected
-
-##### Production Pipeline Assessment
-
-###### Strengths Demonstrated:
-
-**1. **Multi-language integration****: Rust (performance) + Python (flexibility) + Bash (reliability)
-**2. Robust error handling**: Comprehensive validation and graceful failure management
-**3. Scalability**: Successful processing from 600 entries (small) to 120,000 entries (large)
-**4. Reproducibility**: Deterministic results with configurable parameters
-**5. Modularity**: Independent processes enabling selective execution
-
-###### Real-world Application Readiness:
-
-* **Clinical genomics**: Size factor normalization critical for biomarker discovery
-* **Drug discovery**: Batch correction essential for multi-center studies
-* **Research workflows**: Automated reporting reduces manual quality control overhead
-
-#### Biological Significance
-The pipeline successfully demonstrates the critical importance of proper normalization in RNA-seq analysis:
-
-**1. Technical variation removal**: Size factors corrected for library preparation differences (0.68x to 1.50x range)
-**2. Batch effect mitigation**: Systematic corrections applied while preserving biological signal
-**3. Statistical validity**: Proper geometric mean calculations enable downstream differential expression analysis
-
-#### Conclusion
-This implementation represents a production-ready RNA-seq normalization pipeline that successfully combines the computational efficiency of Rust with the workflow orchestration capabilities of Nextflow. The pipeline demonstrates:
-
-* **Technical Excellence**: Robust statistical implementation following DESeq2 methodology
-* **Operational Reliability**: 100% success rate across multiple dataset sizes with comprehensive error handling
-* **Scientific Validity**: Proper handling of technical variation while preserving biological signal
-* **Production Readiness**: Modular architecture supporting integration into larger genomics workflows
-
-The successful processing of 12,000 entries with appropriate size factor calculation, effective batch correction, and comprehensive quality reporting validates this approach for real-world bioinformatics applications. The pipeline's performance characteristics and error handling make it suitable for deployment in clinical research environments where data quality and reproducibility are paramount.
-In production bioinformatics environments, this architecture enables seamless scaling from pilot studies to large-scale genomics initiatives, providing the robust statistical foundation required for reliable biological discovery and therapeutic target identification.
 
