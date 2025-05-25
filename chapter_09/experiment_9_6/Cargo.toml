@@ -1,0 +1,38 @@
+[package]
+name = "scrna-analyzer"
+version = "1.0.0"
+edition = "2021"
+authors = ["Bioinformatics Team"]
+description = "High-performance single-cell RNA-seq analysis tool"
+
+[dependencies]
+# Core dependencies - keeping it minimal to avoid build issues
+serde = { version = "1.0", features = ["derive"] }
+csv = "1.3"
+clap = "2.34"
+log = "0.4"
+env_logger = "0.10"
+
+# Optional dependencies for advanced features
+rayon = { version = "1.8", optional = true }
+sprs = { version = "0.11", optional = true }
+ndarray = { version = "0.15", features = ["serde"], optional = true }
+ndarray-linalg = { version = "0.16", optional = true }
+anyhow = { version = "1.0", optional = true }
+thiserror = { version = "1.0", optional = true }
+
+[features]
+default = []
+parallel = ["rayon"]
+advanced = ["sprs", "ndarray", "ndarray-linalg", "anyhow", "thiserror"]
+full = ["parallel", "advanced"]
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
+
+[[bin]]
+name = "scrna-analyzer"
+path = "src/main.rs"
