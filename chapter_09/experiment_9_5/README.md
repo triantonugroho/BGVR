@@ -16,60 +16,114 @@ AI engineers and bioinformaticians frequently embed Rust-based components into N
 
 ```plaintext
 experiment_9_5/
-├── Cargo.toml                              # Rust package configuration and dependencies
-├── main.nf                                 # Nextflow pipeline script
-├── generate_the_data.py                    # Python script to generate sample data
-├── rnaseq-normalizer                       # Compiled Rust executable binary
-├── README.md                               # Project documentation
-├── nextflow.config                         # Nextflow configuration (optional)
+├── Cargo.toml                               # Rust package configuration and dependencies
+├── main.nf                                  # Nextflow pipeline script
+├── test_analysis.txt                        # Test analysis output
+├── test-normalized.tsv                      # Test normalization output
+├── test_summary                             # Test summary output
+├── README.md                                # Project documentation
 │
-├── src/                                    # Rust source code
-│   └── main.rs                            # Main Rust normalization implementation
+├── data/                                    # Generated dataset folder
+|   ├── annotation/                          # Annotation dataset folder
+|   │   └── annotation.gtf                   # Annotation data
+|   ├── genome_index/                        # Genome index dataset folder 
+|   │   ├── chrNameLength.txt                # Character name length data
+|   │   └── genomeParameters.txt             # Genome parameters data
+|   ├── reads/                               # Reads dataset folder 
+|   |    └── sample1_1.fastq.gz              # sample 1_1 fastq file
+|   |    └── sample1_2.fastq.gz              # sample 1_2 fastq file
+|   |    └── sample2_1.fastq.gz              # sample 2_1 fastq file
+|   |   ├── sample2_1.fastq.gz               # sample 2_2 fastq file
+|   |   ├── sample3_1.fastq.gz               # sample 3_1 fastq file
+|   |   ├── sample3_1.fastq.gz               # sample 3_2 fastq file
+|   |   ├── sample4_1.fastq.gz               # sample 4_1 fastq file
+|   |   └── sample4_1.fastq.gz               # sample 4_2 fastq file
+|   ├── expression_data.tsv                  # Expression data
+|   ├── gene_info.tsv                        # Gene information data
+|   └── gene_info.tsv                        # Gene information data
+├── results/                                 # Results/output folder
+|   ├── expression/                          # Expression result folder
+|   │   ├── sample1_expression.tsv           # Sample 1 expression result
+|   │   ├── sample2_expression.tsv           # Sample 2 expression result
+|   │   ├── sample3_expression.tsv           # Sample 3 expression result
+|   │   └── sample4_expression.tsv           # Sample 4 expression result
+|   ├── final/                               # Final result folder 
+|   │   ├── analysis_summary.txt             # Analysis summary result
+|   │   └── combined_matrix.tsv              # Combined matrix result
+|   ├── qc/                                  # Reads dataset folder 
+|   |   ├── sample1_qc.txt                   # Sample 1 qc result
+|   |   ├── sample2_qc.txt                   # Sample 2 qc result
+|   |   ├── sample3_qc.txt                   # Sample 3 qc result
+|   |   └── sample4_qc.txt                   # Sample 4 qc result
+|   └── reports/                             # Reports folder 
+|       ├── execution_report.html            # HTML execution report
+|       ├── execution_timeline.html          # HTML execution timeline
+|       └── execution_trace.txt              # Execution trace 
+├── src/                                     # Rust source code
+│   └── main.rs                              # Main Rust expression tool implementation
 │
-├── target/                                 # Rust build artifacts
+├── target/                                  # Rust build artifacts
 │   └── release/
-│       └── diff-expr-analyzer              # Compiled Rust executable binary
-│
-├── the_test_data_small/                    # Small test dataset (100 genes × 6 samples)
-│   ├── expected_results.txt                # expected results
-│   ├── normalized_counts                   # normalized counts data
-│   ├── sample_metadata.tsv                 # sample metadata
-│   └── README.md                           # Dataset description
-│
-├── the_test_data_medium/                   # Medium test dataset (1,000 genes × 12 samples)
-│   ├── expected_results.txt                # expected results
-│   ├── normalized_counts                   # normalized counts data
-│   ├── sample_metadata.tsv                 # sample metadata
-│   └── README.md                           # Dataset description
-│
-├── the_test_data_large/                    # Large test dataset (5,000 genes × 24 samples)
-│   ├── expected_results.txt                # expected results
-│   ├── normalized_counts                   # normalized counts data
-│   ├── sample_metadata.tsv                 # sample metadata
-│   └── README.md                           # Dataset description
-│
-├── results/                               # Final pipeline outputs
-│   ├── differential_expression.tsv        # differential expression
-│   ├── ma_plot_data                       # ma plot data
-│   ├── summary.txt                        # Comprehensive pipeline summary report
-│   ├── the_analysis_stats.txt             # The analysis stats
-│   └── volcano_plot_data.tsv              # Volcano plot data
+│       └── rust_expression_tool             # Compiled Rust executable binary
 │
 └── work/                                    # Nextflow working directory (temporary files)
-    ├── 29/
-    │   └── 302176a1e7a4306fa22dad008fac79/
-    │       └── summary.txt                  # Process-specific summary
-    ├── 2a/
-    │   └── d2205149d18048f8b0ccae70fcf650/
-    │       ├── ma_plot_data.tsv             # ma plot data
-    │       └── volcano_plot_data.tsv        # Volcano plot data
-    ├── 36/
-    │   └── 1d39b0f73995d529cca753f07c26d6/
-    │       └── input_validation_report.txt  # Input validation report
-    └── f7/
-        └── c201d7c1837731f1d93940395a8139/
-            ├── differential_expression.tsv  # differential expression
-            └── the_analysis_stats.txt             # The analysis stats
+    ├── 0e/
+    │   └── 7e2ae70a91328dfb08b6055a18734b/
+    │       └── sample1_expression           # Sample 1 expression result
+    ├── 17/
+    │   └── 87b14f09d1f0ef65cd63bbb72e30d6/
+    │       └── sample4_qc.txt               # Sample 4 qc result
+    ├── 1e/
+    │   └── 00fee1ccf630ae1132ff0fa89e271d/
+    │       └── sample1_qc.txt               # Sample 1 qc result
+    ├── 24/
+    │   └── 5f385617f7771f0a036e582039c377/
+    │       └── sample3_expression.tsv       # Sample 3 expression result
+    ├── 2f/
+    │   └── 069782c3fb1fb1d8ce94e306d9c51a/
+    │       ├── analysis_summary.txt         # Analysis summary result
+    │       ├── combined_matrix.tsv          # Combined matrix result
+    │       └── sample_metadata.tsv          # Sample metadata result
+    │   └── 00fee1ccf630ae1132ff0fa89e271d/
+    │       └── sample4_expression.tsv       # Sample 4 expression result
+    ├── 32/
+    │   └── cf7f104a40c75f28daeb804176a4b6/
+    │       └── sample1_expression.tsv       # Sample 1 expression result
+    ├── 49/
+    │   └── ba2ca3654969d439a2d7c2cd59eac8/
+    │       └── sample2_expression.tsv       # Sample 2 expression result
+    ├── 4f/
+    │   └── f123bdd7ae27d534a2ba36d86cc01b/
+    │       └── sample1_qc.txt               # Sample 1 qc result
+    ├── 6d/
+    │   └── 7790e3f714c345dc2c73df352efa34/
+    │       └── sample3_qc.txt               # Sample 3 qc result
+    ├── 79/
+    │   └── 5fa81ff2c0fdc2db9c83231db5cf76/
+    │       └── sample3_expression.tsv       # Sample 3 expression result
+    ├── 88/
+    │   └── 2b569525cb9550201e448b34bdab5f/
+    │       └── sample3_qc.txt               # Sample 3 qc result
+    ├── 9f/
+    │   └── 09c10b61ab5dea1edfc43a70dff06b/
+    │       ├── analysis_summary.txt         # Analysis summary result
+    │       ├── combined_matrix.tsv          # Combined matrix result
+    │       └── sample_metadata.tsv          # Sample metadata result    
+    ├── bc/
+    │   └── 7689d4ecab5b158eb7c73fcfe55f0f/
+    │       └── sample2_qc.txt               # Sample 2 qc result
+    ├── c5/
+    │   └── 45063c17268c9a506d05248d560361/
+    │       └── sample2_qc.txt               # Sample 2 qc result
+    ├── e5/
+    │   └── 698ae5eb2ff9a10e60e73ebd4578f6/
+    │       └── sample4_expression.tsv       # Sample 4 expression result
+    ├── fa/
+    │   └── 92f7de84fa4b40997c34ea17fbdfe0/
+    │       └── sample4_qc.txt               # Sample 4 qc result
+    ├── fb/
+        └── cc864e3f9b36df849f9799028f87f5/
+            └── sample2_expression.tsv       # Sample 2 expression result
 ```
 
 #### Cargo.toml
