@@ -1,0 +1,8 @@
+### STAR Genome Parameters - Generated sample data
+versionGenome	2.7.10a
+genomeFastaFiles	genome.fa
+genomeSAindexNbases	14
+genomeChrBinNbits	18
+genomeSAsparseD	1
+genomeFileSizes	1000000	100000
+parametersFiles	genomeParameters.txt
