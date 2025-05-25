@@ -1,0 +1,76 @@
+Differential Expression Analysis Pipeline Summary
+================================================
+Generated: 2025-05-25 03:09:21
+
+PIPELINE STATUS: SUCCESS
+========================
+✅ Input Validation: COMPLETED
+✅ Differential Analysis: COMPLETED
+✅ Plot Data Generation: COMPLETED
+✅ Statistical Reporting: COMPLETED
+
+INPUT PARAMETERS:
+================
+- Normalized counts file: de_test_data_medium/normalized_counts.tsv
+- Sample metadata file: de_test_data_medium/sample_metadata.tsv
+- Control group: Control
+- Treatment group: Treatment
+- Significance threshold: 0.05
+- Minimum count threshold: 10.0
+- Output directory: results
+
+DATA PROCESSING RESULTS:
+=======================
+- Input count entries: 12000
+- Metadata samples: 12
+- Genes analyzed: 905
+- Significant genes: 141
+- Significance rate: 15.5%
+
+OUTPUT FILES:
+============
+✓ differential_expression.tsv (905 genes analyzed)
+✓ de_analysis_stats.txt (detailed statistics)
+✓ volcano_plot_data.tsv (volcano plot data)
+✓ ma_plot_data.tsv (MA plot data)
+✓ input_validation_report.txt (validation details)
+✓ summary.txt (this summary)
+
+NEXT STEPS:
+===========
+1. Review de_analysis_stats.txt for detailed statistics
+2. Use differential_expression.tsv for downstream analysis
+3. Create volcano plot using volcano_plot_data.tsv
+4. Create MA plot using ma_plot_data.tsv
+5. Filter significant genes for pathway analysis
+
+STATISTICAL SUMMARY:
+===================
+From detailed analysis:
+- Total genes analyzed: 905
+- Significant genes: 141 (15.6%)
+- Upregulated genes: 61 (6.7%)
+- Downregulated genes: 80 (8.8%)
+
+VALIDATION REPORT:
+=================
+Input Validation Report
+=======================
+Count data: 12000 entries
+Count header: ['gene_id', 'sample_id', 'count']
+Metadata samples: 12
+Groups found: ['Treatment', 'Control']
+✓ Required groups found
+Common samples: 12
+✓ Sufficient samples for analysis
+PIPELINE COMPLETED SUCCESSFULLY
+Data is ready for downstream analysis and visualization.
+
+For visualization in R:
+- Use volcano_plot_data.tsv for ggplot2 volcano plots
+- Use ma_plot_data.tsv for MA plots
+- Filter significant genes: awk -F'\t' '=="true"' differential_expression.tsv
+
+For pathway analysis:
+- Extract significant gene lists from differential_expression.tsv
+- Use tools like GSEA, DAVID, or Enrichr for functional annotation

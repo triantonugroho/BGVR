@@ -1,0 +1,23 @@
+Differential Expression Analysis Statistics
+==========================================
+Total genes analyzed: 905
+Total samples: 12
+Control samples: 6
+Treatment samples: 6
+
+Significant genes: 141 (15.6%)
+Upregulated genes: 61 (6.7%)
+Downregulated genes: 80 (8.8%)
+
+Top 10 Most Significant Genes:
+gene_id	log2FC	adj_p_value
+GENE_00105	-1.754	1.52e-3
+GENE_00156	-1.657	1.52e-3
+GENE_00116	-1.769	1.55e-3
+GENE_00112	-2.134	1.66e-3
+GENE_00130	-1.779	1.78e-3
+GENE_00176	-2.067	1.78e-3
+GENE_00108	-1.342	3.07e-3
+GENE_00157	-1.678	3.07e-3
+GENE_00081	2.563	3.72e-3
+GENE_00115	-1.850	3.72e-3
