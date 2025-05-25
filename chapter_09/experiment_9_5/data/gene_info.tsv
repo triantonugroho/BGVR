@@ -1,0 +1,6 @@
+gene_id	gene_length	gene_biotype	gene_name
+ENSG00000001	2000	protein_coding	GENE1
+ENSG00000002	1500	protein_coding	GENE2
+ENSG00000003	3000	lncRNA	GENE3
+ENSG00000004	1000	protein_coding	GENE4
+ENSG00000005	2500	protein_coding	GENE5
