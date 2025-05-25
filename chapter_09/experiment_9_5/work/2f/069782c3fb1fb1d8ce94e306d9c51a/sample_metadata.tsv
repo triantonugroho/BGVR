@@ -1,0 +1,5 @@
+sample_id	condition	replicate	batch
+sample2	treatment	2	batch1
+sample3	treatment	3	batch1
+sample4	treatment	4	batch1
+sample_id	treatment	1	batch1
