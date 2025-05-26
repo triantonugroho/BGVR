@@ -30,9 +30,9 @@ experiment_9_5/
 |   │   ├── chrNameLength.txt                # Character name length data
 |   │   └── genomeParameters.txt             # Genome parameters data
 |   ├── reads/                               # Reads dataset folder 
-|   |    └── sample1_1.fastq.gz              # sample 1_1 fastq file
-|   |    └── sample1_2.fastq.gz              # sample 1_2 fastq file
-|   |    └── sample2_1.fastq.gz              # sample 2_1 fastq file
+|   |   ├── sample1_1.fastq.gz               # sample 1_1 fastq file
+|   |   ├── sample1_2.fastq.gz               # sample 1_2 fastq file
+|   |   ├── sample2_1.fastq.gz               # sample 2_1 fastq file
 |   |   ├── sample2_1.fastq.gz               # sample 2_2 fastq file
 |   |   ├── sample3_1.fastq.gz               # sample 3_1 fastq file
 |   |   ├── sample3_1.fastq.gz               # sample 3_2 fastq file
@@ -41,6 +41,7 @@ experiment_9_5/
 |   ├── expression_data.tsv                  # Expression data
 |   ├── gene_info.tsv                        # Gene information data
 |   └── gene_info.tsv                        # Gene information data
+|
 ├── results/                                 # Results/output folder
 |   ├── expression/                          # Expression result folder
 |   │   ├── sample1_expression.tsv           # Sample 1 expression result
@@ -58,7 +59,8 @@ experiment_9_5/
 |   └── reports/                             # Reports folder 
 |       ├── execution_report.html            # HTML execution report
 |       ├── execution_timeline.html          # HTML execution timeline
-|       └── execution_trace.txt              # Execution trace 
+|       └── execution_trace.txt              # Execution trace
+|
 ├── src/                                     # Rust source code
 │   └── main.rs                              # Main Rust expression tool implementation
 │
