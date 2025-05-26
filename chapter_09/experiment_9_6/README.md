@@ -109,7 +109,7 @@ path = "src/main.rs"
 
 #### How to run:
 
-##### Generate sample data in wsl:
+##### Command executed in wsl:
 
 ```wsl
 
